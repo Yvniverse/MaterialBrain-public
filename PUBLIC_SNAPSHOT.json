@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "project": "MaterialBrain",
+  "source_commit": "b611110afebdcacb86da34999c2499ae546f1e08",
+  "history_policy": "curated-working-tree-snapshot-no-private-git-history",
+  "license": "Apache-2.0"
+}

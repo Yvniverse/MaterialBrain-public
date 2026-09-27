@@ -1,0 +1,4 @@
+# Exact MCP SDK pin for the Phase 3 low-level stdio adapter.
+# Install after requirements.txt with --no-deps; the base file pins the
+# compatible non-HTTP dependency set and the application does not expose SSE/HTTP.
+mcp==2.2.0

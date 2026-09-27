@@ -1,0 +1,27 @@
+name: Feature request
+description: Propose an engineering or workflow improvement
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Real workflow / problem
+      description: Describe the production-like workflow rather than only the UI or implementation you want.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: truth
+    attributes:
+      label: Source of truth / safety constraints
+      description: What data is authoritative? What must never be guessed or automatically mutated?
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

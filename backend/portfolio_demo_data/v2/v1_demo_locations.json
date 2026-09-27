@@ -1,0 +1,74 @@
+{
+  "root_code": "WH-RD",
+  "organizers": [
+    {
+      "code": "PORT-IC-100",
+      "name": "IC 与通信芯片 100 抽",
+      "style": "drawer_rack_100",
+      "manager": "仓库运营",
+      "notes": "MCU、通信、电源与驱动 IC"
+    },
+    {
+      "code": "PORT-SENSOR-56",
+      "name": "传感器与测量 56 格盒",
+      "style": "standard_56",
+      "manager": "仓库运营",
+      "notes": "编码器 · IMU · ToF · 电流检测 · ADC"
+    },
+    {
+      "code": "PORT-PASSIVE-56",
+      "name": "常用阻容 56 格盒",
+      "style": "standard_56",
+      "manager": "仓库运营",
+      "notes": "0603/0805 常用阻容"
+    },
+    {
+      "code": "PORT-CABLE-MIX",
+      "name": "连接器与线束混合盒",
+      "style": "split_configurable",
+      "left_module": "small",
+      "right_module": "large",
+      "manager": "仓库运营",
+      "notes": "连接器、线束与小型模块"
+    },
+    {
+      "code": "PORT-PWR-6",
+      "name": "功率与模块六层货架",
+      "style": "shelf_rack_6",
+      "manager": "仓库运营",
+      "notes": "48V 功率模块、电机驱动板与计算模块",
+      "boxes": [
+        {
+          "level": 1,
+          "code": "PORT-PWR-6-L01-B01",
+          "name": "DC/DC 与电源模块箱"
+        },
+        {
+          "level": 2,
+          "code": "PORT-PWR-6-L02-B01",
+          "name": "电机驱动与功率板箱"
+        },
+        {
+          "level": 3,
+          "code": "PORT-PWR-6-L03-B01",
+          "name": "BMS 与功率器件箱"
+        },
+        {
+          "level": 4,
+          "code": "PORT-PWR-6-L04-B01",
+          "name": "计算与载板箱"
+        },
+        {
+          "level": 5,
+          "code": "PORT-PWR-6-L05-B01",
+          "name": "连接器备料箱"
+        },
+        {
+          "level": 6,
+          "code": "PORT-PWR-6-L06-B01",
+          "name": "项目待分配物料箱"
+        }
+      ]
+    }
+  ]
+}

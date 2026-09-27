@@ -1,0 +1,38 @@
+{
+  "scenario_code": "GUIDED-PICK-DEXGRIP-01",
+  "project_code": "RB-GRIPPER-EVT",
+  "product_code": "PROD-DEXGRIP",
+  "revision": "EVT-R1",
+  "build_quantity": 1,
+  "warehouse_map": {
+    "code": "WH-RD-TWIN-V4",
+    "version": "4.0.0",
+    "graph_hash": "c36ec0e36c85b42daa23ee7154469b62413423901c493d15dbc941737c11145d"
+  },
+  "materials": [
+    {"code": "PORT-CAN-TCAN1044", "quantity": 1, "location_code": "PORT-IC-100-A01", "organizer_code": "PORT-IC-100"},
+    {"code": "PORT-MCU-G474RET6", "quantity": 1, "location_code": "PORT-IC-100-D02", "organizer_code": "PORT-IC-100"},
+    {"code": "PORT-MDRV-TMC5160", "quantity": 1, "location_code": "PORT-IC-100-B03", "organizer_code": "PORT-IC-100"},
+    {"code": "PORT-ENC-AS5047P", "quantity": 2, "location_code": "PORT-SENSOR-56-A01", "organizer_code": "PORT-SENSOR-56"},
+    {"code": "PORT-ADC-ADS1220", "quantity": 1, "location_code": "PORT-SENSOR-56-F01", "organizer_code": "PORT-SENSOR-56"},
+    {"code": "PORT-LOADCELL-5KG", "quantity": 2, "location_code": "PORT-SENSOR-56-G01", "organizer_code": "PORT-SENSOR-56"},
+    {"code": "PORT-CON-JSTGH6", "quantity": 4, "location_code": "PORT-CABLE-MIX-L-S01", "organizer_code": "PORT-CABLE-MIX"},
+    {"code": "PORT-R-10K-0603", "quantity": 10, "location_code": "PORT-PASSIVE-56-A01", "organizer_code": "PORT-PASSIVE-56"},
+    {"code": "PORT-C-100N-0603", "quantity": 20, "location_code": "PORT-PASSIVE-56-E01", "organizer_code": "PORT-PASSIVE-56"}
+  ],
+  "expected_station_groups": [
+    {"organizer_code": "PORT-IC-100", "minimum_allocations": 3, "required_slots": ["A01", "B03", "D02"]},
+    {"organizer_code": "PORT-SENSOR-56", "minimum_allocations": 3, "required_slots": ["A01", "F01", "G01"]},
+    {"organizer_code": "PORT-CABLE-MIX", "minimum_allocations": 1, "required_slots": ["L-S01"]},
+    {"organizer_code": "PORT-PASSIVE-56", "minimum_allocations": 2, "required_slots": ["A01", "E01"]}
+  ],
+  "operator_story": [
+    "create or select one reserved BuildPlan for one DexGrip unit",
+    "create one PickTask on the active V4 map",
+    "walk to each organizer once even when several exact slots are required",
+    "scan location then material before each confirmation",
+    "wrong scans must produce zero StockMovement",
+    "confirmations atomically consume exact InventoryLot and ProjectReservation",
+    "after the last confirmation the PickTask becomes completed"
+  ]
+}

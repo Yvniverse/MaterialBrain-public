@@ -1,0 +1,40 @@
+{
+  "root_code": "WH-RD",
+  "organizers": [
+    {
+      "code": "PORT-LCSC-IC-100",
+      "name": "采购 IC 与电源器件 100 抽",
+      "style": "drawer_rack_100"
+    },
+    {
+      "code": "PORT-LCSC-PASSIVE-100",
+      "name": "采购常用阻容与磁性器件 100 抽",
+      "style": "drawer_rack_100"
+    },
+    {
+      "code": "PORT-LCSC-CONN-100",
+      "name": "采购连接器 100 抽",
+      "style": "drawer_rack_100"
+    },
+    {
+      "code": "PORT-LCSC-SENSOR-56",
+      "name": "采购传感器 56 格盒",
+      "style": "standard_56"
+    },
+    {
+      "code": "PORT-LCSC-MODULE-56",
+      "name": "采购模块/显示/杂项 56 格盒",
+      "style": "standard_56"
+    },
+    {
+      "code": "PORT-LCSC-CABLE-56",
+      "name": "采购线束与射频件 56 格盒",
+      "style": "standard_56"
+    },
+    {
+      "code": "PORT-LCSC-LAB-6",
+      "name": "测试工具六层货架",
+      "style": "shelf_rack_6"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "purpose": "Initial official-source evidence targets for Power Design Intelligence. URLs are references to ingest/verify, not bundled copyrighted documents.",
+  "verified_on": "2026-09-06",
+  "sources": [
+    {
+      "material_code": "PORT-BUCK-TPS54560",
+      "mpn": "TPS54560DDAR",
+      "vendor": "Texas Instruments",
+      "url": "https://www.ti.com/product/TPS54560",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps54560.pdf",
+      "expected_facts_to_verify": {
+        "topology": "Buck",
+        "vin_min_v": 4.5,
+        "vin_max_v": 60,
+        "iout_max_a": 5,
+        "vout_min_v": 0.8,
+        "vout_max_v": 58.8
+      },
+      "known_local_conflict": "Current seed specification says 5.5V-60V input; resolve through evidence/provenance rather than silent override."
+    },
+    {
+      "material_code": "PORT-BUCK-LM5164",
+      "mpn": "LM5164DDAR",
+      "vendor": "Texas Instruments",
+      "url": "https://www.ti.com/product/LM5164",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm5164.pdf",
+      "expected_facts_to_verify": {
+        "topology": "Buck",
+        "vin_min_v": 6,
+        "vin_max_v": 100,
+        "iout_max_a": 1,
+        "vout_min_v": 1.2,
+        "vout_max_v": 90
+      }
+    },
+    {
+      "lcsc_code": "C2859976",
+      "mpn": "TPS7A7001DDA",
+      "vendor": "Texas Instruments",
+      "url": "https://www.ti.com/product/TPS7A7001",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps7a7001.pdf",
+      "expected_facts_to_verify": {
+        "topology": "LDO",
+        "vin_min_v": 1.4,
+        "vin_max_v": 6.5,
+        "iout_max_a": 2,
+        "output": "adjustable 0.5V-5V",
+        "load_capacitance_min_uF": 4.7
+      }
+    },
+    {
+      "lcsc_code": "C7527500",
+      "mpn": "TLV76133DCYR",
+      "vendor": "Texas Instruments",
+      "url": "https://www.ti.com/product/TLV761",
+      "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+      "expected_facts_to_verify": {
+        "topology": "LDO",
+        "vin_range": "2.5V-18V family operating range (verify exact ordering part/rating)",
+        "iout_max_a": 1,
+        "fixed_output_v": 3.3,
+        "minimum_output_cap_uF": 1,
+        "reference_design_example": "12V input -> 3.3V output, 50mA, TLV76133; 1.0uF output capacitor recommended; input capacitor optional for impedance/transient improvement"
+      }
+    }
+  ]
+}

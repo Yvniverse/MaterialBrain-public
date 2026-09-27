@@ -1,0 +1,564 @@
+{
+  "map_code": "WH-RD-TWIN-V3",
+  "warehouse_code": "WH-RD",
+  "name": "研发仓 · 布局 V3",
+  "version": "3.0.0",
+  "calibration_status": "demo_synthetic",
+  "coordinate_unit": "m",
+  "width_m": 8.8,
+  "height_m": 6.8,
+  "default_start_node": "PACK",
+  "default_end_node": "PACK",
+  "geometry_note": "研发仓库空间布局 V3",
+  "nodes": [
+    {
+      "code": "PACK",
+      "node_type": "packing",
+      "x_m": 4.4,
+      "y_m": 1.1,
+      "label": "备料工作台"
+    },
+    {
+      "code": "W0",
+      "node_type": "intersection",
+      "x_m": 2.05,
+      "y_m": 1.1,
+      "label": "W0"
+    },
+    {
+      "code": "W1",
+      "node_type": "aisle",
+      "x_m": 2.05,
+      "y_m": 1.75,
+      "label": "W1"
+    },
+    {
+      "code": "W2",
+      "node_type": "aisle",
+      "x_m": 2.05,
+      "y_m": 2.85,
+      "label": "W2"
+    },
+    {
+      "code": "W3",
+      "node_type": "intersection",
+      "x_m": 2.05,
+      "y_m": 3.95,
+      "label": "W3"
+    },
+    {
+      "code": "W4",
+      "node_type": "aisle",
+      "x_m": 2.05,
+      "y_m": 5.05,
+      "label": "W4"
+    },
+    {
+      "code": "W5",
+      "node_type": "intersection",
+      "x_m": 2.05,
+      "y_m": 5.3,
+      "label": "W5"
+    },
+    {
+      "code": "E0",
+      "node_type": "intersection",
+      "x_m": 6.75,
+      "y_m": 1.1,
+      "label": "E0"
+    },
+    {
+      "code": "E1",
+      "node_type": "aisle",
+      "x_m": 6.75,
+      "y_m": 1.75,
+      "label": "E1"
+    },
+    {
+      "code": "E2",
+      "node_type": "aisle",
+      "x_m": 6.75,
+      "y_m": 2.85,
+      "label": "E2"
+    },
+    {
+      "code": "E3",
+      "node_type": "intersection",
+      "x_m": 6.75,
+      "y_m": 3.95,
+      "label": "E3"
+    },
+    {
+      "code": "E4",
+      "node_type": "aisle",
+      "x_m": 6.75,
+      "y_m": 5.05,
+      "label": "E4"
+    },
+    {
+      "code": "E5",
+      "node_type": "intersection",
+      "x_m": 6.75,
+      "y_m": 5.3,
+      "label": "E5"
+    },
+    {
+      "code": "N0",
+      "node_type": "aisle",
+      "x_m": 2.5,
+      "y_m": 5.3,
+      "label": "N0"
+    },
+    {
+      "code": "N1",
+      "node_type": "aisle",
+      "x_m": 3.85,
+      "y_m": 5.3,
+      "label": "N1"
+    },
+    {
+      "code": "N2",
+      "node_type": "aisle",
+      "x_m": 5.12,
+      "y_m": 5.3,
+      "label": "N2"
+    },
+    {
+      "code": "N3",
+      "node_type": "aisle",
+      "x_m": 6.48,
+      "y_m": 5.3,
+      "label": "N3"
+    },
+    {
+      "code": "PF-PORT-IC-100",
+      "node_type": "pick_face",
+      "x_m": 1.64,
+      "y_m": 1.75,
+      "label": "IC 与通信芯片"
+    },
+    {
+      "code": "PF-PORT-SENSOR-56",
+      "node_type": "pick_face",
+      "x_m": 1.64,
+      "y_m": 2.85,
+      "label": "传感器与测量"
+    },
+    {
+      "code": "PF-PORT-PASSIVE-56",
+      "node_type": "pick_face",
+      "x_m": 1.64,
+      "y_m": 3.95,
+      "label": "常用阻容"
+    },
+    {
+      "code": "PF-PORT-CABLE-MIX",
+      "node_type": "pick_face",
+      "x_m": 1.64,
+      "y_m": 5.05,
+      "label": "连接器与线束"
+    },
+    {
+      "code": "PF-PORT-LCSC-PASSIVE-100",
+      "node_type": "pick_face",
+      "x_m": 7.16,
+      "y_m": 1.75,
+      "label": "采购阻容与磁性件"
+    },
+    {
+      "code": "PF-PORT-LCSC-CONN-100",
+      "node_type": "pick_face",
+      "x_m": 7.16,
+      "y_m": 2.85,
+      "label": "采购连接器"
+    },
+    {
+      "code": "PF-PORT-LCSC-SENSOR-56",
+      "node_type": "pick_face",
+      "x_m": 7.16,
+      "y_m": 3.95,
+      "label": "采购传感器"
+    },
+    {
+      "code": "PF-PORT-LCSC-MODULE-56",
+      "node_type": "pick_face",
+      "x_m": 7.16,
+      "y_m": 5.05,
+      "label": "模块与显示器件"
+    },
+    {
+      "code": "PF-PORT-PWR-6",
+      "node_type": "pick_face",
+      "x_m": 2.5,
+      "y_m": 5.55,
+      "label": "功率与电源模块"
+    },
+    {
+      "code": "PF-PORT-LCSC-IC-100",
+      "node_type": "pick_face",
+      "x_m": 3.85,
+      "y_m": 5.55,
+      "label": "采购 IC 与电源器件"
+    },
+    {
+      "code": "PF-PORT-LCSC-CABLE-56",
+      "node_type": "pick_face",
+      "x_m": 5.12,
+      "y_m": 5.55,
+      "label": "线束与射频件"
+    },
+    {
+      "code": "PF-PORT-LCSC-LAB-6",
+      "node_type": "pick_face",
+      "x_m": 6.48,
+      "y_m": 5.55,
+      "label": "实验与测试工具"
+    }
+  ],
+  "edges": [
+    {
+      "code": "W0--W1",
+      "from_node": "W0",
+      "to_node": "W1",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "W1--W2",
+      "from_node": "W1",
+      "to_node": "W2",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "W2--W3",
+      "from_node": "W2",
+      "to_node": "W3",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "W3--W4",
+      "from_node": "W3",
+      "to_node": "W4",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "W4--W5",
+      "from_node": "W4",
+      "to_node": "W5",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "E0--E1",
+      "from_node": "E0",
+      "to_node": "E1",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "E1--E2",
+      "from_node": "E1",
+      "to_node": "E2",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "E2--E3",
+      "from_node": "E2",
+      "to_node": "E3",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "E3--E4",
+      "from_node": "E3",
+      "to_node": "E4",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "E4--E5",
+      "from_node": "E4",
+      "to_node": "E5",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PACK--W0",
+      "from_node": "PACK",
+      "to_node": "W0",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PACK--E0",
+      "from_node": "PACK",
+      "to_node": "E0",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "W3--E3",
+      "from_node": "W3",
+      "to_node": "E3",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "W5--N0",
+      "from_node": "W5",
+      "to_node": "N0",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "N0--N1",
+      "from_node": "N0",
+      "to_node": "N1",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "N1--N2",
+      "from_node": "N1",
+      "to_node": "N2",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "N2--N3",
+      "from_node": "N2",
+      "to_node": "N3",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "N3--E5",
+      "from_node": "N3",
+      "to_node": "E5",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-IC-100--W1",
+      "from_node": "PF-PORT-IC-100",
+      "to_node": "W1",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-SENSOR-56--W2",
+      "from_node": "PF-PORT-SENSOR-56",
+      "to_node": "W2",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-PASSIVE-56--W3",
+      "from_node": "PF-PORT-PASSIVE-56",
+      "to_node": "W3",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-CABLE-MIX--W4",
+      "from_node": "PF-PORT-CABLE-MIX",
+      "to_node": "W4",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-LCSC-PASSIVE-100--E1",
+      "from_node": "PF-PORT-LCSC-PASSIVE-100",
+      "to_node": "E1",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-LCSC-CONN-100--E2",
+      "from_node": "PF-PORT-LCSC-CONN-100",
+      "to_node": "E2",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-LCSC-SENSOR-56--E3",
+      "from_node": "PF-PORT-LCSC-SENSOR-56",
+      "to_node": "E3",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-LCSC-MODULE-56--E4",
+      "from_node": "PF-PORT-LCSC-MODULE-56",
+      "to_node": "E4",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-PWR-6--N0",
+      "from_node": "PF-PORT-PWR-6",
+      "to_node": "N0",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-LCSC-IC-100--N1",
+      "from_node": "PF-PORT-LCSC-IC-100",
+      "to_node": "N1",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-LCSC-CABLE-56--N2",
+      "from_node": "PF-PORT-LCSC-CABLE-56",
+      "to_node": "N2",
+      "bidirectional": true,
+      "enabled": true
+    },
+    {
+      "code": "PF-PORT-LCSC-LAB-6--N3",
+      "from_node": "PF-PORT-LCSC-LAB-6",
+      "to_node": "N3",
+      "bidirectional": true,
+      "enabled": true
+    }
+  ],
+  "organizer_bindings": [
+    {
+      "location_code": "PORT-IC-100",
+      "pick_node_code": "PF-PORT-IC-100",
+      "x_m": 0.89,
+      "y_m": 1.425,
+      "width_m": 0.22,
+      "depth_m": 0.65,
+      "rotation_deg": 0,
+      "facing": "east",
+      "local_geometry_kind": "drawer_rack_100"
+    },
+    {
+      "location_code": "PORT-SENSOR-56",
+      "pick_node_code": "PF-PORT-SENSOR-56",
+      "x_m": 0.73,
+      "y_m": 2.45,
+      "width_m": 0.54,
+      "depth_m": 0.8,
+      "rotation_deg": 0,
+      "facing": "east",
+      "local_geometry_kind": "standard_56"
+    },
+    {
+      "location_code": "PORT-PASSIVE-56",
+      "pick_node_code": "PF-PORT-PASSIVE-56",
+      "x_m": 0.73,
+      "y_m": 3.55,
+      "width_m": 0.54,
+      "depth_m": 0.8,
+      "rotation_deg": 0,
+      "facing": "east",
+      "local_geometry_kind": "standard_56"
+    },
+    {
+      "location_code": "PORT-CABLE-MIX",
+      "pick_node_code": "PF-PORT-CABLE-MIX",
+      "x_m": 0.725,
+      "y_m": 4.65,
+      "width_m": 0.55,
+      "depth_m": 0.8,
+      "rotation_deg": 0,
+      "facing": "east",
+      "local_geometry_kind": "split_configurable"
+    },
+    {
+      "location_code": "PORT-LCSC-PASSIVE-100",
+      "pick_node_code": "PF-PORT-LCSC-PASSIVE-100",
+      "x_m": 7.69,
+      "y_m": 1.425,
+      "width_m": 0.22,
+      "depth_m": 0.65,
+      "rotation_deg": 0,
+      "facing": "west",
+      "local_geometry_kind": "drawer_rack_100"
+    },
+    {
+      "location_code": "PORT-LCSC-CONN-100",
+      "pick_node_code": "PF-PORT-LCSC-CONN-100",
+      "x_m": 7.69,
+      "y_m": 2.525,
+      "width_m": 0.22,
+      "depth_m": 0.65,
+      "rotation_deg": 0,
+      "facing": "west",
+      "local_geometry_kind": "drawer_rack_100"
+    },
+    {
+      "location_code": "PORT-LCSC-SENSOR-56",
+      "pick_node_code": "PF-PORT-LCSC-SENSOR-56",
+      "x_m": 7.53,
+      "y_m": 3.55,
+      "width_m": 0.54,
+      "depth_m": 0.8,
+      "rotation_deg": 0,
+      "facing": "west",
+      "local_geometry_kind": "standard_56"
+    },
+    {
+      "location_code": "PORT-LCSC-MODULE-56",
+      "pick_node_code": "PF-PORT-LCSC-MODULE-56",
+      "x_m": 7.53,
+      "y_m": 4.65,
+      "width_m": 0.54,
+      "depth_m": 0.8,
+      "rotation_deg": 0,
+      "facing": "west",
+      "local_geometry_kind": "standard_56"
+    },
+    {
+      "location_code": "PORT-PWR-6",
+      "pick_node_code": "PF-PORT-PWR-6",
+      "x_m": 1.975,
+      "y_m": 5.79,
+      "width_m": 1.05,
+      "depth_m": 0.46,
+      "rotation_deg": 0,
+      "facing": "south",
+      "local_geometry_kind": "shelf_rack_6"
+    },
+    {
+      "location_code": "PORT-LCSC-IC-100",
+      "pick_node_code": "PF-PORT-LCSC-IC-100",
+      "x_m": 3.525,
+      "y_m": 5.91,
+      "width_m": 0.65,
+      "depth_m": 0.22,
+      "rotation_deg": 0,
+      "facing": "south",
+      "local_geometry_kind": "drawer_rack_100"
+    },
+    {
+      "location_code": "PORT-LCSC-CABLE-56",
+      "pick_node_code": "PF-PORT-LCSC-CABLE-56",
+      "x_m": 4.72,
+      "y_m": 5.75,
+      "width_m": 0.8,
+      "depth_m": 0.54,
+      "rotation_deg": 0,
+      "facing": "south",
+      "local_geometry_kind": "standard_56"
+    },
+    {
+      "location_code": "PORT-LCSC-LAB-6",
+      "pick_node_code": "PF-PORT-LCSC-LAB-6",
+      "x_m": 5.955,
+      "y_m": 5.79,
+      "width_m": 1.05,
+      "depth_m": 0.46,
+      "rotation_deg": 0,
+      "facing": "south",
+      "local_geometry_kind": "shelf_rack_6"
+    }
+  ]
+}

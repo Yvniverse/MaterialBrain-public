@@ -1,0 +1,221 @@
+{
+  "note": "Expected against clean Portfolio Demo v2 baseline without adding same-project reservations back.",
+  "scenarios": [
+    {
+      "product_code": "PROD-ATLAS-AMR",
+      "revision": "EVT-R2",
+      "build_quantity": 3,
+      "sufficient": true,
+      "shortage_count": 0,
+      "max_buildable_units": 3,
+      "safety_risk_count": 4,
+      "shortages": []
+    },
+    {
+      "product_code": "PROD-ATLAS-AMR",
+      "revision": "EVT-R2",
+      "build_quantity": 4,
+      "sufficient": false,
+      "shortage_count": 1,
+      "max_buildable_units": 3,
+      "safety_risk_count": 4,
+      "shortages": [
+        {
+          "material_code": "PORT-BOARD-48V-DUAL-MOTOR",
+          "quantity_per_unit": 1,
+          "required_total": 4,
+          "available_quantity": 3,
+          "shortage": 1,
+          "remaining_after_build": 0,
+          "safety_stock": 2,
+          "below_safety_after_build": true
+        }
+      ]
+    },
+    {
+      "product_code": "PROD-NOVA-ARM",
+      "revision": "DVT-R1",
+      "build_quantity": 3,
+      "sufficient": true,
+      "shortage_count": 0,
+      "max_buildable_units": 4,
+      "safety_risk_count": 2,
+      "shortages": []
+    },
+    {
+      "product_code": "PROD-NOVA-ARM",
+      "revision": "DVT-R1",
+      "build_quantity": 5,
+      "sufficient": false,
+      "shortage_count": 2,
+      "max_buildable_units": 4,
+      "safety_risk_count": 3,
+      "shortages": [
+        {
+          "material_code": "PORT-ENC-AS5047P",
+          "quantity_per_unit": 3,
+          "required_total": 15,
+          "available_quantity": 12,
+          "shortage": 3,
+          "remaining_after_build": 0,
+          "safety_stock": 8,
+          "below_safety_after_build": true
+        },
+        {
+          "material_code": "PORT-MDRV-DRV8323",
+          "quantity_per_unit": 2,
+          "required_total": 10,
+          "available_quantity": 8,
+          "shortage": 2,
+          "remaining_after_build": 0,
+          "safety_stock": 10,
+          "below_safety_after_build": true
+        }
+      ]
+    },
+    {
+      "product_code": "PROD-SCOUT-TOF",
+      "revision": "EVT-R1",
+      "build_quantity": 3,
+      "sufficient": true,
+      "shortage_count": 0,
+      "max_buildable_units": 3,
+      "safety_risk_count": 1,
+      "shortages": []
+    },
+    {
+      "product_code": "PROD-SCOUT-TOF",
+      "revision": "EVT-R1",
+      "build_quantity": 4,
+      "sufficient": false,
+      "shortage_count": 1,
+      "max_buildable_units": 3,
+      "safety_risk_count": 1,
+      "shortages": [
+        {
+          "material_code": "C91199",
+          "quantity_per_unit": 2,
+          "required_total": 8,
+          "available_quantity": 6,
+          "shortage": 2,
+          "remaining_after_build": 0,
+          "safety_stock": 8,
+          "below_safety_after_build": true
+        }
+      ]
+    },
+    {
+      "product_code": "PROD-EDGEVISION",
+      "revision": "EVT-R1",
+      "build_quantity": 2,
+      "sufficient": true,
+      "shortage_count": 0,
+      "max_buildable_units": 2,
+      "safety_risk_count": 1,
+      "shortages": []
+    },
+    {
+      "product_code": "PROD-EDGEVISION",
+      "revision": "EVT-R1",
+      "build_quantity": 3,
+      "sufficient": false,
+      "shortage_count": 1,
+      "max_buildable_units": 2,
+      "safety_risk_count": 1,
+      "shortages": [
+        {
+          "material_code": "PORT-CM4-4GB",
+          "quantity_per_unit": 1,
+          "required_total": 3,
+          "available_quantity": 2,
+          "shortage": 1,
+          "remaining_after_build": 0,
+          "safety_stock": 3,
+          "below_safety_after_build": true
+        }
+      ]
+    },
+    {
+      "product_code": "PROD-DEXGRIP",
+      "revision": "EVT-R1",
+      "build_quantity": 4,
+      "sufficient": true,
+      "shortage_count": 0,
+      "max_buildable_units": 6,
+      "safety_risk_count": 2,
+      "shortages": []
+    },
+    {
+      "product_code": "PROD-DEXGRIP",
+      "revision": "EVT-R1",
+      "build_quantity": 7,
+      "sufficient": false,
+      "shortage_count": 2,
+      "max_buildable_units": 6,
+      "safety_risk_count": 5,
+      "shortages": [
+        {
+          "material_code": "PORT-ENC-AS5047P",
+          "quantity_per_unit": 2,
+          "required_total": 14,
+          "available_quantity": 12,
+          "shortage": 2,
+          "remaining_after_build": 0,
+          "safety_stock": 8,
+          "below_safety_after_build": true
+        },
+        {
+          "material_code": "PORT-LOADCELL-5KG",
+          "quantity_per_unit": 2,
+          "required_total": 14,
+          "available_quantity": 12,
+          "shortage": 2,
+          "remaining_after_build": 0,
+          "safety_stock": 4,
+          "below_safety_after_build": true
+        }
+      ]
+    },
+    {
+      "product_code": "PROD-48V-PDU",
+      "revision": "EVT-R1",
+      "build_quantity": 3,
+      "sufficient": true,
+      "shortage_count": 0,
+      "max_buildable_units": 3,
+      "safety_risk_count": 3,
+      "shortages": []
+    },
+    {
+      "product_code": "PROD-48V-PDU",
+      "revision": "EVT-R1",
+      "build_quantity": 4,
+      "sufficient": false,
+      "shortage_count": 2,
+      "max_buildable_units": 3,
+      "safety_risk_count": 3,
+      "shortages": [
+        {
+          "material_code": "PORT-BMS-13S40A",
+          "quantity_per_unit": 1,
+          "required_total": 4,
+          "available_quantity": 3,
+          "shortage": 1,
+          "remaining_after_build": 0,
+          "safety_stock": 3,
+          "below_safety_after_build": true
+        },
+        {
+          "material_code": "PORT-MOS-IPT015N10N5",
+          "quantity_per_unit": 8,
+          "required_total": 32,
+          "available_quantity": 30,
+          "shortage": 2,
+          "remaining_after_build": 0,
+          "safety_stock": 12,
+          "below_safety_after_build": true
+        }
+      ]
+    }
+  ]
+}

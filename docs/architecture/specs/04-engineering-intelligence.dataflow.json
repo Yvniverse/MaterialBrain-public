@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Engineering Intelligence Dataflow",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      820
+    ],
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "views": [
+      {
+        "id": "requirement",
+        "label": "Requirement grounding",
+        "focus": [
+          "question",
+          "workpoint",
+          "requirement",
+          "evidence",
+          "candidate"
+        ],
+        "note": "User workpoints become typed requirements grounded by managed engineering evidence."
+      },
+      {
+        "id": "selection",
+        "label": "Selection truth",
+        "focus": [
+          "candidate",
+          "selection",
+          "complete"
+        ],
+        "note": "Candidate matching remains distinct from explicit user selection and completeness."
+      },
+      {
+        "id": "preview",
+        "label": "Product BOM preview",
+        "focus": [
+          "complete",
+          "preview",
+          "dryrun",
+          "answer"
+        ],
+        "note": "A read-only diff and apply-readiness dry-run never mutate the formal Product BOM."
+      }
+    ]
+  },
+  "stages": [
+    {
+      "label": "Request"
+    },
+    {
+      "label": "Requirements"
+    },
+    {
+      "label": "Grounding"
+    },
+    {
+      "label": "Selection"
+    },
+    {
+      "label": "Preview + response"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "question",
+      "type": "external",
+      "label": "Question",
+      "sublabel": "design request",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "workpoint",
+      "type": "backend",
+      "label": "Workpoint",
+      "sublabel": "VIN / VOUT / load",
+      "stage": 0,
+      "row": 2
+    },
+    {
+      "id": "requirement",
+      "type": "backend",
+      "label": "Requirements",
+      "sublabel": "typed constraints",
+      "stage": 1,
+      "row": 1
+    },
+    {
+      "id": "evidence",
+      "type": "database",
+      "label": "Evidence",
+      "sublabel": "vendor anchors",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "material",
+      "type": "database",
+      "label": "Material Master",
+      "sublabel": "spec + provenance",
+      "stage": 2,
+      "row": 2
+    },
+    {
+      "id": "candidate",
+      "type": "backend",
+      "label": "Matcher",
+      "sublabel": "class + limits",
+      "stage": 2,
+      "row": 1
+    },
+    {
+      "id": "selection",
+      "type": "security",
+      "label": "Selection",
+      "sublabel": "explicit choice",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "complete",
+      "type": "backend",
+      "label": "Completeness",
+      "sublabel": "role coverage",
+      "stage": 3,
+      "row": 2
+    },
+    {
+      "id": "preview",
+      "type": "backend",
+      "label": "BOM Preview",
+      "sublabel": "read-only diff",
+      "stage": 4,
+      "row": 0
+    },
+    {
+      "id": "dryrun",
+      "type": "security",
+      "label": "Apply Dry-Run",
+      "sublabel": "preconditions",
+      "stage": 4,
+      "row": 4
+    },
+    {
+      "id": "answer",
+      "type": "frontend",
+      "label": "Grounded Answer",
+      "sublabel": "grounded result",
+      "stage": 4,
+      "row": 2
+    }
+  ],
+  "flows": [
+    {
+      "from": "question",
+      "to": "requirement",
+      "variant": "emphasis",
+      "route": "vertical-channel",
+      "label": "interpret"
+    },
+    {
+      "from": "workpoint",
+      "to": "requirement",
+      "variant": "emphasis",
+      "route": "vertical-channel",
+      "label": "workpoint"
+    },
+    {
+      "from": "requirement",
+      "to": "candidate",
+      "variant": "emphasis",
+      "route": "straight",
+      "label": "match"
+    },
+    {
+      "from": "evidence",
+      "to": "candidate",
+      "variant": "default",
+      "route": "vertical-channel",
+      "label": "evidence"
+    },
+    {
+      "from": "material",
+      "to": "candidate",
+      "variant": "default",
+      "route": "vertical-channel",
+      "label": "attributes"
+    },
+    {
+      "from": "candidate",
+      "to": "selection",
+      "variant": "emphasis",
+      "route": "vertical-channel",
+      "label": "candidate"
+    },
+    {
+      "from": "candidate",
+      "to": "complete",
+      "variant": "default",
+      "route": "vertical-channel",
+      "label": "coverage"
+    },
+    {
+      "from": "selection",
+      "to": "preview",
+      "variant": "emphasis",
+      "route": "vertical-channel",
+      "label": "selection"
+    },
+    {
+      "from": "complete",
+      "to": "dryrun",
+      "variant": "default",
+      "route": "vertical-channel",
+      "label": "readiness"
+    },
+    {
+      "from": "preview",
+      "to": "answer",
+      "variant": "emphasis",
+      "route": "vertical-channel",
+      "label": "render"
+    },
+    {
+      "from": "dryrun",
+      "to": "answer",
+      "variant": "security",
+      "route": "vertical-channel",
+      "label": "guard"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Typed engineering data",
+      "items": [
+        "Requirements preserve units, operators, component class and evidence",
+        "Material attributes carry independent identity/spec/stock/location provenance"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Selection is explicit",
+      "items": [
+        "Compatible inventory is only a candidate",
+        "Server-owned selection changes only after an explicit user action"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "No hidden writes",
+      "items": [
+        "Preview and dry-run compute diffs and preconditions only",
+        "Formal Product BOM, inventory, reservations and picking remain unchanged"
+      ]
+    }
+  ]
+}

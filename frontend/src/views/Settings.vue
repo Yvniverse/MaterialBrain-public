@@ -1,0 +1,9 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { api } from '../api/client'
+const current=ref('');const password=ref('');const confirm=ref('');const saving=ref(false)
+async function change(){if(password.value.length<6){ElMessage.error('新密码至少需要 6 位');return}if(password.value!==confirm.value){ElMessage.error('两次新密码不一致');return}saving.value=true;try{await api.put('/auth/change-password',{current_password:current.value,new_password:password.value});ElMessage.success('密码已修改，请重新登录');location.href='/login'}finally{saving.value=false}}
+</script>
+<template><div class="page settings"><div class="page-header"><div><h1 class="page-title">系统设置</h1><div class="page-subtitle">账户安全、部署信息与系统运行约束</div></div></div><el-card class="card"><template #header><b>修改登录密码</b></template><el-form label-position="top"><el-form-item label="当前密码"><el-input v-model="current" type="password" show-password/></el-form-item><el-form-item label="新密码"><el-input v-model="password" type="password" show-password placeholder="至少 6 位，可以仅使用数字"/></el-form-item><el-form-item label="确认新密码"><el-input v-model="confirm" type="password" show-password/></el-form-item><el-button type="primary" :loading="saving" @click="change">修改密码并退出</el-button></el-form></el-card><el-card class="card info"><template #header><b>运行信息</b></template><el-descriptions :column="1" border><el-descriptions-item label="API 前缀">/api/v1</el-descriptions-item><el-descriptions-item label="接口文档">/api/docs</el-descriptions-item><el-descriptions-item label="会话策略">HttpOnly Cookie + SameSite Strict + CSRF</el-descriptions-item><el-descriptions-item label="部署模式">公司局域网同源访问，不依赖外部 CDN 或在线服务</el-descriptions-item></el-descriptions></el-card></div></template>
+<style scoped>.settings{max-width:820px}.info{margin-top:16px}.settings :deep(.el-form){max-width:500px}</style>

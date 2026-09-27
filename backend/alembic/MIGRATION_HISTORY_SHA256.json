@@ -1,0 +1,21 @@
+{
+  "files": {
+    "0001_initial.py": "5bb16c3894e569f8b67d9d61c064d85daad77cbb458d639e90f85a100184cc27",
+    "0002_organizer_layout.py": "c68f15f4b43da139ab296556de3a16ab71eafabd9bebc9b93d1f487641393550",
+    "0003_bin_lightweight_content.py": "c51b9d5bf7cda57ea84cb4b8362108ec1eb4280ffd571a58a4e396476e9187cb",
+    "0004_user_soft_delete.py": "bdbaafd58da8e4c4896dd6d810ea17e079e9f5ac87f01638f54118e3350f79b6",
+    "0005_agent_action_proposals.py": "794f11d3a498cf77ce672dafdbf8e97fc27eeb72549ce2a3838d2738cfa016be",
+    "0006_agent_phase_1_5_hardening.py": "7c2d88b42035963d87971ba7f3fad469c22a60086e57c779e42449134d8238a1",
+    "0007_agent_conversation_context.py": "a0e3264d86d4331c73e28c475a67356132b987e41314ff37bdb251059aa6b57c",
+    "0008_product_revision_bom.py": "cf051271a1c43260162d05fc6b7c1a333b4c97d48b988a27dc85c5a349b9514f",
+    "0009_build_plan_revision_governance.py": "5e7e66134e68420c044f601c285ac0a5be96fa094221cc582fbf5ff45cf4cd1d",
+    "0010_component_relations.py": "22b9b9b1f747c6df5773172245ca094dbd875dcd6ad5555288571e1befac0068",
+    "0011_engineering_evidence.py": "b39313bde8f48c36cf68f4cade50b564fe60d5a638a18bb1672d7555ab71153c",
+    "0012_picking_core.py": "14ce27c2f8a917f501f496ed29be849553f12020321a18d4b67857ebc7800649",
+    "0013_map_edge_precision.py": "2ee4d2a7724cab446c06bd3b10cfe4a7da53bb7a7f064cd3b88a3e04a7be5ead"
+  },
+  "frozen_from_qualified_candidate": "cd777f9ec9ea9ff8c19c36fed9ab4be3218b296e",
+  "frozen_through_revision": "0013_map_edge_precision",
+  "policy": "Existing released migrations are immutable. Add a new revision instead of editing a frozen file.",
+  "schema_version": 1
+}

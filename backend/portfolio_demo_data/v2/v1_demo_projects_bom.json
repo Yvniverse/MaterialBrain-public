@@ -1,0 +1,470 @@
+{
+  "projects": [
+    {
+      "code": "RB-AMR-EVT",
+      "name": "Atlas AMR 移动底盘 EVT",
+      "status": "active",
+      "start_date": "2026-08-15",
+      "end_date": "2026-10-20",
+      "notes": "多版本 BOM、CAN-FD、48V 动力与 1 项待补物料。required_quantity 表示当前项目总需求，不是单台用量。",
+      "versions": {
+        "V1": [
+          [
+            "PORT-MCU-G474RET6",
+            4
+          ],
+          [
+            "PORT-CAN-TCAN1044",
+            8
+          ],
+          [
+            "PORT-IMU-LSM6DSV16X",
+            4
+          ],
+          [
+            "PORT-CUR-INA240A1",
+            8
+          ],
+          [
+            "PORT-MDRV-DRV8323",
+            8
+          ],
+          [
+            "PORT-BOARD-48V-DUAL-MOTOR",
+            4
+          ],
+          [
+            "PORT-DCDC-48V5V5A",
+            4
+          ],
+          [
+            "PORT-CON-XT60H",
+            8
+          ],
+          [
+            "PORT-CON-M8-4P",
+            16
+          ],
+          [
+            "PORT-R-120R-0603",
+            20
+          ],
+          [
+            "PORT-C-100N-0603",
+            200
+          ],
+          [
+            "PORT-C-10U-0805",
+            40
+          ]
+        ],
+        "V2": [
+          [
+            "PORT-MCU-G474RET6",
+            4
+          ],
+          [
+            "PORT-CAN-MCP2562FD",
+            8
+          ],
+          [
+            "PORT-IMU-LSM6DSV16X",
+            4
+          ],
+          [
+            "PORT-CUR-INA240A1",
+            8
+          ],
+          [
+            "PORT-MDRV-TMC5160",
+            8
+          ],
+          [
+            "PORT-BOARD-48V-DUAL-MOTOR",
+            4
+          ],
+          [
+            "PORT-DCDC-48V5V5A",
+            4
+          ],
+          [
+            "PORT-CON-XT60H",
+            8
+          ],
+          [
+            "PORT-CON-M8-4P",
+            16
+          ],
+          [
+            "PORT-R-120R-0603",
+            20
+          ],
+          [
+            "PORT-C-100N-0603",
+            200
+          ],
+          [
+            "PORT-C-10U-0805",
+            40
+          ]
+        ]
+      }
+    },
+    {
+      "code": "RB-ARM-DVT",
+      "name": "Nova 6-DOF 机械臂控制器 DVT",
+      "status": "active",
+      "start_date": "2026-08-20",
+      "end_date": "2026-11-10",
+      "notes": "编码器、电机驱动、项目预留与明确缺料。",
+      "versions": {
+        "V1": [
+          [
+            "PORT-MCU-F405RGT6",
+            6
+          ],
+          [
+            "PORT-ENC-AS5047P",
+            18
+          ],
+          [
+            "PORT-MDRV-DRV8323",
+            12
+          ],
+          [
+            "PORT-CAN-TCAN1044",
+            6
+          ],
+          [
+            "PORT-CUR-INA240A1",
+            6
+          ],
+          [
+            "PORT-DCDC-24V5V3A",
+            6
+          ],
+          [
+            "PORT-CON-JSTGH6",
+            40
+          ],
+          [
+            "PORT-R-120R-0603",
+            12
+          ],
+          [
+            "PORT-R-10K-0603",
+            80
+          ],
+          [
+            "PORT-C-100N-0603",
+            150
+          ],
+          [
+            "PORT-C-10U-0805",
+            30
+          ]
+        ]
+      }
+    },
+    {
+      "code": "RB-SENSOR-DVT",
+      "name": "SensorFusion CAN-FD 网关 DVT",
+      "status": "active",
+      "start_date": "2026-07-25",
+      "end_date": "2026-09-30",
+      "notes": "库存基本充足的项目，可用于与缺料项目形成对比。",
+      "versions": {
+        "V1": [
+          [
+            "PORT-MCU-G474RET6",
+            5
+          ],
+          [
+            "PORT-CAN-TCAN1044",
+            5
+          ],
+          [
+            "PORT-CAN-MCP2562FD",
+            5
+          ],
+          [
+            "PORT-RS485-THVD1450",
+            5
+          ],
+          [
+            "PORT-ETH-LAN8720A",
+            5
+          ],
+          [
+            "PORT-IMU-LSM6DSV16X",
+            5
+          ],
+          [
+            "PORT-TOF-VL53L1CX",
+            5
+          ],
+          [
+            "PORT-CUR-INA226",
+            5
+          ],
+          [
+            "PORT-R-120R-0603",
+            20
+          ],
+          [
+            "PORT-R-4K7-0603",
+            40
+          ],
+          [
+            "PORT-C-100N-0603",
+            120
+          ]
+        ]
+      }
+    },
+    {
+      "code": "RB-VISION-EVT",
+      "name": "EdgeVision 机器人视觉计算单元 EVT",
+      "status": "planning",
+      "start_date": "2026-09-05",
+      "end_date": "2026-11-30",
+      "notes": "计算模块低库存与真实缺料。",
+      "versions": {
+        "V1": [
+          [
+            "PORT-CM4-4GB",
+            4
+          ],
+          [
+            "PORT-BOARD-EDGE-AI",
+            4
+          ],
+          [
+            "PORT-ETH-LAN8720A",
+            4
+          ],
+          [
+            "PORT-USBC-STUSB4500",
+            4
+          ],
+          [
+            "PORT-DCDC-24V5V3A",
+            4
+          ],
+          [
+            "PORT-IMU-LSM6DSV16X",
+            4
+          ],
+          [
+            "PORT-CON-M8-4P",
+            8
+          ],
+          [
+            "PORT-R-10K-0603",
+            40
+          ],
+          [
+            "PORT-C-100N-0603",
+            100
+          ],
+          [
+            "PORT-C-10U-0805",
+            20
+          ]
+        ]
+      }
+    },
+    {
+      "code": "RB-PWR-EVT",
+      "name": "48V 电源与配电单元 EVT",
+      "status": "active",
+      "start_date": "2026-08-10",
+      "end_date": "2026-10-15",
+      "notes": "48V→5V 模块、BMS、功率 MOS、电流检测；同时包含部分库位未分配。",
+      "versions": {
+        "V1": [
+          [
+            "PORT-DCDC-48V5V5A",
+            6
+          ],
+          [
+            "PORT-BMS-13S40A",
+            4
+          ],
+          [
+            "PORT-MOS-IPT015N10N5",
+            24
+          ],
+          [
+            "PORT-CUR-INA240A1",
+            8
+          ],
+          [
+            "PORT-CUR-INA226",
+            4
+          ],
+          [
+            "PORT-CON-XT60H",
+            16
+          ],
+          [
+            "PORT-CAN-TCAN1044",
+            4
+          ],
+          [
+            "PORT-MCU-F405RGT6",
+            2
+          ],
+          [
+            "PORT-R-120R-0603",
+            8
+          ],
+          [
+            "PORT-C-100N-0603",
+            80
+          ],
+          [
+            "PORT-C-10U-0805",
+            24
+          ]
+        ]
+      }
+    },
+    {
+      "code": "RB-GRIPPER-EVT",
+      "name": "DexGrip 灵巧夹爪力控模块 EVT",
+      "status": "planning",
+      "start_date": "2026-09-01",
+      "end_date": "2026-11-20",
+      "notes": "力传感器、24-bit ADC、编码器与电机控制。",
+      "versions": {
+        "V1": [
+          [
+            "PORT-MCU-G474RET6",
+            4
+          ],
+          [
+            "PORT-ENC-AS5047P",
+            8
+          ],
+          [
+            "PORT-LOADCELL-5KG",
+            8
+          ],
+          [
+            "PORT-ADC-ADS1220",
+            4
+          ],
+          [
+            "PORT-MDRV-TMC5160",
+            4
+          ],
+          [
+            "PORT-CAN-TCAN1044",
+            4
+          ],
+          [
+            "PORT-CON-JSTGH6",
+            16
+          ],
+          [
+            "PORT-R-10K-0603",
+            60
+          ],
+          [
+            "PORT-C-100N-0603",
+            100
+          ],
+          [
+            "PORT-C-10U-0805",
+            20
+          ]
+        ]
+      }
+    },
+    {
+      "code": "RB-DOCK-DVT",
+      "name": "AutoDock 自主充电桩 DVT",
+      "status": "paused",
+      "start_date": "2026-07-15",
+      "end_date": "2026-10-30",
+      "notes": "无线 MCU、BMS、电源与 CAN；当前项目状态为暂停。",
+      "versions": {
+        "V1": [
+          [
+            "PORT-MCU-ESP32S3",
+            4
+          ],
+          [
+            "PORT-CAN-SN65HVD230",
+            4
+          ],
+          [
+            "PORT-USBC-STUSB4500",
+            4
+          ],
+          [
+            "PORT-DCDC-48V5V5A",
+            2
+          ],
+          [
+            "PORT-BMS-13S40A",
+            2
+          ],
+          [
+            "PORT-CUR-INA226",
+            4
+          ],
+          [
+            "PORT-CON-M8-4P",
+            8
+          ],
+          [
+            "PORT-R-120R-0603",
+            8
+          ],
+          [
+            "PORT-R-4K7-0603",
+            30
+          ],
+          [
+            "PORT-C-100N-0603",
+            80
+          ]
+        ]
+      }
+    }
+  ],
+  "reservations": [
+    {
+      "project_code": "RB-ARM-DVT",
+      "material_code": "PORT-ENC-AS5047P",
+      "quantity": 6
+    },
+    {
+      "project_code": "RB-ARM-DVT",
+      "material_code": "PORT-CAN-TCAN1044",
+      "quantity": 2
+    },
+    {
+      "project_code": "RB-SENSOR-DVT",
+      "material_code": "PORT-MCU-G474RET6",
+      "quantity": 2
+    },
+    {
+      "project_code": "RB-SENSOR-DVT",
+      "material_code": "PORT-CAN-TCAN1044",
+      "quantity": 2
+    },
+    {
+      "project_code": "RB-SENSOR-DVT",
+      "material_code": "PORT-IMU-LSM6DSV16X",
+      "quantity": 2
+    },
+    {
+      "project_code": "RB-AMR-EVT",
+      "material_code": "PORT-MDRV-TMC5160",
+      "quantity": 2
+    }
+  ]
+}

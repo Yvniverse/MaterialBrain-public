@@ -1,0 +1,27 @@
+:root {
+  font-family: Inter, "Microsoft YaHei", system-ui, sans-serif;
+  color: #172b4d;
+  background: #f3f6fb;
+  font-synthesis: none;
+  --mb-font-page-title: clamp(26px, 2.1vw, 30px);
+  --mb-font-section-title: 20px;
+  --mb-font-card-title: 17px;
+  --mb-font-body: 15px;
+  --mb-font-secondary: 13px;
+  --mb-font-critical: clamp(22px, 2vw, 28px);
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+a { color: inherit; text-decoration: none; }
+.page { padding: 24px; max-width: 1680px; margin: 0 auto; }
+.page-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.page-title { margin: 0; font-size: var(--mb-font-page-title); letter-spacing: -.5px; }
+.page-subtitle { color: #708198; margin-top: 6px; font-size: var(--mb-font-body); }
+.card { border: 1px solid rgba(36, 66, 112, .08) !important; border-radius: 14px !important; box-shadow: 0 8px 30px rgba(43, 74, 120, .06) !important; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.number { font-variant-numeric: tabular-nums; font-weight: 650; }
+.muted { color: #8492a6; }
+.danger-number { color: #d33f49; font-weight: 700; }
+.success-number { color: #18845b; font-weight: 700; }
+.empty-state { min-height: 300px; display: grid; place-items: center; color: #8492a6; }
+@media (max-width: 760px) { .page { padding: 14px; } .page-header { align-items: flex-start; flex-direction: column; } .desktop-only { display: none !important; } }

@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "MaterialBrain Runtime Overview",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1360,
+      760
+    ],
+    "views": [
+      {
+        "id": "request",
+        "label": "Request path",
+        "focus": [
+          "browser",
+          "nginx",
+          "frontend",
+          "api",
+          "agent",
+          "qwen"
+        ],
+        "note": "Browser requests enter through Nginx, then split into UI, API, deterministic agent orchestration, and bounded model synthesis."
+      },
+      {
+        "id": "truth",
+        "label": "Truth plane",
+        "focus": [
+          "api",
+          "agent",
+          "services",
+          "postgres",
+          "storage"
+        ],
+        "note": "Business facts remain server-owned; PostgreSQL and persistent storage are the durable sources of truth."
+      },
+      {
+        "id": "recovery",
+        "label": "Recovery path",
+        "focus": [
+          "postgres",
+          "storage",
+          "backup"
+        ],
+        "note": "Fresh backups bind database and file state to a SHA-256 manifest before exact-SHA deployment."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "external",
+      "label": "Engineer / Operator",
+      "sublabel": "Browser / operator",
+      "pos": [
+        40,
+        120
+      ],
+      "size": [
+        175,
+        68
+      ]
+    },
+    {
+      "id": "nginx",
+      "type": "security",
+      "label": "Nginx Gateway",
+      "sublabel": "HTTP gateway",
+      "pos": [
+        250,
+        120
+      ],
+      "size": [
+        175,
+        68
+      ]
+    },
+    {
+      "id": "frontend",
+      "type": "frontend",
+      "label": "Vue 3 Frontend",
+      "sublabel": "Agent · Twin · Picking",
+      "pos": [
+        460,
+        120
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "FastAPI / RBAC",
+      "sublabel": "auth · RBAC · APIs",
+      "pos": [
+        675,
+        120
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "Warehouse Agent",
+      "sublabel": "contract · graph · tools",
+      "pos": [
+        890,
+        120
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "qwen",
+      "type": "cloud",
+      "label": "Qwen Model Pool",
+      "sublabel": "Plus → Max",
+      "pos": [
+        1105,
+        120
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "mcp",
+      "type": "security",
+      "label": "Read-only MCP",
+      "sublabel": "read-only tools",
+      "pos": [
+        40,
+        360
+      ],
+      "size": [
+        175,
+        68
+      ]
+    },
+    {
+      "id": "services",
+      "type": "backend",
+      "label": "Domain Services",
+      "sublabel": "engineering · inventory",
+      "pos": [
+        300,
+        360
+      ],
+      "size": [
+        190,
+        68
+      ]
+    },
+    {
+      "id": "postgres",
+      "type": "database",
+      "label": "PostgreSQL",
+      "sublabel": "business + agent truth",
+      "pos": [
+        560,
+        360
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "storage",
+      "type": "database",
+      "label": "Persistent Files",
+      "sublabel": "evidence · attachments",
+      "pos": [
+        820,
+        360
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "backup",
+      "type": "backend",
+      "label": "Backup / Restore",
+      "sublabel": "dump · files · hashes",
+      "pos": [
+        560,
+        560
+      ],
+      "size": [
+        180,
+        68
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "MaterialBrain application plane",
+      "wraps": [
+        "nginx",
+        "frontend",
+        "api",
+        "agent",
+        "services",
+        "postgres",
+        "storage",
+        "backup"
+      ],
+      "pad": 24
+    },
+    {
+      "kind": "security-group",
+      "label": "Server-owned truth boundary",
+      "wraps": [
+        "api",
+        "agent",
+        "services",
+        "postgres"
+      ],
+      "pad": 16
+    }
+  ],
+  "connections": [
+    {
+      "from": "browser",
+      "to": "nginx",
+      "variant": "emphasis"
+    },
+    {
+      "from": "nginx",
+      "to": "frontend"
+    },
+    {
+      "from": "frontend",
+      "to": "api",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "agent",
+      "variant": "emphasis"
+    },
+    {
+      "from": "agent",
+      "to": "qwen",
+      "variant": "dashed"
+    },
+    {
+      "from": "mcp",
+      "to": "services",
+      "variant": "security"
+    },
+    {
+      "from": "services",
+      "to": "postgres",
+      "variant": "emphasis"
+    },
+    {
+      "from": "api",
+      "to": "services",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "via": [
+        [
+          765,
+          270
+        ],
+        [
+          395,
+          270
+        ]
+      ]
+    },
+    {
+      "from": "agent",
+      "to": "services",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "via": [
+        [
+          980,
+          300
+        ],
+        [
+          395,
+          300
+        ]
+      ],
+      "variant": "emphasis"
+    },
+    {
+      "from": "services",
+      "to": "storage",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          395,
+          320
+        ],
+        [
+          910,
+          320
+        ]
+      ],
+      "variant": "dashed"
+    },
+    {
+      "from": "backup",
+      "to": "postgres",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "variant": "dashed"
+    },
+    {
+      "from": "backup",
+      "to": "storage",
+      "fromSide": "right",
+      "toSide": "bottom",
+      "via": [
+        [
+          760,
+          594
+        ],
+        [
+          910,
+          594
+        ]
+      ],
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Runtime surfaces",
+      "items": [
+        "Floating robot and /agent share the same structured server entities",
+        "Nginx exposes one browser entry while FastAPI owns auth and business APIs"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Truth ownership",
+      "items": [
+        "Deterministic services own inventory, BOM, provenance, selection and preview facts",
+        "The LLM explains grounded facts; it does not create transaction truth"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Durability",
+      "items": [
+        "PostgreSQL stores business and agent context",
+        "Files and evidence are backed up with a SHA-256 manifest before release"
+      ]
+    }
+  ]
+}

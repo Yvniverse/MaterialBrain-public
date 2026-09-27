@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/__PUBLIC_REPO_SLUG__/security
+    about: Please use the private security reporting path instead of a public issue.

@@ -1,0 +1,9 @@
+<script setup lang="ts">
+import { computed, onMounted, ref, watch } from 'vue'
+import { api } from '../api/client'
+type Mode='stocktakes'|'purchases'
+interface BusinessRow {id:number;stocktake_no?:string;order_no?:string;material_id?:number;status?:string;book_quantity?:string;actual_quantity?:string;difference?:string;reason?:string;supplier_id?:number;total_amount?:string;created_at:string}
+const props=defineProps<{mode:Mode}>();const rows=ref<BusinessRow[]>([]);const meta=computed(()=>({stocktakes:{title:'盘点管理',sub:'查看账实差异及对应修正流水',endpoint:'/stocktakes'},purchases:{title:'采购管理',sub:'管理采购单、计划到货和采购历史',endpoint:'/purchase-orders'}}[props.mode]))
+async function load(){rows.value=(await api.get<BusinessRow[]>(meta.value.endpoint)).data}onMounted(load);watch(()=>props.mode,load)
+</script>
+<template><div class="page"><div class="page-header"><div><h1 class="page-title">{{meta.title}}</h1><div class="page-subtitle">{{meta.sub}}</div></div><el-button v-if="props.mode==='stocktakes'" type="primary" @click="$router.push('/inventory')">前往库存操作</el-button></div><el-card class="card"><el-table :data="rows" stripe><el-table-column label="业务单号" width="210"><template #default="{row}">{{row.stocktake_no||row.order_no}}</template></el-table-column><template v-if="props.mode==='stocktakes'"><el-table-column prop="material_id" label="物料 ID"/><el-table-column prop="book_quantity" label="账面数量"/><el-table-column prop="actual_quantity" label="实际数量"/><el-table-column prop="difference" label="差异"/><el-table-column prop="reason" label="差异原因"/></template><template v-else><el-table-column prop="supplier_id" label="供应商 ID"/><el-table-column prop="status" label="状态"/><el-table-column prop="total_amount" label="总金额"/><el-table-column prop="created_at" label="创建时间"/></template></el-table><el-empty v-if="!rows.length" description="暂无业务记录"/></el-card></div></template>

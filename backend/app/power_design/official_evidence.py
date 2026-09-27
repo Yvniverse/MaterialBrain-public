@@ -1,0 +1,200 @@
+from __future__ import annotations
+
+from decimal import Decimal
+
+# These facts are copied from the handoff evidence manifest and verified against
+# the linked first-party TI product pages/datasheets on 2026-09-24. The planner
+# treats this table as provenance metadata, never as an LLM-generated guess.
+POWER_DEVICE_EVIDENCE = {
+    "PORT-BUCK-TPS54560": {
+        "mpn": "TPS54560DDAR",
+        "topology": "buck",
+        "vin_min_v": Decimal("4.5"),
+        "vin_max_v": Decimal("60"),
+        "vout_min_v": Decimal("0.8"),
+        "vout_max_v": Decimal("58.8"),
+        "iout_max_a": Decimal("5"),
+        "package": "HSOIC (DDA), 8-pin",
+        "source_url": "https://www.ti.com/product/TPS54560",
+        "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps54560.pdf",
+        "source_title": "TI TPS54560 product page / datasheet",
+        "peripheral_roles": [
+            {"role": "input capacitor", "exact_value": None},
+            {"role": "output capacitor", "exact_value": None},
+            {"role": "inductor", "exact_value": None},
+            {"role": "feedback divider", "exact_value": None},
+            {"role": "bootstrap capacitor", "exact_value": None},
+        ],
+        "local_conflict": {
+            "field": "vin_min_v",
+            "local_value": "5.5",
+            "official_value": "4.5",
+            "resolution": "本方案采用 TI 一手来源 4.5V；本地旧规格仍作为冲突记录保留。",
+        },
+    },
+    "PORT-BUCK-LM5164": {
+        "mpn": "LM5164DDAR",
+        "topology": "buck",
+        "vin_min_v": Decimal("6"),
+        "vin_max_v": Decimal("100"),
+        "vout_min_v": Decimal("1.2"),
+        "vout_max_v": Decimal("90"),
+        "iout_max_a": Decimal("1"),
+        "package": "HSOIC (DDA), 8-pin",
+        "source_url": "https://www.ti.com/product/LM5164",
+        "datasheet_url": "https://www.ti.com/lit/ds/symlink/lm5164.pdf",
+        "source_title": "TI LM5164 product page / datasheet",
+        "peripheral_roles": [
+            {"role": "input capacitor", "exact_value": None},
+            {"role": "output capacitor", "exact_value": None},
+            {"role": "inductor", "exact_value": None},
+            {"role": "feedback divider", "exact_value": None},
+            {
+                "role": "bootstrap capacitor",
+                "exact_value": "2.2 nF, 50 V, X7R",
+                "connection": "BST to SW",
+                "source_document_revision": "SNVSAU4D",
+                "source_page": 11,
+                "evidence": (
+                    "TI LM5164 SNVSAU4D p.11 requires a high-quality 2.2 nF, "
+                    "50 V, X7R ceramic capacitor between BST and SW."
+                ),
+            },
+            {
+                "role": "COT feedback ripple",
+                "exact_value": None,
+                "constraint_value": "at least 20 mV in-phase ripple",
+                "source_document_revision": "SNVSAU4D",
+                "source_page": 10,
+                "related_source_page": 19,
+                "evidence": (
+                    "TI LM5164 SNVSAU4D p.10 requires at least 20 mV of in-phase "
+                    "ripple at FB for COT comparator stability; p.19 states Type-3 "
+                    "injected ripple amplitude does not determine output voltage ripple."
+                ),
+            },
+        ],
+    },
+    "C2859976": {
+        "mpn": "TPS7A7001DDA",
+        "topology": "ldo",
+        "vin_min_v": Decimal("1.4"),
+        "vin_max_v": Decimal("6.5"),
+        "vout_min_v": Decimal("0.5"),
+        "vout_max_v": Decimal("5"),
+        "iout_max_a": Decimal("2"),
+        "package": "HSOIC (DDA), 8-pin",
+        "source_url": "https://www.ti.com/product/TPS7A7001",
+        "datasheet_url": "https://www.ti.com/lit/ds/symlink/tps7a7001.pdf",
+        "source_title": "TI TPS7A7001 product page / datasheet",
+        "peripheral_roles": [
+            {"role": "input capacitor", "exact_value": None},
+            {
+                "role": "output capacitor",
+                "exact_value": "4.7 µF minimum",
+                "evidence": "TI product page load capacitance minimum",
+            },
+            {"role": "feedback divider", "exact_value": None},
+        ],
+    },
+    "C7527500": {
+        "mpn": "TLV76133DCYR",
+        "topology": "ldo",
+        "vin_min_v": Decimal("2.5"),
+        "vin_max_v": Decimal("18"),
+        "vout_min_v": Decimal("3.3"),
+        "vout_max_v": Decimal("3.3"),
+        "fixed_output_v": Decimal("3.3"),
+        "iout_max_a": Decimal("1"),
+        "package": "SOT-223 (DCY), 4-pin",
+        "source_url": "https://www.ti.com/product/TLV761",
+        "datasheet_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+        "source_title": "TI TLV761 product page / datasheet",
+        "engineering_parameters": [
+            {
+                "key": "quiescent_current_typical",
+                "label": "静态电流（典型）",
+                "value": "60",
+                "unit": "µA",
+                "conditions": "数据手册特性摘要的典型值；详细电气表 IOUT=0mA 给出 65–100µA 范围",
+                "source_page": 1,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+            {
+                "key": "quiescent_current_no_load",
+                "label": "静态电流（无负载电气表）",
+                "value": "65–100",
+                "unit": "µA",
+                "conditions": "IOUT=0mA；器件温度范围内规格，典型值在 25°C",
+                "source_page": 5,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+            {
+                "key": "psrr_summary_1khz",
+                "label": "PSRR（典型摘要）",
+                "value": "60",
+                "unit": "dB @ 1kHz",
+                "conditions": "数据手册特性摘要；需按实际负载、压差和频率查看曲线/实测",
+                "source_page": 1,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+            {
+                "key": "psrr_summary_1mhz",
+                "label": "PSRR（典型摘要）",
+                "value": "40",
+                "unit": "dB @ 1MHz",
+                "conditions": "数据手册特性摘要；不是任意开关频率、负载和压差的保证值",
+                "source_page": 1,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+            {
+                "key": "psrr_electrical_table",
+                "label": "PSRR（电气表单点）",
+                "value": "70",
+                "unit": "dB @ 120Hz",
+                "conditions": "VIN=3.3V, VOUT=1.8V, IOUT=300mA；此单点不能外推到本方案频段/负载",
+                "source_page": 5,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+            {
+                "key": "dropout_at_1a",
+                "label": "Dropout 电压",
+                "value": "0.9–1.6",
+                "unit": "V @ 1A",
+                "conditions": "VIN≥3V、IOUT=1A；低于额定电流时 dropout 随负载变化，应核对具体工况",
+                "source_page": 5,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+            {
+                "key": "theta_ja_sot223",
+                "label": "结到环境热阻（SOT-223）",
+                "value": "95.4",
+                "unit": "°C/W",
+                "conditions": "数据手册热指标参考值；板层、铜面积、气流和环境会改变实际温升",
+                "source_page": 5,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+            {
+                "key": "theta_ja_to252",
+                "label": "结到环境热阻（TO-252）",
+                "value": "67.2",
+                "unit": "°C/W",
+                "conditions": "数据手册热指标参考值；板层、铜面积、气流和环境会改变实际温升",
+                "source_page": 5,
+                "source_url": "https://www.ti.com/lit/ds/symlink/tlv761.pdf",
+            },
+        ],
+        "peripheral_roles": [
+            {
+                "role": "input capacitor",
+                "exact_value": "≥0.47 µF effective recommended",
+                "evidence": "TI datasheet recommended operating conditions",
+            },
+            {
+                "role": "output capacitor",
+                "exact_value": "1 µF minimum",
+                "evidence": "TI datasheet recommended operating conditions",
+            },
+        ],
+    },
+}

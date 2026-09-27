@@ -1,0 +1,240 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [internal]
+
+  backend:
+    build:
+      context: ./backend
+      args:
+        MATERIALBRAIN_BUILD_SHA: ${MATERIALBRAIN_BUILD_SHA:-unknown}
+        MATERIALBRAIN_RELEASE_TAG: ${MATERIALBRAIN_RELEASE_TAG:-}
+        MATERIALBRAIN_BUILD_TIME_UTC: ${MATERIALBRAIN_BUILD_TIME_UTC:-}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      SESSION_HOURS: ${SESSION_HOURS:-8}
+      ATTACHMENT_DIR: /storage/attachments
+      ENGINEERING_EVIDENCE_STORAGE_DIR: /storage
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-20}
+      AGENT_ENABLED: ${AGENT_ENABLED:-false}
+      AGENT_MODEL_POLICY: ${AGENT_MODEL_POLICY:-normal}
+      LLM_PROVIDER: ${LLM_PROVIDER:-qwen}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_BASE_URL: ${DASHSCOPE_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      DASHSCOPE_MODEL: ${DASHSCOPE_MODEL:-qwen3.7-plus-2026-05-26}
+      DASHSCOPE_ENABLE_THINKING: ${DASHSCOPE_ENABLE_THINKING:-false}
+      DASHSCOPE_MODEL_POOL_ENABLED: ${DASHSCOPE_MODEL_POOL_ENABLED:-true}
+      DASHSCOPE_FALLBACK_MODELS: ${DASHSCOPE_FALLBACK_MODELS:-qwen3.7-max-2026-06-08}
+      DASHSCOPE_CERTIFIED_MODELS: ${DASHSCOPE_CERTIFIED_MODELS:-qwen3.7-plus-2026-05-26,qwen3.7-max-2026-06-08}
+      TYPESAFE_API_KEY: ${TYPESAFE_API_KEY:-}
+      TYPESAFE_API_BASE_URL: ${TYPESAFE_API_BASE_URL:-https://api.typesafe.ai}
+      JEV_ENABLED: ${JEV_ENABLED:-false}
+      JEV_SHADOW_ENABLED: ${JEV_SHADOW_ENABLED:-false}
+      JEV_MODEL: ${JEV_MODEL:-jev-latest}
+      JEV_STAGE_INPUT_TOKEN_CAP: ${JEV_STAGE_INPUT_TOKEN_CAP:-200000}
+      JEV_STAGE_REQUEST_CAP: ${JEV_STAGE_REQUEST_CAP:-30}
+      AGENT_MAX_TOOL_ROUNDS: ${AGENT_MAX_TOOL_ROUNDS:-5}
+      AGENT_TIMEOUT_SECONDS: ${AGENT_TIMEOUT_SECONDS:-45}
+      AGENT_TOTAL_DEADLINE_SECONDS: ${AGENT_TOTAL_DEADLINE_SECONDS:-90}
+      AGENT_CONVERSATION_TTL_MINUTES: ${AGENT_CONVERSATION_TTL_MINUTES:-1440}
+      AGENT_CONVERSATION_CLEANUP_GRACE_DAYS: ${AGENT_CONVERSATION_CLEANUP_GRACE_DAYS:-7}
+      AGENT_DETERMINISTIC_MATERIAL_RESOLUTION_ENABLED: ${AGENT_DETERMINISTIC_MATERIAL_RESOLUTION_ENABLED:-false}
+      AGENT_ENGINEERING_RESEARCH_ENABLED: ${AGENT_ENGINEERING_RESEARCH_ENABLED:-true}
+      COMPONENT_INTELLIGENCE_ENABLED: ${COMPONENT_INTELLIGENCE_ENABLED:-false}
+      TRACEABLE_ENGINEERING_EVIDENCE_REQUIRED: ${TRACEABLE_ENGINEERING_EVIDENCE_REQUIRED:-true}
+      PORTFOLIO_DEMO_SEED_ENABLED: ${PORTFOLIO_DEMO_SEED_ENABLED:-false}
+      PORTFOLIO_PRODUCT_SEED_ENABLED: ${PORTFOLIO_PRODUCT_SEED_ENABLED:-false}
+      PORTFOLIO_RELATION_SEED_ENABLED: ${PORTFOLIO_RELATION_SEED_ENABLED:-false}
+      PORTFOLIO_EVIDENCE_SEED_ENABLED: ${PORTFOLIO_EVIDENCE_SEED_ENABLED:-false}
+      PORTFOLIO_CABLE_SEED_ENABLED: ${PORTFOLIO_CABLE_SEED_ENABLED:-false}
+      PORTFOLIO_DATABASE_REBUILD_ENABLED: ${PORTFOLIO_DATABASE_REBUILD_ENABLED:-false}
+    volumes:
+      - type: bind
+        source: ${MATERIALBRAIN_STORAGE_ROOT:-./storage}/attachments
+        target: /storage/attachments
+      - type: bind
+        source: ${MATERIALBRAIN_STORAGE_ROOT:-./storage}/evidence
+        target: /storage/evidence
+      - type: bind
+        source: ${MATERIALBRAIN_STORAGE_ROOT:-./storage}/imports
+        target: /storage/imports
+      - type: bind
+        source: ${MATERIALBRAIN_STORAGE_ROOT:-./storage}/exports
+        target: /storage/exports
+    depends_on:
+      db: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    networks: [internal, llm_egress]
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_BUILD_SHA: ${MATERIALBRAIN_BUILD_SHA:-unknown}
+        VITE_RELEASE_TAG: ${MATERIALBRAIN_RELEASE_TAG:-}
+        VITE_BUILD_TIME_UTC: ${MATERIALBRAIN_BUILD_TIME_UTC:-}
+    restart: unless-stopped
+    networks: [internal]
+
+  nginx:
+    build: ./nginx
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-80}:80"
+    depends_on:
+      backend: {condition: service_healthy}
+      frontend: {condition: service_started}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    networks: [edge, internal]
+
+  backup:
+    build: ./deploy/backup
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      BACKUP_CRON: ${BACKUP_SCHEDULE:-0 2 * * *}
+      BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-30}
+      ATTACHMENT_DIR: /attachments
+      EVIDENCE_DIR: /evidence
+      BACKUP_DIR: /backups
+    volumes:
+      - type: bind
+        source: ${MATERIALBRAIN_STORAGE_ROOT:-./storage}/backups
+        target: /backups
+      - type: bind
+        source: ${MATERIALBRAIN_STORAGE_ROOT:-./storage}/attachments
+        target: /attachments
+        read_only: true
+      - type: bind
+        source: ${MATERIALBRAIN_STORAGE_ROOT:-./storage}/evidence
+        target: /evidence
+        read_only: true
+    depends_on:
+      db: {condition: service_healthy}
+    networks: [internal]
+
+  db_eval:
+    image: postgres:17-alpine
+    profiles: ["eval"]
+    environment:
+      POSTGRES_DB: materialbrain_eval
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_eval_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d materialbrain_eval"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [eval_internal]
+
+  eval_runner:
+    build: ./backend
+    profiles: ["eval"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db_eval:5432/materialbrain_eval
+      EVAL_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db_eval:5432/materialbrain_eval
+      TEST_POSTGRES_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db_eval:5432/materialbrain_eval
+      EVAL_RUN_REAL_QWEN: ${EVAL_RUN_REAL_QWEN:-false}
+      EVAL_MODEL: ${EVAL_MODEL:-qwen3.6-flash}
+      EVAL_MODELS: ${EVAL_MODELS:-}
+      EVAL_FREE_MODEL_ALLOWLIST: ${EVAL_FREE_MODEL_ALLOWLIST:-}
+      EVAL_DASHSCOPE_API_KEY: ${EVAL_DASHSCOPE_API_KEY:-}
+      AGENT_MODEL_POLICY: ${AGENT_MODEL_POLICY:-deterministic}
+      TYPESAFE_API_KEY: ${TYPESAFE_API_KEY:-}
+      TYPESAFE_API_BASE_URL: ${TYPESAFE_API_BASE_URL:-https://api.typesafe.ai}
+      JEV_ENABLED: ${JEV_ENABLED:-false}
+      JEV_SHADOW_ENABLED: ${JEV_SHADOW_ENABLED:-false}
+      JEV_MODEL: ${JEV_MODEL:-jev-latest}
+      JEV_STAGE_INPUT_TOKEN_CAP: ${JEV_STAGE_INPUT_TOKEN_CAP:-200000}
+      JEV_STAGE_REQUEST_CAP: ${JEV_STAGE_REQUEST_CAP:-30}
+      EVAL_ENABLE_THINKING: ${EVAL_ENABLE_THINKING:-false}
+      EVAL_GOLDEN_VERSION: ${EVAL_GOLDEN_VERSION:-v1.1}
+      EVAL_MAX_TOKENS_PER_MODEL_STAGE: ${EVAL_MAX_TOKENS_PER_MODEL_STAGE:-160000}
+      EVAL_MAX_TOKENS_PER_MODEL_TOTAL: ${EVAL_MAX_TOKENS_PER_MODEL_TOTAL:-160000}
+      EVAL_MAX_TOKENS_ALL_MODELS: ${EVAL_MAX_TOKENS_ALL_MODELS:-320000}
+      EVAL_EVALUATOR_COMMIT: ${EVAL_EVALUATOR_COMMIT:-unavailable}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_BASE_URL: ${DASHSCOPE_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      AGENT_TIMEOUT_SECONDS: ${AGENT_TIMEOUT_SECONDS:-45}
+      AGENT_TOTAL_DEADLINE_SECONDS: ${AGENT_TOTAL_DEADLINE_SECONDS:-90}
+      AGENT_DETERMINISTIC_MATERIAL_RESOLUTION_ENABLED: ${AGENT_DETERMINISTIC_MATERIAL_RESOLUTION_ENABLED:-false}
+    volumes:
+      - ./backend/.local-evals:/app/.local-evals
+      - ./backend/eval-results:/app/eval-results
+      - ./backend/tests:/app/tests:ro
+      - ./docker-compose.yml:/docker-compose.yml:ro
+    depends_on:
+      db_eval: {condition: service_healthy}
+    command: ["python", "-m", "evals.run_model_benchmark", "--help"]
+    networks: [eval_internal, llm_egress]
+
+  shadow_eval_runner:
+    build: ./backend
+    profiles: ["shadow-eval"]
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SHADOW_EVAL_ENABLED: ${SHADOW_EVAL_ENABLED:-false}
+      SHADOW_EVAL_SEED: ${SHADOW_EVAL_SEED:-20260827}
+      SHADOW_EVAL_MAX_CASES: ${SHADOW_EVAL_MAX_CASES:-60}
+      SHADOW_EVAL_MODEL: ${SHADOW_EVAL_MODEL:-}
+      DASHSCOPE_MODEL: ${DASHSCOPE_MODEL:-qwen3.7-plus-2026-05-26}
+      DASHSCOPE_ENABLE_THINKING: ${DASHSCOPE_ENABLE_THINKING:-false}
+      DASHSCOPE_MODEL_POOL_ENABLED: ${DASHSCOPE_MODEL_POOL_ENABLED:-true}
+      DASHSCOPE_FALLBACK_MODELS: ${DASHSCOPE_FALLBACK_MODELS:-qwen3.7-max-2026-06-08}
+      DASHSCOPE_CERTIFIED_MODELS: ${DASHSCOPE_CERTIFIED_MODELS:-qwen3.7-plus-2026-05-26,qwen3.7-max-2026-06-08}
+      SHADOW_EVAL_OUTPUT_DIR: .local-evals/production-shadow
+      SHADOW_EVAL_CERTIFICATION_FILE: ${SHADOW_EVAL_CERTIFICATION_FILE:-eval-results/real-qwen/model-comparison.json}
+      EVAL_DASHSCOPE_API_KEY: ${EVAL_DASHSCOPE_API_KEY:-}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_BASE_URL: ${DASHSCOPE_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      AGENT_TIMEOUT_SECONDS: ${AGENT_TIMEOUT_SECONDS:-45}
+      AGENT_TOTAL_DEADLINE_SECONDS: ${AGENT_TOTAL_DEADLINE_SECONDS:-90}
+    volumes:
+      - ./backend/.local-evals:/app/.local-evals
+      - ./backend/eval-results:/app/eval-results:ro
+    depends_on:
+      db: {condition: service_healthy}
+    command: ["python", "-m", "evals.generate_production_shadow_cases", "--help"]
+    networks: [internal, llm_egress]
+
+networks:
+  edge:
+    driver: bridge
+  internal:
+    internal: true
+  llm_egress:
+    driver: bridge
+  eval_internal:
+    internal: true
+
+volumes:
+  postgres_data:
+  postgres_eval_data:

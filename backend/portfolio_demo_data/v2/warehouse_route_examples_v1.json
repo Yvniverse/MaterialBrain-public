@@ -1,0 +1,249 @@
+{
+  "map_code": "WH-RD-MAP-V1",
+  "graph_hash": "654bd5c1aa081881d4cd49091a6667831cdc68b9c3ed09e1918f4303fff5f642",
+  "examples": [
+    {
+      "code": "EX-01-cross-bank",
+      "stop_nodes": [
+        "PF-PORT-IC-100",
+        "PF-PORT-PWR-6",
+        "PF-PORT-LCSC-CONN-100",
+        "PF-PORT-LCSC-CABLE-56"
+      ],
+      "closed_edge_codes": [],
+      "strategy": "graph_v1_exact",
+      "ordered_stop_nodes": [
+        "PF-PORT-LCSC-CONN-100",
+        "PF-PORT-LCSC-CABLE-56",
+        "PF-PORT-PWR-6",
+        "PF-PORT-IC-100"
+      ],
+      "total_distance_m": 31.2,
+      "segments": [
+        {
+          "from": "PACK",
+          "to": "PF-PORT-LCSC-CONN-100",
+          "distance_m": 5.9,
+          "path_nodes": [
+            "PACK",
+            "S-C",
+            "E-12",
+            "E-18",
+            "E-28",
+            "PF-PORT-LCSC-CONN-100"
+          ]
+        },
+        {
+          "from": "PF-PORT-LCSC-CONN-100",
+          "to": "PF-PORT-LCSC-CABLE-56",
+          "distance_m": 4.6,
+          "path_nodes": [
+            "PF-PORT-LCSC-CONN-100",
+            "E-28",
+            "E-36",
+            "E-40",
+            "E-46",
+            "E-56",
+            "PF-PORT-LCSC-CABLE-56"
+          ]
+        },
+        {
+          "from": "PF-PORT-LCSC-CABLE-56",
+          "to": "PF-PORT-PWR-6",
+          "distance_m": 10.2,
+          "path_nodes": [
+            "PF-PORT-LCSC-CABLE-56",
+            "E-56",
+            "E-66",
+            "E-70",
+            "C-70",
+            "W-70",
+            "W-66",
+            "W-56",
+            "PF-PORT-PWR-6"
+          ]
+        },
+        {
+          "from": "PF-PORT-PWR-6",
+          "to": "PF-PORT-IC-100",
+          "distance_m": 5.6,
+          "path_nodes": [
+            "PF-PORT-PWR-6",
+            "W-56",
+            "W-46",
+            "W-40",
+            "W-36",
+            "W-28",
+            "W-18",
+            "PF-PORT-IC-100"
+          ]
+        },
+        {
+          "from": "PF-PORT-IC-100",
+          "to": "PACK",
+          "distance_m": 4.9,
+          "path_nodes": [
+            "PF-PORT-IC-100",
+            "W-18",
+            "W-12",
+            "S-C",
+            "PACK"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "EX-02-west-bank",
+      "stop_nodes": [
+        "PF-PORT-IC-100",
+        "PF-PORT-SENSOR-56",
+        "PF-PORT-CABLE-MIX",
+        "PF-PORT-PWR-6"
+      ],
+      "closed_edge_codes": [],
+      "strategy": "graph_v1_exact",
+      "ordered_stop_nodes": [
+        "PF-PORT-SENSOR-56",
+        "PF-PORT-PWR-6",
+        "PF-PORT-CABLE-MIX",
+        "PF-PORT-IC-100"
+      ],
+      "total_distance_m": 22.8,
+      "segments": [
+        {
+          "from": "PACK",
+          "to": "PF-PORT-SENSOR-56",
+          "distance_m": 5.9,
+          "path_nodes": [
+            "PACK",
+            "S-C",
+            "W-12",
+            "W-18",
+            "W-28",
+            "PF-PORT-SENSOR-56"
+          ]
+        },
+        {
+          "from": "PF-PORT-SENSOR-56",
+          "to": "PF-PORT-PWR-6",
+          "distance_m": 4.6,
+          "path_nodes": [
+            "PF-PORT-SENSOR-56",
+            "W-28",
+            "W-36",
+            "W-40",
+            "W-46",
+            "W-56",
+            "PF-PORT-PWR-6"
+          ]
+        },
+        {
+          "from": "PF-PORT-PWR-6",
+          "to": "PF-PORT-CABLE-MIX",
+          "distance_m": 2.8,
+          "path_nodes": [
+            "PF-PORT-PWR-6",
+            "W-56",
+            "W-46",
+            "PF-PORT-CABLE-MIX"
+          ]
+        },
+        {
+          "from": "PF-PORT-CABLE-MIX",
+          "to": "PF-PORT-IC-100",
+          "distance_m": 4.6,
+          "path_nodes": [
+            "PF-PORT-CABLE-MIX",
+            "W-46",
+            "W-40",
+            "W-36",
+            "W-28",
+            "W-18",
+            "PF-PORT-IC-100"
+          ]
+        },
+        {
+          "from": "PF-PORT-IC-100",
+          "to": "PACK",
+          "distance_m": 4.9,
+          "path_nodes": [
+            "PF-PORT-IC-100",
+            "W-18",
+            "W-12",
+            "S-C",
+            "PACK"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "EX-03-middle-cross-closed",
+      "stop_nodes": [
+        "PF-PORT-CABLE-MIX",
+        "PF-PORT-LCSC-MODULE-56"
+      ],
+      "closed_edge_codes": [
+        "W40-C40",
+        "C40-E40"
+      ],
+      "strategy": "graph_v1_exact",
+      "ordered_stop_nodes": [
+        "PF-PORT-LCSC-MODULE-56",
+        "PF-PORT-CABLE-MIX"
+      ],
+      "total_distance_m": 27.6,
+      "segments": [
+        {
+          "from": "PACK",
+          "to": "PF-PORT-LCSC-MODULE-56",
+          "distance_m": 7.7,
+          "path_nodes": [
+            "PACK",
+            "S-C",
+            "E-12",
+            "E-18",
+            "E-28",
+            "E-36",
+            "E-40",
+            "E-46",
+            "PF-PORT-LCSC-MODULE-56"
+          ]
+        },
+        {
+          "from": "PF-PORT-LCSC-MODULE-56",
+          "to": "PF-PORT-CABLE-MIX",
+          "distance_m": 12.2,
+          "path_nodes": [
+            "PF-PORT-LCSC-MODULE-56",
+            "E-46",
+            "E-56",
+            "E-66",
+            "E-70",
+            "C-70",
+            "W-70",
+            "W-66",
+            "W-56",
+            "W-46",
+            "PF-PORT-CABLE-MIX"
+          ]
+        },
+        {
+          "from": "PF-PORT-CABLE-MIX",
+          "to": "PACK",
+          "distance_m": 7.7,
+          "path_nodes": [
+            "PF-PORT-CABLE-MIX",
+            "W-46",
+            "W-40",
+            "W-36",
+            "W-28",
+            "W-18",
+            "W-12",
+            "S-C",
+            "PACK"
+          ]
+        }
+      ]
+    }
+  ]
+}
