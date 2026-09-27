@@ -227,7 +227,7 @@ cd backend
 python -m venv .venv
 # activate the venv, then:
 pip install -r requirements.txt
-python -m ruff check app scripts tests evals
+python -m ruff check app scripts tests
 python -m pytest
 ```
 
