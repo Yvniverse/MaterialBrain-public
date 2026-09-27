@@ -7,7 +7,7 @@
 Deterministic engineering workflows, grounded AI assistance, Engineering BOM readiness, Product BOM preview, real-time inventory/location truth, and guided warehouse execution in one self-hosted system.
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Public CI](https://github.com/Yvniverse/MaterialBrain-public-staging/actions/workflows/public-ci.yml/badge.svg)](https://github.com/Yvniverse/MaterialBrain-public-staging/actions/workflows/public-ci.yml)
+[![Public CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.1xx-009688?logo=fastapi&logoColor=white)
@@ -190,7 +190,7 @@ CI, Memory Guard, backups, runtime identity, browser evidence, and qualification
 ### 1. Configure
 
 ```bash
-git clone https://github.com/Yvniverse/MaterialBrain-public-staging.git
+git clone https://github.com/Yvniverse/MaterialBrain-public.git
 cd MaterialBrain
 cp .env.example .env
 ```

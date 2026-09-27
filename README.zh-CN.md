@@ -7,7 +7,7 @@
 把确定性工程推理、可追溯 AI 助手、Engineering BOM、Product BOM 只读预览、库存/库位真值和数字孪生拣货整合到一套可自托管系统中。
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Public CI](https://github.com/Yvniverse/MaterialBrain-public-staging/actions/workflows/public-ci.yml/badge.svg)](https://github.com/Yvniverse/MaterialBrain-public-staging/actions/workflows/public-ci.yml)
+[![Public CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.1xx-009688?logo=fastapi&logoColor=white)
@@ -120,7 +120,7 @@ LM5164 的自举电容需要 2.2nF、耐压至少 50V、X7R。
 ## 快速启动
 
 ```bash
-git clone https://github.com/Yvniverse/MaterialBrain-public-staging.git
+git clone https://github.com/Yvniverse/MaterialBrain-public.git
 cd MaterialBrain
 cp .env.example .env
 # 修改数据库强密码；如需 Agent，再配置服务端模型 Key
