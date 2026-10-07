@@ -86,15 +86,21 @@ function valueAt(object, path) {
 }
 
 async function executeSteps(page, shot, steps = []) {
+  const executed = []
   for (const step of steps) {
     const target = step.selector ? page.locator(step.selector) : null
     switch (step.action) {
       case 'click': await target.click({ timeout: 30_000 }); break
+      case 'press':
+        if (target) await target.press(String(step.value))
+        else await page.keyboard.press(String(step.value))
+        break
       case 'fill': await target.fill(String(step.value)); break
       case 'select': await target.selectOption(String(step.value)); break
       case 'check': await target.setChecked(step.value !== false); break
       case 'scroll-visible': await target.scrollIntoViewIfNeeded(); break
       case 'wait-visible': await target.waitFor({ state: 'visible', timeout: step.timeout_ms || 60_000 }); break
+      case 'wait-hidden': await target.waitFor({ state: 'hidden', timeout: step.timeout_ms || 60_000 }); break
       case 'wait-text':
         await page.waitForFunction(({ selector, text }) => document.querySelector(selector)?.textContent.includes(text), { selector: step.selector, text: step.value }, { timeout: step.timeout_ms || 60_000 })
         break
@@ -162,7 +168,9 @@ async function executeSteps(page, shot, steps = []) {
       }
       default: throw new Error('Unsupported UI interaction: ' + step.action)
     }
+    executed.push({ action: step.action, selector: step.selector, key: step.action === 'press' ? String(step.value) : undefined, completed_at_utc: new Date().toISOString() })
   }
+  return executed
 }
 
 async function layoutMetrics(page, kind) {
@@ -247,7 +255,7 @@ async function capture(shot, viewport, formal) {
       const front = await frontendInfo.json()
       const back = await backendInfo.json()
       runtime = { frontend_build_sha: front.frontend_build_sha, backend_build_sha: back.backend_build_sha, base_url: base, frontend_build_time_utc: front.build_time_utc, backend_build_time_utc: back.build_time_utc }
-      if (formal) assertRuntimeIdentity(runtime, sourceCommit)
+      assertRuntimeIdentity(runtime, sourceCommit)
     }
     const hasScene = ['warehouse', 'laboratory', 'recovery'].includes(shot.kind)
     const readInventory = async () => {
@@ -257,13 +265,13 @@ async function capture(shot, viewport, formal) {
     }
     const inventoryBefore = formal && shot.kind === 'recovery' ? await readInventory() : null
     if (hasScene) await waitScene(page, shot.kind)
-    await executeSteps(page, shot, formal ? settings.steps : settings.responsive_steps)
+    const uiSteps = await executeSteps(page, shot, formal ? settings.steps : settings.responsive_steps)
     await page.waitForTimeout(700)
     const scene = hasScene ? await waitScene(page, shot.kind) : null
     const metrics = await layoutMetrics(page, shot.kind)
     assertLayout(metrics, hasScene)
     if (errors.length || responseErrors.length) throw new Error(JSON.stringify({ errors, responseErrors }))
-    const evidence = { kind: shot.kind, verified: true, scene, layout: metrics }
+    const evidence = { kind: shot.kind, verified: true, scene, layout: metrics, ui_steps: uiSteps }
     if (formal) {
       const probes = settings.evidence || {}
       const observedText = async selector => selector ? page.locator(selector).allTextContents() : []
@@ -288,6 +296,7 @@ async function capture(shot, viewport, formal) {
     const path = resolve(output, name)
     await page.screenshot({ path, fullPage: false, animations: 'disabled' })
     const bytes = readFileSync(path)
+    if (bytes.length > 1_500_000) throw new Error('The original PNG exceeds the 1.5 MB gallery limit')
     const record = {
       path: formal ? `docs/screenshots/${name}` : name,
       source_commit: sourceCommit,
@@ -306,17 +315,17 @@ async function capture(shot, viewport, formal) {
     console.log(`CAPTURE ${name} ${record.sha256}`)
     if (formal && shot.kind === 'recovery') {
       if (!settings.cleanup_steps?.length) throw new Error('Configure normal UI recovery cleanup steps')
-      await executeSteps(page, shot, settings.cleanup_steps)
+      const cleanupSteps = await executeSteps(page, shot, settings.cleanup_steps)
       const final = (await sceneDiagnostics(page, shot.kind))?.spatial_execution
       const after = await readInventory()
       const unchanged = ['material_count', 'quantity', 'reserved_quantity', 'available_quantity', 'inventory_value']
         .every(key => inventoryBefore[key] !== undefined && after[key] !== undefined && String(inventoryBefore[key]) === String(after[key]))
-      if (final?.status !== 'COMPLETED' || !final.completed_goal_ids?.includes('HOME') || !unchanged) {
-        throw new Error('Recovery cleanup must complete HOME and preserve actual inventory')
+      if (final?.status !== 'COMPLETED' || !final.completed_goal_ids?.includes('HOME') || final.metrics?.collision_count !== 0 || !unchanged) {
+        throw new Error('Recovery cleanup must complete HOME with zero observed collisions and preserve actual inventory')
       }
       if (errors.length || responseErrors.length) throw new Error(JSON.stringify({ errors, responseErrors }))
-      record.cleanup = { status: final.status, mission_id: final.mission_id, completed_goal_ids: final.completed_goal_ids, current_pose: final.current_pose, inventory_unchanged: unchanged, checked_at_utc: new Date().toISOString() }
-      console.log(`CLEANUP ${final.mission_id} HOME inventory unchanged`)
+      record.cleanup = { status: final.status, mission_id: final.mission_id, completed_goal_ids: final.completed_goal_ids, current_pose: final.current_pose, collision_count: final.metrics.collision_count, inventory_unchanged: unchanged, ui_steps: cleanupSteps, checked_at_utc: new Date().toISOString() }
+      console.log(`CLEANUP ${final.mission_id} HOME collision_count=0 inventory unchanged`)
     }
   } catch (error) {
     await page.screenshot({ path: resolve(proof, `failure-${viewport.width}-${shot.kind}.png`), fullPage: true }).catch(() => {})

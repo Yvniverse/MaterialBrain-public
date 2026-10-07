@@ -2,7 +2,10 @@
 import { nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import robotImage from '../../embodied/assets/materialbrain-bot-v3.png'
 
-const props = defineProps<{ workspace?: boolean; overview?: boolean }>()
+const props = withDefaults(
+  defineProps<{ dock?: 'corner' | 'warehouse' | 'overview' | 'workbench' | 'storage' }>(),
+  { dock: 'corner' },
+)
 
 const emit = defineEmits<{
   open: []
@@ -82,12 +85,19 @@ function loadPosition() {
 
 function placeDefault() {
   const size = bounds()
-  const rightInset = props.workspace && window.innerWidth >= 1200 ? 340 : 22
+  const rightInset = props.dock === 'warehouse' && window.innerWidth >= 1200 ? 340 : 22
   const mobile = window.innerWidth <= 600
-  let top = window.innerHeight - size.height - (mobile ? 8 : 24)
-  const welcome = mobile && props.overview ? document.querySelector('.g-home .g-welcome') : null
-  if (welcome) top = welcome.getBoundingClientRect().top + 64
-  clamp(window.innerWidth - size.width - rightInset, top)
+  const bottomInset = props.dock === 'warehouse' ? 112 : mobile && props.dock === 'storage' ? 8 : 24
+  let x = window.innerWidth - size.width - rightInset
+  let top = window.innerHeight - size.height - bottomInset
+  const welcome = props.dock === 'overview' ? document.querySelector('.g-home .g-welcome') : null
+  if (welcome) {
+    const area = welcome.getBoundingClientRect()
+    x = area.right - size.width - 12
+    top = area.top + 64
+  }
+  if (mobile && props.dock === 'workbench') top = 212
+  clamp(x, top)
 }
 
 function onPointerDown(event: PointerEvent) {
@@ -144,9 +154,12 @@ function onResize() {
   else placeDefault()
 }
 
-watch([() => props.workspace, () => props.overview], () => {
-  if (!hasSavedPosition) void nextTick(placeDefault)
-})
+watch(
+  () => props.dock,
+  () => {
+    if (!hasSavedPosition) void nextTick(placeDefault)
+  },
+)
 
 onMounted(async () => {
   await nextTick()
@@ -173,7 +186,7 @@ onBeforeUnmount(() => {
     ref="launcher"
     type="button"
     class="floating-agent-launcher"
-    :class="{ dragging: drag.active, workspace }"
+    :class="{ dragging: drag.active, workspace: dock === 'warehouse' }"
     :style="{ left: `${position.x}px`, top: `${position.y}px` }"
     aria-label="打开物料大脑；可拖动位置"
     title="点击打开物料大脑；拖动可调整位置"

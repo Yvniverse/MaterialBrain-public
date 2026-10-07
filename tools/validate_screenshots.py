@@ -51,6 +51,20 @@ def _utc(value: object) -> bool:
         return False
 
 
+def recovery_cleanup_valid(cleanup: object, mission_id: str) -> bool:
+    return (
+        isinstance(cleanup, dict)
+        and cleanup.get("status") == "COMPLETED"
+        and cleanup.get("mission_id") == mission_id
+        and isinstance(cleanup.get("completed_goal_ids"), list)
+        and "HOME" in cleanup["completed_goal_ids"]
+        and type(cleanup.get("collision_count")) in (int, float)
+        and cleanup.get("collision_count") == 0
+        and cleanup.get("inventory_unchanged") is True
+        and _utc(cleanup.get("checked_at_utc"))
+    )
+
+
 def validate(root: Path, app_sha: str | None = None, images_only: bool = False) -> dict:
     root = root.resolve()
     errors: list[str] = []
@@ -109,6 +123,8 @@ def validate(root: Path, app_sha: str | None = None, images_only: bool = False) 
             errors.append(f"MISSING {name}")
             continue
         image_bytes = path.read_bytes()
+        if len(image_bytes) > 1_500_000:
+            errors.append(f"PNG SIZE LIMIT {name}")
         digest = hashlib.sha256(image_bytes).hexdigest()
         hashes.append(digest)
         try:
@@ -216,13 +232,7 @@ def validate(root: Path, app_sha: str | None = None, images_only: bool = False) 
             cleanup = entry.get("cleanup", {})
             if not isinstance(cleanup, dict):
                 cleanup = {}
-            if (
-                cleanup.get("status") != "COMPLETED" or cleanup.get("mission_id") != mission_id
-                or not isinstance(cleanup.get("completed_goal_ids"), list)
-                or "HOME" not in cleanup.get("completed_goal_ids", [])
-                or cleanup.get("inventory_unchanged") is not True
-                or not _utc(cleanup.get("checked_at_utc"))
-            ):
+            if not recovery_cleanup_valid(cleanup, mission_id):
                 errors.append(f"RECOVERY CLEANUP {name}")
         review = entry.get("visual_review", {})
         if (

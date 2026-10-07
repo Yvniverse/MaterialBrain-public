@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from validate_screenshots import local_images, validate
+from validate_screenshots import local_images, recovery_cleanup_valid, validate
 
 
 class ScreenshotValidationTests(unittest.TestCase):
@@ -66,6 +66,26 @@ class ScreenshotValidationTests(unittest.TestCase):
     def test_local_markdown_and_html_images_are_checked(self):
         refs = local_images('![scene](docs/a.png) <img src="docs/b.png" /> ![CI](https://example.org/status.svg)')
         self.assertEqual(refs, ["docs/a.png", "docs/b.png"])
+
+    def test_recovery_cleanup_requires_home_and_zero_observed_collisions(self):
+        cleanup = {
+            "status": "COMPLETED", "mission_id": "SM-observed",
+            "completed_goal_ids": ["P-CABLE", "HOME"], "collision_count": 0,
+            "inventory_unchanged": True, "checked_at_utc": "2026-10-08T01:00:00Z",
+        }
+        self.assertTrue(recovery_cleanup_valid(cleanup, "SM-observed"))
+        for collision_count in (None, False, 1):
+            self.assertFalse(recovery_cleanup_valid({**cleanup, "collision_count": collision_count}, "SM-observed"))
+        self.assertFalse(recovery_cleanup_valid({**cleanup, "completed_goal_ids": ["P-CABLE"]}, "SM-observed"))
+
+    def test_recovery_cleanup_rejects_another_mission_or_changed_inventory(self):
+        cleanup = {
+            "status": "COMPLETED", "mission_id": "SM-observed",
+            "completed_goal_ids": ["HOME"], "collision_count": 0,
+            "inventory_unchanged": True, "checked_at_utc": "2026-10-08T01:00:00Z",
+        }
+        self.assertFalse(recovery_cleanup_valid(cleanup, "SM-other"))
+        self.assertFalse(recovery_cleanup_valid({**cleanup, "inventory_unchanged": False}, "SM-observed"))
 
 
 if __name__ == "__main__":

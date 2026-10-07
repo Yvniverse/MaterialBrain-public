@@ -177,6 +177,13 @@ const searchResults = computed(() =>
 const showFloatingAgent = computed(
   () => auth.can('material:view') && !route.path.startsWith('/picking/operator/'),
 )
+const floatingDock = computed(() => {
+  if (route.path === '/dashboard') return 'overview'
+  if (route.path === '/warehouse-twin') return 'warehouse'
+  if (route.path === '/agent') return 'workbench'
+  if (route.path === '/locations') return 'storage'
+  return 'corner'
+})
 function navigate(id: string) {
   const n = navigation.value.find((x) => x.id === id)
   if (!n) return
@@ -293,8 +300,7 @@ function openMaterial(m: Material, twin = false) {
     <template #floating
       ><FloatingAgentLauncher
         v-if="showFloatingAgent"
-        :workspace="route.path === '/warehouse-twin'"
-        :overview="route.path === '/dashboard'"
+        :dock="floatingDock"
         @position-change="agentAnchor = $event"
         @open="agentPanelOpen = true" /><FloatingAgentPanel
         v-if="showFloatingAgent"
