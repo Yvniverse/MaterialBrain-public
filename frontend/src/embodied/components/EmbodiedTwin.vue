@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref } from 'vue'
+import { onMounted, onBeforeUnmount, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../../api/client'
 import { mountProductionLabApp } from './production-runtime.mjs'
@@ -20,6 +20,20 @@ let disposed = false
 let app: ReturnType<typeof mountProductionLabApp> | null = null
 let detachSession: (() => void) | null = null
 let detachSpatial: (() => void) | null = null
+let layoutObserver: ResizeObserver | null = null
+let layoutFrame = 0
+function scheduleLayoutMeasure() {
+  cancelAnimationFrame(layoutFrame)
+  layoutFrame = requestAnimationFrame(() => {
+    if (disposed || !host.value) return
+    const layout = host.value.querySelector<HTMLElement>('.twin-layout')
+    if (!layout) return
+    const minimum = window.innerWidth <= 600 ? 420 : 480
+    const height = Math.max(minimum, window.innerHeight - layout.getBoundingClientRect().top - 16)
+    host.value.style.setProperty('--embodied-stage-height', `${height}px`)
+  })
+}
+watch(notice, scheduleLayoutMeasure)
 const diagnosticRequest = () =>
   window.dispatchEvent(
     new CustomEvent('embodied-lab:diagnostics', { detail: app?.diagnostics() || null }),
@@ -113,6 +127,13 @@ onMounted(async () => {
         mounted.setSpatialLayers(snapshot, layers, mission, execution)
       })
     window.addEventListener('embodied-lab:diagnostics-request', diagnosticRequest)
+    window.addEventListener('resize', scheduleLayoutMeasure)
+    if (typeof ResizeObserver !== 'undefined') {
+      layoutObserver = new ResizeObserver(scheduleLayoutMeasure)
+      layoutObserver.observe(host.value)
+      if (host.value.parentElement) layoutObserver.observe(host.value.parentElement)
+    }
+    scheduleLayoutMeasure()
   } catch (err) {
     error.value = err instanceof Error ? err.message : '实验仓加载失败'
   }
@@ -122,6 +143,9 @@ onBeforeUnmount(() => {
   detachSession?.()
   detachSpatial?.()
   window.removeEventListener('embodied-lab:diagnostics-request', diagnosticRequest)
+  window.removeEventListener('resize', scheduleLayoutMeasure)
+  cancelAnimationFrame(layoutFrame)
+  layoutObserver?.disconnect()
   app?.dispose()
   app = null
 })
@@ -195,8 +219,8 @@ defineExpose({ diagnostics: () => app?.diagnostics() || null })
   display: none;
 }
 :deep(.twin-layout) {
-  height: calc(100dvh - 295px);
-  min-height: 520px;
+  height: var(--embodied-stage-height, calc(100dvh - 340px));
+  min-height: 420px;
   grid-template-columns: 190px minmax(0, 1fr) 280px;
 }
 :deep(.mb-lab .page-heading) {
@@ -240,8 +264,8 @@ defineExpose({ diagnostics: () => app?.diagnostics() || null })
   :deep(.twin-layout) {
     display: block;
     position: relative;
-    height: calc(100dvh - 315px);
-    min-height: 520px;
+    height: var(--embodied-stage-height, calc(100dvh - 372px));
+    min-height: 420px;
   }
   :deep(.mb-lab .stage-panel) {
     height: 100%;

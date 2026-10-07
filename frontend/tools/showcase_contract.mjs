@@ -58,6 +58,9 @@ export function assertLayout(metrics, hasScene) {
     } else {
       const fraction = stage.visibleArea / (metrics.viewport.width * metrics.viewport.height)
       if (metrics.viewport.width >= 1440 && fraction < 0.24) issues.push('The WebGL stage is not a desktop focal area')
+      if (metrics.viewport.width >= 768 && stage.top + stage.height > metrics.viewport.height + 2) {
+        issues.push('The WebGL stage extends below the first viewport')
+      }
       if (metrics.viewport.width >= 1024 && stage.top >= metrics.viewport.height * 0.6) {
         issues.push('The WebGL stage starts too far below the first viewport')
       }

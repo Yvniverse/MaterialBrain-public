@@ -2,7 +2,7 @@
 import { nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import robotImage from '../../embodied/assets/materialbrain-bot-v3.png'
 
-const props = defineProps<{ workspace?: boolean }>()
+const props = defineProps<{ workspace?: boolean; overview?: boolean }>()
 
 const emit = defineEmits<{
   open: []
@@ -83,7 +83,11 @@ function loadPosition() {
 function placeDefault() {
   const size = bounds()
   const rightInset = props.workspace && window.innerWidth >= 1200 ? 340 : 22
-  clamp(window.innerWidth - size.width - rightInset, window.innerHeight - size.height - 24)
+  const mobile = window.innerWidth <= 600
+  let top = window.innerHeight - size.height - (mobile ? 8 : 24)
+  const welcome = mobile && props.overview ? document.querySelector('.g-home .g-welcome') : null
+  if (welcome) top = welcome.getBoundingClientRect().top + 64
+  clamp(window.innerWidth - size.width - rightInset, top)
 }
 
 function onPointerDown(event: PointerEvent) {
@@ -140,12 +144,9 @@ function onResize() {
   else placeDefault()
 }
 
-watch(
-  () => props.workspace,
-  () => {
-    if (!hasSavedPosition) placeDefault()
-  },
-)
+watch([() => props.workspace, () => props.overview], () => {
+  if (!hasSavedPosition) void nextTick(placeDefault)
+})
 
 onMounted(async () => {
   await nextTick()

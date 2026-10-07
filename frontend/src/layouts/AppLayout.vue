@@ -294,6 +294,7 @@ function openMaterial(m: Material, twin = false) {
       ><FloatingAgentLauncher
         v-if="showFloatingAgent"
         :workspace="route.path === '/warehouse-twin'"
+        :overview="route.path === '/dashboard'"
         @position-change="agentAnchor = $event"
         @open="agentPanelOpen = true" /><FloatingAgentPanel
         v-if="showFloatingAgent"

@@ -41,6 +41,12 @@ describe('real screenshot release contract', () => {
     expect(() => assertLayout({ ...layout, stage: { ...layout.stage, top: 700 } }, true)).toThrow('below')
     expect(() => assertLayout({ ...layout, stage: { ...layout.stage, visibleArea: 100000 } }, true)).toThrow('focal')
   })
+  it.each(responsiveViewports.filter(viewport => viewport.width >= 768))('rejects a clipped stage at $width pixels while allowing two pixels of rounding', viewport => {
+    const stage = { width: Math.min(840, viewport.width - 32), height: 600, top: viewport.height - 597, visibleArea: 504000 }
+    const desktop = { ...layout, viewport, documentWidth: viewport.width, stage }
+    expect(() => assertLayout(desktop, true)).toThrow('extends below')
+    expect(() => assertLayout({ ...desktop, stage: { ...stage, top: viewport.height - 598 } }, true)).not.toThrow()
+  })
   it('rejects overflow, the legacy shell and an obscured primary action', () => {
     expect(() => assertLayout({ ...layout, documentWidth: 1500 }, false)).toThrow('overflow')
     expect(() => assertLayout({ ...layout, shellLight: false }, false)).toThrow('shell')
@@ -49,6 +55,7 @@ describe('real screenshot release contract', () => {
   })
   it('accepts a useful mobile stage without imposing desktop columns', () => {
     expect(() => assertLayout({ ...layout, viewport: { width: 390, height: 844 }, documentWidth: 390, stage: { width: 358, height: 360, top: 290, visibleArea: 128880 } }, true)).not.toThrow()
+    expect(() => assertLayout({ ...layout, viewport: { width: 390, height: 844 }, documentWidth: 390, stage: { width: 358, height: 620, top: 290, visibleArea: 198332 } }, true)).not.toThrow()
   })
   it('does not accept an idle robot image as a recovery trace', () => {
     expect(() => assertCaptureEvidence('recovery', { kind: 'recovery', verified: true, scene, recovery_events: ['REPLAN_READY'] })).toThrow('actual server')
