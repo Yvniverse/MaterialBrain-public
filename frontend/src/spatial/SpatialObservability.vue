@@ -297,7 +297,8 @@ function violationText(value: unknown) {
 </template>
 <style scoped>
 .spatial-observability {
-  margin: 0 24px 16px;
+  position: relative;
+  margin: 0 0 12px;
   padding: 12px 14px;
   border: 1px solid #d5e5ec;
   border-radius: 12px;
@@ -334,10 +335,22 @@ function violationText(value: unknown) {
   padding: 6px 7px;
 }
 .spatial-observability-body {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: min(720px, 100%);
+  max-height: calc(100dvh - 225px);
+  overflow: auto;
+  z-index: 24;
+  padding: 16px;
+  border: 1px solid var(--g-line);
+  border-radius: 14px;
+  background: var(--g-paper);
+  box-shadow: 0 12px 38px #315f7530;
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
   gap: 13px;
-  margin-top: 14px;
+  margin-top: 0;
   align-items: start;
 }
 .spatial-planning-panel {
@@ -445,7 +458,7 @@ summary {
 }
 @media (max-width: 720px) {
   .spatial-observability {
-    margin: 0 12px 12px;
+    margin: 0 0 12px;
     padding: 12px;
   }
   .spatial-toolbar {
@@ -455,7 +468,7 @@ summary {
     gap: 5px;
   }
   .spatial-layer-controls button {
-    font-size: 11px;
+    font-size: 14px;
   }
 }
 </style>

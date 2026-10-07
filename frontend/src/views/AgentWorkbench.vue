@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import AgentConsole from '../components/agent/AgentConsole.vue'
+import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import GlacierBrainFrame from '../glacier/components/GlacierBrainFrame.vue'
+import GIcon from '../glacier/components/GIcon.vue'
 import AgentResultCard from '../components/agent/AgentResultCard.vue'
 import AgentTimeline from '../components/agent/AgentTimeline.vue'
 import ApprovalCard from '../components/agent/ApprovalCard.vue'
-import { useWarehouseAgent } from '../composables/useWarehouseAgent'
+import { useWarehouseAgent, type AgentConversationTurn } from '../composables/useWarehouseAgent'
 import { useWarehouseAgentSuggestions } from '../composables/useWarehouseAgentSuggestions'
 import { useAuthStore } from '../stores/auth'
-
-const auth = useAuthStore()
+const auth = useAuthStore(),
+  router = useRouter()
 const {
   message,
   loading,
@@ -17,6 +19,8 @@ const {
   proposals,
   proposalBusyId,
   localError,
+  proposalError,
+  conversation,
   loadProposals,
   submit,
   selectCandidate,
@@ -27,104 +31,161 @@ const {
   reject,
 } = useWarehouseAgent()
 const { suggestions, suggestionsLoading, loadSuggestions } = useWarehouseAgentSuggestions()
-
-onMounted(async () => {
-  await loadSuggestions()
-  try {
-    await loadProposals()
-  } catch {
-    // 页面仍可提交查询；全局拦截器已显示具体错误。
-  }
+const mode = ref('select'),
+  historyOpen = ref(false),
+  historicalTurn = ref<AgentConversationTurn | null>(null)
+const currentQuestion = computed(() => conversation.value.at(-1)?.question || '')
+const hasEngineering = computed(() =>
+  Boolean(result.value?.entities.engineering_research || result.value?.entities.power_design),
+)
+const modeSeeds: Record<string, string> = {
+  find: '查找物料，并列出可用库存与库位：',
+  select: '请根据以下工程需求比较候选物料：',
+  bom: '分析项目 BOM 的齐套情况和缺料项：',
+  pick: '请帮我定位这些物料所在的库位：',
+}
+function changeMode(id: string) {
+  mode.value = id
+  if (!message.value) message.value = modeSeeds[id] || ''
+}
+function send() {
+  void submit()
+}
+function sendSuggestion(question: string) {
+  message.value = question
+  send()
+}
+function startNew() {
+  newConversation()
+  historicalTurn.value = null
+}
+function openHistory() {
+  historicalTurn.value = null
+  historyOpen.value = true
+}
+onMounted(() => {
+  void loadSuggestions()
+  void loadProposals().catch(() => {
+    /* Existing results remain usable. */
+  })
 })
 </script>
-
 <template>
-  <div class="page agent-page">
-    <div class="page-header">
-      <div>
-        <div class="agent-kicker">MATERIALBRAIN</div>
-        <h1 class="page-title">物料大脑</h1>
-        <div class="page-subtitle">
-          找物料、查库存、看库位、分析 BOM。需要改动库存时，会先请你确认。
-        </div>
+  <GlacierBrainFrame
+    :question="currentQuestion"
+    :mode="mode"
+    :loading="loading"
+    :history-count="conversation.length"
+    @mode="changeMode"
+    @history="openHistory"
+    @new="startNew"
+  >
+    <template #results>
+      <div v-if="candidateHistory && result && result !== candidateHistory" class="g-inline-notice">
+        <button
+          class="g-text-btn"
+          :disabled="loading"
+          data-testid="return-to-candidates"
+          @click="restoreCandidateResults"
+        >
+          ← 返回候选列表
+        </button>
       </div>
-      <el-tooltip
-        content="物料大脑不会直接修改库存，所有库存变更都会先让你确认。"
-        placement="bottom-end"
-      >
-        <div class="safety-badge">
-          <i></i><span><b>安全模式</b>库存变更需确认</span>
-        </div>
-      </el-tooltip>
-      <button
-        type="button"
-        class="new-conversation"
-        data-testid="new-conversation"
-        :disabled="loading"
-        @click="newConversation"
-      >
-        ＋ 新对话
-      </button>
-    </div>
-
-    <AgentConsole
-      v-model="message"
-      :loading="loading"
-      :suggestions="suggestions"
-      :suggestions-loading="suggestionsLoading"
-      @submit="submit"
-    />
-
-    <div
-      v-if="candidateHistory && result && result !== candidateHistory"
-      class="candidate-return-bar"
-    >
-      <button
-        type="button"
-        class="candidate-return-button"
-        data-testid="return-to-candidates"
-        :disabled="loading"
-        @click="restoreCandidateResults"
-      >
-        ← 返回刚才的候选列表
-      </button>
-      <small>可以查看其他候选；返回不会重新查询，也不会调用模型。</small>
-    </div>
-
-    <el-alert
-      v-if="localError"
-      class="agent-error"
-      :title="localError"
-      type="error"
-      show-icon
-      :closable="false"
-    />
-
-    <main class="result-column">
+      <div v-if="localError" class="g-inline-notice" role="alert">
+        <span>{{ localError }}</span
+        ><button
+          class="g-text-btn"
+          :disabled="loading"
+          @click="submit(conversation.at(-1)?.question)"
+        >
+          重试
+        </button>
+      </div>
       <AgentResultCard v-if="result" :result="result" @select-candidate="selectCandidate" />
-      <div v-else-if="loading" class="working-card">
-        <span></span>
-        <div><b>正在查询</b><small>正在核对真实库存与库位信息</small></div>
-      </div>
-      <div v-else class="empty-result">
-        <div class="brain-mark">MB</div>
-        <b>从一个仓库问题开始</b>
-        <span>答案、库存、库位和可执行操作会显示在这里。</span>
-      </div>
-      <AgentTimeline
-        v-if="loading || events.length"
-        class="result-process"
-        :events="events"
-        :running="loading"
-      />
-    </main>
-
-    <section v-if="proposals.length" class="proposal-section">
-      <header>
-        <div><h2>库存变更确认</h2></div>
-        <small>批准前不会修改库存</small>
-      </header>
-      <div class="proposal-grid">
+      <section v-else class="g-card g-brain-empty">
+        <span class="g-pictogram blue"><GIcon name="brain" :size="28" /></span>
+        <h2>从一个工程需求开始</h2>
+        <p>候选、库存、库位和下一步操作，会整理在这里。</p>
+        <div class="g-suggestion-list">
+          <button
+            v-for="s in suggestions"
+            :key="s.text"
+            class="g-btn"
+            :disabled="loading"
+            @click="sendSuggestion(s.text)"
+          >
+            {{ s.text }}<GIcon name="arrow" :size="16" /></button
+          ><span v-if="suggestionsLoading" class="g-muted">正在读取建议</span>
+        </div>
+      </section>
+    </template>
+    <template #process
+      ><details v-if="loading || events.length" class="g-process">
+        <summary>
+          <span>整理过程</span
+          ><span>{{ events.length }} 个记录{{ loading ? ' · 处理中' : '' }}</span>
+        </summary>
+        <AgentTimeline :events="events" :running="loading" /></details
+    ></template>
+    <template #composer
+      ><form class="g-composer" @submit.prevent="send">
+        <textarea
+          v-model="message"
+          data-testid="agent-query-input"
+          rows="2"
+          aria-label="向物料大脑提问"
+          placeholder="继续补充负载、封装或成本要求…"
+          @keydown.ctrl.enter.prevent="send"
+          @keydown.meta.enter.prevent="send"
+        />
+        <div class="g-composer-foot">
+          <span class="g-composer-context"
+            ><GIcon name="brain" :size="15" />与悬浮助手共用当前会话</span
+          >
+          <div class="g-composer-actions">
+            <span>Ctrl / ⌘ + Enter</span
+            ><button
+              class="g-icon-btn primary"
+              type="submit"
+              data-testid="agent-submit"
+              :disabled="loading || !message.trim()"
+              aria-label="提交问题"
+            >
+              <GIcon name="arrow" />
+            </button>
+          </div>
+        </div></form
+    ></template>
+    <template #context
+      ><section class="g-card g-context-card">
+        <header><span>工程上下文</span><GIcon name="folder" /></header>
+        <h3>{{ hasEngineering ? '当前工程任务' : '当前任务' }}</h3>
+        <p>{{ currentQuestion || '先描述目标或选择一条建议。' }}</p>
+        <div class="g-row between">
+          <span class="g-tag">{{ conversation.length }} 轮对话</span
+          ><span class="g-muted">共享会话</span>
+        </div>
+        <button
+          class="g-btn dark full"
+          @click="router.push(auth.can('material:view') ? '/products' : '/projects')"
+        >
+          查看 BOM / 项目<GIcon name="arrow" :size="17" />
+        </button>
+      </section>
+      <section class="g-card g-context-card">
+        <header><span>继续工作</span><GIcon name="layers" /></header>
+        <button class="g-btn full" @click="router.push('/materials')">在物料库查看资料</button
+        ><button class="g-btn full" @click="router.push('/warehouse-twin')">
+          打开数字孪生仓库
+        </button>
+        <p>当前选择和参数保留在结果卡中；展开卡片可查看完整工程明细。</p>
+      </section>
+      <section v-if="proposals.length || proposalError" class="g-approval-panel">
+        <header class="g-card-heading">
+          <h3>待确认操作</h3>
+          <button class="g-text-btn" @click="loadProposals(true).catch(() => {})">刷新</button>
+        </header>
+        <p v-if="proposalError" role="status" class="g-muted">{{ proposalError }}</p>
         <ApprovalCard
           v-for="proposal in proposals"
           :key="proposal.id"
@@ -134,212 +195,30 @@ onMounted(async () => {
           @approve="approve"
           @reject="reject"
         />
+      </section>
+    </template>
+  </GlacierBrainFrame>
+  <el-drawer v-model="historyOpen" title="当前会话记录" size="min(880px,96vw)" append-to-body>
+    <div v-if="!historicalTurn" class="g-history-list">
+      <button
+        v-for="t in [...conversation].reverse()"
+        :key="t.id"
+        class="g-history-row"
+        @click="historicalTurn = t"
+      >
+        <b>{{ t.question }}</b
+        ><span>{{ t.pending ? '处理中' : t.response ? '查看结果' : '未完成' }}</span>
+      </button>
+      <p v-if="!conversation.length">还没有会话记录。</p>
+    </div>
+    <template v-else
+      ><button class="g-text-btn" @click="historicalTurn = null">← 返回记录</button>
+      <h3>{{ historicalTurn.question }}</h3>
+      <p class="g-muted">历史快照：仅供查阅，不切换当前工程选择。</p>
+      <div inert class="g-history-snapshot">
+        <AgentResultCard v-if="historicalTurn.response" :result="historicalTurn.response" />
       </div>
-    </section>
-  </div>
+      <p v-if="historicalTurn.error">{{ historicalTurn.error }}</p></template
+    >
+  </el-drawer>
 </template>
-
-<style scoped>
-.agent-page {
-  max-width: 1180px;
-}
-.agent-kicker {
-  margin-bottom: 5px;
-  color: #3479bd;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-}
-.safety-badge {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 13px;
-  border: 1px solid #d5e6dc;
-  border-radius: 11px;
-  background: #f2faf6;
-  color: #587767;
-  cursor: help;
-}
-.safety-badge > i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #39a479;
-  box-shadow: 0 0 0 5px #39a47918;
-}
-.safety-badge > span {
-  display: flex;
-  flex-direction: column;
-  font-size: var(--mb-font-secondary);
-}
-.safety-badge b {
-  color: #2c785c;
-  font-size: var(--mb-font-body);
-}
-.new-conversation {
-  min-height: 44px;
-  padding: 8px 13px;
-  border: 1px solid #cdddea;
-  border-radius: 10px;
-  background: #fff;
-  color: #326f9f;
-  cursor: pointer;
-  font-size: var(--mb-font-secondary);
-  font-weight: 650;
-}
-.new-conversation:disabled {
-  cursor: wait;
-  opacity: 0.5;
-}
-.agent-error {
-  margin-top: 16px;
-}
-.candidate-return-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 16px;
-  padding: 10px 12px;
-  border: 1px solid #c5dceb;
-  border-radius: 11px;
-  background: #f7fbfe;
-}
-.candidate-return-button {
-  border: 0;
-  background: transparent;
-  color: #286d9f;
-  cursor: pointer;
-  font-weight: 700;
-}
-.candidate-return-button:disabled {
-  cursor: wait;
-  opacity: 0.5;
-}
-.candidate-return-bar small {
-  color: #70869a;
-}
-.result-column {
-  display: grid;
-  min-width: 0;
-  gap: 14px;
-  margin-top: 20px;
-}
-.working-card,
-.empty-result {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 240px;
-  border: 1px dashed #bfd0df;
-  border-radius: 16px;
-  background: #f9fbfd;
-  color: #667f95;
-}
-.working-card {
-  gap: 13px;
-}
-.working-card > span {
-  width: 24px;
-  height: 24px;
-  border: 3px solid #b8d4ea;
-  border-top-color: #3286c8;
-  border-radius: 50%;
-  animation: working-spin 0.8s linear infinite;
-}
-.working-card > div {
-  display: flex;
-  flex-direction: column;
-}
-.working-card b {
-  color: #375b7a;
-  font-size: var(--mb-font-card-title);
-}
-.working-card small {
-  margin-top: 4px;
-  font-size: var(--mb-font-secondary);
-}
-.empty-result {
-  flex-direction: column;
-  text-align: center;
-}
-.brain-mark {
-  display: grid;
-  place-items: center;
-  width: 58px;
-  height: 58px;
-  margin-bottom: 12px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #66b6f0, #336fbb);
-  box-shadow: 0 10px 25px #346eac30;
-  color: #fff;
-  font-weight: 900;
-}
-.empty-result b {
-  color: #3b5771;
-  font-size: var(--mb-font-card-title);
-}
-.empty-result span {
-  margin-top: 6px;
-  color: #71869a;
-  font-size: var(--mb-font-body);
-}
-.result-process {
-  margin-top: 2px;
-}
-.proposal-section {
-  margin-top: 24px;
-  padding-top: 22px;
-  border-top: 1px solid #dfe7ef;
-}
-.proposal-section > header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-.proposal-section h2 {
-  margin: 0;
-  color: #415771;
-  font-size: var(--mb-font-section-title);
-}
-.proposal-section header small {
-  color: #71869a;
-  font-size: var(--mb-font-secondary);
-}
-.proposal-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  gap: 12px;
-}
-@keyframes working-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .working-card > span {
-    animation-duration: 0.01ms;
-  }
-}
-@media (max-width: 850px) {
-  .page-header {
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-  .safety-badge {
-    margin-top: 8px;
-  }
-}
-@media (max-width: 600px) {
-  .proposal-grid {
-    grid-template-columns: 1fr;
-  }
-  .proposal-section > header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 5px;
-  }
-}
-</style>

@@ -63,8 +63,8 @@ const children: RouteRecordRaw[] = [
   },
   {
     path: 'warehouse-lab',
-    component: () => import('../embodied/components/EmbodiedTwin.vue'),
-    meta: { title: '具身导航实验仓', permission: ['material:view', 'location:manage', 'picking:view'] },
+    redirect: (to) => ({ path: '/warehouse-twin', query: { ...to.query, workspace: 'robot-lab' }, hash: to.hash }),
+    meta: { title: '具身智能实验室', permission: ['material:view', 'location:manage', 'picking:view'] },
   },
   {
     path: 'warehouse-twin',

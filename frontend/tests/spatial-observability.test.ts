@@ -9,6 +9,7 @@ import FloatingAgentConversation from '../src/components/agent/FloatingAgentConv
 import SpatialObservability from '../src/spatial/SpatialObservability.vue'
 import SpatialNavInspector from '../src/spatial/SpatialNavInspector.vue'
 import SpatialBenchmarkDrawer from '../src/spatial/SpatialBenchmarkDrawer.vue'
+import SpatialReplayDrawer from '../src/spatial/SpatialReplayDrawer.vue'
 import { currentZones, formatMetric, formatPercent } from '../src/spatial/presentation'
 import {
   acceptSpatialMission,
@@ -534,6 +535,29 @@ describe('server projection, planning boundary, and request epochs', () => {
 })
 
 describe('spatial mission cards and observability', () => {
+  it.each([
+    ['replay', SpatialReplayDrawer],
+    ['benchmark', SpatialBenchmarkDrawer],
+  ] as const)(
+    'opens the %s dialog above the shell and returns keyboard focus',
+    async (_name, component) => {
+      mockReads()
+      const opener = document.createElement('button')
+      document.body.append(opener)
+      opener.focus()
+      const wrapper = mount(component, { props: { open: true } })
+      await flushPromises()
+      const dialog = document.querySelector<HTMLElement>('[role="dialog"]')!
+      expect(dialog.parentElement?.parentElement).toBe(document.body)
+      expect(document.activeElement).toBe(dialog)
+      dialog.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
+      expect(wrapper.emitted('close')).toHaveLength(1)
+      await wrapper.setProps({ open: false })
+      expect(document.activeElement).toBe(opener)
+      wrapper.unmount()
+      opener.remove()
+    },
+  )
   it('keeps scan labels unique across compact cards for the same mission', async () => {
     mockReads()
     acceptSpatialMission(projection('AWAITING_HANDOFF', 4))
@@ -722,7 +746,10 @@ describe('spatial mission cards and observability', () => {
   })
   it('loads real benchmark values with the cold timeout and keeps Nav2 NOT_RUN and null metrics visible', async () => {
     const get = mockReads()
-    const wrapper = mount(SpatialBenchmarkDrawer, { props: { open: true } })
+    const wrapper = mount(SpatialBenchmarkDrawer, {
+      props: { open: true },
+      global: { stubs: { teleport: true } },
+    })
     await flushPromises()
     expect(get).toHaveBeenCalledWith('/spatial/benchmarks', { timeout: 180_000 })
     expect(wrapper.text()).toContain('Nav2 State Lattice')

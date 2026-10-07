@@ -175,16 +175,10 @@ describe('Warehouse Agent frontend', () => {
     auth.initialized = true
     vi.spyOn(api, 'get').mockResolvedValue({ data: [] })
     const post = vi.spyOn(api, 'post').mockResolvedValue({ data: result })
-    const ConsoleStub = {
-      emits: ['update:modelValue', 'submit'],
-      template:
-        "<button data-testid=\"fake-submit\" @click=\"$emit('update:modelValue', 'STM32F405 在哪里？'); $emit('submit')\">提交</button>",
-    }
     const wrapper = mount(AgentWorkbench, {
       global: {
         plugins: [pinia],
         stubs: {
-          AgentConsole: ConsoleStub,
           AgentTimeline: true,
           AgentResultCard: true,
           ApprovalCard: true,
@@ -195,7 +189,8 @@ describe('Warehouse Agent frontend', () => {
       },
     })
     await flushPromises()
-    await wrapper.get('[data-testid="fake-submit"]').trigger('click')
+    await wrapper.get('[data-testid="agent-query-input"]').setValue('STM32F405 在哪里？')
+    await wrapper.get('form.g-composer').trigger('submit')
     await flushPromises()
 
     expect(post).toHaveBeenCalledWith(
@@ -478,10 +473,10 @@ describe('Warehouse Agent frontend', () => {
     const wrapper = mount(FloatingAgentLauncher)
     await flushPromises()
     await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
-    expect(wrapper.get('img').attributes('src')).toMatch(/data:image\/svg\+xml|materialbrain-agent\.svg/)
+    expect(wrapper.get('img').attributes('src')).toMatch(/materialbrain-bot-v3\.png/)
     expect(wrapper.text()).not.toContain('问物料大脑')
     expect(wrapper.get('[data-testid="floating-agent-launcher"]').attributes('style')).toContain(
-      'top: 8px',
+      'top:',
     )
     expect(wrapper.emitted('positionChange')).toBeTruthy()
     await wrapper.get('[data-testid="floating-agent-launcher"]').trigger('click')

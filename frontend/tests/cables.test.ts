@@ -42,7 +42,7 @@ describe('Cable management page', () => {
     expect(routerSource).toContain("path: 'cables'")
     expect(routerSource).toContain("import('../views/Cables.vue')")
     expect(layoutSource).toMatch(
-      /\['\/cables',\s*'线缆管理',\s*Connection,\s*'material:view'\]/,
+      /path: '\/cables',[\s\S]*?label: '线缆管理',[\s\S]*?permission: 'material:view'/,
     )
   })
 

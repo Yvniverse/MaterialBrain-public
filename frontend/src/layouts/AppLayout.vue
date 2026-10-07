@@ -1,84 +1,189 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import {
-  Box,
-  Connection,
-  DataAnalysis,
-  Document,
-  Fold,
-  Goods,
-  Location,
-  MagicStick,
-  Menu,
-  Operation,
-  Setting,
-  ShoppingCart,
-  Tickets,
-  User,
-} from '@element-plus/icons-vue'
+import GlacierShell from '../glacier/components/GlacierShell.vue'
 import { useAuthStore } from '../stores/auth'
+import { api } from '../api/client'
+import type { Material, Page } from '../types'
+import { materialPrimaryIdentity } from '../utils/materialIdentity'
+import { resetWarehouseAgentSession } from '../composables/useWarehouseAgent'
 import FloatingAgentLauncher from '../components/agent/FloatingAgentLauncher.vue'
 import FloatingAgentPanel from '../components/agent/FloatingAgentPanel.vue'
-import { resetWarehouseAgentSession } from '../composables/useWarehouseAgent'
-
-const auth = useAuthStore()
-const route = useRoute()
-const router = useRouter()
-const collapsed = ref(false)
-const mobile = ref(false)
-const agentPanelOpen = ref(false)
-const frontendBuildSha = import.meta.env.VITE_BUILD_SHA || 'unknown'
-const frontendBuildShort = frontendBuildSha === 'unknown' ? 'unknown' : frontendBuildSha.slice(0, 7)
+const auth = useAuthStore(),
+  route = useRoute(),
+  router = useRouter()
+const agentPanelOpen = ref(false),
+  searchOpen = ref(false),
+  search = ref('')
+const foundMaterials = ref<Material[]>([]),
+  searchBusy = ref(false),
+  searchError = ref('')
+let searchTimer: ReturnType<typeof setTimeout> | undefined,
+  searchGeneration = 0
 const agentAnchor = ref({ x: 0, y: 8, width: 100, height: 100 })
-const showFloatingAgent = computed(
-  () =>
-    !['/agent', '/warehouse-twin'].includes(route.path) &&
-    !route.path.startsWith('/picking/operator') &&
-    auth.can('material:view'),
+const frontendBuildSha = import.meta.env.VITE_BUILD_SHA || 'unknown'
+const entries = [
+  {
+    id: 'home',
+    path: '/dashboard',
+    label: '工作概览',
+    icon: 'grid',
+    group: '工作空间',
+    permission: 'dashboard:view',
+  },
+  {
+    id: 'brain',
+    path: '/agent',
+    label: '物料大脑',
+    icon: 'brain',
+    group: '工作空间',
+    permission: 'material:view',
+  },
+  {
+    id: 'warehouse',
+    path: '/warehouse-twin',
+    label: '数字孪生仓库',
+    icon: 'cube',
+    tag: '3D',
+    group: '工作空间',
+    permission: ['material:view', 'location:manage', 'picking:view'],
+  },
+  {
+    id: 'locations',
+    path: '/locations',
+    label: '可视化库位',
+    icon: 'drawer',
+    group: '工作空间',
+    permission: ['location:manage', 'material:view'],
+  },
+  {
+    id: 'materials',
+    path: '/materials',
+    label: '物料库',
+    icon: 'layers',
+    group: '工程与库存',
+    permission: 'material:view',
+  },
+  {
+    id: 'bom',
+    path: '/products',
+    label: 'BOM / 生产',
+    icon: 'doc',
+    group: '工程与库存',
+    permission: ['material:view', 'project:view', 'project:manage', 'picking:view'],
+  },
+  {
+    id: 'inventory',
+    path: '/inventory',
+    label: '库存操作',
+    icon: 'activity',
+    group: '工程与库存',
+    permission: 'inventory:operate',
+  },
+  {
+    id: 'movements',
+    path: '/movements',
+    label: '库存流水',
+    icon: 'history',
+    group: '工程与库存',
+    permission: 'inventory:view',
+  },
+  {
+    id: 'stocktakes',
+    path: '/stocktakes',
+    label: '盘点管理',
+    icon: 'check',
+    group: '工程与库存',
+    permission: 'inventory:view',
+  },
+  {
+    id: 'cables',
+    path: '/cables',
+    label: '线缆管理',
+    icon: 'link',
+    group: '资源与管理',
+    permission: 'material:view',
+  },
+  {
+    id: 'categories',
+    path: '/categories',
+    label: '分类管理',
+    icon: 'grid',
+    group: '资源与管理',
+    permission: 'category:manage',
+  },
+  {
+    id: 'suppliers',
+    path: '/suppliers',
+    label: '供应商',
+    icon: 'cube',
+    group: '资源与管理',
+    permission: 'supplier:manage',
+  },
+  {
+    id: 'purchases',
+    path: '/purchases',
+    label: '采购管理',
+    icon: 'doc',
+    group: '资源与管理',
+    permission: 'purchase:manage',
+  },
+  {
+    id: 'users',
+    path: '/users',
+    label: '用户与角色',
+    icon: 'user',
+    group: '资源与管理',
+    permission: ['user:manage', 'role:manage'],
+  },
+  {
+    id: 'audit',
+    path: '/audit',
+    label: '审计日志',
+    icon: 'history',
+    group: '资源与管理',
+    permission: 'audit:view',
+  },
+  {
+    id: 'settings',
+    path: '/settings',
+    label: '系统设置',
+    icon: 'settings',
+    group: '资源与管理',
+    permission: 'role:manage',
+  },
+]
+const navigation = computed(() =>
+  entries
+    .filter((n) => auth.can(n.permission))
+    .map((n) => ({
+      ...n,
+      path: n.id === 'bom' && !auth.can('material:view') ? '/projects' : n.path,
+    })),
 )
-const navigation = [
-  ['/dashboard', '仪表盘', DataAnalysis, 'dashboard:view'],
-  ['/agent', '物料大脑', MagicStick, 'material:view'],
-  ['/locations', '库位管理', Location, ['location:manage', 'material:view']],
-  ['/cables', '线缆管理', Connection, 'material:view'],
-  ['/warehouse-twin', '数字孪生仓库', Location, ['material:view', 'location:manage', 'picking:view']],
-  ['/warehouse-lab', '具身导航实验仓', Location, ['material:view', 'location:manage', 'picking:view']],
-  ['/categories', '分类管理', Box, 'category:manage'],
-  ['/materials', '物料管理', Goods, 'material:view'],
-  ['/inventory', '库存操作', Operation, 'inventory:operate'],
-  ['/movements', '库存流水', Tickets, 'inventory:view'],
-  [
-    '/products',
-    'BOM / 生产',
-    Document,
-    ['material:view', 'project:view', 'project:manage', 'picking:view'],
-  ],
-  ['/stocktakes', '盘点管理', Operation, 'inventory:view'],
-  ['/suppliers', '供应商', ShoppingCart, 'supplier:manage'],
-  ['/purchases', '采购管理', ShoppingCart, 'purchase:manage'],
-  ['/users', '用户与角色', User, ['user:manage', 'role:manage']],
-  ['/audit', '审计日志', Tickets, 'audit:view'],
-  ['/settings', '系统设置', Setting, 'role:manage'],
-] as const
-const visibleNavigation = computed(() => navigation.filter((item) => auth.can(item[3])))
-function closeMobileNavigation() {
-  mobile.value = false
-}
-function handleNavigationClick(path: string) {
-  closeMobileNavigation()
-  if (path === '/locations' && route.path === '/locations') {
+const active = computed(() =>
+  route.path === '/warehouse-lab'
+    ? 'warehouse'
+    : route.path.startsWith('/projects')
+      ? 'bom'
+      : navigation.value.find((n) => route.path === n.path || route.path.startsWith(n.path + '/'))
+          ?.id || 'home',
+)
+const searchResults = computed(() =>
+  navigation.value.filter((n) =>
+    [n.label, n.path].join(' ').toLowerCase().includes(search.value.toLowerCase()),
+  ),
+)
+const showFloatingAgent = computed(
+  () => auth.can('material:view') && !route.path.startsWith('/picking/operator/'),
+)
+function navigate(id: string) {
+  const n = navigation.value.find((x) => x.id === id)
+  if (!n) return
+  searchOpen.value = false
+  if (n.path === '/locations' && route.path === '/locations')
     window.dispatchEvent(new Event('locations:show-overview'))
-  }
-}
-function isNavigationActive(path: string) {
-  if (
-    path === '/products' &&
-    (route.path.startsWith('/products') || route.path.startsWith('/projects'))
-  ) {
-    return true
-  }
-  return route.path === path || route.path.startsWith(`${path}/`)
+  void router.push(n.id === 'bom' && !auth.can('material:view') ? '/projects' : n.path)
 }
 async function logout() {
   try {
@@ -89,289 +194,135 @@ async function logout() {
     void router.push('/login')
   }
 }
-watch(() => auth.user?.id, (next, previous) => {
-  if (next !== previous) {
-    resetWarehouseAgentSession()
-    agentPanelOpen.value = false
+function shortcuts(e: KeyboardEvent) {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault()
+    searchOpen.value = !searchOpen.value
   }
+}
+onMounted(() => window.addEventListener('keydown', shortcuts))
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', shortcuts)
+  clearTimeout(searchTimer)
+  searchGeneration++
 })
 watch(
-  () => route.path,
-  () => {
-    if (!showFloatingAgent.value) agentPanelOpen.value = false
+  () => auth.user?.id,
+  (next, previous) => {
+    if (next !== previous) {
+      resetWarehouseAgentSession()
+      agentPanelOpen.value = false
+      clearTimeout(searchTimer)
+      searchGeneration++
+      foundMaterials.value = []
+      searchBusy.value = false
+      searchError.value = ''
+      search.value = ''
+      searchOpen.value = false
+    }
   },
 )
+watch(showFloatingAgent, (show) => {
+  if (!show) agentPanelOpen.value = false
+})
+watch([search, searchOpen], () => {
+  clearTimeout(searchTimer)
+  const token = ++searchGeneration
+  foundMaterials.value = []
+  searchBusy.value = false
+  searchError.value = ''
+  const q = search.value.trim()
+  if (!searchOpen.value || q.length < 2 || !auth.can('material:view')) return
+  const userId = auth.user?.id
+  searchBusy.value = true
+  searchTimer = setTimeout(async () => {
+    try {
+      const response = await api.get<Page<Material>>('/materials', {
+        params: { q, page: 1, page_size: 8 },
+      })
+      if (token === searchGeneration && auth.user?.id === userId)
+        foundMaterials.value = response.data.items
+    } catch {
+      if (token === searchGeneration) searchError.value = '物料搜索暂不可用，功能导航仍可使用。'
+    } finally {
+      if (token === searchGeneration) searchBusy.value = false
+    }
+  }, 220)
+})
+function openMaterial(m: Material, twin = false) {
+  searchOpen.value = false
+  void router.push(
+    twin ? { path: '/warehouse-twin', query: { focus: m.location_id } } : `/materials/${m.id}`,
+  )
+}
 </script>
-
 <template>
-  <el-container class="shell">
-    <el-aside
-      :width="collapsed ? '72px' : '238px'"
-      class="sidebar"
-      :class="{ 'mobile-open': mobile }"
+  <GlacierShell
+    :active="active"
+    :navigation="navigation"
+    :user-name="auth.user?.full_name || '研发空间'"
+    :user-role="auth.user?.role.name || 'MaterialBrain'"
+    @navigate="navigate"
+    @search="searchOpen = true"
+    @settings="auth.can('role:manage') ? navigate('settings') : (searchOpen = true)"
+  >
+    <router-view />
+    <template #user
+      ><el-dropdown
+        ><button class="g-user-menu">
+          <span class="g-avatar">{{ auth.user?.full_name?.slice(0, 1) || 'M' }}</span
+          ><span>{{ auth.user?.full_name }}</span></button
+        ><template #dropdown
+          ><el-dropdown-menu
+            ><el-dropdown-item disabled>{{ auth.user?.username }}</el-dropdown-item
+            ><el-dropdown-item divided @click="logout">退出登录</el-dropdown-item></el-dropdown-menu
+          ></template
+        ></el-dropdown
+      ></template
     >
-      <div class="brand">
-        <div class="brand-mark">M</div>
-        <div v-if="!collapsed" class="brand-copy"><b>MaterialBrain</b><span>Material OS</span></div>
-      </div>
-      <nav class="nav-scroll" aria-label="主导航" data-testid="sidebar-navigation">
-        <router-link
-          v-for="item in visibleNavigation"
-          :key="item[0]"
-          :to="item[0] === '/products' && !auth.can('material:view') ? '/projects' : item[0]"
-          class="nav-item"
-          :class="{ active: isNavigationActive(item[0]) }"
-          :title="collapsed ? item[1] : undefined"
-          :data-nav-path="item[0]"
-          @click="handleNavigationClick(item[0])"
-        >
-          <el-icon><component :is="item[2]" /></el-icon>
-          <span v-if="!collapsed" class="nav-label">{{ item[1] }}</span>
-        </router-link>
-      </nav>
-      <div
-        v-if="!collapsed"
-        class="build-fingerprint"
+    <template #footer
+      ><details
+        class="g-build-info"
         data-testid="frontend-build-sha"
         :data-build-sha="frontendBuildSha"
-        title="当前前端镜像构建提交"
       >
-        Build {{ frontendBuildShort }}
-      </div>
-      <button class="collapse desktop-only" @click="collapsed = !collapsed">
-        <el-icon><Fold /></el-icon><span v-if="!collapsed">收起导航</span>
+        <summary>版本信息</summary>
+        <code>{{ frontendBuildSha }}</code>
+      </details></template
+    >
+    <template #floating
+      ><FloatingAgentLauncher
+        v-if="showFloatingAgent"
+        :workspace="route.path === '/warehouse-twin'"
+        @position-change="agentAnchor = $event"
+        @open="agentPanelOpen = true" /><FloatingAgentPanel
+        v-if="showFloatingAgent"
+        :open="agentPanelOpen"
+        :anchor="agentAnchor"
+        @close="agentPanelOpen = false"
+    /></template>
+  </GlacierShell>
+  <el-dialog v-model="searchOpen" title="搜索工作空间" width="min(580px,94vw)" align-center
+    ><el-input v-model="search" placeholder="搜索功能或物料型号…" autofocus clearable />
+    <div class="g-command-results">
+      <button
+        v-for="n in searchResults"
+        :key="n.id"
+        class="g-command-result"
+        @click="navigate(n.id)"
+      >
+        <b>{{ n.label }}</b
+        ><small>{{ n.group }}</small>
       </button>
-    </el-aside>
-    <el-container>
-      <el-header class="topbar"
-        ><el-button text class="mobile-trigger" @click="mobile = !mobile"
-          ><el-icon><Menu /></el-icon
-        ></el-button>
-        <div>
-          <b>{{ route.meta.title }}</b
-          ><span class="crumb"> / 统一库存中心</span>
-        </div>
-        <el-dropdown
-          ><div class="user">
-            <el-avatar :size="32">{{ auth.user?.full_name.slice(0, 1) }}</el-avatar>
-            <div class="desktop-only">
-              <b>{{ auth.user?.full_name }}</b
-              ><span>{{ auth.user?.role.name }}</span>
-            </div>
-          </div>
-          <template #dropdown
-            ><el-dropdown-menu
-              ><el-dropdown-item disabled>{{ auth.user?.username }}</el-dropdown-item
-              ><el-dropdown-item divided @click="logout"
-                >安全退出</el-dropdown-item
-              ></el-dropdown-menu
-            ></template
-          ></el-dropdown
-        ></el-header
-      >
-      <el-main class="main"><router-view /></el-main>
-    </el-container>
-    <FloatingAgentLauncher
-      v-if="showFloatingAgent"
-      @position-change="agentAnchor = $event"
-      @open="agentPanelOpen = true"
-    />
-    <FloatingAgentPanel
-      v-if="showFloatingAgent"
-      :open="agentPanelOpen"
-      :anchor="agentAnchor"
-      @close="agentPanelOpen = false"
-    />
-  </el-container>
+    </div>
+    <p v-if="searchBusy" class="g-muted">正在查找物料…</p>
+    <p v-if="searchError" class="g-muted">{{ searchError }}</p>
+    <div v-for="m in foundMaterials" :key="m.id" class="g-command-result">
+      <button class="g-text-btn" @click="openMaterial(m)">
+        <b>{{ materialPrimaryIdentity(m) }}</b></button
+      ><button v-if="m.location_id" class="g-text-btn" @click="openMaterial(m, true)">
+        定位到仓库 ↗
+      </button>
+    </div></el-dialog
+  >
 </template>
-
-<style scoped>
-.shell {
-  min-height: 100vh;
-}
-.sidebar {
-  position: fixed;
-  z-index: 20;
-  height: 100vh;
-  background: #10264a;
-  color: white;
-  transition: width 0.2s;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  isolation: isolate;
-}
-.brand {
-  height: 72px;
-  flex: 0 0 72px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 16px;
-}
-.brand-mark {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(145deg, #58b4ff, #3971e5);
-  font-weight: 900;
-  font-size: 22px;
-  box-shadow: 0 8px 20px #07172e;
-}
-.brand-copy {
-  display: flex;
-  flex-direction: column;
-  white-space: nowrap;
-}
-.brand-copy span {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  color: #86a6d2;
-  margin-top: 2px;
-}
-.nav-scroll {
-  position: relative;
-  z-index: 1;
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 8px;
-  scrollbar-gutter: stable;
-  overscroll-behavior: contain;
-}
-.nav-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-.nav-scroll::-webkit-scrollbar-thumb {
-  background: #ffffff26;
-  border-radius: 10px;
-}
-.nav-item {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  height: 48px;
-  margin-bottom: 4px;
-  padding: 0 16px;
-  gap: 14px;
-  border-radius: 9px;
-  color: #aec1df;
-  cursor: pointer;
-  white-space: nowrap;
-  transition:
-    color 0.15s,
-    background 0.15s;
-}
-.nav-item .el-icon {
-  flex: 0 0 auto;
-  font-size: 17px;
-}
-.nav-item:hover,
-.nav-item.active {
-  color: white;
-  background: #214577;
-}
-.nav-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.build-fingerprint {
-  flex: 0 0 auto;
-  margin: 2px 16px 6px;
-  color: #6f8db7;
-  font-size: 10px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  white-space: nowrap;
-}
-.collapse {
-  position: relative;
-  z-index: 2;
-  flex: 0 0 52px;
-  width: calc(100% - 16px);
-  margin: 0 8px 8px;
-  padding: 0 10px;
-  border: 0;
-  border-top: 1px solid #ffffff16;
-  background: #10264a;
-  color: #90a9cc;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-.sidebar[style*='72px'] .nav-item {
-  justify-content: center;
-  padding: 0;
-  gap: 0;
-}
-.sidebar[style*='72px'] .collapse {
-  justify-content: center;
-}
-.sidebar + .el-container {
-  margin-left: 238px;
-  transition: margin-left 0.2s;
-}
-.sidebar[style*='72px'] + .el-container {
-  margin-left: 72px;
-}
-.topbar {
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid #e8edf4;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(10px);
-}
-.crumb {
-  font-weight: 400;
-  color: #8a99ac;
-}
-.user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-.user div {
-  display: flex;
-  flex-direction: column;
-  font-size: 13px;
-}
-.user span {
-  color: #8492a6;
-  font-size: 11px;
-}
-.main {
-  padding: 0;
-  background: #f3f6fb;
-}
-.mobile-trigger {
-  display: none;
-}
-@media (max-width: 760px) {
-  .sidebar {
-    transform: translateX(-100%);
-    width: 238px !important;
-  }
-  .sidebar.mobile-open {
-    transform: translateX(0);
-  }
-  .sidebar + .el-container {
-    margin-left: 0;
-  }
-  .mobile-trigger {
-    display: inline-flex;
-  }
-  .crumb {
-    display: none;
-  }
-}
-</style>

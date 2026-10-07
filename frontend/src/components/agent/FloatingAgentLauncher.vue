@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
-import robotImage from '../../assets/materialbrain-agent.svg'
+import { nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import robotImage from '../../embodied/assets/materialbrain-bot-v3.png'
+
+const props = defineProps<{ workspace?: boolean }>()
 
 const emit = defineEmits<{
   open: []
@@ -15,6 +17,7 @@ const launcher = ref<HTMLButtonElement | null>(null)
 const position = reactive({ x: 0, y: EDGE_GAP })
 const drag = reactive({ active: false, moved: false, startX: 0, startY: 0, x: 0, y: 0 })
 let anchorFrame = 0
+let hasSavedPosition = false
 
 function bounds() {
   const rect = launcher.value?.getBoundingClientRect()
@@ -26,8 +29,14 @@ function bounds() {
 
 function clamp(x: number, y: number) {
   const size = bounds()
-  position.x = Math.min(Math.max(EDGE_GAP, x), Math.max(EDGE_GAP, window.innerWidth - size.width - EDGE_GAP))
-  position.y = Math.min(Math.max(EDGE_GAP, y), Math.max(EDGE_GAP, window.innerHeight - size.height - EDGE_GAP))
+  position.x = Math.min(
+    Math.max(EDGE_GAP, x),
+    Math.max(EDGE_GAP, window.innerWidth - size.width - EDGE_GAP),
+  )
+  position.y = Math.min(
+    Math.max(EDGE_GAP, y),
+    Math.max(EDGE_GAP, window.innerHeight - size.height - EDGE_GAP),
+  )
   scheduleAnchorEmit()
 }
 
@@ -46,6 +55,7 @@ function scheduleAnchorEmit() {
 }
 
 function savePosition() {
+  hasSavedPosition = true
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(position))
   } catch {
@@ -55,18 +65,25 @@ function savePosition() {
 
 function loadPosition() {
   try {
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') as
-      | { x?: number; y?: number }
-      | null
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') as {
+      x?: number
+      y?: number
+    } | null
     if (stored && Number.isFinite(stored.x) && Number.isFinite(stored.y)) {
+      hasSavedPosition = true
       clamp(Number(stored.x), Number(stored.y))
       return
     }
   } catch {
-    // Invalid local state falls back to the documented top-centre position.
+    // Invalid local state falls back to the bottom-right position.
   }
+  placeDefault()
+}
+
+function placeDefault() {
   const size = bounds()
-  clamp(Math.round((window.innerWidth - size.width) / 2), EDGE_GAP)
+  const rightInset = props.workspace && window.innerWidth >= 1200 ? 340 : 22
+  clamp(window.innerWidth - size.width - rightInset, window.innerHeight - size.height - 24)
 }
 
 function onPointerDown(event: PointerEvent) {
@@ -119,8 +136,16 @@ function onKeydown(event: KeyboardEvent) {
 }
 
 function onResize() {
-  clamp(position.x, position.y)
+  if (hasSavedPosition) clamp(position.x, position.y)
+  else placeDefault()
 }
+
+watch(
+  () => props.workspace,
+  () => {
+    if (!hasSavedPosition) placeDefault()
+  },
+)
 
 onMounted(async () => {
   await nextTick()
@@ -147,7 +172,7 @@ onBeforeUnmount(() => {
     ref="launcher"
     type="button"
     class="floating-agent-launcher"
-    :class="{ dragging: drag.active }"
+    :class="{ dragging: drag.active, workspace }"
     :style="{ left: `${position.x}px`, top: `${position.y}px` }"
     aria-label="打开物料大脑；可拖动位置"
     title="点击打开物料大脑；拖动可调整位置"
@@ -156,10 +181,69 @@ onBeforeUnmount(() => {
     @click="onClick"
     @keydown="onKeydown"
   >
-    <img :src="robotImage" alt="MaterialBrain物料机器人" draggable="false" />
+    <img :src="robotImage" alt="MaterialBrain 悬浮助手" draggable="false" />
   </button>
 </template>
 
 <style scoped>
-.floating-agent-launcher{position:fixed;z-index:47;display:grid;width:100px;height:100px;place-items:center;padding:0;border:0;background:transparent;cursor:grab;touch-action:none;user-select:none;filter:drop-shadow(0 12px 14px #17395e38)}.floating-agent-launcher.dragging{cursor:grabbing}.floating-agent-launcher img{width:100px;height:100px;object-fit:contain;pointer-events:none;animation:robot-float 3.2s ease-in-out infinite}.floating-agent-launcher:hover:not(.dragging) img{transform:scale(1.04)}.floating-agent-launcher:focus-visible{outline:3px solid #58a9e6;outline-offset:4px;border-radius:18px}@keyframes robot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@media(prefers-reduced-motion:reduce){.floating-agent-launcher img{animation:none}}@media(max-width:600px){.floating-agent-launcher{width:72px;height:72px}.floating-agent-launcher img{width:72px;height:72px}}
+.floating-agent-launcher {
+  position: fixed;
+  z-index: 47;
+  display: grid;
+  width: 100px;
+  height: 100px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  filter: drop-shadow(0 12px 14px #17395e38);
+}
+.floating-agent-launcher.dragging {
+  cursor: grabbing;
+}
+.floating-agent-launcher.workspace {
+  z-index: 10;
+}
+.floating-agent-launcher img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform 0.18s ease;
+}
+.floating-agent-launcher:hover:not(.dragging) img {
+  transform: scale(1.04);
+}
+.floating-agent-launcher:focus-visible {
+  outline: 3px solid var(--g-line);
+  outline-offset: 4px;
+  border-radius: 18px;
+}
+@keyframes robot-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-agent-launcher img {
+    animation: none;
+  }
+}
+@media (max-width: 600px) {
+  .floating-agent-launcher {
+    width: 72px;
+    height: 72px;
+  }
+  .floating-agent-launcher img {
+    width: 72px;
+    height: 72px;
+  }
+}
 </style>

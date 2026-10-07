@@ -9,6 +9,20 @@ permissions:
   contents: read
 
 jobs:
+  showcase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements-visual.txt
+      - run: pip install -r tools/requirements-visual.txt
+      - run: python tools/check_glacier_ui.py
+      - run: python -m unittest discover -s tools -p test_screenshot_validation.py
+      - run: python tools/validate_screenshots.py
+
   backend:
     runs-on: ubuntu-latest
     services:

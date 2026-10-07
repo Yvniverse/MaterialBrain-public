@@ -1,41 +1,108 @@
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
-import { describe, expect, it } from 'vitest'
-
-const source = readFileSync(resolve(process.cwd(), 'src/views/Dashboard.vue'), 'utf8')
-
-describe('high-information dashboard', () => {
-  it('prioritizes inventory status, today flow, trend and recent activity', () => {
-    expect(source).toContain('data-testid="dashboard-hero"')
-    expect(source).toContain('data-testid="today-flow"')
-    expect(source).toContain('data-testid="inventory-trend"')
-    expect(source).toContain('data-testid="recent-movements"')
-    expect(source).toContain('库存可用率')
-    expect(source).toContain('今日净变化')
-    expect(source).not.toContain('低库存')
+import { createPinia, setActivePinia } from 'pinia'
+import { flushPromises, mount } from '@vue/test-utils'
+import { createMemoryHistory, createRouter } from 'vue-router'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import Dashboard from '../src/views/Dashboard.vue'
+import { api } from '../src/api/client'
+import { useAuthStore } from '../src/stores/auth'
+import type { User } from '../src/types'
+const chart = vi.hoisted(() => ({ setOption: vi.fn(), resize: vi.fn(), dispose: vi.fn() }))
+vi.mock('echarts', () => ({ init: () => chart }))
+const summary = {
+  material_count: 4,
+  quantity: '100',
+  reserved_quantity: '20',
+  available_quantity: '80',
+  inventory_value: '250',
+  out_of_stock_count: 1,
+  today_inbound: '10',
+  today_outbound: '5',
+  recent_movements: [
+    {
+      id: 1,
+      movement_no: 'MV-001',
+      material_id: 2,
+      material_name: '控制器',
+      material_mpn: 'STM32F405RGT6',
+      operation_type: 'inbound',
+      quantity_delta: '10',
+      created_at: '2026-10-08T08:00:00Z',
+    },
+  ],
+  trend: Array.from({ length: 30 }, (_, i) => ({
+    date: '2026-10-' + String(i + 1).padStart(2, '0'),
+    inbound: '10',
+    outbound: '5',
+  })),
+}
+async function setup() {
+  const pinia = createPinia()
+  setActivePinia(pinia)
+  const auth = useAuthStore()
+  auth.user = {
+    id: 1,
+    full_name: '工程师',
+    role: { permissions: ['dashboard:view', 'material:view'] },
+  } as User
+  auth.initialized = true
+  const router = createRouter({
+    history: createMemoryHistory(),
+    routes: ['/dashboard', '/agent', '/materials', '/locations', '/warehouse-twin', '/cables'].map(
+      (path) => ({ path, component: { template: '<div />' } }),
+    ),
   })
-
-  it('offers permission-aware links to the most common workspaces', () => {
-    expect(source).toContain('data-testid="quick-actions"')
-    expect(source).toContain("path: '/locations'")
-    expect(source).toContain("path: '/cables'")
-    expect(source).toContain("path: '/inventory'")
-    expect(source).toContain("path: '/materials'")
-    expect(source).toContain('.filter((item) => auth.can(item.permission))')
+  await router.push('/dashboard')
+  const wrapper = mount(Dashboard, { global: { plugins: [pinia, router] } })
+  await flushPromises()
+  return { wrapper, router }
+}
+describe('Glacier live dashboard', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks()
+    vi.spyOn(api, 'get').mockResolvedValue({ data: summary })
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe() {}
+        disconnect() {}
+      },
+    )
+    vi.stubGlobal('matchMedia', () => ({ matches: false }))
   })
-
-  it('keeps quick actions large enough to read comfortably', () => {
-    expect(source).toMatch(/\.quick-heading b\s*\{[^}]*font-size: 17px/)
-    expect(source).toMatch(/\.quick-heading small\s*\{[^}]*font-size: 11px/)
-    expect(source).toMatch(/\.quick-action\s*\{[^}]*min-height: 66px/)
-    expect(source).toMatch(/\.quick-action b\s*\{[^}]*font-size: 13px/)
-    expect(source).toMatch(/\.quick-action small\s*\{[^}]*font-size: 10px/)
+  it('renders inventory and movements returned by the backend', async () => {
+    const { wrapper } = await setup()
+    expect(api.get).toHaveBeenCalledWith('/dashboard/summary')
+    expect(wrapper.findAll('.g-metric-number').map((node) => node.text())).toEqual([
+      '4种',
+      '80件',
+      '20件',
+      '250元',
+    ])
+    expect(wrapper.get('.g-activity').text()).toContain('MV-001')
+    expect(wrapper.get('.g-activity').text()).toContain('STM32F405RGT6')
+    expect(wrapper.get('.g-activity').text()).toContain('采购入库')
+    expect(wrapper.text()).toContain('75%')
+    wrapper.unmount()
   })
-
-  it('supports live refresh, selectable trend ranges and responsive layouts', () => {
-    expect(source).toContain('window.setInterval(() => void load(true), 30000)')
-    expect(source).toContain("const chartRange = ref<7 | 14 | 30>(30)")
-    expect(source).toContain("@media (max-width: 1020px)")
-    expect(source).toContain("@media (max-width: 760px)")
+  it('changes the real trend range and keeps permission-aware navigation', async () => {
+    const { wrapper, router } = await setup()
+    await wrapper.get('.g-trend .g-segmented button').trigger('click')
+    expect(chart.setOption.mock.lastCall?.[0].series[0].data).toHaveLength(7)
+    expect(wrapper.findAll('.g-utility-actions button').map((node) => node.text())).not.toContain(
+      '库存操作',
+    )
+    await wrapper.get('.g-start-panel button').trigger('click')
+    await flushPromises()
+    expect(router.currentRoute.value.path).toBe('/agent')
+    wrapper.unmount()
+  })
+  it('retains the last successful data when refresh fails', async () => {
+    const { wrapper } = await setup()
+    vi.mocked(api.get).mockRejectedValueOnce(new Error('unavailable'))
+    await wrapper.get('.g-page-heading .g-btn').trigger('click')
+    await flushPromises()
+    expect(wrapper.get('[role=status]').text()).toContain('保留上次数据')
+    expect(wrapper.get('.g-metric-number').text()).toBe('4种')
+    wrapper.unmount()
   })
 })
