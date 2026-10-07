@@ -54,6 +54,8 @@ jobs:
       - run: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
       - run: python -m ruff check training robot_bridge/ros2 tests
       - run: python -m pytest robot_bridge/ros2/tests training/tests tests
+        env:
+          PYTHONPATH: backend:robot_bridge/ros2
       - run: python -m warehouse_bench --seed 17 --repetitions 1 --output warehouse_bench/results/ci
         working-directory: backend
 
