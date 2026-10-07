@@ -25,7 +25,7 @@ class IntentScopeDecision:
 
 _CABLE = re.compile(
     r"(?:线缆|端子线|双头线|排线|软排线|摄像头线|相机线|FFC|FPC|IPEX|同轴线|"
-    r"PORTFOLIO-CBL-[A-Z0-9._/-]+|"
+    r"SAMPLE-CBL-[A-Z0-9._/-]+|"
     r"\d+(?:\.\d+)?\s*mm\s*\d+\s*(?:pin|p)\b|"
     r"\d+\s*(?:pin|p)?\s*(?:→|->|转|to)\s*\d+\s*(?:pin|p)\b)",
     re.I,

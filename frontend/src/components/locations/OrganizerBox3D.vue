@@ -260,7 +260,7 @@ function requestModule(side: 'left' | 'right', module: OrganizerModule) {
           <div class="lid-tab right"></div>
           <div class="lid-glass">
             <div class="lid-brand">
-              <span>PENGKA COMPONENT STORAGE</span>
+              <span>MATERIALBRAIN COMPONENT STORAGE</span>
               <b>{{ box?.name || `${capacity} IN 1` }}</b>
               <small>{{ box?.notes || '贴片元件可视化库位' }}</small>
             </div>

@@ -192,7 +192,7 @@ function selectDrawer(slot: DrawerSlot) {
       <div class="rack-cabinet">
         <div class="rack-top">
           <div>
-            <span>PENGKA</span>
+            <span>MATERIALBRAIN</span>
             <b>{{ rack?.code || 'RACK-100' }}</b>
           </div>
           <small>100 DRAWERS</small>

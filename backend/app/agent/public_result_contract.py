@@ -92,6 +92,8 @@ def public_result_contract_violations(
         failures.append("build-readiness intent has no structured result")
 
     mandatory_entities: dict[str, tuple[str, ...]] = {
+        "navigation_lab": ("navigation_lab",),
+        "navigation_plan": ("navigation_plan",),
         "low_stock": ("low_stock",),
         "component_search": ("component_search",),
         "power_design": ("power_design",),

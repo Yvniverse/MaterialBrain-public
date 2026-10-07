@@ -13,6 +13,7 @@ from app.core.config import settings
 from app.core.database import Base, SessionLocal, engine
 from app.core.exceptions import BusinessError
 from app.seed.defaults import seed_defaults
+from app.services.spatial_poll_diagnostics import poll_diagnostics, poll_phase
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 
@@ -23,12 +24,17 @@ async def lifespan(app: FastAPI):
         Base.metadata.create_all(engine)
     with SessionLocal() as db:
         seed_defaults(db)
+        if engine.dialect.name == "postgresql" and settings.spatial_sample_map_enabled:
+            from app.spatial import SpatialMapService
+
+            SpatialMapService(db).register_lab()
+            db.commit()
     yield
 
 
 app = FastAPI(
     title=settings.app_name,
-    version="1.0.0",
+    version="0.2.0",
     docs_url="/api/docs",
     openapi_url="/api/openapi.json",
     lifespan=lifespan,
@@ -38,7 +44,11 @@ app = FastAPI(
 @app.middleware("http")
 async def request_id_middleware(request: Request, call_next):
     request.state.request_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))[:64]
-    response = await call_next(request)
+    with poll_diagnostics(request.method, request.url.path, request.state.request_id) as trace:
+        with poll_phase("http_dispatch"):
+            response = await call_next(request)
+        if trace is not None:
+            trace.response(response.status_code)
     response.headers["X-Request-ID"] = request.state.request_id
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"

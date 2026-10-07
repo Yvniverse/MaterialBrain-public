@@ -62,6 +62,11 @@ const children: RouteRecordRaw[] = [
     meta: { title: '分类管理', permission: 'category:manage' },
   },
   {
+    path: 'warehouse-lab',
+    component: () => import('../embodied/components/EmbodiedTwin.vue'),
+    meta: { title: '具身导航实验仓', permission: ['material:view', 'location:manage', 'picking:view'] },
+  },
+  {
     path: 'warehouse-twin',
     component: () => import('../views/WarehouseTwin.vue'),
     meta: { title: '数字孪生仓库', permission: ['material:view', 'location:manage', 'picking:view'] },
@@ -136,7 +141,7 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   const auth = useAuthStore()
   if (!auth.initialized) await auth.fetchMe()
-  document.title = `${to.meta.title || '工作台'} · 嘭咔智能`
+  document.title = `${to.meta.title || '工作台'} · MaterialBrain`
   if (to.path === '/login') return auth.user ? '/dashboard' : true
   if (!auth.user) return { path: '/login', query: { redirect: to.fullPath } }
   if (!auth.can(to.meta.permission)) return '/dashboard'

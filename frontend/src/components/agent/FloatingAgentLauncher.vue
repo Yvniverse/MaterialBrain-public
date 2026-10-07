@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
-import robotImage from '../../assets/pengka-agent-robot.webp'
+import robotImage from '../../assets/materialbrain-agent.svg'
 
 const emit = defineEmits<{
   open: []
@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
     @click="onClick"
     @keydown="onKeydown"
   >
-    <img :src="robotImage" alt="嘭咔物料机器人" draggable="false" />
+    <img :src="robotImage" alt="MaterialBrain物料机器人" draggable="false" />
   </button>
 </template>
 

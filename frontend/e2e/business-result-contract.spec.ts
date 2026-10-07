@@ -27,7 +27,7 @@ const material = {
   code: 'MAT-XL2-001',
   name: '板端连接器',
   mpn: 'XL2EL89COI-111YLC-25M',
-  manufacturer: 'PENGKA Components',
+  manufacturer: 'MATERIALBRAIN Components',
   specification: '25 Pin',
   package: 'Connector',
   unit: '件',
@@ -44,10 +44,10 @@ const material = {
 
 const cable = {
   material_id: 88,
-  code: 'PORTFOLIO-CBL-PF-00042',
+  code: 'SAMPLE-CBL-PF-00042',
   name: '0.5mm 30P 反向相机排线',
   mpn: 'FFC-0.5-30P-B-150',
-  manufacturer: 'PENGKA Cable',
+  manufacturer: 'MATERIALBRAIN Cable',
   specification: 'flat_flex',
   unit: '条',
   quantity: '10.0000',
@@ -98,7 +98,7 @@ function response(answer: string, intent: string, entities: Record<string, unkno
 }
 
 function resultFor(message: string) {
-  if (message.includes('PORTFOLIO-CBL-PF-00042')) {
+  if (message.includes('SAMPLE-CBL-PF-00042')) {
     return response('已找到线缆。', 'search_cables', {
       cable_search: {
         query: message,
@@ -266,7 +266,7 @@ test('renders rich Material and Cable cards with live inventory and actual locat
   await expect(materialCard.getByRole('button', { name: '查看物料' })).toBeVisible()
   await expect(materialCard.getByRole('button', { name: '打开库位' })).toBeVisible()
 
-  await query(page, '帮我找 PORTFOLIO-CBL-PF-00042')
+  await query(page, '帮我找 SAMPLE-CBL-PF-00042')
   const cableCard = page.getByTestId('agent-cable-results')
   await expect(cableCard).toContainText('0.5 mm · 30 Pin · 15 cm')
   await expect(cableCard).toContainText('9 条')
@@ -283,7 +283,7 @@ test('isolates explicit BOM and low-stock tasks from stale Material or Cable car
   await expect(result).not.toContainText('XL2EL89COI-111YLC-25M')
   await expect(result.getByTestId('agent-material-result')).toHaveCount(0)
 
-  await query(page, '帮我找 PORTFOLIO-CBL-PF-00042')
+  await query(page, '帮我找 SAMPLE-CBL-PF-00042')
   await query(page, '哪些物料低于安全库存？')
   await expect(result).toContainText('低库存物料（1）')
   await expect(result.getByTestId('agent-cable-results')).toHaveCount(0)

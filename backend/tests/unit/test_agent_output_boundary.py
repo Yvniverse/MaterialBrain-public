@@ -35,10 +35,10 @@ def test_safe_engineering_verdict_is_allowed():
         "库存来源标记为 synthetic stock。",
     ],
 )
-def test_inventory_is_normal_business_data_without_provenance_warnings(content):
+def test_inventory_provenance_and_verification_requests_are_preserved(content):
     result = PublicAnswerBoundary().inspect(content)
-    assert result.blocked is True
-    assert result.category == "prohibited_inventory_provenance"
+    assert result.blocked is False
+    assert result.content == content
 
 
 def test_structured_candidates_replace_markdown_candidate_lists():
@@ -88,17 +88,14 @@ def test_engineering_answer_boundary_keeps_external_html_as_untrusted_text():
     assert result.content == "结论：<script>alert('x')</script> 是用户可见文本。"
 
 
-def test_public_business_copy_is_neutralized_without_touching_internal_ids():
-    content = "秋招作品展示：Portfolio Demo v2；物料 PORT-CAN-TCAN1044。"
-    result = PublicAnswerBoundary().inspect(content)
+
+
+
+
+def test_sample_inventory_provenance_is_preserved_with_structured_data():
+    content = "Sample inventory is synthetic; material MB-LAB-004 has no allocated bin."
+    result = PublicAnswerBoundary().inspect(
+        content, entities={"inventory": {"quantity": 3, "provenance": "sample_synthetic"}}
+    )
     assert result.blocked is False
-    assert "秋招" not in result.content
-    assert "Portfolio Demo" not in result.content
-    assert "PORT-CAN-TCAN1044" in result.content
-
-
-@pytest.mark.parametrize("prefix", ["业务数据：", "项目数据：", "演示数据："])
-def test_public_business_copy_deletes_legacy_prefix_without_replacement(prefix):
-    result = PublicAnswerBoundary().inspect(f"{prefix}编码器 · IMU · ToF")
-    assert result.content == "编码器 · IMU · ToF"
-    assert "业务数据" not in result.content
+    assert result.content == content

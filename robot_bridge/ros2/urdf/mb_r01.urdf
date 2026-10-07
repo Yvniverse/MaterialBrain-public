@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot name="MB-R01">
+  <link name="base_link">
+    <visual><origin xyz="0 0 0.20"/><geometry><box size="0.76 0.58 0.40"/></geometry></visual>
+    <collision><origin xyz="0 0 0.20"/><geometry><box size="0.76 0.58 0.40"/></geometry></collision>
+    <inertial><mass value="30"/><inertia ixx="1.2" ixy="0" ixz="0" iyy="1.8" iyz="0" izz="2.3"/></inertial>
+  </link>
+  <link name="laser"/>
+  <joint name="laser_mount" type="fixed"><parent link="base_link"/><child link="laser"/><origin xyz="0 0 0.23"/></joint>
+  <link name="left_wheel"/><link name="right_wheel"/>
+  <joint name="left_wheel_joint" type="continuous"><parent link="base_link"/><child link="left_wheel"/><origin xyz="0 0.25 0.10"/><axis xyz="0 1 0"/></joint>
+  <joint name="right_wheel_joint" type="continuous"><parent link="base_link"/><child link="right_wheel"/><origin xyz="0 -0.25 0.10"/><axis xyz="0 1 0"/></joint>
+</robot>

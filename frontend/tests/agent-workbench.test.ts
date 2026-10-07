@@ -478,7 +478,7 @@ describe('Warehouse Agent frontend', () => {
     const wrapper = mount(FloatingAgentLauncher)
     await flushPromises()
     await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
-    expect(wrapper.get('img').attributes('src')).toContain('pengka-agent-robot')
+    expect(wrapper.get('img').attributes('src')).toMatch(/data:image\/svg\+xml|materialbrain-agent\.svg/)
     expect(wrapper.text()).not.toContain('问物料大脑')
     expect(wrapper.get('[data-testid="floating-agent-launcher"]').attributes('style')).toContain(
       'top: 8px',

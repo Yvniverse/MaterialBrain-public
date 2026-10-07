@@ -399,7 +399,7 @@ def test_low_confidence_catalog_identity_never_becomes_a_technical_claim(
             mpn=f"UNCERTAIN-{suffix}",
             specification="Catalog identity only; technical classification pending.",
             attributes={
-                "portfolio_demo": {
+                "sample_data": {
                     "dataset_version": "v2",
                     "catalog_confidence": "low",
                     "stock_is_synthetic": True,

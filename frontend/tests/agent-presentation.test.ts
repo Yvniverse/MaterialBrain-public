@@ -8,7 +8,6 @@ import AgentTimeline from '../src/components/agent/AgentTimeline.vue'
 import EvidenceResultCard from '../src/components/agent/EvidenceResultCard.vue'
 import PowerArchitectureOptions from '../src/components/agent/PowerArchitectureOptions.vue'
 import type { AgentQueryResponse } from '../src/types'
-import { sanitizeBusinessCopy } from '../src/utils/businessCopy'
 import { renderSafeMarkdown } from '../src/utils/safeMarkdown'
 import { formatQuantity } from '../src/utils/format'
 import {
@@ -211,11 +210,6 @@ describe('Phase 1.9 Agent presentation', () => {
     ]) {
       expect(sources).not.toContain(forbidden)
     }
-    expect(sanitizeBusinessCopy('秋招作品展示：作品集演示')).toBe('')
-    expect(sanitizeBusinessCopy('秋招作品展示：作品集演示')).not.toContain('内部工程')
-    expect(sanitizeBusinessCopy('内部工程内部工程项目：编码器 · IMU · ToF · 电流检测 · ADC')).toBe(
-      '编码器 · IMU · ToF · 电流检测 · ADC',
-    )
   })
 
   it('keeps governance banners out of ordinary structured cards', () => {
@@ -717,7 +711,7 @@ describe('Phase 1.9 Agent presentation', () => {
               material_id: 88,
               code: 'CBL-PF-00008',
               name: 'FPC 极细同轴线',
-              mpn: 'PORTFOLIO-CBL-PF-00008',
+              mpn: 'SAMPLE-CBL-PF-00008',
               manufacturer: '',
               specification: 'micro_coax',
               unit: '条',

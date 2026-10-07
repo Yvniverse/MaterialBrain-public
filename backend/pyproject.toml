@@ -13,3 +13,10 @@ select = ["E", "F", "I", "B"]
 
 [tool.ruff.lint.flake8-bugbear]
 extend-immutable-calls = ["fastapi.Depends", "fastapi.File", "fastapi.Form"]
+
+# Released migration bytes are pinned by tools/check_migration_history.py.
+[tool.ruff.lint.per-file-ignores]
+"alembic/versions/0011_*.py" = ["E501", "I001"]
+"alembic/versions/0012_*.py" = ["E501", "I001"]
+"alembic/versions/0013_*.py" = ["E501", "I001"]
+"alembic/versions/0014_*.py" = ["E501", "I001"]

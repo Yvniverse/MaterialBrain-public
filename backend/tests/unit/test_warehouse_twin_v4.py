@@ -8,7 +8,7 @@ from app.models import Location
 from app.services.warehouse_maps import WarehouseMapService
 from app.services.warehouse_routing import distance_matrix, load_warehouse_map, optimize_route
 
-FIXTURE = Path(__file__).resolve().parents[2] / "portfolio_demo_data/v2/warehouse_map_v4.json"
+FIXTURE = Path(__file__).resolve().parents[2] / "sample_data/v2/warehouse_map_v4.json"
 
 
 def test_v4_persisted_graph_keeps_exact_identity_and_route_after_reload():
@@ -43,7 +43,7 @@ def test_v4_persisted_graph_keeps_exact_identity_and_route_after_reload():
     engine.dispose()
 
 
-def test_v4_has_complete_portfolio_and_legacy_cable_rack_binding():
+def test_v4_has_complete_sample_and_legacy_cable_rack_binding():
     definition = load_warehouse_map(FIXTURE)
     codes = {item.location_code for item in definition.bindings}
     assert "CABLE-RACK-01" in codes

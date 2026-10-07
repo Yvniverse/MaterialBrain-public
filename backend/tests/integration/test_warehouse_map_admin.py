@@ -12,7 +12,7 @@ from app.services.warehouse_maps import WarehouseMapService
 from app.services.warehouse_routing import load_warehouse_map
 
 FIXTURE = (
-    Path(__file__).resolve().parents[2] / "portfolio_demo_data" / "v2" / "warehouse_map_v1.json"
+    Path(__file__).resolve().parents[2] / "sample_data" / "v2" / "warehouse_map_v1.json"
 )
 
 

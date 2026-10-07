@@ -1,299 +1,93 @@
-<div align="center">
-
 # MaterialBrain
 
-**Provenance-aware engineering material intelligence and warehouse workflow platform**
+**Spatial agents, engineering materials, and robotic warehouse workflows.**
 
-Deterministic engineering workflows, grounded AI assistance, Engineering BOM readiness, Product BOM preview, real-time inventory/location truth, and guided warehouse execution in one self-hosted system.
+MaterialBrain connects evidence-backed material decisions, inventory locations, a PostGIS semantic map, constrained mission planning, and ROS2/Nav2 simulation in a self-hosted application. The server computes spatial and business facts; the Agent turns requests into structured plans that people can inspect and execute.
 
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Public CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
-![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.1xx-009688?logo=fastapi&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-4169E1?logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-[中文说明](README.zh-CN.md) · [Architecture](docs/architecture/README.md) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md)
+[中文](README.zh-CN.md) · [Architecture](docs/architecture/README.md) · [Spatial Agent](docs/SPATIAL_AGENT.md) · [Robotics](docs/ROBOTICS.md) · [WarehouseBench](docs/WAREHOUSEBENCH.md)
 
-</div>
+## v0.2 features
 
-## Why MaterialBrain?
-
-Hardware engineering teams rarely have a single source of truth that connects **datasheet evidence, engineering constraints, material candidates, stock/location facts, product BOMs, and warehouse execution**. MaterialBrain is an experiment in closing that gap without letting an LLM become the source of business truth.
-
-The key design rule is simple:
-
-> **The server owns deterministic facts and state transitions. The model may plan, explain, and compose grounded results, but it cannot invent inventory, selection, BOM, or transaction truth.**
-
-That principle is reflected throughout the architecture: typed task contracts, allowlisted tools, provenance-aware material attributes, server-owned selection context, read-only BOM previews, guarded inventory transactions, and exact-SHA release qualification.
-
-## Highlights
-
-| Area | What MaterialBrain does |
+| Component | What it provides |
 | --- | --- |
-| **Engineering Agent** | Two UI surfaces (floating robot and `/agent`) share the same structured server result contract. Follow-ups keep typed context instead of relying only on chat history. |
-| **Engineering Evidence** | Datasheet/page anchors and material attribute provenance keep vendor facts separate from model prose. |
-| **Power + Engineering BOM** | Builds rails/stages/requirements, performs deterministic loss calculations, grounds compatible material candidates, supports explicit draft selection, and reports completeness. |
-| **Product BOM Preview** | Computes read-only `ADD / UPDATE_QUANTITY / NO_CHANGE / UNRESOLVED` diffs and apply-readiness preconditions without mutating the formal BOM. |
-| **Inventory + Location** | Transactional stock operations, reservations, movements, low-stock information, visual locations, and audit history. |
-| **Warehouse Twin + Picking** | Warehouse map graph, location bindings, route planning, pick tasks/allocations, and guided picking. |
-| **Governance** | RBAC, CSRF/session security, proposal/approval boundaries, idempotency, audit logs, backups, project memory guard, and exact-SHA deployment evidence. |
+| Semantic spatial map | Versioned local-metric geometry, zones, affordances, route edges, registered docks, and expiring overlays in PostGIS. |
+| Mission planner | OR-Tools multi-stop ordering with graph restrictions, service times, payload capacity, time windows, battery reserve, and optional return home. |
+| Spatial Agent | Typed navigation context, registered goal resolution, permission-filtered tools, and inspectable mission cards. |
+| TaskGraph | Explicit navigation, arrival, scan, handoff, cancellation, and replanning state with recorded observations. |
+| ROS2/Nav2 | An optional Jazzy simulation bridge with a lattice planner, MPPI controller, readiness checks, and observed navigation feedback. |
+| Embodied Twin | Interactive map, robot pose, obstacles, routes, and remaining mission work at `/warehouse-lab`. |
+| Engineering workflows | Datasheet evidence, material selection, Engineering BOM readiness, read-only Product BOM preview, inventory, and guided picking. |
+| WarehouseBench and SFT | Seeded tasks, independent verification, replay, group-separated datasets, and an optional local-model LoRA training entrypoint. |
 
-## Screenshots
-
-<table>
-<tr>
-<td width="50%"><img src="docs/assets/screenshots/engineering-bom-selection.png" alt="Engineering BOM selection"></td>
-<td width="50%"><img src="docs/assets/screenshots/product-bom-preview.png" alt="Product BOM preview"></td>
-</tr>
-<tr>
-<td align="center"><b>Grounded Engineering BOM selection</b><br/>Requirement → candidate → explicit draft selection → completeness</td>
-<td align="center"><b>Product BOM Preview</b><br/>Read-only diff, blockers, provenance and apply-readiness</td>
-</tr>
-<tr>
-<td width="50%"><img src="docs/assets/screenshots/dual-surface-agent.png" alt="Floating agent and agent workbench"></td>
-<td width="50%"><img src="docs/assets/screenshots/warehouse-twin.png" alt="Warehouse digital twin"></td>
-</tr>
-<tr>
-<td align="center"><b>Two agent surfaces, one server truth</b></td>
-<td align="center"><b>Warehouse twin and guided execution</b></td>
-</tr>
-</table>
-
-## Runtime Architecture
-
-<p align="center">
-  <img src="docs/architecture/previews/01-runtime-overview.svg" alt="MaterialBrain runtime overview" width="100%">
-</p>
-
-MaterialBrain runs as a self-hosted web application. Nginx exposes a single browser entry point, Vue provides the interactive UI, FastAPI owns authentication and business APIs, deterministic domain services own business facts, PostgreSQL stores durable state, and the Qwen model pool is used only behind a bounded agent layer.
-
-More detailed diagrams are available in [`docs/architecture/`](docs/architecture/README.md):
-
-1. Runtime overview
-2. Backend subsystems and truth boundaries
-3. Agent request workflow
-4. Engineering intelligence dataflow
-5. Warehouse twin and guided picking
-6. Exact-SHA release and qualification lifecycle
-
-## Engineering Flow
-
-A typical engineering-material question follows this path:
-
-```text
-Engineering question
-        │
-        ▼
-Typed workpoint + requirement
-        │
-        ├── managed engineering evidence
-        └── structured material attributes + provenance
-        │
-        ▼
-Component-class gate + constraint matcher
-        │
-        ▼
-Grounded candidate set
-        │
-        ▼
-Explicit engineering-draft selection
-        │
-        ▼
-Completeness / blockers
-        │
-        ▼
-Read-only Product BOM Preview
-        │
-        ▼
-Apply-readiness dry-run (still no formal BOM write)
+```mermaid
+flowchart LR
+  Browser[Vue / Embodied Twin] --> API[FastAPI / Spatial Agent]
+  API --> Map[PostGIS semantic map]
+  API --> Planner[OR-Tools planner]
+  Planner --> Graph[TaskGraph]
+  Graph --> Bridge[ROS2 bridge]
+  Bridge --> Nav2[Nav2 simulation]
+  Nav2 --> API
+  API --> Business[Materials / BOM / inventory]
 ```
 
-### Example production-style questions
+## Quickstart
 
-```text
-I need a 12 V → 5 V Buck → 3.3 V LDO supply at 100 mA.
-Show the loss at each stage, Engineering BOM completeness,
-and the current LM5164 candidate stock/location.
-```
-
-```text
-For the LM5164 bootstrap capacitor, compare materials that satisfy
-2.2 nF, rated voltage >= 50 V, and X7R. Show spec provenance,
-stock provenance, location provenance, and do not select one for me.
-```
-
-```text
-Preview the current Engineering BOM against product PROD-DEXGRIP / EVT-R1.
-Tell me what would be added, what quantity would change,
-what is unchanged, and what is still unresolved. Do not apply anything.
-```
-
-## Design Principles
-
-### 1. Deterministic truth before model narration
-
-Inventory quantity, location, power-loss calculations, candidate match status, selected material IDs, completeness, and Product BOM diffs are produced by server-side services. Model-generated narrative is checked against structured truth before it is exposed to the user.
-
-### 2. Grounding is more than retrieval
-
-Material identity, specification, stock, and location have independent provenance. A portfolio/demo stock number is not presented as field-counted inventory, and missing attributes remain missing instead of being silently guessed by the model.
-
-### 3. Selection is not the same as availability
-
-A material may be compatible and in stock without being selected. Engineering draft selection changes only after an explicit user action and is stored as typed server-owned context.
-
-### 4. Preview before mutation
-
-Engineering BOM → Product BOM remains read-only in the public milestone documented here. Preview and apply-readiness dry-run can explain proposed changes and preconditions, but they do not mutate the formal Product BOM.
-
-### 5. Release evidence is exact-SHA evidence
-
-CI, Memory Guard, backups, runtime identity, browser evidence, and qualification metadata are expected to refer to the same candidate commit. Old screenshots or old green CI runs do not qualify a new build.
-
-## Tech Stack
-
-**Backend**
-
-- Python 3.12
-- FastAPI
-- SQLAlchemy + Alembic
-- PostgreSQL 17
-- LangGraph-style agent orchestration
-- Qwen model pool (`qwen3.7-plus-2026-05-26` primary, certified Max fallback in the current internal configuration)
-
-**Frontend**
-
-- Vue 3 + TypeScript
-- Pinia + Vue Router
-- Element Plus
-- ECharts
-- Three.js
-- Vitest + Playwright
-
-**Operations**
-
-- Docker Compose
-- Nginx
-- PostgreSQL + file backup manifests
-- GitHub Actions
-- Exact-SHA runtime metadata and qualification tooling
-
-## Quick Start
-
-### Prerequisites
-
-- Docker Engine 24+ and Docker Compose v2
-- For source development: Python 3.12, Node.js 22, pnpm 11
-
-### 1. Configure
+Use Docker Engine with Compose v2. Source development uses Python 3.12, Node.js 22, and pnpm 11.
 
 ```bash
-git clone https://github.com/Yvniverse/MaterialBrain-public.git
-cd MaterialBrain
+git clone --branch codex/public-v0.2-spatial-agent https://github.com/Yvniverse/MaterialBrain-public.git
+cd MaterialBrain-public
 cp .env.example .env
 ```
 
-At minimum, set a strong PostgreSQL password and keep `DATABASE_URL` consistent with it. Do not commit `.env`.
-
-The warehouse application can run without an LLM. To enable the engineering agent, configure the supported backend model credentials in `.env` and set `AGENT_ENABLED=true`.
-
-### 2. Start
+Set a PostgreSQL password in `.env` and update the matching `DATABASE_URL`. The default Compose project is `materialbrain_public_v02`, the browser port is `18080`, and file storage is local to this checkout at `./storage`.
 
 ```bash
-docker compose up -d --build
-docker compose exec backend alembic upgrade head
-docker compose exec backend python scripts/create_admin.py
-docker compose ps
+docker compose -p materialbrain_public_v02 up -d --build
+docker compose -p materialbrain_public_v02 exec backend python scripts/create_admin.py
+docker compose -p materialbrain_public_v02 exec backend python scripts/register_spatial_map.py --expected-database-name materialbrain_public
 ```
 
-Open `http://localhost` (or the configured `WEB_PORT`).
+The backend applies database migrations at startup. Open [http://localhost:18080](http://localhost:18080), log in, change the initial password, and open `/warehouse-lab`. The registration command adds the synthetic `MB-EMB-LAB-03` map without activating it as an operational warehouse or changing inventory.
 
-### 3. Verify
+Map queries and mission planning work without a model key. To use the natural-language Agent entrypoint, set `AGENT_ENABLED=true` in the backend environment. Spatial requests use deterministic planning; optional model credentials enable model-assisted business requests.
 
 ```bash
-curl http://localhost/api/v1/health
+docker compose -p materialbrain_public_v02 --profile robotics up -d --build robotics
+curl http://localhost:18080/api/v1/health
 ```
 
-For LAN deployment, backup/restore, security hardening, and production notes, see the documents under [`docs/`](docs/).
+The optional robot service uses ROS domain `147` and internal port `8766`. Review its readiness before starting a mission. [Robotics](docs/ROBOTICS.md) covers startup, observation, recovery, and acceptance scenarios.
 
-## Development
+## Try a mission
 
-Backend:
+1. Read the registered map and its revision. Select destinations such as `P-IC`, `P-SENSOR`, and `P-PWR`.
+2. Request a multi-stop plan and inspect its ordered goals, constraints, and feasibility status.
+3. Create the mission, review it in the Twin, and explicitly start execution.
+4. Observe arrival, then confirm the required scan and handoff at each stop.
+5. Add a simulation obstacle or cancel and replan from the observed pose. Completed handoffs remain recorded.
 
-```bash
-cd backend
-python -m venv .venv
-# activate the venv, then:
-pip install -r requirements.txt
-python -m ruff check app scripts tests
-python -m pytest
-```
+The provided execution service is a simulation: it reports `hardware_control=false` and `inventory_written=false`. Stock settlement uses separate authorized inventory and picking transactions. Planning estimates and observed navigation measurements have distinct fields.
 
-Frontend:
+## Develop and reproduce
 
-```bash
-cd frontend
-pnpm install --frozen-lockfile
-pnpm lint
-pnpm test
-pnpm build
-```
+[Contributing](CONTRIBUTING.md) explains isolated PostGIS tests, backend checks, and frontend checks. [WarehouseBench](docs/WAREHOUSEBENCH.md) documents planner comparisons, verified task generation, replay, episode export, and optional SFT. Keep generated datasets, model weights, checkpoints, and run traces outside committed source.
 
-The public repository template also includes a GitHub-hosted CI workflow so external pull requests do not depend on the maintainer's private self-hosted runner.
-
-## Repository Layout
-
-```text
-backend/        FastAPI, domain services, agent runtime, migrations and tests
-frontend/       Vue 3 application, structured agent cards and browser tests
-nginx/          same-origin reverse proxy
-deploy/         backup / restore / deployment utilities
-docs/           architecture, API, security and operational documentation
-tools/          project/release qualification utilities
-docker-compose.yml
-```
-
-## Safety Boundaries
-
-MaterialBrain deliberately keeps several boundaries explicit:
-
-- LLM/API keys stay server-side.
-- Inventory writes go through guarded transactional services.
-- Agent write proposals require explicit server-side authorization/approval paths.
-- Engineering draft selection does not automatically write the formal Product BOM.
-- Demo/synthetic stock provenance must remain visible when demo data is used.
-- Test/UAT fixtures must never target the default production database.
-
-## v0.1.0 Scope
-
-The first public release focuses on grounded engineering assistance, auditable material/BOM workflows, and read-only apply-readiness. Write automation remains intentionally conservative:
-
-- [x] Grounded engineering queries and deterministic tool routing
-- [x] Engineering evidence and material provenance
-- [x] Power architecture + multi-rail Engineering BOM draft
-- [x] Explicit selection truth and completeness
-- [x] Read-only Product BOM Preview
-- [x] Apply-readiness dry-run without formal BOM mutation
-- [x] Warehouse twin and guided picking foundations
-- [ ] Transactional Product BOM apply with explicit human confirmation
-- [ ] Broader component-library enrichment and derating rules
-
-## Portfolio / Engineering Notes
-
-MaterialBrain is published as a curated engineering portfolio and open-source snapshot. The public repository intentionally excludes private development history, local runtime artifacts, credentials, raw evaluation telemetry, and third-party files that are not cleared for redistribution.
-
-The screenshots and architecture diagrams in this repository are generated from the tagged public release. Demo or synthetic inventory/location data is labeled through provenance metadata and should not be interpreted as live warehouse stock.
-
-## Contributing
-
-Contributions are welcome. Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request. Security issues should follow [`SECURITY.md`](SECURITY.md), not a public issue.
+| Guide | Contents |
+| --- | --- |
+| [Architecture atlas](docs/architecture/README.md) | Six editable Mermaid views and source map. |
+| [API](docs/API.md) | Authentication, CSRF, endpoints, and error contracts. |
+| [Spatial Agent](docs/SPATIAL_AGENT.md) | Map registration, spatial queries, planning, and mission lifecycle. |
+| [Robotics](docs/ROBOTICS.md) | ROS2/Nav2 simulation and execution observations. |
+| [WarehouseBench](docs/WAREHOUSEBENCH.md) | Benchmark and training interfaces. |
+| [Database](docs/DATABASE.md) | Schema, spatial frame, and migrations. |
+| [Deployment](docs/DEPLOYMENT.md) | Configuration and runtime operation. |
+| [Backup and restore](docs/BACKUP_RESTORE.md) | Database and file recovery. |
 
 ## License
 
-Copyright © 2026 MaterialBrain contributors.
-
-Licensed under the **Apache License, Version 2.0**. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
-
-Third-party dependencies, vendor datasheets, logos, screenshots, hardware assets, and imported evidence remain subject to their own licenses or redistribution terms; they are not relicensed merely by being referenced by MaterialBrain.
+The application and documentation use [Apache License 2.0](LICENSE). The ROS2 subpackage preserves its [MIT license](robot_bridge/ros2/LICENSE). Third-party dependencies and externally sourced material retain their own terms; see [NOTICE](NOTICE) and [Assets](docs/ASSETS.md).

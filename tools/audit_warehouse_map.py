@@ -21,7 +21,7 @@ def main() -> int:
         optimize_route,
     )
 
-    data = backend / 'portfolio_demo_data' / 'v2'
+    data = backend / 'sample_data' / 'v2'
     definition = load_warehouse_map(data / 'warehouse_map_v1.json')
     failures: list[str] = []
 

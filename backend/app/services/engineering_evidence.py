@@ -414,10 +414,10 @@ class EngineeringEvidenceIngestionService:
                     "相同文件 SHA 已登记到不同工程范围。",
                     409,
                 )
-            # Phase 2.4 initially used the generic portfolio_seed provenance.
+            # Phase 2.4 initially used the generic sample_seed provenance.
             # Every document accepted by this manifest-bound ingestion path is a
             # synthetic CI fixture, including product-scoped engineering notes.
-            if existing_sha.source_type == "portfolio_seed":
+            if existing_sha.source_type == "sample_seed":
                 existing_sha.source_type = SYNTHETIC_FIXTURE_SOURCE
                 self.db.flush()
             self._ensure_existing_layout(existing_sha, pdf_path)
@@ -821,7 +821,7 @@ def _identity_matches_material(identity: str, material_tokens: set[str]) -> bool
         return False
     if identity in material_tokens:
         return True
-    # Portfolio materials may carry an orderable suffix while the evidence
+    # Sample materials may carry an orderable suffix while the evidence
     # fact uses the family MPN (for example TLV761 vs TLV76133DCYR). Do not
     # apply this shortening rule to two same-length sibling variants.
     return any(

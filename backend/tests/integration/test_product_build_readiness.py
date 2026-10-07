@@ -22,13 +22,13 @@ from app.models import (
     StockMovement,
     User,
 )
-from app.portfolio_demo import PortfolioDemoV2Seeder, PortfolioProductSeeder
+from app.sample_data import SampleDataV2Seeder, SampleProductSeeder
 from app.seed.defaults import seed_defaults
 from app.services.build_readiness import BuildReadinessService
 
 SCENARIOS_PATH = (
     Path(__file__).resolve().parents[2]
-    / "portfolio_demo_data"
+    / "sample_data"
     / "v2_1"
     / "expected_build_readiness_scenarios.json"
 )
@@ -69,15 +69,15 @@ def _write_snapshot(db: Session) -> dict:
     }
 
 
-def test_portfolio_product_seed_and_expected_readiness_scenarios(tmp_path):
+def test_sample_product_seed_and_expected_readiness_scenarios(tmp_path):
     engine = create_engine(f"sqlite:///{(tmp_path / 'product-seed.db').as_posix()}")
     Base.metadata.create_all(engine)
     with Session(engine, expire_on_commit=False) as db:
         operator = _operator(db)
-        PortfolioDemoV2Seeder(
+        SampleDataV2Seeder(
             db,
             operator,
-            Settings(portfolio_demo_seed_enabled=True),
+            Settings(sample_data_seed_enabled=True),
         ).seed()
         project_bom_before = list(
             db.execute(
@@ -91,18 +91,18 @@ def test_portfolio_product_seed_and_expected_readiness_scenarios(tmp_path):
         )
         sensitive_before = _write_snapshot(db)
 
-        disabled = PortfolioProductSeeder(
+        disabled = SampleProductSeeder(
             db,
             operator,
-            Settings(portfolio_product_seed_enabled=False),
+            Settings(sample_product_seed_enabled=False),
         )
         with pytest.raises(BusinessError, match="显式设置"):
             disabled.seed()
 
-        enabled = PortfolioProductSeeder(
+        enabled = SampleProductSeeder(
             db,
             operator,
-            Settings(portfolio_product_seed_enabled=True),
+            Settings(sample_product_seed_enabled=True),
         )
         first = enabled.seed()
         second = enabled.seed()

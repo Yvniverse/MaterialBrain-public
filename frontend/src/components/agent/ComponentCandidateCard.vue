@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import type { AgentComponentCandidate } from '../../types'
 import { formatQuantity } from '../../utils/format'
-import { sanitizeBusinessCopy } from '../../utils/businessCopy'
+import { formatBusinessText } from '../../utils/businessCopy'
 
 const props = withDefaults(
   defineProps<{
@@ -38,7 +38,7 @@ const relationLabels = {
     </header>
 
     <div class="identity-line">
-      <span>{{ sanitizeBusinessCopy(candidate.manufacturer) || '制造商未登记' }}</span>
+      <span>{{ formatBusinessText(candidate.manufacturer) || '制造商未登记' }}</span>
       <span>{{ candidate.package || '封装未登记' }}</span>
     </div>
 
@@ -70,7 +70,7 @@ const relationLabels = {
       <div v-for="relation in candidate.validated_relations" :key="relation.relation_id">
         <span>{{ relationLabels[relation.relation_type] }}</span>
         <strong>{{ relation.related_material.mpn || relation.related_material.code }}</strong>
-        <small>{{ sanitizeBusinessCopy(relation.evidence_summary) }}</small>
+        <small>{{ formatBusinessText(relation.evidence_summary) }}</small>
       </div>
       <p>这些记录不构成全局替代批准；实际使用仍需核对具体产品 BOM 位。</p>
     </section>

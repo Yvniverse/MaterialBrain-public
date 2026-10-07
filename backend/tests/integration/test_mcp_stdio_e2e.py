@@ -91,7 +91,7 @@ def _child_environment() -> dict[str, str]:
 
 def _prepare_principal() -> tuple[int, int, str]:
     database = _database_name()
-    if database in {"pengka_material", "materialbrain"}:
+    if database in {"materialbrain_public", "materialbrain"}:
         raise AssertionError("refusing to mutate a default/production-like database")
     username = os.environ.get("PHASE3_MCP_STDIO_USERNAME") or (
         f"phase3_mcp_{uuid.uuid4().hex[:12]}"

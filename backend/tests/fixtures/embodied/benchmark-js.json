@@ -1,0 +1,84 @@
+{
+  "world_id": "MB-EMB-LAB-03",
+  "world_revision": "ccabd3f941824d49a9cef27af224117dc6a494f9ea7ca95d1f56a4f2de013a5a",
+  "seed": 34017,
+  "baseline": {
+    "status": "READY",
+    "goal_ids": [
+      "P-IC",
+      "P-SENSOR",
+      "P-MODULE",
+      "P-LAB",
+      "P-PASSIVE",
+      "P-CABLE"
+    ],
+    "distance_m": 73.1274169979695,
+    "cost_s": 138.817888284092,
+    "motion_s": 134.11650404810229,
+    "eta_s": 206.11650404810229,
+    "min_clearance_m": 0.10227485650606416,
+    "baseline": {
+      "cost_s": 182.70735558971944,
+      "distance_m": 100.865746699413
+    },
+    "improvement_pct": 24.02172981157033,
+    "reason": null
+  },
+  "blocked_crossing": {
+    "status": "READY",
+    "goal_ids": [
+      "P-MODULE",
+      "P-IC",
+      "P-SENSOR",
+      "P-LAB",
+      "P-PASSIVE",
+      "P-CABLE"
+    ],
+    "distance_m": 76.30939751330897,
+    "cost_s": 147.7134844931496,
+    "motion_s": 142.8063686726613,
+    "eta_s": 214.8063686726613,
+    "min_clearance_m": 0.10227485650606416,
+    "baseline": {
+      "cost_s": 218.10457688738097,
+      "distance_m": 122.6231060122937
+    },
+    "improvement_pct": 32.27400974284829,
+    "reason": null
+  },
+  "isolated_dock": {
+    "status": "BLOCKED",
+    "goal_ids": [
+      "P-IC",
+      "P-LAB",
+      "P-SENSOR",
+      "P-PASSIVE",
+      "P-MODULE",
+      "P-CABLE"
+    ],
+    "reason": "POSE_BLOCKED"
+  },
+  "low_battery": {
+    "status": "NEEDS_CHARGE",
+    "goal_ids": [
+      "P-IC",
+      "P-SENSOR",
+      "P-MODULE",
+      "P-LAB",
+      "P-PASSIVE",
+      "P-CABLE"
+    ],
+    "distance_m": 73.1274169979695,
+    "cost_s": 138.817888284092,
+    "motion_s": 134.11650404810229,
+    "eta_s": 206.11650404810229,
+    "min_clearance_m": 0.10227485650606416,
+    "baseline": {
+      "cost_s": 182.70735558971944,
+      "distance_m": 100.865746699413
+    },
+    "improvement_pct": 24.02172981157033,
+    "reason": "低于返航电量阈值，先充电再执行"
+  },
+  "hardware_run": false
+}

@@ -1,0 +1,436 @@
+{
+  "dataset": "materialbrain_synthetic_datasheet_evidence_v1",
+  "disclaimer": "All PDFs are synthetic MaterialBrain CI fixtures, not manufacturer datasheets.",
+  "documents": [
+    {
+      "document_key": "SYN-CAN-A-R1",
+      "filename": "SYN_CAN_A_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic CAN Transceiver A Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "PORT-CAN-TCAN1044",
+      "sha256": "52e0443d54f56db3b8d180ae977c47ea3743481103f3b901e4effe7b6a5750c0",
+      "page_count": 4,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Device Overview",
+          "expected_phrases": [
+            "Synthetic CAN Transceiver A is a single-channel high-speed CAN transceiver fixture."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Recommended Operating Conditions",
+          "expected_phrases": [
+            "The recommended supply voltage VCC range is 4.5 V to 5.5 V."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Pinout",
+          "expected_phrases": [
+            "Pin functions for the synthetic SOIC-8 fixture are listed below."
+          ]
+        },
+        {
+          "page": 4,
+          "heading": "4. Evidence Usage",
+          "expected_phrases": [
+            "This document can support synthetic claims about a 5 V supply and the listed pin functions."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-CAN-B-RA",
+      "filename": "SYN_CAN_B_REV_A.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic CAN-FD Transceiver B Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "Rev A",
+      "document_date": "2026-07-01",
+      "status": "superseded",
+      "material_code": "PORT-CAN-MCP2562FD",
+      "sha256": "5ae6e925516bf083b040d5ebb4b22972d2b32db529fd5e8d7fcf030900d87660",
+      "page_count": 4,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Device Overview",
+          "expected_phrases": [
+            "Synthetic CAN-FD Transceiver B supports CAN and CAN-FD protocol fixture tests."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Recommended Operating Conditions",
+          "expected_phrases": [
+            "The main supply VDD is 4.5 V to 5.5 V."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Superseded Pinout",
+          "expected_phrases": [
+            "Rev A incorrectly documented Pin 5 as VREF. This statement is superseded by Rev B."
+          ]
+        },
+        {
+          "page": 4,
+          "heading": "4. Revision Notice",
+          "expected_phrases": [
+            "Do not use Rev A for current pinout claims. Rev B is the current synthetic document."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-CAN-B-RB",
+      "filename": "SYN_CAN_B_REV_B.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic CAN-FD Transceiver B Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "Rev B",
+      "document_date": "2026-08-15",
+      "status": "current",
+      "material_code": "PORT-CAN-MCP2562FD",
+      "supersedes_document_key": "SYN-CAN-B-RA",
+      "sha256": "e7d600104ba741a886eb0ac2b10bbf8d0fee90f442514d1cedd3c3138e900466",
+      "page_count": 4,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Device Overview",
+          "expected_phrases": [
+            "Synthetic CAN-FD Transceiver B supports CAN and CAN-FD."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Recommended Operating Conditions",
+          "expected_phrases": [
+            "The main supply VDD range is 4.5 V to 5.5 V."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Current Pinout",
+          "expected_phrases": [
+            "Rev B corrects Pin 5. Pin 5 is VIO, not VREF."
+          ]
+        },
+        {
+          "page": 4,
+          "heading": "4. CAN-FD Capability",
+          "expected_phrases": [
+            "The fixture explicitly supports CAN-FD evidence tests."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-CAN-C-R1",
+      "filename": "SYN_CAN_C_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic 3.3 V CAN Transceiver C Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "PORT-CAN-SN65HVD230",
+      "sha256": "c2980d285688871d4c3d6d1f8c6b27010411bb84e683eed29959f00c43389671",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Overview",
+          "expected_phrases": [
+            "Sample identity mapping: PORT-CAN-SN65HVD230."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Supply Voltage",
+          "expected_phrases": [
+            "Recommended supply VCC is 3.0 V to 3.6 V with 3.3 V nominal operation."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Interface",
+          "expected_phrases": [
+            "Supported bus interface: CAN. CAN-FD is not asserted by this fixture."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-ADC-A-R1",
+      "filename": "SYN_ADC_A_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic 24-bit ADC Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "PORT-ADC-ADS1220",
+      "sha256": "ae56ed3d9af1f4a6a42271822126a4f4442b96abdf353910ef072d6e486dd087",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Overview",
+          "expected_phrases": [
+            "Sample identity mapping: PORT-ADC-ADS1220."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Supply",
+          "expected_phrases": [
+            "Recommended analog/digital supply range for this fixture is 2.3 V to 5.5 V."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Sensor Acquisition",
+          "expected_phrases": [
+            "The fixture supports differential bridge-sensor and load-cell acquisition examples."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-BUCK-A-R1",
+      "filename": "SYN_BUCK_A_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic 100 V Buck Converter Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "PORT-BUCK-LM5164",
+      "sha256": "bf22753fed222a8c06f987f195b573d9f12a4cf510f53b1c51a37f97f93b079e",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Overview",
+          "expected_phrases": [
+            "Sample identity mapping: PORT-BUCK-LM5164."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Input Voltage",
+          "expected_phrases": [
+            "The supported input voltage range is 6 V to 100 V."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Output Current",
+          "expected_phrases": [
+            "The synthetic maximum continuous output-current evidence value is 1 A."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-MCU-F405-R1",
+      "filename": "SYN_MCU_F405_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic MCU F405 Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "PORT-MCU-F405RGT6",
+      "sha256": "30d1833ff177111ea9223f229fcac43d79792cba48c62055bbf062db354f4ed8",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Overview",
+          "expected_phrases": [
+            "Sample identity mapping: PORT-MCU-F405RGT6."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Interfaces",
+          "expected_phrases": [
+            "Synthetic interface evidence includes SPI, I2C, UART and CAN."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Supply",
+          "expected_phrases": [
+            "Nominal digital system supply is 3.3 V for sample comparison."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-MCU-G474-R1",
+      "filename": "SYN_MCU_G474_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic MCU G474 Verification Sheet",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "PORT-MCU-G474RET6",
+      "sha256": "f1a34a00bfece398bf17d8b18cba9271d9d81e48a7ac5fe3f2af27ae68fc6304",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Overview",
+          "expected_phrases": [
+            "Sample identity mapping: PORT-MCU-G474RET6."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Interfaces",
+          "expected_phrases": [
+            "Synthetic interface evidence includes SPI, I2C, UART and CAN-FD."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Supply",
+          "expected_phrases": [
+            "Nominal system supply is 3.3 V for sample comparison."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-TOF-C91199-R1",
+      "filename": "SYN_TOF_C91199_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic ToF Sensor Legacy Fixture",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "C91199",
+      "sha256": "c2654d9729be8f02c7da569da4fd06e58a5034f8f328b7e6595ee067f148b810",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Overview",
+          "expected_phrases": [
+            "Sample identity mapping: C91199."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Interface",
+          "expected_phrases": [
+            "Digital control interface: I2C."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Mechanical Note",
+          "expected_phrases": [
+            "Mechanical field-of-view and software behavior are not asserted to match any other ToF sensor."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-TOF-VL53L1-R1",
+      "filename": "SYN_TOF_VL53L1_R1.pdf",
+      "scope_type": "material",
+      "document_type": "synthetic_test",
+      "title": "Synthetic ToF Sensor VL53L1 Fixture",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "material_code": "PORT-TOF-VL53L1CX",
+      "sha256": "8c376524647ea5dcb2af9873e7a425413d7423fbb5825c3a5525069927022f9f",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Overview",
+          "expected_phrases": [
+            "Sample identity mapping: PORT-TOF-VL53L1CX."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Interface",
+          "expected_phrases": [
+            "Digital control interface: I2C."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Integration Note",
+          "expected_phrases": [
+            "The fixture intentionally does not assert identical mechanical field-of-view or driver compatibility with C91199."
+          ]
+        }
+      ]
+    },
+    {
+      "document_key": "SYN-ATLAS-CAN-NOTE-R1",
+      "filename": "SYN_ATLAS_CAN_VARIANT_B_NOTE_R1.pdf",
+      "scope_type": "product_revision",
+      "document_type": "engineering_note",
+      "title": "Atlas EVT-R2 Synthetic CAN Variant-B Engineering Note",
+      "manufacturer": "MaterialBrain Synthetic Lab",
+      "document_revision": "R1",
+      "document_date": "2026-08-30",
+      "status": "current",
+      "product_code": "PROD-ATLAS-AMR",
+      "revision": "EVT-R2",
+      "sha256": "4acbbb869e93d5bf081d63343d992fc2a6d3fa45a6db2fe6a5c27fa716ff853c",
+      "page_count": 3,
+      "expected_pages": [
+        {
+          "page": 1,
+          "heading": "1. Scope",
+          "expected_phrases": [
+            "This synthetic engineering note is scoped only to PROD-ATLAS-AMR / EVT-R2."
+          ]
+        },
+        {
+          "page": 2,
+          "heading": "2. Variant-B Condition",
+          "expected_phrases": [
+            "For the synthetic Variant-B adapter configuration, PORT-CAN-TCAN1044 may be used as an approved alternate for the PORT-CAN-MCP2562FD BOM position."
+          ]
+        },
+        {
+          "page": 3,
+          "heading": "3. Traceability",
+          "expected_phrases": [
+            "The product-specific approval should cite current evidence for both CAN transceiver fixtures and this product-revision note."
+          ]
+        }
+      ]
+    }
+  ]
+}

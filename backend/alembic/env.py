@@ -1,6 +1,6 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import MetaData, engine_from_config, pool
 
 from alembic import context
 from app import models  # noqa: F401
@@ -13,6 +13,29 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 target_metadata = Base.metadata
 
+# The frozen initial migration creates live ORM metadata while intentionally
+# excluding warehouse tables until 0012. Spatial tables belong to 0016 and must
+# not be bootstrapped before their warehouse foreign keys exist.
+SPATIAL_TABLES = {
+    "warehouse_spatial_assets",
+    "warehouse_semantic_zones",
+    "warehouse_spatial_docks",
+    "warehouse_dynamic_overlays",
+}
+
+
+def run_revision_chain():
+    original = Base.metadata
+    bootstrap = MetaData()
+    for table in original.tables.values():
+        if table.name not in SPATIAL_TABLES:
+            table.to_metadata(bootstrap)
+    Base.metadata = bootstrap
+    try:
+        context.run_migrations()
+    finally:
+        Base.metadata = original
+
 
 def run_migrations_offline():
     context.configure(
@@ -22,7 +45,7 @@ def run_migrations_offline():
         dialect_opts={"paramstyle": "named"},
     )
     with context.begin_transaction():
-        context.run_migrations()
+        run_revision_chain()
 
 
 def run_migrations_online():
@@ -34,7 +57,7 @@ def run_migrations_online():
     with connectable.connect() as connection:
         context.configure(connection=connection, target_metadata=target_metadata, compare_type=True)
         with context.begin_transaction():
-            context.run_migrations()
+            run_revision_chain()
 
 
 run_migrations_offline() if context.is_offline_mode() else run_migrations_online()

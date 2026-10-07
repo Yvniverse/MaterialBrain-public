@@ -2,7 +2,7 @@ name: Public CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, "codex/**"]
   pull_request:
 
 permissions:
@@ -13,21 +13,22 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:17-alpine
+        image: postgis/postgis:17-3.5
         env:
-          POSTGRES_USER: materialbrain_test
-          POSTGRES_PASSWORD: materialbrain_test
-          POSTGRES_DB: materialbrain_test
+          POSTGRES_USER: materialbrain_public_test
+          POSTGRES_PASSWORD: materialbrain_public_test
+          POSTGRES_DB: materialbrain_public_v02_test
         ports:
-          - 5432:5432
+          - 55432:5432
         options: >-
-          --health-cmd "pg_isready -U materialbrain_test -d materialbrain_test"
+          --health-cmd "pg_isready -U materialbrain_public_test -d materialbrain_public_v02_test"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 20
     env:
-      TEST_POSTGRES_URL: postgresql+psycopg://materialbrain_test:materialbrain_test@127.0.0.1:5432/materialbrain_test
-      DATABASE_URL: postgresql+psycopg://materialbrain_test:materialbrain_test@127.0.0.1:5432/materialbrain_test
+      TEST_POSTGRES_URL: postgresql+psycopg://materialbrain_public_test:materialbrain_public_test@127.0.0.1:55432/materialbrain_public_v02_test
+      DATABASE_URL: postgresql+psycopg://materialbrain_public_test:materialbrain_public_test@127.0.0.1:55432/materialbrain_public_v02_test
+      MATERIALBRAIN_BUILD_SHA: ${{ github.sha }}
       JEV_ENABLED: "false"
       JEV_SHADOW_ENABLED: "false"
     steps:
@@ -44,11 +45,16 @@ jobs:
       - run: python tools/check_migration_history.py
       - run: python -m alembic upgrade head
         working-directory: backend
-      # The public snapshot intentionally omits private evaluation corpora and
-      # harnesses; lint the published backend trees only.
-      - run: python -m ruff check app scripts tests
+      - run: python -m ruff check app scripts tests warehouse_bench alembic
         working-directory: backend
       - run: python -m pytest
+        working-directory: backend
+      - run: PHASE3_MCP_STDIO_RUN=1 python -m pytest tests/integration/test_mcp_stdio_e2e.py
+        working-directory: backend
+      - run: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m ruff check training robot_bridge/ros2 tests
+      - run: python -m pytest robot_bridge/ros2/tests training/tests tests
+      - run: python -m warehouse_bench --seed 17 --repetitions 1 --output warehouse_bench/results/ci
         working-directory: backend
 
   frontend:

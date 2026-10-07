@@ -178,6 +178,8 @@ export interface CableImportResult {
   cable_ids: number[]
   idempotent_replay?: boolean
 }
+import type { SpatialMissionProjection } from '../spatial/contracts'
+
 export interface ApiError {
   code: string
   message: string
@@ -1228,7 +1230,36 @@ export interface AgentCableSearchEntity {
   inventory_source: 'Material + InventoryLot'
 }
 
+export interface AgentNavigationPlan {
+  status:
+    | 'READY'
+    | 'BLOCKED'
+    | 'NEEDS_CHARGE'
+    | 'SPLIT_REQUIRED'
+    | 'CAPABILITY_MISMATCH'
+    | 'CLARIFICATION'
+  world_id?: string
+  world_revision?: string
+  mode?: string
+  goal_ids?: string[]
+  distance_m?: number
+  eta_s?: number
+  min_clearance_m?: number
+  improvement_pct?: number
+  payload_kg?: number
+  reason?: string
+  inventory_written?: boolean
+  scenario_id?: string
+  requested_goal_ids?: string[]
+  resumed?: boolean
+  completed_goal_ids?: string[]
+  execution_context?: import('../embodied/navigationSession').NavigationExecutionContext
+}
 export interface AgentEntities {
+  spatial_mission?: SpatialMissionProjection
+  spatial_query?: Record<string, unknown>
+  navigation_lab?: Record<string, unknown>
+  navigation_plan?: AgentNavigationPlan
   material_candidates?: {
     items: AgentMaterialEntity[]
     count: number
@@ -1344,6 +1375,7 @@ export interface AgentGroundedFact {
     | 'evidence_comparison'
     | 'power_design'
     | 'engineering_research'
+    | 'navigation'
   source_tool: string
   entity_id: number | null
   field: string

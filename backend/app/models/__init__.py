@@ -41,3 +41,7 @@ from app.models.domain import (  # noqa: F401
     WarehouseMapEdge,
     WarehouseMapNode,
 )
+from app.spatial.models import DynamicOverlay, SemanticZone, SpatialAsset, SpatialDock  # noqa: F401
+from app.spatial.orm_geometry import register_legacy_geometry_hooks
+
+register_legacy_geometry_hooks()

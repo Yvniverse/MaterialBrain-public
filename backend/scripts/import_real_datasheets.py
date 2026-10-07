@@ -25,7 +25,7 @@ from app.services.engineering_evidence import (
 
 DEFAULT_MANIFEST = (
     Path(__file__).resolve().parents[1]
-    / "portfolio_demo_data"
+    / "sample_data"
     / "v2_4"
     / "real_datasheet_manifest_v1.json"
 )

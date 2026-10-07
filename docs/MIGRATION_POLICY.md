@@ -1,36 +1,22 @@
-# Alembic Migration Immutability Policy
+# Database migration policy
 
-## Rule
+Released Alembic revisions are immutable. Persisted schema changes require a new revision; change application compatibility code separately when necessary.
 
-A migration that has shipped or been used by a qualified candidate is immutable.
+The existing frozen migration hashes are recorded in [MIGRATION_HISTORY_SHA256.json](../backend/alembic/MIGRATION_HISTORY_SHA256.json). Validate them from the repository root:
 
-Do not repair an old deployment problem by editing `0001...0012`. Add a new Alembic revision.
+```bash
+python tools/check_migration_history.py
+```
 
-Phase 2.7 freezes history through:
+Then apply migrations to an isolated database before testing:
 
-`0012_picking_core`
+```bash
+cd backend
+python -m alembic upgrade head
+```
 
-The exact hashes are stored in:
+The spatial map revision requires PostgreSQL with PostGIS. Use the provided PostGIS Compose service for application startup or the separate service in `docker-compose.test.yml` for tests.
 
-`backend/alembic/MIGRATION_HISTORY_SHA256.json`
+New revisions should avoid importing evolving ORM metadata where it can alter historical behavior. Review indexes, constraints, data conversion, and downgrade implications. Extend the freeze manifest deliberately when a new revision becomes part of the supported migration history.
 
-and checked by:
-
-`python tools/check_migration_history.py`
-
-CI runs this check before the Alembic upgrade/test stage.
-
-## Why
-
-Early MaterialBrain migrations import current ORM metadata, so historical revisions were vulnerable to changing behavior when new models were added. Phase 2.7 handled that compatibility debt, but future phases must stop rewriting migration history.
-
-## Future revisions
-
-- New Phase 2.8 schema work should create `0013_...` or later.
-- New files are allowed by the frozen-history checker.
-- After a new revision is released/qualified, deliberately extend the freeze manifest in its own reviewed change.
-- Do not regenerate checksums to hide an accidental historical edit.
-
-## Rollback
-
-Application rollback and database downgrade are different operations. Prefer rolling back application images while retaining a forward-compatible additive schema. Never downgrade a migration that contains real production data without a specific recovery plan and backup verification.
+Application rollback and database downgrade are different operations. Prefer forward-compatible, additive changes. Before a data-changing downgrade, test the recovery path and verify a database/file backup in a separate runtime.

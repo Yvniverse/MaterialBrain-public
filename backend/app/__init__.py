@@ -1,1 +1,1 @@
-"""Pengka Material Web backend."""
+"""MaterialBrain backend."""

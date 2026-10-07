@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { nextTick, onMounted, ref, watch } from 'vue'
+import SpatialMissionCard from '../../spatial/SpatialMissionCard.vue'
+import NavigationPlanCard from '../../embodied/components/NavigationPlanCard.vue'
 import { useRouter } from 'vue-router'
 import { Promotion } from '@element-plus/icons-vue'
 import { useWarehouseAgent } from '../../composables/useWarehouseAgent'
@@ -142,6 +144,8 @@ function hasProductAmbiguity(response: AgentQueryResponse) {
 function showNarrativeAnswer(response: AgentQueryResponse) {
   const entities = response.entities
   return !(
+    entities.spatial_mission ||
+    entities.navigation_plan ||
     entities.low_stock ||
     entities.component_search ||
     entities.cable_search ||
@@ -234,6 +238,8 @@ onMounted(async () => {
         <div v-if="turn.pending" class="assistant-loading"><i></i>正在核对真实库存和库位…</div>
         <div v-else-if="turn.error" class="assistant-error">{{ turn.error }}</div>
         <template v-else-if="turn.response">
+          <SpatialMissionCard v-if="turn.response.entities.spatial_mission" :mission="turn.response.entities.spatial_mission" compact />
+          <NavigationPlanCard v-if="turn.response.entities.navigation_plan" :plan="turn.response.entities.navigation_plan" />
           <div v-if="showNarrativeAnswer(turn.response)" class="assistant-answer">
             {{ turn.response.answer }}
           </div>

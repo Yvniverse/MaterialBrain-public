@@ -154,7 +154,7 @@ class WarehouseAgentSuggestionService:
 
     @staticmethod
     def _natural_identity(material: Material) -> str:
-        """Prefer a business identifier and avoid generated Portfolio row IDs."""
+        """Prefer a business identifier and avoid generated Sample row IDs."""
 
         candidates = [
             material.mpn.strip(),
@@ -163,6 +163,6 @@ class WarehouseAgentSuggestionService:
         ]
         for value in candidates:
             folded = value.casefold()
-            if value and not folded.startswith(("portfolio-", "port-", "cbl-pf-")):
+            if value and not folded.startswith(("sample-", "port-", "cbl-pf-")):
                 return value
         return material.code

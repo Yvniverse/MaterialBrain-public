@@ -54,7 +54,7 @@ const cable = {
   ],
   actual_location_status: 'complete',
   actual_location_quantity: 20,
-  notes: 'Synthetic Portfolio cable catalog item.',
+  notes: 'Synthetic sample cable catalog item.',
   updated_at: '2026-08-31T00:00:00Z',
 }
 

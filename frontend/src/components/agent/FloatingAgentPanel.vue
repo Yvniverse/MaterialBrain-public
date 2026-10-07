@@ -220,7 +220,7 @@ onBeforeUnmount(() => {
     data-testid="floating-agent-panel"
   >
     <header class="panel-header">
-      <div><span>PENGKA MATERIAL BRAIN</span><b>物料大脑</b><small>找物料、查库存、看库位</small></div>
+      <div><span>MATERIALBRAIN MATERIAL BRAIN</span><b>物料大脑</b><small>找物料、查库存、看库位</small></div>
       <button ref="closeButton" type="button" class="panel-close" aria-label="关闭物料助手" @click="requestClose"><el-icon><Close /></el-icon></button>
     </header>
     <FloatingAgentConversation />

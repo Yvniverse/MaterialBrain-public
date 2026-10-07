@@ -42,7 +42,7 @@ onMounted(async () => {
   <div class="page agent-page">
     <div class="page-header">
       <div>
-        <div class="agent-kicker">PENGKA MATERIAL BRAIN</div>
+        <div class="agent-kicker">MATERIALBRAIN</div>
         <h1 class="page-title">物料大脑</h1>
         <div class="page-subtitle">
           找物料、查库存、看库位、分析 BOM。需要改动库存时，会先请你确认。

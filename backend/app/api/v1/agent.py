@@ -168,6 +168,9 @@ def query_agent(payload: AgentQueryRequest, request: Request, db: DB, user: Curr
         payload.message,
         conversation_id=payload.conversation_id,
         client_operation_id=payload.client_operation_id,
+        **(
+            {"navigation_context": payload.navigation_context} if payload.navigation_context else {}
+        ),
     )
 
 

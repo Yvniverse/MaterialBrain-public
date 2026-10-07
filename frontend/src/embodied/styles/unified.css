@@ -1,0 +1,12 @@
+/* Shared color tokens for spatial cards and the embodied laboratory. */
+:root {
+  --g-bg: #eef3f6;
+  --g-paper: #ffffff;
+  --g-ice: #e4eff5;
+  --g-accent: #467e96;
+  --g-accent-strong: #365f73;
+  --g-ink: #243942;
+  --g-muted: #657e8a;
+  --g-line: #dbe5eb;
+  --mb-surface-subtle: #f5f9fb;
+}

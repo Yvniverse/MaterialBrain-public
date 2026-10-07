@@ -7,9 +7,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_name: str = "嘭咔智能电子物料仓库管理系统"
+    app_name: str = "MaterialBrain电子物料仓库管理系统"
     environment: str = "development"
-    database_url: str = "sqlite:///./pengka.db"
+    database_url: str = "sqlite:///./materialbrain.db"
     session_hours: int = 8
     cookie_secure: bool = False
     attachment_dir: Path = Path("../storage/attachments")
@@ -48,12 +48,12 @@ class Settings(BaseSettings):
     jev_stage_request_cap: int = Field(default=30, ge=1, le=30)
     component_intelligence_enabled: bool = False
     traceable_engineering_evidence_required: bool = True
-    portfolio_demo_seed_enabled: bool = False
-    portfolio_product_seed_enabled: bool = False
-    portfolio_relation_seed_enabled: bool = False
-    portfolio_evidence_seed_enabled: bool = False
-    portfolio_cable_seed_enabled: bool = False
-    portfolio_database_rebuild_enabled: bool = False
+    sample_data_seed_enabled: bool = False
+    sample_product_seed_enabled: bool = False
+    sample_relation_seed_enabled: bool = False
+    sample_evidence_seed_enabled: bool = False
+    sample_cable_seed_enabled: bool = False
+    sample_database_rebuild_enabled: bool = False
     agent_deterministic_material_resolution_enabled: bool = False
     agent_engineering_research_enabled: bool = True
     agent_max_tool_rounds: int = Field(default=5, ge=1, le=10)
@@ -61,6 +61,9 @@ class Settings(BaseSettings):
     agent_total_deadline_seconds: float = Field(default=90, ge=10, le=300)
     agent_conversation_ttl_minutes: int = Field(default=1440, ge=5, le=10080)
     agent_conversation_cleanup_grace_days: int = Field(default=7, ge=1, le=90)
+    spatial_robot_bridge_url: str = "http://robotics:8766"
+    spatial_nav2_evidence_dir: str = "../storage/robotics/qualification"
+    spatial_sample_map_enabled: bool = False
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 

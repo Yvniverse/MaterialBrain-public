@@ -1,0 +1,1207 @@
+[
+  {
+    "code": "PORT-CAN-TCAN1044",
+    "name": "5V CAN 收发器",
+    "mpn": "TCAN1044AVDRQ1",
+    "specification": "High-speed CAN FD transceiver; 5V supply; automotive qualified",
+    "package": "SOIC-8",
+    "manufacturer": "Texas Instruments",
+    "quantity": 80,
+    "safety_stock": 20,
+    "target_stock": 120,
+    "unit_price": 12.8,
+    "primary_location_code": "PORT-IC-100-A01",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-A01",
+        "quantity": 60
+      },
+      {
+        "location_code": "PORT-IC-100-B01",
+        "quantity": 20
+      }
+    ],
+    "tags": [
+      "CAN",
+      "CAN-FD",
+      "5V",
+      "transceiver",
+      "automotive"
+    ],
+    "attributes": {
+      "component_type": "CAN transceiver",
+      "supply_voltage": "5V",
+      "interfaces": [
+        "CAN",
+        "CAN-FD"
+      ],
+      "channels": 1
+    },
+    "category_hint": "通信接口",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CAN-SN65HVD230",
+    "name": "3.3V CAN 收发器",
+    "mpn": "SN65HVD230DR",
+    "specification": "High-speed CAN transceiver; 3.3V supply; CAN",
+    "package": "SOIC-8",
+    "manufacturer": "Texas Instruments",
+    "quantity": 12,
+    "safety_stock": 15,
+    "target_stock": 40,
+    "unit_price": 8.5,
+    "primary_location_code": "PORT-IC-100-C01",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-C01",
+        "quantity": 12
+      }
+    ],
+    "tags": [
+      "CAN",
+      "3.3V",
+      "transceiver",
+      "low-stock"
+    ],
+    "attributes": {
+      "component_type": "CAN transceiver",
+      "supply_voltage": "3.3V",
+      "interfaces": [
+        "CAN"
+      ],
+      "channels": 1
+    },
+    "category_hint": "通信接口",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CAN-MCP2562FD",
+    "name": "CAN-FD 收发器",
+    "mpn": "MCP2562FD-H/SN",
+    "specification": "CAN-FD transceiver; 5V supply; VIO; high-speed CAN-FD",
+    "package": "SOIC-8",
+    "manufacturer": "Microchip",
+    "quantity": 24,
+    "safety_stock": 10,
+    "target_stock": 50,
+    "unit_price": 11.5,
+    "primary_location_code": "PORT-IC-100-D01",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-D01",
+        "quantity": 24
+      }
+    ],
+    "tags": [
+      "CAN",
+      "CAN-FD",
+      "5V",
+      "transceiver"
+    ],
+    "attributes": {
+      "component_type": "CAN transceiver",
+      "supply_voltage": "5V",
+      "interfaces": [
+        "CAN",
+        "CAN-FD"
+      ],
+      "channels": 1
+    },
+    "category_hint": "通信接口",
+    "notes": ""
+  },
+  {
+    "code": "PORT-RS485-THVD1450",
+    "name": "RS485 收发器",
+    "mpn": "THVD1450DR",
+    "specification": "Half-duplex RS485 transceiver; 3.3V/5V compatible design metadata",
+    "package": "SOIC-8",
+    "manufacturer": "Texas Instruments",
+    "quantity": 16,
+    "safety_stock": 8,
+    "target_stock": 32,
+    "unit_price": 10.2,
+    "primary_location_code": "PORT-IC-100-E01",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-E01",
+        "quantity": 16
+      }
+    ],
+    "tags": [
+      "RS485",
+      "transceiver",
+      "3.3V",
+      "5V"
+    ],
+    "attributes": {
+      "component_type": "RS485 transceiver",
+      "interfaces": [
+        "RS485"
+      ]
+    },
+    "category_hint": "通信接口",
+    "notes": ""
+  },
+  {
+    "code": "PORT-ETH-LAN8720A",
+    "name": "10/100M Ethernet PHY",
+    "mpn": "LAN8720A-CP-TR",
+    "specification": "10/100 Ethernet PHY; RMII; 3.3V",
+    "package": "QFN-24",
+    "manufacturer": "Microchip",
+    "quantity": 18,
+    "safety_stock": 8,
+    "target_stock": 30,
+    "unit_price": 13.5,
+    "primary_location_code": "PORT-IC-100-A02",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-A02",
+        "quantity": 18
+      }
+    ],
+    "tags": [
+      "Ethernet",
+      "RMII",
+      "3.3V",
+      "PHY"
+    ],
+    "attributes": {
+      "component_type": "Ethernet PHY",
+      "interfaces": [
+        "Ethernet",
+        "RMII"
+      ],
+      "supply_voltage": "3.3V"
+    },
+    "category_hint": "通信接口",
+    "notes": ""
+  },
+  {
+    "code": "PORT-MCU-F405RGT6",
+    "name": "STM32F405 MCU",
+    "mpn": "STM32F405RGT6",
+    "specification": "Cortex-M4 MCU; 168MHz; 1MB Flash; 3.3V",
+    "package": "LQFP-64",
+    "manufacturer": "STMicroelectronics",
+    "quantity": 30,
+    "safety_stock": 10,
+    "target_stock": 60,
+    "unit_price": 32.0,
+    "primary_location_code": "PORT-IC-100-B02",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-B02",
+        "quantity": 20
+      },
+      {
+        "location_code": "PORT-IC-100-C02",
+        "quantity": 10
+      }
+    ],
+    "tags": [
+      "MCU",
+      "STM32",
+      "3.3V",
+      "CAN",
+      "SPI",
+      "I2C"
+    ],
+    "attributes": {
+      "component_type": "MCU",
+      "core": "Cortex-M4",
+      "interfaces": [
+        "CAN",
+        "SPI",
+        "I2C",
+        "UART"
+      ],
+      "supply_voltage": "3.3V"
+    },
+    "category_hint": "MCU",
+    "notes": ""
+  },
+  {
+    "code": "PORT-MCU-G474RET6",
+    "name": "STM32G474 MCU",
+    "mpn": "STM32G474RET6",
+    "specification": "Mixed-signal Cortex-M4 MCU; motor-control oriented; 3.3V",
+    "package": "LQFP-64",
+    "manufacturer": "STMicroelectronics",
+    "quantity": 14,
+    "safety_stock": 12,
+    "target_stock": 36,
+    "unit_price": 40.0,
+    "primary_location_code": "PORT-IC-100-D02",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-D02",
+        "quantity": 14
+      }
+    ],
+    "tags": [
+      "MCU",
+      "STM32",
+      "motor-control",
+      "3.3V",
+      "CAN-FD"
+    ],
+    "attributes": {
+      "component_type": "MCU",
+      "core": "Cortex-M4",
+      "interfaces": [
+        "CAN-FD",
+        "SPI",
+        "I2C",
+        "UART"
+      ],
+      "supply_voltage": "3.3V"
+    },
+    "category_hint": "MCU",
+    "notes": ""
+  },
+  {
+    "code": "PORT-MCU-ESP32S3",
+    "name": "ESP32-S3 无线 MCU 模组",
+    "mpn": "ESP32-S3-WROOM-1-N8R8",
+    "specification": "Wi-Fi + BLE MCU module; 3.3V",
+    "package": "Module",
+    "manufacturer": "Espressif",
+    "quantity": 10,
+    "safety_stock": 5,
+    "target_stock": 24,
+    "unit_price": 28.0,
+    "primary_location_code": "PORT-IC-100-E02",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-E02",
+        "quantity": 10
+      }
+    ],
+    "tags": [
+      "MCU",
+      "WiFi",
+      "BLE",
+      "3.3V"
+    ],
+    "attributes": {
+      "component_type": "wireless MCU module",
+      "interfaces": [
+        "WiFi",
+        "BLE",
+        "SPI",
+        "UART"
+      ],
+      "supply_voltage": "3.3V"
+    },
+    "category_hint": "MCU",
+    "notes": ""
+  },
+  {
+    "code": "PORT-ENC-AS5047P",
+    "name": "磁编码器",
+    "mpn": "AS5047P",
+    "specification": "14-bit magnetic rotary position sensor; SPI/ABI; 3.3V/5V",
+    "package": "TSSOP-14",
+    "manufacturer": "ams OSRAM",
+    "quantity": 18,
+    "safety_stock": 8,
+    "target_stock": 30,
+    "unit_price": 36.0,
+    "primary_location_code": "PORT-SENSOR-56-A01",
+    "lots": [
+      {
+        "location_code": "PORT-SENSOR-56-A01",
+        "quantity": 18
+      }
+    ],
+    "tags": [
+      "encoder",
+      "SPI",
+      "magnetic",
+      "position"
+    ],
+    "attributes": {
+      "component_type": "magnetic encoder",
+      "interfaces": [
+        "SPI",
+        "ABI"
+      ],
+      "resolution_bits": 14
+    },
+    "category_hint": "传感器芯片",
+    "notes": ""
+  },
+  {
+    "code": "PORT-IMU-LSM6DSV16X",
+    "name": "六轴 IMU",
+    "mpn": "LSM6DSV16XTR",
+    "specification": "6-axis IMU; accelerometer + gyroscope; I2C/SPI; 1.8V/3.3V system",
+    "package": "LGA-14",
+    "manufacturer": "STMicroelectronics",
+    "quantity": 20,
+    "safety_stock": 8,
+    "target_stock": 40,
+    "unit_price": 26.0,
+    "primary_location_code": "PORT-SENSOR-56-B01",
+    "lots": [
+      {
+        "location_code": "PORT-SENSOR-56-B01",
+        "quantity": 20
+      }
+    ],
+    "tags": [
+      "IMU",
+      "I2C",
+      "SPI",
+      "sensor"
+    ],
+    "attributes": {
+      "component_type": "IMU",
+      "interfaces": [
+        "I2C",
+        "SPI"
+      ],
+      "axes": 6
+    },
+    "category_hint": "传感器芯片",
+    "notes": ""
+  },
+  {
+    "code": "PORT-TOF-VL53L1CX",
+    "name": "ToF 测距传感器",
+    "mpn": "VL53L1CXV0FY/1",
+    "specification": "Time-of-Flight ranging sensor; I2C; 2.8V/3.3V system",
+    "package": "LGA",
+    "manufacturer": "STMicroelectronics",
+    "quantity": 6,
+    "safety_stock": 8,
+    "target_stock": 20,
+    "unit_price": 34.0,
+    "primary_location_code": "PORT-SENSOR-56-C01",
+    "lots": [
+      {
+        "location_code": "PORT-SENSOR-56-C01",
+        "quantity": 6
+      }
+    ],
+    "tags": [
+      "ToF",
+      "distance",
+      "I2C",
+      "low-stock"
+    ],
+    "attributes": {
+      "component_type": "ToF sensor",
+      "interfaces": [
+        "I2C"
+      ]
+    },
+    "category_hint": "传感器芯片",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CUR-INA240A1",
+    "name": "双向电流检测放大器",
+    "mpn": "INA240A1DR",
+    "specification": "Bidirectional current sense amplifier; PWM rejection; 5V capable",
+    "package": "SOIC-8",
+    "manufacturer": "Texas Instruments",
+    "quantity": 24,
+    "safety_stock": 8,
+    "target_stock": 40,
+    "unit_price": 22.0,
+    "primary_location_code": "PORT-SENSOR-56-D01",
+    "lots": [
+      {
+        "location_code": "PORT-SENSOR-56-D01",
+        "quantity": 24
+      }
+    ],
+    "tags": [
+      "current-sense",
+      "motor-control",
+      "5V"
+    ],
+    "attributes": {
+      "component_type": "current sense amplifier",
+      "supply_voltage": "5V"
+    },
+    "category_hint": "运放",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CUR-INA226",
+    "name": "数字电流/功率监测",
+    "mpn": "INA226AIDGSR",
+    "specification": "Digital current/power monitor; I2C; 36V bus measurement",
+    "package": "VSSOP-10",
+    "manufacturer": "Texas Instruments",
+    "quantity": 20,
+    "safety_stock": 8,
+    "target_stock": 36,
+    "unit_price": 18.0,
+    "primary_location_code": "PORT-SENSOR-56-E01",
+    "lots": [
+      {
+        "location_code": "PORT-SENSOR-56-E01",
+        "quantity": 20
+      }
+    ],
+    "tags": [
+      "current",
+      "power-monitor",
+      "I2C"
+    ],
+    "attributes": {
+      "component_type": "digital power monitor",
+      "interfaces": [
+        "I2C"
+      ],
+      "bus_voltage_max": "36V"
+    },
+    "category_hint": "传感器芯片",
+    "notes": ""
+  },
+  {
+    "code": "PORT-ADC-ADS1220",
+    "name": "24-bit 精密 ADC",
+    "mpn": "ADS1220IPWR",
+    "specification": "24-bit delta-sigma ADC; SPI; sensor bridge/load-cell acquisition",
+    "package": "TSSOP-16",
+    "manufacturer": "Texas Instruments",
+    "quantity": 10,
+    "safety_stock": 4,
+    "target_stock": 20,
+    "unit_price": 28.0,
+    "primary_location_code": "PORT-SENSOR-56-F01",
+    "lots": [
+      {
+        "location_code": "PORT-SENSOR-56-F01",
+        "quantity": 10
+      }
+    ],
+    "tags": [
+      "ADC",
+      "24-bit",
+      "SPI",
+      "load-cell"
+    ],
+    "attributes": {
+      "component_type": "ADC",
+      "resolution_bits": 24,
+      "interfaces": [
+        "SPI"
+      ]
+    },
+    "category_hint": "ADC",
+    "notes": ""
+  },
+  {
+    "code": "PORT-LOADCELL-5KG",
+    "name": "5kg 微型拉压力传感器",
+    "mpn": "DEMO-LC-5KG",
+    "specification": "5kg load cell; Wheatstone bridge; electromechanical sensor",
+    "package": "Module",
+    "manufacturer": "Sample Robotics",
+    "quantity": 12,
+    "safety_stock": 4,
+    "target_stock": 20,
+    "unit_price": 45.0,
+    "primary_location_code": "PORT-SENSOR-56-G01",
+    "lots": [
+      {
+        "location_code": "PORT-SENSOR-56-G01",
+        "quantity": 12
+      }
+    ],
+    "tags": [
+      "load-cell",
+      "force",
+      "5kg",
+      "sensor"
+    ],
+    "attributes": {
+      "component_type": "load cell",
+      "range": "5kg",
+      "output": "bridge",
+      "part_number_kind": "internal"
+    },
+    "category_hint": "传感器",
+    "notes": ""
+  },
+  {
+    "code": "PORT-MDRV-DRV8323",
+    "name": "三相无刷栅极驱动器",
+    "mpn": "DRV8323RH",
+    "specification": "Three-phase smart gate driver; BLDC/PMSM motor control; SPI",
+    "package": "VQFN",
+    "manufacturer": "Texas Instruments",
+    "quantity": 8,
+    "safety_stock": 10,
+    "target_stock": 24,
+    "unit_price": 48.0,
+    "primary_location_code": "PORT-IC-100-A03",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-A03",
+        "quantity": 8
+      }
+    ],
+    "tags": [
+      "motor-driver",
+      "BLDC",
+      "SPI",
+      "low-stock"
+    ],
+    "attributes": {
+      "component_type": "3-phase gate driver",
+      "interfaces": [
+        "SPI"
+      ],
+      "motor_type": [
+        "BLDC",
+        "PMSM"
+      ]
+    },
+    "category_hint": "驱动芯片",
+    "notes": ""
+  },
+  {
+    "code": "PORT-MDRV-TMC5160",
+    "name": "步进电机驱动器",
+    "mpn": "TMC5160A-TA",
+    "specification": "High-voltage stepper motor driver/controller; SPI",
+    "package": "TQFP-48",
+    "manufacturer": "Analog Devices/Trinamic",
+    "quantity": 10,
+    "safety_stock": 4,
+    "target_stock": 20,
+    "unit_price": 55.0,
+    "primary_location_code": "PORT-IC-100-B03",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-B03",
+        "quantity": 10
+      }
+    ],
+    "tags": [
+      "motor-driver",
+      "stepper",
+      "SPI"
+    ],
+    "attributes": {
+      "component_type": "stepper motor driver",
+      "interfaces": [
+        "SPI"
+      ]
+    },
+    "category_hint": "驱动芯片",
+    "notes": ""
+  },
+  {
+    "code": "PORT-BOARD-48V-DUAL-MOTOR",
+    "name": "48V 双路电机驱动板",
+    "mpn": "DEMO-MD48-DUAL-V2",
+    "specification": "48V dual-channel BLDC motor driver board; CAN-FD; current sensing; 30A peak catalog metadata",
+    "package": "Board",
+    "manufacturer": "Sample Robotics",
+    "quantity": 3,
+    "safety_stock": 2,
+    "target_stock": 6,
+    "unit_price": 399.0,
+    "primary_location_code": "PORT-PWR-6-L02-B01",
+    "lots": [
+      {
+        "location_code": "PORT-PWR-6-L02-B01",
+        "quantity": 2
+      }
+    ],
+    "tags": [
+      "48V",
+      "motor-driver",
+      "CAN-FD",
+      "board",
+      "dual-channel"
+    ],
+    "attributes": {
+      "component_type": "motor driver board",
+      "input_voltage": "48V",
+      "interfaces": [
+        "CAN-FD"
+      ],
+      "channels": 2,
+      "peak_current": "30A",
+      "part_number_kind": "internal"
+    },
+    "category_hint": "开发板 / PCB",
+    "notes": "One unit remains unallocated."
+  },
+  {
+    "code": "PORT-BUCK-TPS54560",
+    "name": "60V 5A 降压芯片",
+    "mpn": "TPS54560DDAR",
+    "specification": "5.5V-60V input; 5A step-down converter",
+    "package": "SO PowerPAD-8",
+    "manufacturer": "Texas Instruments",
+    "quantity": 10,
+    "safety_stock": 5,
+    "target_stock": 24,
+    "unit_price": 29.0,
+    "primary_location_code": "PORT-IC-100-C03",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-C03",
+        "quantity": 10
+      }
+    ],
+    "tags": [
+      "buck",
+      "60V",
+      "5A",
+      "power"
+    ],
+    "attributes": {
+      "component_type": "buck converter",
+      "input_voltage_max": "60V",
+      "output_current": "5A"
+    },
+    "category_hint": "电源管理",
+    "notes": ""
+  },
+  {
+    "code": "PORT-BUCK-LM5164",
+    "name": "100V 1A 同步降压芯片",
+    "mpn": "LM5164DDAR",
+    "specification": "6V-100V input; 1A synchronous buck converter",
+    "package": "SO PowerPAD-8",
+    "manufacturer": "Texas Instruments",
+    "quantity": 14,
+    "safety_stock": 5,
+    "target_stock": 28,
+    "unit_price": 31.0,
+    "primary_location_code": "PORT-IC-100-D03",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-D03",
+        "quantity": 14
+      }
+    ],
+    "tags": [
+      "buck",
+      "100V",
+      "1A",
+      "power"
+    ],
+    "attributes": {
+      "component_type": "buck converter",
+      "input_voltage_max": "100V",
+      "output_current": "1A"
+    },
+    "category_hint": "电源管理",
+    "notes": ""
+  },
+  {
+    "code": "PORT-DCDC-48V5V5A",
+    "name": "48V 转 5V/5A 电源模块",
+    "mpn": "DEMO-DCDC-48-5-5A",
+    "specification": "36V-60V input; 5V output; 5A continuous; isolated DC/DC module",
+    "package": "Module",
+    "manufacturer": "Sample Robotics",
+    "quantity": 4,
+    "safety_stock": 5,
+    "target_stock": 12,
+    "unit_price": 128.0,
+    "primary_location_code": "PORT-PWR-6-L01-B01",
+    "lots": [
+      {
+        "location_code": "PORT-PWR-6-L01-B01",
+        "quantity": 3
+      }
+    ],
+    "tags": [
+      "48V",
+      "5V",
+      "5A",
+      "DC/DC",
+      "power-module",
+      "low-stock"
+    ],
+    "attributes": {
+      "component_type": "DC/DC module",
+      "input_voltage": "48V",
+      "input_range": "36V-60V",
+      "output_voltage": "5V",
+      "output_current": "5A",
+      "part_number_kind": "internal"
+    },
+    "category_hint": "模块",
+    "notes": "One unit remains unallocated."
+  },
+  {
+    "code": "PORT-DCDC-24V5V3A",
+    "name": "24V 转 5V/3A 电源模块",
+    "mpn": "DEMO-DCDC-24-5-3A",
+    "specification": "18V-30V input; 5V output; 3A continuous DC/DC module",
+    "package": "Module",
+    "manufacturer": "Sample Robotics",
+    "quantity": 6,
+    "safety_stock": 3,
+    "target_stock": 12,
+    "unit_price": 79.0,
+    "primary_location_code": "PORT-PWR-6-L01-B01",
+    "lots": [
+      {
+        "location_code": "PORT-PWR-6-L01-B01",
+        "quantity": 6
+      }
+    ],
+    "tags": [
+      "24V",
+      "5V",
+      "3A",
+      "DC/DC",
+      "power-module"
+    ],
+    "attributes": {
+      "component_type": "DC/DC module",
+      "input_voltage": "24V",
+      "output_voltage": "5V",
+      "output_current": "3A",
+      "part_number_kind": "internal"
+    },
+    "category_hint": "模块",
+    "notes": ""
+  },
+  {
+    "code": "PORT-USBC-STUSB4500",
+    "name": "USB-C PD Sink 控制器",
+    "mpn": "STUSB4500QTR",
+    "specification": "USB Type-C / USB PD sink controller; I2C",
+    "package": "QFN-24",
+    "manufacturer": "STMicroelectronics",
+    "quantity": 12,
+    "safety_stock": 5,
+    "target_stock": 24,
+    "unit_price": 25.0,
+    "primary_location_code": "PORT-IC-100-E03",
+    "lots": [
+      {
+        "location_code": "PORT-IC-100-E03",
+        "quantity": 12
+      }
+    ],
+    "tags": [
+      "USB-C",
+      "USB-PD",
+      "I2C"
+    ],
+    "attributes": {
+      "component_type": "USB-PD controller",
+      "interfaces": [
+        "USB-C",
+        "I2C"
+      ]
+    },
+    "category_hint": "通信接口",
+    "notes": ""
+  },
+  {
+    "code": "PORT-BMS-13S40A",
+    "name": "13S 48V 锂电池 BMS 模块",
+    "mpn": "DEMO-BMS-13S-40A",
+    "specification": "13S Li-ion BMS; nominal 48V system; 40A continuous module",
+    "package": "Module",
+    "manufacturer": "Sample Robotics",
+    "quantity": 3,
+    "safety_stock": 3,
+    "target_stock": 8,
+    "unit_price": 219.0,
+    "primary_location_code": "PORT-PWR-6-L03-B01",
+    "lots": [
+      {
+        "location_code": "PORT-PWR-6-L03-B01",
+        "quantity": 3
+      }
+    ],
+    "tags": [
+      "48V",
+      "BMS",
+      "13S",
+      "40A",
+      "battery"
+    ],
+    "attributes": {
+      "component_type": "BMS module",
+      "system_voltage": "48V",
+      "series_cells": 13,
+      "continuous_current": "40A",
+      "part_number_kind": "internal"
+    },
+    "category_hint": "模块",
+    "notes": ""
+  },
+  {
+    "code": "PORT-MOS-IPT015N10N5",
+    "name": "100V 功率 MOSFET",
+    "mpn": "IPT015N10N5",
+    "specification": "100V N-channel power MOSFET; low Rds(on) catalog metadata",
+    "package": "TOLL",
+    "manufacturer": "Infineon",
+    "quantity": 30,
+    "safety_stock": 12,
+    "target_stock": 60,
+    "unit_price": 24.0,
+    "primary_location_code": "PORT-PWR-6-L03-B01",
+    "lots": [
+      {
+        "location_code": "PORT-PWR-6-L03-B01",
+        "quantity": 30
+      }
+    ],
+    "tags": [
+      "MOSFET",
+      "100V",
+      "power"
+    ],
+    "attributes": {
+      "component_type": "power MOSFET",
+      "vds": "100V"
+    },
+    "category_hint": "三极管 / MOS",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CON-XT60H",
+    "name": "XT60H 电源连接器",
+    "mpn": "XT60H-F",
+    "specification": "High-current battery/power connector; yellow housing",
+    "package": "Connector",
+    "manufacturer": "AMASS",
+    "quantity": 50,
+    "safety_stock": 20,
+    "target_stock": 100,
+    "unit_price": 4.5,
+    "primary_location_code": "PORT-CABLE-MIX-R-L01",
+    "lots": [
+      {
+        "location_code": "PORT-CABLE-MIX-R-L01",
+        "quantity": 50
+      }
+    ],
+    "tags": [
+      "connector",
+      "power",
+      "XT60",
+      "high-current"
+    ],
+    "attributes": {
+      "component_type": "power connector",
+      "family": "XT60"
+    },
+    "category_hint": "连接器",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CON-JSTGH6",
+    "name": "JST-GH 1.25mm 6P 连接器",
+    "mpn": "BM06B-GHS-TBT",
+    "specification": "1.25mm pitch; 6-pin board connector",
+    "package": "Connector",
+    "manufacturer": "JST",
+    "quantity": 100,
+    "safety_stock": 40,
+    "target_stock": 200,
+    "unit_price": 1.8,
+    "primary_location_code": "PORT-CABLE-MIX-L-S01",
+    "lots": [
+      {
+        "location_code": "PORT-CABLE-MIX-L-S01",
+        "quantity": 80
+      },
+      {
+        "location_code": "PORT-CABLE-MIX-L-S02",
+        "quantity": 20
+      }
+    ],
+    "tags": [
+      "connector",
+      "1.25mm",
+      "6P",
+      "JST-GH"
+    ],
+    "attributes": {
+      "component_type": "board connector",
+      "pitch": "1.25mm",
+      "pins": 6
+    },
+    "category_hint": "连接器",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CON-M8-4P",
+    "name": "M8 4P 工业连接器",
+    "mpn": "DEMO-M8-4P",
+    "specification": "M8 circular connector; 4-pin; sensor/actuator cable interface",
+    "package": "Connector",
+    "manufacturer": "Sample Robotics",
+    "quantity": 18,
+    "safety_stock": 10,
+    "target_stock": 40,
+    "unit_price": 18.0,
+    "primary_location_code": "PORT-CABLE-MIX-R-L02",
+    "lots": [
+      {
+        "location_code": "PORT-CABLE-MIX-R-L02",
+        "quantity": 18
+      }
+    ],
+    "tags": [
+      "connector",
+      "M8",
+      "4P",
+      "industrial"
+    ],
+    "attributes": {
+      "component_type": "circular connector",
+      "family": "M8",
+      "pins": 4,
+      "part_number_kind": "internal"
+    },
+    "category_hint": "连接器",
+    "notes": ""
+  },
+  {
+    "code": "PORT-R-10K-0603",
+    "name": "10kΩ 1% 电阻",
+    "mpn": "RC0603FR-0710KL",
+    "specification": "10kΩ; 1%; 0603",
+    "package": "0603",
+    "manufacturer": "Yageo",
+    "quantity": 1000,
+    "safety_stock": 300,
+    "target_stock": 1600,
+    "unit_price": 0.03,
+    "primary_location_code": "PORT-PASSIVE-56-A01",
+    "lots": [
+      {
+        "location_code": "PORT-PASSIVE-56-A01",
+        "quantity": 800
+      },
+      {
+        "location_code": "PORT-PASSIVE-56-B01",
+        "quantity": 200
+      }
+    ],
+    "tags": [
+      "resistor",
+      "10k",
+      "0603"
+    ],
+    "attributes": {
+      "component_type": "resistor",
+      "resistance": "10kΩ",
+      "tolerance": "1%"
+    },
+    "category_hint": "贴片电阻",
+    "notes": ""
+  },
+  {
+    "code": "PORT-R-120R-0603",
+    "name": "120Ω 1% CAN 终端电阻",
+    "mpn": "RC0603FR-07120RL",
+    "specification": "120Ω; 1%; 0603; CAN termination",
+    "package": "0603",
+    "manufacturer": "Yageo",
+    "quantity": 80,
+    "safety_stock": 30,
+    "target_stock": 160,
+    "unit_price": 0.03,
+    "primary_location_code": "PORT-PASSIVE-56-C01",
+    "lots": [
+      {
+        "location_code": "PORT-PASSIVE-56-C01",
+        "quantity": 80
+      }
+    ],
+    "tags": [
+      "resistor",
+      "120ohm",
+      "CAN",
+      "termination",
+      "0603"
+    ],
+    "attributes": {
+      "component_type": "resistor",
+      "resistance": "120Ω",
+      "usage": "CAN termination"
+    },
+    "category_hint": "贴片电阻",
+    "notes": ""
+  },
+  {
+    "code": "PORT-R-4K7-0603",
+    "name": "4.7kΩ 1% 电阻",
+    "mpn": "RC0603FR-074K7L",
+    "specification": "4.7kΩ; 1%; 0603",
+    "package": "0603",
+    "manufacturer": "Yageo",
+    "quantity": 500,
+    "safety_stock": 150,
+    "target_stock": 900,
+    "unit_price": 0.03,
+    "primary_location_code": "PORT-PASSIVE-56-D01",
+    "lots": [
+      {
+        "location_code": "PORT-PASSIVE-56-D01",
+        "quantity": 500
+      }
+    ],
+    "tags": [
+      "resistor",
+      "4.7k",
+      "0603"
+    ],
+    "attributes": {
+      "component_type": "resistor",
+      "resistance": "4.7kΩ",
+      "tolerance": "1%"
+    },
+    "category_hint": "贴片电阻",
+    "notes": ""
+  },
+  {
+    "code": "PORT-C-100N-0603",
+    "name": "100nF 50V X7R 电容",
+    "mpn": "CC0603KRX7R9BB104",
+    "specification": "100nF; 50V; X7R; 0603",
+    "package": "0603",
+    "manufacturer": "Yageo",
+    "quantity": 1200,
+    "safety_stock": 400,
+    "target_stock": 2000,
+    "unit_price": 0.04,
+    "primary_location_code": "PORT-PASSIVE-56-E01",
+    "lots": [
+      {
+        "location_code": "PORT-PASSIVE-56-E01",
+        "quantity": 1200
+      }
+    ],
+    "tags": [
+      "capacitor",
+      "100nF",
+      "50V",
+      "0603"
+    ],
+    "attributes": {
+      "component_type": "capacitor",
+      "capacitance": "100nF",
+      "voltage": "50V",
+      "dielectric": "X7R"
+    },
+    "category_hint": "陶瓷电容",
+    "notes": ""
+  },
+  {
+    "code": "PORT-C-10U-0805",
+    "name": "10uF 25V X5R 电容",
+    "mpn": "GRM21BR61E106KA73",
+    "specification": "10uF; 25V; X5R; 0805",
+    "package": "0805",
+    "manufacturer": "Murata",
+    "quantity": 300,
+    "safety_stock": 100,
+    "target_stock": 600,
+    "unit_price": 0.22,
+    "primary_location_code": "PORT-PASSIVE-56-F01",
+    "lots": [
+      {
+        "location_code": "PORT-PASSIVE-56-F01",
+        "quantity": 300
+      }
+    ],
+    "tags": [
+      "capacitor",
+      "10uF",
+      "25V",
+      "0805"
+    ],
+    "attributes": {
+      "component_type": "capacitor",
+      "capacitance": "10uF",
+      "voltage": "25V",
+      "dielectric": "X5R"
+    },
+    "category_hint": "陶瓷电容",
+    "notes": ""
+  },
+  {
+    "code": "PORT-CM4-4GB",
+    "name": "Raspberry Pi CM4 计算模块",
+    "mpn": "CM4104000",
+    "specification": "Compute Module 4; 4GB RAM; edge vision compute module",
+    "package": "Module",
+    "manufacturer": "Raspberry Pi",
+    "quantity": 2,
+    "safety_stock": 3,
+    "target_stock": 6,
+    "unit_price": 520.0,
+    "primary_location_code": "PORT-PWR-6-L04-B01",
+    "lots": [],
+    "tags": [
+      "compute",
+      "vision",
+      "Linux",
+      "edge-AI",
+      "low-stock"
+    ],
+    "attributes": {
+      "component_type": "compute module",
+      "memory": "4GB",
+      "use_case": "edge vision"
+    },
+    "category_hint": "模块",
+    "notes": "No lot allocation is recorded; the primary location does not imply an exact location quantity."
+  },
+  {
+    "code": "PORT-BOARD-EDGE-AI",
+    "name": "机器人视觉 AI 载板",
+    "mpn": "DEMO-EDGE-AI-CARRIER-V1",
+    "specification": "Carrier board for CM4; dual camera; GbE; CAN; 12V/24V input",
+    "package": "Board",
+    "manufacturer": "Sample Robotics",
+    "quantity": 6,
+    "safety_stock": 2,
+    "target_stock": 10,
+    "unit_price": 699.0,
+    "primary_location_code": "PORT-PWR-6-L04-B01",
+    "lots": [
+      {
+        "location_code": "PORT-PWR-6-L04-B01",
+        "quantity": 6
+      }
+    ],
+    "tags": [
+      "vision",
+      "AI",
+      "carrier",
+      "CAN",
+      "Ethernet"
+    ],
+    "attributes": {
+      "component_type": "edge AI carrier",
+      "interfaces": [
+        "CAN",
+        "Ethernet",
+        "camera"
+      ],
+      "input_voltage": "12V/24V",
+      "part_number_kind": "internal"
+    },
+    "category_hint": "开发板 / PCB",
+    "notes": ""
+  }
+]

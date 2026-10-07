@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import EmbodiedTwin from '../embodied/components/EmbodiedTwin.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '../api/client'
 import { mountWarehouseUI } from '../components/locations/digitalTwin/ui.js'
-import type { TwinSnapshot, TwinController, TwinRoute, TwinTask } from '../components/locations/digitalTwin/types'
+import type { TwinSnapshot, TwinController, TwinTask } from '../components/locations/digitalTwin/types'
 import '../components/locations/digitalTwin/twin.css'
 
 const props = withDefaults(
@@ -17,12 +18,12 @@ const props = withDefaults(
 
 const route = useRoute()
 const router = useRouter()
+const isRobotLab = computed(() => route.query.workspace === 'robot-lab' && !props.taskId && !route.query.task && !props.embedded)
 const host = ref<HTMLDivElement | null>(null)
 const error = ref('')
 const loading = ref(false)
 let view: TwinController | null = null
 let generation = 0
-let closedEdgeCodes: string[] = []
 defineExpose({ getDiagnostics: () => view?.stats() ?? null })
 interface MapOption { id: number; code: string; status: string }
 interface LocationOption { id: number; type: string }
@@ -34,6 +35,7 @@ async function refresh() {
   const token = ++generation
   view?.dispose()
   view = null
+  if (isRobotLab.value) { loading.value = false; return }
   loading.value = true
   error.value = ''
   try {
@@ -58,42 +60,12 @@ async function refresh() {
         throw new Error('任务路线和地图版本不一致。请从拣货任务页面检查路线。')
       snapshot.task = task
       snapshot.route = task.route_plan
-    } else {
-      const demoCodes = [
-        'PORT-IC-100',
-        'PORT-LCSC-CONN-100',
-        'PORT-PWR-6',
-        'PORT-LCSC-CABLE-56',
-        'PORT-PASSIVE-56',
-        'PORT-LCSC-MODULE-56',
-      ]
-      const ids = demoCodes
-        .map(code => snapshot.assets.find(item => item.code === code)?.location_id)
-        .filter((id): id is number => !!id)
-      const closures = snapshot.map.code === 'WH-RD-TWIN-V4' ? closedEdgeCodes : []
-      if (ids.length) {
-        snapshot.route = (
-          await api.post<TwinRoute>(`/warehouse-maps/${mapId}/route-preview`, {
-            location_ids: ids,
-            closed_edge_codes: closures,
-          })
-        ).data
-        snapshot.closed_edge_codes = closures
-      }
     }
     if (token !== generation || !host.value) return
     view = mountWarehouseUI(host.value, snapshot, {
       initialMode: route.query.mode === '2d' ? '2d' : '3d',
       focusLocationId: positiveId(props.focusLocationId) || positiveId(route.query.focus),
       onRefresh: () => { void refresh() },
-      closureActive: closedEdgeCodes.length > 0,
-      onToggleClosure:
-        snapshot.map.code === 'WH-RD-TWIN-V4' && !task
-          ? () => {
-              closedEdgeCodes = closedEdgeCodes.length ? [] : ['G31--G41']
-              void refresh()
-            }
-          : undefined,
       onOpenLocation: id => { if (id) void router.push({ path: '/locations', query: { focus: id, return_to: route.fullPath } }) },
       onOpenTask: id => { if (id) void router.push({ path: '/projects', query: { task: id } }) },
     })
@@ -115,12 +87,15 @@ onBeforeUnmount(() => { generation++; view?.dispose(); view = null })
 </script>
 
 <template>
+  <EmbodiedTwin v-if="isRobotLab" :key="route.fullPath" />
   <section
+    v-else
     class="warehouse-twin-page"
     :class="{ 'is-embedded': embedded }"
     :aria-busy="loading"
     data-testid="warehouse-twin-page"
   >
+    <router-link v-if="!embedded && !taskId" to="/warehouse-lab" class="lab-link">具身导航实验仓 →</router-link>
     <div v-if="error" class="twin-load-error" role="alert">{{ error }} <button @click="refresh">重试</button></div>
     <div v-if="loading" class="twin-loading" role="status">正在读取仓库数据…</div>
     <div ref="host"></div>

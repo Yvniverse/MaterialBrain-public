@@ -14,7 +14,7 @@ import { api } from '../api/client'
 import { useAuthStore } from '../stores/auth'
 import type { Material, Page } from '../types'
 import { formatQuantity } from '../utils/format'
-import { sanitizeBusinessCopy } from '../utils/businessCopy'
+import { formatBusinessText } from '../utils/businessCopy'
 
 interface LocationItem extends OrganizerLocation {
   material_count: number
@@ -690,11 +690,11 @@ async function loadLocations() {
   try {
     locations.value = (await api.get<LocationItem[]>('/locations')).data.map((item) => ({
       ...item,
-      name: sanitizeBusinessCopy(item.name),
-      full_path: sanitizeBusinessCopy(item.full_path),
-      manager: sanitizeBusinessCopy(item.manager),
-      notes: sanitizeBusinessCopy(item.notes),
-      bin_content_notes: sanitizeBusinessCopy(item.bin_content_notes),
+      name: formatBusinessText(item.name),
+      full_path: formatBusinessText(item.full_path),
+      manager: formatBusinessText(item.manager),
+      notes: formatBusinessText(item.notes),
+      bin_content_notes: formatBusinessText(item.bin_content_notes),
     }))
     if (
       selectedWarehouseId.value &&

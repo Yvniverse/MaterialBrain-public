@@ -1,0 +1,43 @@
+{
+  "world_revision": "ccabd3f941824d49a9cef27af224117dc6a494f9ea7ca95d1f56a4f2de013a5a",
+  "map_pgm_sha256": "d610757b08b34d3ef674343213bd1d2b131e1eced56aabf3d1ee234a5aa300ae",
+  "pgm_width": 240,
+  "pgm_height": 180,
+  "origin": [
+    0,
+    0,
+    0
+  ],
+  "row_direction": "north_to_south",
+  "resolution_m": 0.1,
+  "robot": {
+    "id": "MB-R01",
+    "name": "物料搬运机器人",
+    "kinematics": "differential_stop_turn",
+    "length": 0.76,
+    "width": 0.58,
+    "margin": 0.09,
+    "max_speed": 0.8,
+    "angular_speed": 1.0,
+    "payload_kg": 18,
+    "reserve_pct": 15,
+    "battery_pct": 82,
+    "wh_per_m": 0.035,
+    "idle_w": 12,
+    "battery_wh": 320,
+    "capabilities": [
+      "navigate",
+      "scan_code",
+      "carry_tote",
+      "human_handoff"
+    ],
+    "pose": {
+      "x": 18,
+      "y": 2.5,
+      "yaw": 1.5707963267948966
+    }
+  },
+  "occupied_pixels": 8106,
+  "static_obstacles_in_sdf": 30,
+  "note": "Collision geometry export for the canonical lab map. Navigation uses the ROS2/Nav2 runtime."
+}

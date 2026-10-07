@@ -6,7 +6,7 @@ import { api } from '../api/client'
 import { useAuthStore } from '../stores/auth'
 import type { ComponentRelation, Material, Page } from '../types'
 import { formatQuantity, formatSignedQuantity } from '../utils/format'
-import { sanitizeBusinessCopy } from '../utils/businessCopy'
+import { formatBusinessText } from '../utils/businessCopy'
 import { materialPartNumberText } from '../utils/materialIdentity'
 import MaterialEvidencePanel from '../components/evidence/MaterialEvidencePanel.vue'
 interface Movement {
@@ -27,11 +27,7 @@ const movements = ref<Movement[]>([])
 const relations = ref<ComponentRelation[]>([])
 const deleting = ref(false)
 const reviewBusyId = ref<number | null>(null)
-const displayTags = computed(() =>
-  (material.value?.tags || []).filter(
-    (tag) => !['portfolio', 'portfolio-demo', 'demo', 'synthetic'].includes(tag.toLowerCase()),
-  ),
-)
+const displayTags = computed(() => material.value?.tags || [])
 async function loadRelations() {
   relations.value = (
     await api.get<{ items: ComponentRelation[] }>(`/materials/${route.params.id}/relations`)
@@ -155,7 +151,7 @@ async function removeMaterial() {
         <div class="code">{{ material.code }}</div>
         <h1 class="page-title">{{ material.name }}</h1>
         <div class="page-subtitle">
-          {{ sanitizeBusinessCopy(material.manufacturer) }} · {{ materialPartNumberText(material) }} ·
+          {{ formatBusinessText(material.manufacturer) }} · {{ materialPartNumberText(material) }} ·
           {{ material.package || '未设置封装' }}
         </div>
       </div>
@@ -231,7 +227,7 @@ async function removeMaterial() {
                 tag
               }}</el-tag></el-descriptions-item
             ><el-descriptions-item label="备注" :span="3">{{
-              sanitizeBusinessCopy(material.notes) || '—'
+              formatBusinessText(material.notes) || '—'
             }}</el-descriptions-item></el-descriptions
           ></el-tab-pane
         ><el-tab-pane label="工程证据"
@@ -278,11 +274,11 @@ async function removeMaterial() {
                 </div>
                 <div>
                   <dt>证据摘要</dt>
-                  <dd>{{ sanitizeBusinessCopy(relation.evidence_summary) || '尚未提供' }}</dd>
+                  <dd>{{ formatBusinessText(relation.evidence_summary) || '尚未提供' }}</dd>
                 </div>
                 <div v-if="relation.confidence_note">
                   <dt>置信说明</dt>
-                  <dd>{{ sanitizeBusinessCopy(relation.confidence_note) }}</dd>
+                  <dd>{{ formatBusinessText(relation.confidence_note) }}</dd>
                 </div>
                 <div v-if="relation.evidence_citations?.length">
                   <dt>页级引用</dt>
@@ -355,7 +351,7 @@ async function removeMaterial() {
               }}</template></el-table-column
             ><el-table-column label="原因" min-width="180"
               ><template #default="{ row }">{{
-                sanitizeBusinessCopy(row.reason)
+                formatBusinessText(row.reason)
               }}</template></el-table-column
             ><el-table-column prop="created_at" label="时间" width="180" /></el-table></el-tab-pane
         ><el-tab-pane label="附件"

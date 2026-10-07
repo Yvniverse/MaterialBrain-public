@@ -16,6 +16,7 @@ const paths = [
   '/locations',
   '/cables',
   '/warehouse-twin',
+  '/warehouse-lab',
   '/categories',
   '/materials',
   '/inventory',

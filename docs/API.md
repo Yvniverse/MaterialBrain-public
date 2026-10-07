@@ -1,17 +1,58 @@
-# API 说明
+# API
 
-统一前缀 `/api/v1`，交互文档 `/api/docs`，OpenAPI `/api/openapi.json`。认证使用 `pengka_session` HttpOnly Cookie；非 GET 请求同时发送 `X-CSRF-Token`。库存写请求必须包含 8–100 字符的 `idempotency_key`。
+The API prefix is `/api/v1`. A running installation exposes [interactive documentation](http://localhost:18080/api/docs) and [OpenAPI JSON](http://localhost:18080/api/openapi.json). OpenAPI defines the current request fields, bounds, and response schemas.
 
-已实现端点覆盖：`auth/login|logout|me|change-password`；用户与角色；物料 CRUD；分类、库位、供应商；库存 10 类操作；流水、低库存、盘点；项目 CRUD 与 BOM；采购单；CSV/XLSX/XLS 导入预览和提交；物料/流水导出；附件上传下载删除；仪表盘和审计日志。
+## Authentication
 
-可视化大库位通过 `POST /locations/organizers` 创建，`organizer_style` 支持 `standard_56`、`split_configurable` 和 `drawer_rack_100`。其中 `drawer_rack_100` 固定生成 20 行 × 5 列的 100 个抽屉，坐标从 A01–E01 排列至 A20–E20；抽屉内容继续使用 `/locations/{id}/content` 更新或清空。
+`POST /auth/login` creates a `materialbrain_session` HttpOnly cookie and a `materialbrain_csrf` cookie. Browser writes send the CSRF value in `X-CSRF-Token`. `GET /auth/me` returns the current user; `POST /auth/logout` revokes the session. Password changes use `PUT /auth/change-password`.
 
-用户与角色管理端点：
+Endpoint permissions are checked on the backend. Inventory write payloads require an `idempotency_key`; repeated operations with the same valid key do not create a second transaction.
 
-- `GET /users`、`POST /users`、`PUT /users/{id}`：查询、创建和调整用户。
-- `DELETE /users/{id}`：安全删除用户，立即撤销其会话并从用户列表隐藏；历史库存、项目和审计外键记录保留。
-- `GET /roles`、`POST /roles`、`PUT /roles/{id}`：查询、创建和更新角色权限。
+## Endpoint groups
 
-不能删除或停用当前登录账号。用户删除、停用、换角色或角色权限更新后，后端还会校验系统至少保留一名同时拥有用户管理和角色管理权限的启用用户。
+Paths below are relative to `/api/v1`.
 
-错误统一为 `{code,message,details,request_id}`。常见代码：`INSUFFICIENT_AVAILABLE_STOCK`、`INSUFFICIENT_PROJECT_RESERVATION`、`ADJUSTMENT_BELOW_RESERVED`、`VALIDATION_ERROR`。OpenAPI 是字段和响应的最终可执行参考。
+| Group | Principal operations |
+| --- | --- |
+| `/materials`, `/categories`, `/locations`, `/cables` | Material identity, attributes, locations, visual organizers, and cable queries. |
+| `/inventory`, `/stock-movements`, `/stocktakes` | Authorized stock transactions, movements, reservations, and counts. |
+| `/projects`, `/products`, `/purchase-orders` | Project BOMs, product revisions, build workflows, and purchasing. |
+| `/evidence-documents`, `/component-intelligence` | Document evidence and component matching; see OpenAPI for evidence lifecycle routes. |
+| `/agent/query`, `/agent/suggestions`, `/agent/proposals` | Structured agent responses and proposal lifecycle. |
+| `/warehouse-maps` | Warehouse map versions, calibration, route previews, and twin snapshots. |
+| `/navigation-lab/world`, `/navigation-lab/plan` | Read-only sample world and baseline navigation planning. |
+| `/spatial` | PostGIS queries, semantic mission planning, stored missions, and execution events. |
+| `/users`, `/roles`, `/audit-logs` | Administrative access management and audit history. |
+| `/imports`, `/exports`, `/attachments` | Bounded imports, exports, and managed files. |
+
+## Spatial operations
+
+| Method and path | Behavior |
+| --- | --- |
+| `GET /spatial/maps/{map_id}/snapshot` | Read geometry, graph, zones, docks, dynamic overlays, and content revision. |
+| `POST /spatial/query` | Query contains, nearby, nearest dock, intersects, edge zones, or affected edges. |
+| `POST /spatial/missions/plan` | Return a `MissionPlan` without dispatching robot motion. |
+| `GET /spatial/skills` | Read available spatial skill contracts. |
+| `POST /spatial/missions` | Store a mission plan and TaskGraph. |
+| `GET /spatial/missions/{id}` | Poll mission state and observed progress. |
+| `POST /spatial/missions/{id}/start` | Explicitly start the stored plan in the configured simulation transport. |
+| `POST /spatial/missions/{id}/cancel` | Cancel navigation while retaining completed progress. |
+| `POST /spatial/missions/{id}/replan` | Replan remaining work from current state; optional profile selects `fastest`, `safest`, or `esd_safe`. |
+| `POST /spatial/missions/{id}/handoff` | Submit the arrived stop's `goal_id` and `scan_code`. |
+| `POST /spatial/missions/{id}/obstacles` | Add or remove a supported simulation obstacle scenario. |
+| `GET /spatial/missions/{id}/episode` | Export an observed mission episode. |
+| `GET /spatial/navigation/health` | Read bridge readiness, transport, map revision, and robot state. |
+| `GET /spatial/benchmarks` | Read the available planner benchmark summary. |
+| `GET /spatial/readiness/contracts` | Read observation, map-delta, and trajectory schemas. |
+| `GET /spatial/missions/{id}/readiness-data` | Export observation contracts from mission state. |
+| `POST /spatial/readiness/validate-map-delta` | Validate a proposed map change without automatically applying it. |
+
+Spatial routes require at least one of `material:view`, `location:manage`, or `picking:view`; stored missions are scoped to their owner. The bridge itself is an internal service, reached through these authenticated APIs.
+
+## Errors and state
+
+Application business errors use `{code,message,details,request_id}`. Validation errors return HTTP 422. Framework-level failures may use FastAPI's `detail` field. Preserve the request ID when reporting a problem.
+
+Mission requests carry a map revision. A stale map, invalid destination, disconnected start pose, or unsatisfied resource constraint prevents execution. `READY`, `INFEASIBLE`, and `CLARIFICATION` describe planning results; execution status and events are separate.
+
+For complete workflows, see [Spatial Agent](SPATIAL_AGENT.md), [Robotics](ROBOTICS.md), and [Agent development](AGENT_DEVELOPMENT.md).

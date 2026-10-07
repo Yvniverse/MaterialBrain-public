@@ -20,6 +20,7 @@ import {
 import { useAuthStore } from '../stores/auth'
 import FloatingAgentLauncher from '../components/agent/FloatingAgentLauncher.vue'
 import FloatingAgentPanel from '../components/agent/FloatingAgentPanel.vue'
+import { resetWarehouseAgentSession } from '../composables/useWarehouseAgent'
 
 const auth = useAuthStore()
 const route = useRoute()
@@ -42,6 +43,7 @@ const navigation = [
   ['/locations', '库位管理', Location, ['location:manage', 'material:view']],
   ['/cables', '线缆管理', Connection, 'material:view'],
   ['/warehouse-twin', '数字孪生仓库', Location, ['material:view', 'location:manage', 'picking:view']],
+  ['/warehouse-lab', '具身导航实验仓', Location, ['material:view', 'location:manage', 'picking:view']],
   ['/categories', '分类管理', Box, 'category:manage'],
   ['/materials', '物料管理', Goods, 'material:view'],
   ['/inventory', '库存操作', Operation, 'inventory:operate'],
@@ -79,9 +81,20 @@ function isNavigationActive(path: string) {
   return route.path === path || route.path.startsWith(`${path}/`)
 }
 async function logout() {
-  await auth.logout()
-  router.push('/login')
+  try {
+    await auth.logout()
+  } finally {
+    resetWarehouseAgentSession()
+    agentPanelOpen.value = false
+    void router.push('/login')
+  }
 }
+watch(() => auth.user?.id, (next, previous) => {
+  if (next !== previous) {
+    resetWarehouseAgentSession()
+    agentPanelOpen.value = false
+  }
+})
 watch(
   () => route.path,
   () => {
@@ -98,8 +111,8 @@ watch(
       :class="{ 'mobile-open': mobile }"
     >
       <div class="brand">
-        <div class="brand-mark">P</div>
-        <div v-if="!collapsed" class="brand-copy"><b>嘭咔智能</b><span>Material OS</span></div>
+        <div class="brand-mark">M</div>
+        <div v-if="!collapsed" class="brand-copy"><b>MaterialBrain</b><span>Material OS</span></div>
       </div>
       <nav class="nav-scroll" aria-label="主导航" data-testid="sidebar-navigation">
         <router-link

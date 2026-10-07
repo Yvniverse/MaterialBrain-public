@@ -10,22 +10,35 @@ const suggestions = ref<AgentSuggestionItem[]>([])
 const suggestionsLoading = ref(false)
 let loadedAt = 0
 let pending: Promise<void> | null = null
+let epoch = 0
+export function resetAgentSuggestions() {
+  epoch++
+  suggestions.value = []
+  suggestionsLoading.value = false
+  loadedAt = 0
+  pending = null
+}
 
 export function useWarehouseAgentSuggestions() {
   async function loadSuggestions(force = false) {
     if (!force && suggestions.value.length && Date.now() - loadedAt < CACHE_MS) return
     if (pending) return pending
+    const token = epoch
     suggestionsLoading.value = true
     pending = (async () => {
       try {
         const response = await api.get<AgentSuggestionsResponse>('/agent/suggestions')
+        if (token !== epoch) return
         suggestions.value = response.data.items.length ? response.data.items : SAFE_FALLBACK
       } catch {
+        if (token !== epoch) return
         suggestions.value = SAFE_FALLBACK
       } finally {
-        loadedAt = Date.now()
-        suggestionsLoading.value = false
-        pending = null
+        if (token === epoch) {
+          loadedAt = Date.now()
+          suggestionsLoading.value = false
+          pending = null
+        }
       }
     })()
     return pending

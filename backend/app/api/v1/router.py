@@ -12,10 +12,12 @@ from app.api.v1 import (
     files,
     inventory,
     materials,
+    navigation_lab,
     picking,
     products,
     projects,
     resources,
+    spatial,
     warehouse_maps,
 )
 
@@ -32,6 +34,8 @@ for router in [
     inventory.read_router,
     resources.router,
     warehouse_maps.router,
+    navigation_lab.router,
+    spatial.router,
     products.router,
     picking.router,
     projects.router,

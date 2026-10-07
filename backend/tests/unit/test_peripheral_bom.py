@@ -160,7 +160,7 @@ def test_phase336_provenance_axes_keep_official_spec_and_synthetic_stock_separat
                     "source_type": "official_vendor",
                     "source_url": "https://vendor.example/datasheet.pdf",
                 },
-                "portfolio_demo": {
+                "sample_data": {
                     "stock_is_synthetic": True,
                     "source_ref": "P336-UAT",
                 },
@@ -170,5 +170,5 @@ def test_phase336_provenance_axes_keep_official_spec_and_synthetic_stock_separat
         locations={"locations": []},
     )
     assert provenance["spec"]["kind"] == "official_vendor"
-    assert provenance["stock"]["kind"] == "synthetic_portfolio"
-    assert provenance["location"]["kind"] == "synthetic_portfolio"
+    assert provenance["stock"]["kind"] == "sample_synthetic"
+    assert provenance["location"]["kind"] == "sample_synthetic"

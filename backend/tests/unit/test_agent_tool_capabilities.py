@@ -2,7 +2,11 @@ from app.agent.tools.registry import TOOLS, ToolRegistry
 
 
 def test_all_registered_tools_have_explicit_capability_metadata():
-    assert len(TOOLS) == 24
+    assert len(TOOLS) == 29
+    assert {
+        "get_spatial_map", "query_spatial_context", "plan_spatial_mission",
+        "get_navigation_lab", "plan_navigation_lab",
+    }.issubset({tool.name for tool in TOOLS})
     assert all(tool.capability.schema_version for tool in TOOLS)
     assert all(tool.capability.risk_level for tool in TOOLS)
     assert all(tool.capability.side_effect for tool in TOOLS)
@@ -12,8 +16,8 @@ def test_initial_mcp_profile_is_read_only_and_excludes_proposal_tools():
     registry = ToolRegistry(component_intelligence_enabled=True)
     matrix = {item["name"]: item for item in registry.capability_matrix()}
 
-    assert len(matrix) == 24
-    assert len(registry.mcp_exposed_names) == 22
+    assert len(matrix) == 29
+    assert len(registry.mcp_exposed_names) == 27
     assert "propose_inventory_reservation" not in registry.mcp_exposed_names
     assert "propose_build_material_reservation" not in registry.mcp_exposed_names
 
@@ -37,10 +41,11 @@ def test_component_feature_flag_changes_only_the_authoritative_registry():
     enabled = ToolRegistry(component_intelligence_enabled=True)
     disabled = ToolRegistry(component_intelligence_enabled=False)
 
-    assert len(enabled.names) == 24
-    assert len(enabled.mcp_exposed_names) == 22
-    assert len(disabled.names) == 23
-    assert len(disabled.mcp_exposed_names) == 21
+    assert len(enabled.names) == 29
+    assert len(enabled.mcp_exposed_names) == 27
+    assert len(disabled.names) == 28
+    assert len(disabled.mcp_exposed_names) == 26
+    assert enabled.names - disabled.names == {"search_components_by_requirement"}
     assert "search_components_by_requirement" not in disabled.names
     assert "search_components_by_requirement" in enabled.names
 

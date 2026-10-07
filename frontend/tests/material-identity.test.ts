@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { Material } from '../src/types'
 import {
-  isInternalPengkaPart,
+  isInternalPart,
   materialPartNumberText,
   materialPrimaryIdentity,
   materialSecondaryIdentity,
@@ -49,29 +49,45 @@ describe('material business display identity', () => {
     expect(materialPartNumberText(item)).toBe('INA240A1DR')
   })
 
-  it('labels PENGKA DEMO identifiers as internal part numbers instead of vendor MPNs', () => {
+  it('labels an explicitly internal identifier without treating it as a vendor MPN', () => {
     const item = material({
       name: '48V 转 5V/5A 电源模块',
       mpn: 'DEMO-DCDC-48-5-5A',
-      manufacturer: 'PENGKA Robotics',
+      manufacturer: 'Sample Robotics',
+      attributes: { part_number_kind: 'internal' },
     })
-    expect(isInternalPengkaPart(item)).toBe(true)
+    expect(isInternalPart(item)).toBe(true)
     expect(materialPrimaryIdentity(item)).toBe('48V 转 5V/5A 电源模块')
     expect(materialSecondaryIdentity(item)).toBe('内部料号 DEMO-DCDC-48-5-5A')
     expect(materialPartNumberText(item)).toBe('内部料号 DEMO-DCDC-48-5-5A')
   })
 
-  it('does not expose PORTFOLIO cable fallback MPN when a natural catalog identity exists', () => {
+  it('uses catalog identity for an explicitly internal cable identifier', () => {
     const item = material({
       name: 'HC-0.8-7PWT 双头端子线',
-      mpn: 'PORTFOLIO-CBL-PF-00042',
+      mpn: 'SAMPLE-CBL-00042',
       attributes: {
+        part_number_kind: 'internal',
         material_kind: 'cable',
         catalog_mpn_hint: 'HC-0.8-7PWT',
         length_cm: '20.0',
       },
     })
     expect(materialPrimaryIdentity(item)).toBe('HC-0.8-7PWT · 20 cm')
-    expect(materialPrimaryIdentity(item)).not.toContain('PORTFOLIO')
+    expect(materialSecondaryIdentity(item)).toBe('内部料号 SAMPLE-CBL-00042')
+  })
+
+  it('does not infer internal identity from a manufacturer name or code prefix', () => {
+    const item = material({ mpn: 'DEMO-DEV-1', manufacturer: 'Sample Robotics' })
+    expect(isInternalPart(item)).toBe(false)
+    expect(materialPrimaryIdentity(item)).toBe('DEMO-DEV-1')
+  })
+
+  it('preserves a vendor cable MPN when catalog hints differ', () => {
+    const item = material({
+      mpn: 'VENDOR-CBL-1',
+      attributes: { material_kind: 'cable', catalog_mpn_hint: 'CATALOG-CBL-2', length_cm: 20 },
+    })
+    expect(materialPrimaryIdentity(item)).toBe('VENDOR-CBL-1')
   })
 })

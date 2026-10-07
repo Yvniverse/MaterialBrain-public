@@ -1,4 +1,4 @@
-"""Audit or explicitly reconcile Portfolio Cable lots into visible drawer locations."""
+"""Audit or explicitly reconcile Sample Cable lots into visible drawer locations."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.core.config import settings
 from app.core.database import SessionLocal
 from app.models import User
-from app.portfolio_demo.cable_locations import (
+from app.sample_data.cable_locations import (
     CableLocationReconciliationService,
     audit_markdown,
 )
@@ -31,7 +31,7 @@ def main() -> int:
         action="store_true",
         help="Return a failure status unless the physical-location release gate passes.",
     )
-    parser.add_argument("--expected-database-name", default="pengka_material")
+    parser.add_argument("--expected-database-name", required=True)
     parser.add_argument("--operator", default="admin")
     parser.add_argument(
         "--output-dir",
@@ -41,10 +41,10 @@ def main() -> int:
     if make_url(settings.database_url).database != args.expected_database_name:
         raise RuntimeError("Refusing to audit or repair an unexpected database")
     if args.repair and os.getenv(
-        "PORTFOLIO_CABLE_LOCATION_RECONCILE_ENABLED", "false"
+        "SAMPLE_CABLE_LOCATION_RECONCILE_ENABLED", "false"
     ).casefold() != "true":
         raise RuntimeError(
-            "Set PORTFOLIO_CABLE_LOCATION_RECONCILE_ENABLED=true for the explicit repair"
+            "Set SAMPLE_CABLE_LOCATION_RECONCILE_ENABLED=true for the explicit repair"
         )
 
     output_dir = Path(args.output_dir)

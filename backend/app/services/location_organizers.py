@@ -54,7 +54,7 @@ def organizer_child_name(style: str, slot: str) -> str:
 
 
 class LocationOrganizerService:
-    """Shared location-layout engine used by both the API and Portfolio seeders."""
+    """Shared location-layout engine used by both the API and Sample seeders."""
 
     def __init__(self, db: Session):
         self.db = db
@@ -153,7 +153,7 @@ class LocationOrganizerService:
         ):
             raise BusinessError(
                 "CABLE_DRAWER_RACK_CONFLICT",
-                "线缆抽屉柜结构与固定 Portfolio 定义冲突。",
+                "线缆抽屉柜结构与固定 Sample 定义冲突。",
                 409,
                 details={"code": code},
             )
@@ -186,7 +186,7 @@ class LocationOrganizerService:
             elif child.parent_id != organizer.id or child.type != "bin":
                 raise BusinessError(
                     "CABLE_DRAWER_SLOT_CONFLICT",
-                    "线缆抽屉结构与固定 Portfolio 定义冲突。",
+                    "线缆抽屉结构与固定 Sample 定义冲突。",
                     409,
                     details={"code": child_code},
                 )

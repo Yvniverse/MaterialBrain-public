@@ -82,19 +82,27 @@ def backup(root: Path, destination: Path, attachments: Path, evidence: Path) -> 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--backup-directory", default="storage/backups")
-    parser.add_argument("--attachment-directory", default="storage/attachments")
-    parser.add_argument("--evidence-directory", default="storage/evidence")
+    parser.add_argument("--backup-directory")
+    parser.add_argument("--attachment-directory")
+    parser.add_argument("--evidence-directory")
     args = parser.parse_args()
     root = Path(subprocess.check_output(
         ["git", "rev-parse", "--show-toplevel"], text=True,
     ).strip())
+    config = json.loads(subprocess.check_output(
+        ["docker", "compose", "config", "--format", "json"], cwd=root, text=True,
+    ))
+    mounts = {
+        mount["target"]: Path(mount["source"])
+        for mount in config["services"]["backup"]["volumes"]
+        if mount.get("type") == "bind"
+    }
     print(
         backup(
             root,
-            root / args.backup_directory,
-            root / args.attachment_directory,
-            root / args.evidence_directory,
+            root / args.backup_directory if args.backup_directory else mounts["/backups"],
+            root / args.attachment_directory if args.attachment_directory else mounts["/attachments"],
+            root / args.evidence_directory if args.evidence_directory else mounts["/evidence"],
         )
     )
 

@@ -1,162 +1,90 @@
-<div align="center">
-
 # MaterialBrain
 
-**面向硬件工程的“工程物料智能 + 仓储工作流”平台**
+**空间 Agent、工程物料智能与机器人仓储工作流**
 
-把确定性工程推理、可追溯 AI 助手、Engineering BOM、Product BOM 只读预览、库存/库位真值和数字孪生拣货整合到一套可自托管系统中。
+MaterialBrain 把工程物料、库存库位、PostGIS 语义地图、约束任务规划和 ROS2/Nav2 仿真连接到同一套可自托管系统中。模型参与理解和解释，地图查询、路线约束、任务状态和库存事务由服务端执行。
 
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Public CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
-![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.1xx-009688?logo=fastapi&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-4169E1?logo=postgresql&logoColor=white)
+[English](README.md) · [架构导航](docs/architecture/README.md) · [Spatial Agent](docs/SPATIAL_AGENT.md) · [机器人运行](docs/ROBOTICS.md) · [WarehouseBench](docs/WAREHOUSEBENCH.md)
 
-[English](README.md) · [架构图](docs/architecture/README.md) · [安全策略](SECURITY.md) · [贡献指南](CONTRIBUTING.md)
+## v0.2 能力
 
-</div>
-
-## 项目定位
-
-MaterialBrain 试图解决硬件研发里经常被拆散的几类信息：**数据手册证据、工程约束、可用物料、实时库存/库位、产品 BOM 与仓储执行**。
-
-项目最核心的原则是：
-
-> **确定性事实与状态转换归服务端所有；大模型可以规划、解释和组织 grounded 结果，但不能成为库存、选型、BOM 或事务状态的真值来源。**
-
-因此系统不是“给库存系统套一个聊天框”，而是把 TaskContract、有限工具集、Engineering Evidence、Material Provenance、显式 Selection、Completeness、只读 Product BOM Preview、事务库存服务与 Exact-SHA 发布证据串成一条工程链。
-
-## 核心能力
-
-| 模块 | 能力 |
+| 模块 | 作用 |
 | --- | --- |
-| **工程 Agent** | 浮动机器人和 `/agent` 两个入口共享同一结构化服务端实体；多轮上下文以 typed state 保留，而不是完全依赖聊天文本。 |
-| **工程证据** | 数据手册页级锚点、结构化参数与 provenance；模型回答不能覆盖服务端确定事实。 |
-| **Power / Engineering BOM** | 电源 Rail / Stage / Requirement、确定性损耗、外围约束、候选匹配、显式草案选择与 Completeness。 |
-| **Product BOM Preview** | 只读计算 `ADD / UPDATE_QUANTITY / NO_CHANGE / UNRESOLVED`，并做 Apply Readiness Dry-Run，不直接修改正式 BOM。 |
-| **库存与库位** | 库存、预留、流水、可视化库位、事务锁、幂等与审计。 |
-| **数字孪生与拣货** | 仓库空间图、路径规划、PickTask / Allocation 与 Guided Picking。 |
-| **发布治理** | RBAC、CSRF/Session、备份清单、Project Memory Guard、Exact-SHA runtime 与 Qualification Gate。 |
+| 工程物料智能 | 数据手册页级证据、元件匹配、电源设计、Engineering BOM 和 Product BOM 只读预览。 |
+| 空间地图 | PostGIS 存储语义区域、障碍、导航节点和任务停靠点；地图版本参与查询与规划。 |
+| 约束规划 | 用地图连通性和 OR-Tools 规划多站任务，报告不可达、容量和其他约束。 |
+| Spatial Agent | 将物料或空间请求转为可检查的计划和结构化任务卡。 |
+| TaskGraph | 跟踪导航、到达和交接等不同步骤，保留执行事件与重规划状态。 |
+| Embodied Twin | 在交互式孪生中查看地图、机器人位置、计划、障碍和任务进度。 |
+| ROS2/Nav2 | 独立机器人仿真服务承接导航目标，返回观测状态。 |
+| 模型接口 | WarehouseBench 任务生成、确定性验证、轨迹重放与可选 SFT 训练入口。 |
 
-## 效果图
-
-<table>
-<tr>
-<td width="50%"><img src="docs/assets/screenshots/engineering-bom-selection.png" alt="Engineering BOM 选型"></td>
-<td width="50%"><img src="docs/assets/screenshots/product-bom-preview.png" alt="Product BOM Preview"></td>
-</tr>
-<tr>
-<td align="center"><b>Grounded Engineering BOM</b><br/>Requirement → Candidate → 显式草案选择 → Completeness</td>
-<td align="center"><b>Product BOM Preview</b><br/>只读 Diff、阻塞原因、来源与 Apply Readiness</td>
-</tr>
-<tr>
-<td width="50%"><img src="docs/assets/screenshots/dual-surface-agent.png" alt="双入口工程 Agent"></td>
-<td width="50%"><img src="docs/assets/screenshots/warehouse-twin.png" alt="仓库数字孪生"></td>
-</tr>
-<tr>
-<td align="center"><b>双入口，共享服务端真值</b></td>
-<td align="center"><b>数字孪生与 Guided Picking</b></td>
-</tr>
-</table>
-
-## 运行时架构
-
-<p align="center">
-  <img src="docs/architecture/previews/01-runtime-overview.svg" alt="MaterialBrain 运行时架构" width="100%">
-</p>
-
-MaterialBrain 采用浏览器 + Nginx + Vue 3 + FastAPI + PostgreSQL 的自托管结构。工程 Agent 运行在受约束的服务端边界中，Qwen 只参与有限的规划/解释；库存、选型、损耗、BOM diff 与业务写入仍由确定性服务负责。
-
-[`docs/architecture/`](docs/architecture/README.md) 中还提供 5 张详细图：后端子系统、Agent 工作流、工程智能数据流、仓库孪生/拣货以及 Exact-SHA 发布生命周期。
-
-## 一条典型工程链
-
-```text
-真实工程问题
-   ↓
-工作点 / Typed Requirement
-   ↓
-Engineering Evidence + Material Attributes / Provenance
-   ↓
-Component Class Gate + Constraint Matcher
-   ↓
-Grounded Candidates
-   ↓
-用户显式 Engineering Draft Selection
-   ↓
-Completeness / Blocking Reasons
-   ↓
-只读 Product BOM Preview
-   ↓
-Apply Readiness Dry-Run（仍然不写正式 BOM）
+```mermaid
+flowchart LR
+  UI[Vue / Embodied Twin] --> API[FastAPI / Spatial Agent]
+  API --> MAP[PostGIS 语义地图]
+  API --> PLAN[OR-Tools / TaskGraph]
+  PLAN --> BRIDGE[ROS2 Bridge]
+  BRIDGE --> NAV[Nav2 仿真]
+  NAV --> UI
+  API --> DOMAIN[物料 / 库存 / BOM]
 ```
-
-## 真实生产风格问题示例
-
-```text
-12V 输入，先 Buck 到 5V，再 LDO 到 3.3V，负载 100mA。
-把各级损耗、Engineering BOM 完整度和 LM5164 候选库存/库位一起给我。
-```
-
-```text
-LM5164 的自举电容需要 2.2nF、耐压至少 50V、X7R。
-把满足条件的真实物料按规格、库存、库位和证据列出来，先不要替我选。
-```
-
-```text
-把当前 Engineering Draft 预览到 PROD-DEXGRIP / EVT-R1，
-分别告诉我会新增什么、哪些单台用量会变化、哪些不变、哪些仍未解决；不要实际应用。
-```
-
-## 技术栈
-
-- **Backend**：Python 3.12、FastAPI、SQLAlchemy、Alembic、PostgreSQL 17
-- **Agent**：确定性 TaskContract / Tool Registry + LangGraph 风格编排 + Qwen Model Pool
-- **Frontend**：Vue 3、TypeScript、Pinia、Element Plus、ECharts、Three.js
-- **Testing**：pytest、Ruff、Vitest、Playwright、deterministic golden suites
-- **Deployment**：Docker Compose、Nginx、Fresh Backup、Exact-SHA runtime metadata
 
 ## 快速启动
 
-```bash
-git clone https://github.com/Yvniverse/MaterialBrain-public.git
-cd MaterialBrain
-cp .env.example .env
-# 修改数据库强密码；如需 Agent，再配置服务端模型 Key
+需要 Docker Engine 和 Compose v2。源码开发使用 Python 3.12、Node.js 22 和 pnpm 11。
 
-docker compose up -d --build
-docker compose exec backend alembic upgrade head
-docker compose exec backend python scripts/create_admin.py
+```bash
+git clone --branch codex/public-v0.2-spatial-agent https://github.com/Yvniverse/MaterialBrain-public.git
+cd MaterialBrain-public
+cp .env.example .env
 ```
 
-浏览器访问 `http://localhost`（或 `WEB_PORT` 指定端口）。核心库存/仓储功能不依赖大模型；没有模型 Key 时可以保持 Agent 关闭。
+修改 `.env` 的 PostgreSQL 密码并同步 `DATABASE_URL`。默认 Compose project 为 `materialbrain_public_v02`，浏览器端口为 `18080`，文件保存在本仓库的 `./storage`。
 
-## 公开里程碑边界
+```bash
+docker compose -p materialbrain_public_v02 up -d --build
+docker compose -p materialbrain_public_v02 exec backend alembic upgrade head
+docker compose -p materialbrain_public_v02 exec backend python scripts/create_admin.py
+```
 
-当前公开版本建议坚持以下边界：
+打开 [http://localhost:18080](http://localhost:18080)，登录后进入物料、空间任务或数字孪生页面。地图注册与机器人仿真的启动步骤见 [Spatial Agent](docs/SPATIAL_AGENT.md) 和 [机器人运行](docs/ROBOTICS.md)。
 
-- Engineering Draft Selection ≠ 正式 Product BOM 写入；
-- Product BOM Preview / Apply Dry-Run 仍为只读；
-- 库存写操作必须经过事务服务与权限检查；
-- demo/synthetic 的库存/库位必须保持 provenance 可见；
-- 任何 UAT fixture 都不得写入默认生产数据库；
-- Release Evidence 必须绑定同一 exact SHA。
+确定性地图查询和规划不需要模型密钥。使用自然语言 Agent 入口时，在服务端 `.env` 设置 `AGENT_ENABLED=true`；确定性空间任务可在没有模型凭据时运行。需要模型辅助时再配置提供方凭据，密钥只传给后端。
 
-## Roadmap
+```bash
+curl http://localhost:18080/api/v1/health
+```
 
-- [x] Grounded Engineering Agent
-- [x] Engineering Evidence + Material Provenance
-- [x] Power Architecture / Multi-rail Engineering BOM
-- [x] Explicit Selection Truth + Completeness
-- [x] Read-only Product BOM Preview
-- [x] Apply Readiness Dry-Run
-- [x] Warehouse Twin / Guided Picking 基础链路
-- [ ] 完整的电源 BOM readiness 与更多被动器件 derating
-- [ ] Preview → Human Confirm → Transactional Product BOM Apply
+## 试用流程
 
-## License
+1. 读取 `MB-EMB-LAB-03` 示例地图并检查停靠点、障碍和地图版本。
+2. 在 Agent 中提交多站导航请求，查看结构化计划、总距离和规划约束。
+3. 打开 `/warehouse-lab`；查看目标和路线，再显式启动任务。
+4. 观察 Nav2 仿真的机器人位置及任务事件。到达停靠点后，按任务要求完成扫描或交接。
+5. 遇到障碍时重规划；检查已完成站点和剩余目标。
 
-本项目计划以 **Apache License 2.0** 发布。详见 [`LICENSE`](LICENSE) 与 [`NOTICE`](NOTICE)。
+任务计划与机器人执行分开。示例运行报告 `hardware_control=false`；到达或交接事件不会自动修改库存，库存变更仍通过独立的授权事务接口完成。
 
-依赖库、厂商数据手册、第三方 Logo/素材及外部证据仍遵循各自许可证或再分发条款，不能因为 MaterialBrain 使用 Apache-2.0 就自动被重新许可。
+## 开发与复现
+
+[贡献指南](CONTRIBUTING.md) 包含独立 PostGIS 测试服务、后端与前端检查。空间测试依赖 PostGIS；普通 SQLite 测试不能替代几何查询和迁移验证。
+
+[WarehouseBench](docs/WAREHOUSEBENCH.md) 介绍任务 schema、生成器、验证器、轨迹重放与 SFT 数据格式。生成的报告应保留任务配置、种子、模型设置和执行轨迹，便于比较同一任务集上的行为。
+
+## 文档
+
+| 主题 | 文档 |
+| --- | --- |
+| API 与认证 | [API](docs/API.md) |
+| 空间请求、规划与任务生命周期 | [Spatial Agent](docs/SPATIAL_AGENT.md) |
+| ROS2/Nav2 与孪生 | [Robotics](docs/ROBOTICS.md) |
+| 模型训练与评测 | [WarehouseBench](docs/WAREHOUSEBENCH.md) |
+| 六个架构视图 | [Architecture](docs/architecture/README.md) |
+| 备份和恢复 | [Backup / Restore](docs/BACKUP_RESTORE.md) |
+| 安全运行 | [Security](docs/SECURITY.md) |
+| 素材与样例数据 | [Assets](docs/ASSETS.md) |
+
+## 许可证
+
+MaterialBrain 使用 [Apache License 2.0](LICENSE)，[ROS2 子包](robot_bridge/ros2/) 保留 [MIT License](robot_bridge/ros2/LICENSE)。第三方依赖和外部材料保留各自条款，见 [NOTICE](NOTICE) 和 [素材说明](docs/ASSETS.md)。

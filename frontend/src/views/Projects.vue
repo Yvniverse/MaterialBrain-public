@@ -5,7 +5,7 @@ import { api } from '../api/client'
 import BomProductionTabs from '../components/BomProductionTabs.vue'
 import ProductionWorkspace from '../components/ProductionWorkspace.vue'
 import type { Material, Page, User } from '../types'
-import { sanitizeBusinessCopy } from '../utils/businessCopy'
+import { formatBusinessText } from '../utils/businessCopy'
 import { useAuthStore } from '../stores/auth'
 interface Project {
   id: number
@@ -91,8 +91,8 @@ async function openDetail(row: Project) {
 function presentProject(item: Project): Project {
   return {
     ...item,
-    notes: sanitizeBusinessCopy(item.notes),
-    bom: item.bom?.map((row) => ({ ...row, notes: sanitizeBusinessCopy(row.notes) })),
+    notes: formatBusinessText(item.notes),
+    bom: item.bom?.map((row) => ({ ...row, notes: formatBusinessText(row.notes) })),
   }
 }
 async function addBom() {
