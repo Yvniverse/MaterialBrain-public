@@ -16,13 +16,19 @@
 
 </div>
 
-![MaterialBrain 数字孪生仓库与注册仓储设备](docs/screenshots/01-warehouse-twin.png)
-
-<div align="center"><sub>数字孪生仓库 · 注册设备、库位与空间信息</sub></div>
+![MaterialBrain 研发物流实验仓 · 真实三维场景与机器人多站任务](docs/screenshots/01-lab-overview.png)
+<div align="center"><sub>研发物流实验仓 · 多类型仓储设备、空间路线与移动机器人任务状态</sub></div>
 
 <table><tr>
-<td width="50%"><img src="docs/screenshots/02-embodied-lab.png" width="100%" alt="具身智能实验室的多站路线与机器人" /><br/><sub>具身智能实验室</sub></td>
-<td width="50%"><img src="docs/screenshots/03-material-brain.png" width="100%" alt="工程物料 Agent 的器件候选、库存与库位" /><br/><sub>工程物料大脑</sub></td>
+<td width="50%"><img src="docs/screenshots/02-lab-aisle.png" width="100%" alt="研发物流实验仓通道和仓储设备" /><br/><sub>通道视角 · 设备布局和通行走廊</sub></td>
+<td width="50%"><img src="docs/screenshots/03-lab-topdown.png" width="100%" alt="俯视语义路线和多站规划" /><br/><sub>俯视视角 · 路径拓扑与停靠点</sub></td>
+</tr></table>
+
+### 机器人移动、动态重规划与交接
+<table><tr>
+<td width="33%"><img src="docs/screenshots/04-lab-follow.png" width="100%" alt="机器人沿路线运动的跟随视角" /><br/><sub>机器人运动与跟随相机</sub></td>
+<td width="33%"><img src="docs/screenshots/05-lab-replan.png" width="100%" alt="动态障碍出现后的路径重规划" /><br/><sub>动态障碍与任务恢复</sub></td>
+<td width="33%"><img src="docs/screenshots/06-lab-handoff.png" width="100%" alt="机器人到站扫码交接" /><br/><sub>到站与扫码交接</sub></td>
 </tr></table>
 
 ## 项目介绍
@@ -52,20 +58,13 @@ flowchart LR
 | **机器人导航执行** | 使用 ROS2 Jazzy / Nav2，通过 Smac State Lattice、MPPI 和 Behavior Tree 运行仿真导航与恢复。 |
 | **WarehouseBench** | 生成带种子的合成任务、验证路线、导出轨迹，并使用可移植的本地模型 SFT 接口。 |
 
-## 产品界面
-
+## 工程物料与库位工作空间
 <table><tr>
-<td width="50%"><img src="docs/screenshots/04-dashboard.png" width="100%" alt="Glacier 库存与工作空间概览" /><br/><sub>工作空间与库存概览</sub></td>
-<td width="50%"><img src="docs/screenshots/05-storage-equipment.png" width="100%" alt="选中库位的仓储设备" /><br/><sub>抽屉柜、元件盒、货架与库位选择</sub></td>
+<td width="50%"><img src="docs/screenshots/07-material-brain.png" width="100%" alt="工程物料大脑候选和库存查询" /><br/><sub>工程物料智能与证据化选型</sub></td>
+<td width="50%"><img src="docs/screenshots/08-real-stockroom.png" width="100%" alt="真实注册设备与库位的数字孪生" /><br/><sub>注册仓储设备与精确库位</sub></td>
 </tr></table>
 
-### 数字孪生仓库与具身导航
-
-数字孪生仓库将注册仓储设备和具身智能实验室放在同一个工作空间。实验室使用**版本化的 24 × 18 m 合成仓库**，包含异构仓储设备和注册停靠点。场景展示机器人、路线与任务状态；任务规划和 Nav2 执行观测分别记录。
-
-![MaterialBrain 具身实验室中的任务执行与恢复](docs/screenshots/06-task-recovery.png)
-
-进入“数字孪生仓库”，切换到“具身智能实验室”，选择目标并检查路线，再明确启动仿真任务。到达、扫码交接、障碍变化、重规划和返航会记录在任务时间线中。`/warehouse-lab` 兼容深链接会跳转到同一实验室；统一入口为 `/warehouse-twin?workspace=robot-lab`。
+真实库位数字孪生保留既有抽屉柜、元件盒和货架。研发物流实验仓使用版本化的合成场景进行多站规划和 ROS2/Nav2 仿真执行，规划路线与机器人实际观测分开记录。
 
 ## 技术架构与执行边界
 

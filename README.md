@@ -16,13 +16,19 @@ Connect engineering requests, datasheet evidence, BOMs, inventory locations, sem
 
 </div>
 
-![MaterialBrain digital twin warehouse with registered storage equipment](docs/screenshots/01-warehouse-twin.png)
-
-<div align="center"><sub>Digital Twin Warehouse · registered equipment, storage positions and spatial context</sub></div>
+![MaterialBrain Research Logistics Lab — robot missions, storage equipment and semantic routes](docs/screenshots/01-lab-overview.png)
+<div align="center"><sub>Research Logistics Lab · 3D equipment layout, spatial routes and mobile robot task state</sub></div>
 
 <table><tr>
-<td width="50%"><img src="docs/screenshots/02-embodied-lab.png" width="100%" alt="Embodied Robotics Lab with a multi-stop route and robot" /><br/><sub>Embodied Robotics Lab</sub></td>
-<td width="50%"><img src="docs/screenshots/03-material-brain.png" width="100%" alt="Engineering Material Agent with grounded candidates, inventory and storage positions" /><br/><sub>Engineering Material Agent</sub></td>
+<td width="50%"><img src="docs/screenshots/02-lab-aisle.png" width="100%" alt="Research logistics lab aisle and storage equipment" /><br/><sub>Aisle perspective · working areas and navigable corridors</sub></td>
+<td width="50%"><img src="docs/screenshots/03-lab-topdown.png" width="100%" alt="Top-down semantic mission route" /><br/><sub>Top-down perspective · registered route topology</sub></td>
+</tr></table>
+
+### Robot mission, replanning and handoff
+<table><tr>
+<td width="33%"><img src="docs/screenshots/04-lab-follow.png" width="100%" alt="Robot moving in the research logistics lab" /><br/><sub>Robot-follow view</sub></td>
+<td width="33%"><img src="docs/screenshots/05-lab-replan.png" width="100%" alt="Dynamic obstacle and route replanning" /><br/><sub>Dynamic route recovery</sub></td>
+<td width="33%"><img src="docs/screenshots/06-lab-handoff.png" width="100%" alt="Robot arrival and scan handoff" /><br/><sub>Registered station handoff</sub></td>
 </tr></table>
 
 ## What is MaterialBrain?
@@ -52,20 +58,13 @@ flowchart LR
 | **Robotics Execution** | Run ROS2 Jazzy / Nav2 simulation with Smac State Lattice, MPPI and Behavior Tree recovery. |
 | **WarehouseBench** | Generate seeded synthetic tasks, verify routes, export traces and use portable local-model SFT interfaces. |
 
-## Product gallery
-
+## Engineering and inventory workspace
 <table><tr>
-<td width="50%"><img src="docs/screenshots/04-dashboard.png" width="100%" alt="Glacier dashboard with seeded inventory and workspace summary" /><br/><sub>Connected workspace and inventory overview</sub></td>
-<td width="50%"><img src="docs/screenshots/05-storage-equipment.png" width="100%" alt="Storage equipment with a selected compartment" /><br/><sub>Drawers, component bins, shelves and location selection</sub></td>
+<td width="50%"><img src="docs/screenshots/07-material-brain.png" width="100%" alt="Grounded MaterialBrain engineering Agent" /><br/><sub>Engineering material intelligence</sub></td>
+<td width="50%"><img src="docs/screenshots/08-real-stockroom.png" width="100%" alt="Registered stockroom with device and storage location" /><br/><sub>Digital twin of registered storage locations</sub></td>
 </tr></table>
 
-### Spatial warehouse and embodied navigation
-
-Digital Twin Warehouse brings two modes into one workspace: registered storage equipment and the Embodied Robotics Lab. The laboratory uses a **versioned 24 × 18 m synthetic warehouse** with heterogeneous equipment and registered docking goals. The scene shows the robot, route and task state; mission planning and observed Nav2 execution remain separate.
-
-![MaterialBrain mission execution and recovery in the embodied laboratory](docs/screenshots/06-task-recovery.png)
-
-Open **Digital Twin Warehouse**, switch to **Embodied Robotics Lab**, select destinations and review the route before explicitly starting a simulation mission. Arrival, scan/handoff, obstacle updates, replanning and return home are recorded in the task timeline. The compatible deep link `/warehouse-lab` redirects to the same laboratory; the unified route is `/warehouse-twin?workspace=robot-lab`.
+The physical stockroom twin preserves the registered equipment and storage locations, including drawers, bins and shelves. The Research Logistics Lab is a versioned synthetic environment for multi-stop mission planning and ROS2/Nav2 execution. Planned routes and observed robot events are represented separately.
 
 ## Technology and execution boundaries
 
