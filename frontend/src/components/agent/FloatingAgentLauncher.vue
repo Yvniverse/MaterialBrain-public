@@ -85,8 +85,9 @@ function loadPosition() {
 
 function placeDefault() {
   const size = bounds()
-  const rightInset = props.dock === 'warehouse' && window.innerWidth >= 1200 ? 340 : 22
   const mobile = window.innerWidth <= 600
+  const rightInset =
+    props.dock === 'warehouse' ? (window.innerWidth >= 1200 ? 340 : mobile ? EDGE_GAP : 22) : 22
   const bottomInset = props.dock === 'warehouse' ? 112 : mobile && props.dock === 'storage' ? 8 : 24
   let x = window.innerWidth - size.width - rightInset
   let top = window.innerHeight - size.height - bottomInset
