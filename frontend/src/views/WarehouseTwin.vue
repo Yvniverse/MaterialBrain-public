@@ -53,7 +53,7 @@ async function refresh() {
         positiveId(route.query.warehouse) || locations.find((x) => x.type === 'warehouse')?.id
       if (!warehouse) throw new Error('尚未配置仓库。')
       const maps = (
-        await api.get<{ id: number; status: string; code: string }[]>('/warehouse-maps', {
+        await api.get<{ id: number; status: string; code?: string }[]>('/warehouse-maps', {
           params: { warehouse_id: warehouse },
         })
       ).data
@@ -109,14 +109,6 @@ function openLocation(id: number) {
 function openTask() {
   if (taskId.value) void router.push({ path: '/projects', query: { task: taskId.value } })
 }
-function switchWorkspace(lab: boolean) {
-  const query = { ...route.query }
-  delete query.workspace
-  delete query.nav_goals
-  delete query.nav_scenario
-  if (lab) query.workspace = 'robot-lab'
-  void router.push({ path: '/warehouse-twin', query })
-}
 function closuresChanged() {
   ++routeGeneration
   routeBusy.value = false
@@ -140,16 +132,6 @@ onBeforeUnmount(() => {
 })
 </script>
 <template>
-  <header v-if="!embedded && !taskId" class="g-page-heading warehouse-workspace-heading">
-    <div>
-      <h1>{{ isRobotLab ? '具身智能实验室' : '数字孪生仓库' }}<span class="g-title-dot">.</span></h1>
-      <p class="g-muted">{{ isRobotLab ? '让空间任务在真实三维场景中走通。' : '看见每一个库位，让每一次移动都有依据。' }}</p>
-    </div>
-    <div class="g-segmented" role="group" aria-label="仓库模式">
-      <button :class="{ active: !isRobotLab }" :aria-pressed="!isRobotLab" data-testid="warehouse-mode-live" @click="switchWorkspace(false)">数字孪生仓库</button>
-      <button :class="{ active: isRobotLab }" :aria-pressed="isRobotLab" data-testid="warehouse-mode-lab" @click="switchWorkspace(true)">具身智能实验室</button>
-    </div>
-  </header>
   <EmbodiedTwin v-if="isRobotLab" :key="route.fullPath" />
   <section
     v-else
@@ -165,6 +147,13 @@ onBeforeUnmount(() => {
     </div>
     <div v-if="loading" class="g-inline-notice" role="status">正在读取仓库数据…</div>
     <div v-if="snapshot && !embedded" class="g-map-actions">
+      <button
+        v-if="!taskId"
+        class="g-btn primary"
+        @click="router.push({ path: '/warehouse-twin', query: { workspace: 'robot-lab' } })"
+      >
+        具身导航实验仓 ↗
+      </button>
       <template v-if="!taskId"
         ><span>通道临时封闭</span
         ><el-select
@@ -190,7 +179,6 @@ onBeforeUnmount(() => {
       :initial-focus-id="focus"
       :initial-mode="route.query.mode === '2d' ? '2d' : '3d'"
       :embedded="embedded"
-      :hide-heading="!embedded && !taskId"
       :allow-route-preview="!taskId"
       @open-location="openLocation"
       @preview-route="previewRoute"
@@ -203,17 +191,3 @@ onBeforeUnmount(() => {
     </div>
   </section>
 </template>
-
-<style scoped>
-.warehouse-workspace-heading { padding: 22px 26px 8px; margin-bottom: 10px; }
-.g-map-actions { padding: 10px 26px 14px; }
-.warehouse-workspace-heading p { margin-top: 8px; font-size: 14px; }
-@media (max-width: 1024px) { .warehouse-workspace-heading { align-items: flex-start; flex-wrap: wrap; } }
-@media (max-width: 600px) {
-  .warehouse-workspace-heading { padding: 18px 16px 6px; }
-  .g-map-actions { padding: 8px 16px 12px; }
-  .warehouse-workspace-heading h1 { font-size: 25px; }
-  .warehouse-workspace-heading .g-segmented { width: 100%; }
-  .warehouse-workspace-heading .g-segmented button { flex: 1; padding-inline: 9px; white-space: normal; }
-}
-</style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, watch } from 'vue'
+import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from '../../api/client'
 import { mountProductionLabApp } from './production-runtime.mjs'
@@ -11,8 +11,8 @@ import SpatialObservability from '../../spatial/SpatialObservability.vue'
 import { subscribeSpatialScene } from '../../spatial/useSpatialMission'
 const props = withDefaults(defineProps<{ useServer?: boolean }>(), { useServer: true })
 const host = ref<HTMLElement | null>(null)
-const assetsOpen = ref(false)
-const simulationOpen = ref(false)
+const spatialControls = ref<HTMLElement | null>(null)
+const controlsHeight = ref(0)
 const router = useRouter()
 const error = ref('')
 const notice = ref('')
@@ -20,20 +20,7 @@ let disposed = false
 let app: ReturnType<typeof mountProductionLabApp> | null = null
 let detachSession: (() => void) | null = null
 let detachSpatial: (() => void) | null = null
-let layoutObserver: ResizeObserver | null = null
-let layoutFrame = 0
-function scheduleLayoutMeasure() {
-  cancelAnimationFrame(layoutFrame)
-  layoutFrame = requestAnimationFrame(() => {
-    if (disposed || !host.value) return
-    const layout = host.value.querySelector<HTMLElement>('.twin-layout')
-    if (!layout) return
-    const minimum = window.innerWidth <= 600 ? 420 : 480
-    const height = Math.max(minimum, window.innerHeight - layout.getBoundingClientRect().top - 16)
-    host.value.style.setProperty('--embodied-stage-height', `${height}px`)
-  })
-}
-watch(notice, scheduleLayoutMeasure)
+let controlsObserver: ResizeObserver | null = null
 const diagnosticRequest = () =>
   window.dispatchEvent(
     new CustomEvent('embodied-lab:diagnostics', { detail: app?.diagnostics() || null }),
@@ -91,6 +78,12 @@ async function openLocation(selection: { reference_code?: string; slot?: string 
 }
 
 onMounted(async () => {
+  if (spatialControls.value) {
+    controlsObserver = new ResizeObserver(() => {
+      controlsHeight.value = spatialControls.value?.getBoundingClientRect().height || 0
+    })
+    controlsObserver.observe(spatialControls.value)
+  }
   if (!host.value) return
   try {
     const data = props.useServer ? (await api.get('/navigation-lab/world')).data : world
@@ -127,13 +120,6 @@ onMounted(async () => {
         mounted.setSpatialLayers(snapshot, layers, mission, execution)
       })
     window.addEventListener('embodied-lab:diagnostics-request', diagnosticRequest)
-    window.addEventListener('resize', scheduleLayoutMeasure)
-    if (typeof ResizeObserver !== 'undefined') {
-      layoutObserver = new ResizeObserver(scheduleLayoutMeasure)
-      layoutObserver.observe(host.value)
-      if (host.value.parentElement) layoutObserver.observe(host.value.parentElement)
-    }
-    scheduleLayoutMeasure()
   } catch (err) {
     error.value = err instanceof Error ? err.message : '实验仓加载失败'
   }
@@ -142,10 +128,8 @@ onBeforeUnmount(() => {
   disposed = true
   detachSession?.()
   detachSpatial?.()
+  controlsObserver?.disconnect()
   window.removeEventListener('embodied-lab:diagnostics-request', diagnosticRequest)
-  window.removeEventListener('resize', scheduleLayoutMeasure)
-  cancelAnimationFrame(layoutFrame)
-  layoutObserver?.disconnect()
   app?.dispose()
   app = null
 })
@@ -158,28 +142,14 @@ defineExpose({ diagnostics: () => app?.diagnostics() || null })
     <p>真实仓库与其他业务页面继续可用。</p>
   </div>
   <p v-if="notice" class="embodied-notice" role="status">{{ notice }}</p>
-  <section
-    class="embodied-workspace"
-    :class="{ 'show-assets': assetsOpen, 'show-simulation': simulationOpen }"
-    data-testid="embodied-workspace"
-  >
-    <div class="embodied-workspace-tools" aria-label="实验室面板">
-      <button class="g-btn" :aria-expanded="assetsOpen" @click="assetsOpen = !assetsOpen">
-        设备与区域
-      </button>
-      <button
-        class="g-btn"
-        :aria-expanded="simulationOpen"
-        @click="simulationOpen = !simulationOpen"
-      >
-        仿真任务
-      </button>
-    </div>
-    <div class="embodied-spatial-controls">
-      <SpatialObservability v-if="useServer && !error" />
-    </div>
-    <div ref="host" class="embodied-integrated-host" />
-  </section>
+  <div ref="spatialControls" class="embodied-spatial-controls">
+    <SpatialObservability v-if="useServer && !error" />
+  </div>
+  <div
+    ref="host"
+    class="embodied-integrated-host"
+    :style="{ '--spatial-controls-height': `${controlsHeight}px` }"
+  />
 </template>
 <style scoped>
 .embodied-notice {
@@ -192,18 +162,7 @@ defineExpose({ diagnostics: () => app?.diagnostics() || null })
 .embodied-integrated-host {
   min-width: 0;
   min-height: 0;
-  padding: 0;
-}
-.embodied-workspace {
-  position: relative;
-  min-width: 0;
-  padding: 0 26px 26px;
-}
-.embodied-workspace-tools {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-bottom: 10px;
+  padding: 24px;
 }
 .embodied-spatial-controls {
   display: flow-root;
@@ -219,40 +178,8 @@ defineExpose({ diagnostics: () => app?.diagnostics() || null })
   display: none;
 }
 :deep(.twin-layout) {
-  height: var(--embodied-stage-height, calc(100dvh - 340px));
-  min-height: 420px;
-  grid-template-columns: 190px minmax(0, 1fr) 280px;
-}
-:deep(.mb-lab .page-heading) {
-  display: none;
-}
-:deep(.mb-lab .bottom-strip) {
-  font-size: 13px;
-}
-:deep(.mb-lab .stage-footer) {
-  flex-wrap: wrap;
-}
-:deep(.mb-lab .stage-info span),
-:deep(.mb-lab .legend),
-:deep(.mb-lab .camera-tabs button),
-:deep(.mb-lab .asset-row small),
-:deep(.mb-lab .robot-card small),
-:deep(.mb-lab .small),
-:deep(.mb-lab .metrics small) {
-  font-size: 13px;
-}
-:deep(.mb-lab button),
-:deep(.mb-lab select),
-:deep(.mb-lab input) {
-  font-size: 14px;
-}
-:deep(.mb-lab label),
-:deep(.mb-lab .g-goals span),
-:deep(.mb-lab .chip) {
-  font-size: 13px;
-}
-:deep(.mb-lab .asset-row strong) {
-  font-size: 14px;
+  height: calc(100dvh - 252px - var(--spatial-controls-height, 0px));
+  min-height: max(360px, calc(580px - var(--spatial-controls-height, 0px)));
 }
 :deep(.mb-lab) {
   min-height: 0;
@@ -260,61 +187,13 @@ defineExpose({ diagnostics: () => app?.diagnostics() || null })
 :deep(.page) {
   padding: 0;
 }
-@media (max-width: 1199px) {
+@media (max-width: 720px) {
+  .embodied-integrated-host {
+    padding: 16px 12px;
+  }
   :deep(.twin-layout) {
-    display: block;
-    position: relative;
-    height: var(--embodied-stage-height, calc(100dvh - 372px));
-    min-height: 420px;
-  }
-  :deep(.mb-lab .stage-panel) {
-    height: 100%;
-  }
-  :deep(.mb-lab .assets-panel),
-  :deep(.mb-lab .mission-panel) {
-    display: none;
-  }
-  .show-assets :deep(.mb-lab .assets-panel),
-  .show-simulation :deep(.mb-lab .mission-panel) {
-    display: flex;
-    position: absolute;
-    z-index: 12;
-    top: 0;
-    bottom: 0;
-    width: min(310px, 90%);
-    box-shadow: 0 8px 28px #315f7526;
-  }
-  .show-assets :deep(.mb-lab .assets-panel) {
-    left: 0;
-  }
-  .show-simulation :deep(.mb-lab .mission-panel) {
-    right: 0;
-  }
-}
-@media (max-width: 600px) {
-  .embodied-workspace {
-    padding: 0 12px 20px;
-  }
-  :deep(.mb-lab .stage-toolbar) {
-    flex-wrap: wrap;
-    left: 10px;
-    right: 10px;
-    top: 10px;
-  }
-  :deep(.mb-lab .stage-info) {
-    max-width: 100%;
-  }
-  :deep(.mb-lab .stage-footer) {
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-  }
-  :deep(.mb-lab .legend) {
-    font-size: 13px;
-  }
-  :deep(.mb-lab .camera-tabs button) {
-    padding: 6px 7px;
-    font-size: 14px;
+    height: auto;
+    min-height: 0;
   }
 }
 </style>

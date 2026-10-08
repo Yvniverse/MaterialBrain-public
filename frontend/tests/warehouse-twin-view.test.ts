@@ -22,7 +22,7 @@ async function setup(query = '?map=1') {
       plugins: [router],
       stubs: {
         GlacierWarehouse: {
-          props: ['snapshot', 'allowRoutePreview', 'hideHeading'],
+          props: ['snapshot', 'allowRoutePreview'],
           template: '<div data-testid="actual-map">{{ snapshot.map.id }}</div>',
         },
         EmbodiedTwin: { template: '<div data-testid="lab" />' },
@@ -84,14 +84,30 @@ it('uses the task frozen map and route and disables free route preview', async (
   expect(wrapper.find('[data-testid=lab]').exists()).toBe(false)
   wrapper.unmount()
 })
-it('switches both warehouse modes through the same page without loading lab as a live map', async () => {
-  vi.mocked(api.get).mockResolvedValue({ data: snapshot(1) })
-  const { wrapper, router } = await setup('?workspace=robot-lab')
+it('opens the approved laboratory link and keeps deep links separate from live map reads', async () => {
+  vi.mocked(api.get).mockImplementation(async (url) => ({
+    data: url === '/locations'
+      ? [{ id: 2, type: 'warehouse' }]
+      : url === '/warehouse-maps'
+        ? [{ id: 1, code: 'WH-RD-TWIN-V4', status: 'active' }]
+        : snapshot(1),
+  }))
+  const { wrapper, router } = await setup('')
+  expect(api.get).toHaveBeenCalledWith('/warehouse-maps/1/twin-snapshot')
+  vi.mocked(api.get).mockClear()
+  await wrapper.get('.g-map-actions .g-btn.primary').trigger('click')
+  await flushPromises()
+  expect(router.currentRoute.value.query.workspace).toBe('robot-lab')
   expect(api.get).not.toHaveBeenCalled()
   expect(wrapper.find('[data-testid=lab]').exists()).toBe(true)
-  await wrapper.get('[data-testid=warehouse-mode-live]').trigger('click')
+  await router.push('/warehouse-twin')
   await flushPromises()
   expect(router.currentRoute.value.query.workspace).toBeUndefined()
   expect(wrapper.find('[data-testid=lab]').exists()).toBe(false)
+  expect(wrapper.get('[data-testid=actual-map]').text()).toBe('1')
   wrapper.unmount()
+  const direct = await setup('?workspace=robot-lab')
+  expect(direct.wrapper.find('[data-testid=lab]').exists()).toBe(true)
+  expect(api.get).not.toHaveBeenCalled()
+  direct.wrapper.unmount()
 })

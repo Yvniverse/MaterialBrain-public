@@ -9,7 +9,6 @@ export default {
     loadScene: { type: Function, required: true },
     initialFocusId: Number,
     embedded: Boolean,
-    hideHeading: Boolean,
     initialMode: { default: '3d' },
     allowRoutePreview: { default: true },
   },
@@ -29,10 +28,6 @@ export default {
       loadGeneration: 0,
       railOpen: false,
       diag: null,
-      viewportHeight: null,
-      layoutObserver: null,
-      layoutFrame: 0,
-      layoutDisposed: false,
     }
   },
   computed: {
@@ -89,56 +84,21 @@ export default {
     initialFocusId() {
       this.focusLocation(this.initialFocusId)
     },
-    hideHeading() {
-      this.$nextTick(this.scheduleViewportMeasure)
-    },
-    embedded() {
-      this.$nextTick(this.scheduleViewportMeasure)
-    },
     mode(value) {
       if (value === '3d') this.$nextTick(() => this.scene?.resize())
     },
   },
   mounted() {
     this.$el.addEventListener('warehouse-twin:diagnostics', this.onDiagnostics)
-    if (typeof ResizeObserver !== 'undefined') {
-      this.layoutObserver = markRaw(new ResizeObserver(this.scheduleViewportMeasure))
-      this.layoutObserver.observe(this.$refs.body)
-      if (this.$el.parentElement) this.layoutObserver.observe(this.$el.parentElement)
-    }
-    window.addEventListener('resize', this.scheduleViewportMeasure)
-    this.$nextTick(this.scheduleViewportMeasure)
     this.mountScene()
   },
   beforeUnmount() {
     this.$el.removeEventListener('warehouse-twin:diagnostics', this.onDiagnostics)
-    this.layoutDisposed = true
-    window.removeEventListener('resize', this.scheduleViewportMeasure)
-    this.layoutObserver?.disconnect()
-    cancelAnimationFrame(this.layoutFrame)
     this.loadGeneration++
     this.scene?.dispose()
     this.scene = null
   },
   methods: {
-    scheduleViewportMeasure() {
-      if (this.layoutDisposed) return
-      cancelAnimationFrame(this.layoutFrame)
-      this.layoutFrame = requestAnimationFrame(this.measureViewport)
-    },
-    measureViewport() {
-      if (this.layoutDisposed) return
-      if (this.embedded) {
-        this.viewportHeight = null
-        return
-      }
-      const body = this.$refs.body
-      if (!body) return
-      const minimum = window.innerWidth <= 600 ? 420 : 520
-      const top = Math.max(0, body.getBoundingClientRect().top)
-      const height = Math.round(Math.max(minimum, window.innerHeight - top - 16))
-      if (height !== this.viewportHeight) this.viewportHeight = height
-    },
     onDiagnostics(event) {
       if (event.detail) event.detail.stats = this.diagnostics()
     },
@@ -148,7 +108,6 @@ export default {
       this.phase = 'loading'
       this.error = ''
       await this.$nextTick()
-      this.scheduleViewportMeasure()
       try {
         const Module = await this.loadScene()
         if (token !== this.loadGeneration) return
@@ -186,8 +145,10 @@ export default {
         this.stopIndex = 0
         this.phase = 'ready'
         this.diag = next.stats()
-        if (this.selectedCode) this.scene.select(this.selectedCode, this.slotName, true)
+        if (this.selectedCode) this.scene.select(this.selectedCode, this.slotName)
         this.focusLocation(this.initialFocusId)
+        if (!this.selectedCode && this.snapshot.assets.length)
+          this.select(this.snapshot.assets[0].code, null, false)
         if (!this.initialFocusId) this.railOpen = false
         this.$nextTick(() => this.scene?.resize())
       } catch (e) {
@@ -287,12 +248,8 @@ function VueMarkRaw(value) {
 }
 </script>
 <template>
-  <div
-    class="g-warehouse"
-    :class="{ 'is-embedded': embedded, 'has-viewport-height': !embedded && viewportHeight !== null }"
-    :style="viewportHeight !== null ? { '--g-warehouse-height': viewportHeight + 'px' } : undefined"
-  >
-    <header v-if="!hideHeading" class="g-warehouse-heading">
+  <div class="g-warehouse" :class="{ 'is-embedded': embedded }">
+    <header class="g-warehouse-heading">
       <div>
         <span class="g-eyebrow">SPATIAL INVENTORY</span>
         <h1>数字孪生仓库<span class="g-title-dot">.</span></h1>
@@ -304,7 +261,7 @@ function VueMarkRaw(value) {
         </button>
       </div>
     </header>
-    <div ref="body" class="g-warehouse-body">
+    <div class="g-warehouse-body">
       <aside class="g-asset-rail">
         <label class="g-input-search"
           ><GIcon name="search" :size="17" /><input

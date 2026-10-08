@@ -19,11 +19,3 @@ body{background:#f0f4f6;color:#25343e;font-family:Inter,"Segoe UI","PingFang SC"
 .glacier .products-page .product-detail>.card{min-width:0;overflow-wrap:anywhere}
 .glacier .products-page .revision-card>header .el-select{min-width:0;max-width:100%;flex:1}
 @media(max-width:1100px){.glacier .products-page .product-layout{grid-template-columns:minmax(0,1fr)}.glacier .products-page .product-list{position:static;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);overflow-x:auto;min-width:0}}
-
-/* Tablet icon navigation still occupies its rail after the user toggles collapse. */
-@media (min-width:601px) and (max-width:800px) {
-  .g-shell.is-collapsed .g-main-shell { margin-left: 78px; }
-}
-@media (min-width:601px) and (max-width:1000px) {
-  .g-sidebar .g-build-info { display: none; }
-}

@@ -1,2 +1,260 @@
-/* Shared surface alias; Glacier owns the application color tokens. */
-:root { --mb-surface-subtle: #f5f9fb; }
+/* Glacier V3: tokens live on :root, so dialogs/tooltips and Teleport receive the same theme.
+ * This file styles UI chrome only. Original physical cabinet, box and shelf components remain unchanged.
+ */
+:root {
+  --g-bg: #eef3f6;
+  --g-paper: #ffffff;
+  --g-ice: #e4eff5;
+  --g-glacier: #c7dce7;
+  --g-mint: #dcefeb;
+  --g-accent: #467e96;
+  --g-accent-strong: #365f73;
+  --g-ink: #243942;
+  --g-muted: #657e8a;
+  --g-line: #dbe5eb;
+  --g-shadow: 0 6px 25px #24445b08;
+  --g-radius: 17px;
+  --mb-font-body: 15px;
+  --mb-font-secondary: 14px;
+  --mb-font-card-title: 18px;
+  --mb-surface-subtle: #f5f9fb;
+  --mb-message-user: #e1eff6;
+  --mb-message-user-border: #cddfe9;
+  --el-color-primary: #467e96;
+  --el-color-primary-light-3: #7eabbf;
+  --el-color-primary-light-5: #a6c6d5;
+  --el-color-primary-light-7: #d1e3ec;
+  --el-color-primary-light-8: #e2eef4;
+  --el-color-primary-light-9: #f0f6f9;
+  --el-color-primary-dark-2: #365f73;
+  --el-text-color-primary: #243942;
+  --el-text-color-regular: #536e7b;
+  --el-text-color-secondary: #728995;
+  --el-border-color: #dbe5eb;
+  --el-border-color-light: #e5edf1;
+  --el-fill-color-light: #f3f7fa;
+  --el-bg-color: #fff;
+  --el-bg-color-page: #eef3f6;
+  --el-font-size-base: 15px;
+  --el-font-size-small: 13px;
+  --el-border-radius-base: 10px;
+}
+html,
+body,
+#app {
+  font-size: 15px;
+  color: var(--g-ink);
+  background: var(--g-bg);
+}
+.el-dialog,
+.el-drawer,
+.el-message-box,
+.el-popper,
+.el-select-dropdown,
+.el-tooltip__trigger,
+.el-pagination {
+  font-family: var(--g-font);
+  color: var(--g-ink);
+}
+.el-dialog,
+.el-message-box {
+  border-radius: 18px;
+  border: 1px solid var(--g-line);
+  box-shadow: 0 18px 60px #23475c21;
+}
+.el-drawer__header {
+  margin-bottom: 0;
+  padding: 20px 23px 15px;
+  border-bottom: 1px solid var(--g-line);
+  color: var(--g-ink);
+}
+.el-dialog__header {
+  padding: 18px 21px 12px;
+  border-bottom: 1px solid var(--g-line);
+}
+.el-dialog__body {
+  padding: 20px 22px;
+}
+.el-dialog__title,
+.el-drawer__title {
+  font-size: 19px;
+  font-weight: 650;
+}
+.el-table {
+  --el-table-header-bg-color: #f4f8fa;
+  --el-table-row-hover-bg-color: #f0f6f9;
+  --el-table-border-color: #e3ebf0;
+  font-size: 14px;
+}
+.el-table .cell {
+  line-height: 1.7;
+  padding: 0 13px;
+}
+.el-table th.el-table__cell {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--g-muted);
+}
+.el-table td.el-table__cell {
+  padding: 11px 0;
+}
+.el-form-item__label {
+  font-size: 14px;
+  color: var(--g-muted);
+}
+.el-input__wrapper,
+.el-select__wrapper {
+  min-height: 39px;
+  box-shadow: 0 0 0 1px var(--g-line) inset;
+}
+.el-button {
+  font-size: 14px;
+  min-height: 38px;
+  border-radius: 10px;
+}
+.el-tag {
+  border-radius: 7px;
+  font-size: 12px;
+}
+.el-card {
+  --el-card-border-radius: 17px;
+  box-shadow: var(--g-shadow);
+}
+.g-page-title {
+  margin-bottom: 18px;
+}
+.g-page-title h1 {
+  font-size: 29px;
+}
+.g-page-title p {
+  font-size: 14px;
+  color: var(--g-muted);
+}
+.g-main .page-header {
+  padding-top: 0;
+  margin-bottom: 18px;
+}
+.g-main .page-header h1,
+.g-main .page-header h2 {
+  font-size: 28px;
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+}
+.g-main .page-header p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--g-muted);
+}
+.g-map-actions {
+  margin-bottom: 12px;
+  gap: 9px;
+  min-height: 40px;
+}
+.g-map-actions .el-select {
+  max-width: 100%;
+}
+.g-main .stat-card,
+.g-main .summary-card {
+  border: 1px solid var(--g-line);
+  background: var(--g-paper);
+  border-radius: 16px;
+}
+.g-main .el-tabs__header {
+  margin-bottom: 18px;
+}
+.g-main .el-tabs__item {
+  font-size: 14px;
+}
+.g-main .empty-hint,
+.g-main .help-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--g-muted);
+}
+.g-btn.dark {
+  background: var(--g-accent);
+  border-color: var(--g-accent);
+}
+.g-btn.dark:hover {
+  background: var(--g-accent-strong);
+}
+.g-result-region {
+  max-height: calc(100dvh - 350px);
+}
+.g-composer textarea {
+  font-size: 16px;
+  line-height: 1.7;
+}
+.g-context-rail {
+  min-width: 0;
+}
+.g-context-rail .g-card {
+  border: 1px solid var(--g-line);
+}
+@media (max-width: 800px) {
+  .g-main .page-header {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .g-result-region {
+    max-height: none;
+  }
+  .el-table .cell {
+    padding: 0 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-agent-launcher img {
+    animation: none;
+    transition: none;
+  }
+  .el-dialog,
+  .el-drawer {
+    transition: none;
+  }
+}
+/* Original device components are untouched; only their surrounding controls use the new theme. */
+.g-main .rack-visual .rack-toolbar,
+.g-main .shelf-rack-visual .rack-toolbar,
+.g-main .box-visual .visual-toolbar {
+  background: var(--mb-surface-subtle);
+  color: var(--g-ink);
+  gap: 16px;
+}
+.g-main .rack-visual .rack-toolbar b,
+.g-main .shelf-rack-visual .rack-identity b,
+.g-main .box-visual .visual-toolbar b {
+  font-size: 21px;
+  line-height: 1.4;
+  color: var(--g-ink);
+}
+.g-main .rack-visual .rack-toolbar small,
+.g-main .shelf-rack-visual .rack-identity small,
+.g-main .box-visual .visual-toolbar small {
+  font-size: 13px;
+  color: var(--g-muted);
+}
+.g-main .rack-visual .overview-button,
+.g-main .shelf-rack-visual .overview-button,
+.g-main .box-visual .lid-toggle {
+  font-size: 14px;
+  border-color: var(--g-line);
+  color: var(--g-accent-strong);
+  background: var(--g-paper);
+  border-radius: 10px;
+}
+.g-main .rack-visual .rack-tools {
+  background: var(--g-paper);
+  border-color: var(--g-line);
+}
+.g-main .rack-visual .rack-tools input {
+  font-size: 14px;
+  color: var(--g-ink);
+  border-color: var(--g-line);
+}
+.g-main .rack-visual .rack-tools p,
+.g-main .shelf-rack-visual .rack-guidance {
+  font-size: 13px;
+  color: var(--g-muted);
+}
