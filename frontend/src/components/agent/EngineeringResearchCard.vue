@@ -92,7 +92,7 @@ function provenanceLabel(axis: unknown) {
       managed_evidence: '受控工程证据',
       catalog: '目录资料',
       operational_db: '系统记录',
-      synthetic_portfolio: '演示/合成',
+      sample_synthetic: '演示/合成',
       unknown: '未知',
     }[kind] || kind
   )

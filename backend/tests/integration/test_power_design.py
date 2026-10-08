@@ -8,7 +8,7 @@ from app.agent.task_contract import classify_task_contract
 from app.core.config import Settings
 from app.core.database import Base
 from app.models import Material, Role, User
-from app.portfolio_demo import PortfolioCableSeeder, PortfolioDemoV2Seeder
+from app.sample_data import SampleCableSeeder, SampleDataV2Seeder
 from app.seed.defaults import seed_defaults
 from app.services.power_design import PowerDesignService
 
@@ -25,15 +25,15 @@ def _seed_power_data(db: Session) -> User:
     )
     db.add(operator)
     db.commit()
-    PortfolioDemoV2Seeder(
+    SampleDataV2Seeder(
         db,
         operator,
-        Settings(portfolio_demo_seed_enabled=True),
+        Settings(sample_data_seed_enabled=True),
     ).seed()
-    PortfolioCableSeeder(
+    SampleCableSeeder(
         db,
         operator,
-        Settings(portfolio_cable_seed_enabled=True),
+        Settings(sample_cable_seed_enabled=True),
     ).seed()
     db.refresh(operator)
     return operator

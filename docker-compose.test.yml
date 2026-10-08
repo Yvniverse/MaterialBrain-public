@@ -1,0 +1,10 @@
+# Fresh, isolated PostGIS endpoint for host-side integration tests.
+services:
+  db:
+    ports:
+      - "127.0.0.1:${TEST_POSTGRES_PORT:-55432}:5432"
+    networks: [internal, test_host]
+
+networks:
+  test_host:
+    driver: bridge

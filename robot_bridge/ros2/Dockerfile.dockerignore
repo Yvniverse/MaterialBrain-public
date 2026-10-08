@@ -1,0 +1,17 @@
+*
+!robot_bridge/
+!robot_bridge/ros2/
+!robot_bridge/ros2/**
+!backend/
+!backend/app/
+!backend/app/spatial/
+!backend/app/spatial/**
+!backend/app/services/
+!backend/app/services/embodied_navigation/
+!backend/app/services/embodied_navigation/*.py
+!backend/app/services/embodied_navigation/world.v3.json
+robot_bridge/ros2/build/
+robot_bridge/ros2/install/
+robot_bridge/ros2/log/
+robot_bridge/ros2/.evidence/
+robot_bridge/ros2/.runtime/

@@ -33,7 +33,7 @@ def test_xlsx_parser_detects_bom_header_after_report_metadata():
     workbook = Workbook()
     sheet = workbook.active
     sheet.append(["Synthetic report title"])
-    sheet.append(["Generated", "portfolio fixture"])
+    sheet.append(["Generated", "sample fixture"])
     sheet.append([None, None, None])
     sheet.append(["Comment", "Description", "Designator", "Footprint", "Quantity"])
     sheet.append(["100nF", "X7R capacitor", "C1,C2", "C0603", 2])

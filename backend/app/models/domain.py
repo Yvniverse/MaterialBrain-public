@@ -8,6 +8,7 @@ from sqlalchemy import (
     CheckConstraint,
     Date,
     DateTime,
+    Float,
     ForeignKey,
     Index,
     Numeric,
@@ -20,6 +21,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+from app.spatial.models import SPATIAL_JSON, LocalGeometry
 
 
 class TimestampMixin:
@@ -196,6 +198,9 @@ class WarehouseMap(Base, TimestampMixin):
     default_end_node_code: Mapped[str] = mapped_column(String(64), default="PACK")
     graph_hash: Mapped[str] = mapped_column(String(64), index=True)
     geometry_note: Mapped[str] = mapped_column(Text, default="")
+    geom: Mapped[str | None] = mapped_column(LocalGeometry("POLYGON"))
+    spatial_revision: Mapped[str | None] = mapped_column(String(64))
+    spatial_metadata: Mapped[dict[str, Any] | None] = mapped_column(SPATIAL_JSON)
     verified_by_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"), index=True)
     verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
@@ -219,6 +224,8 @@ class WarehouseMapNode(Base, TimestampMixin):
     label: Mapped[str] = mapped_column(String(200), default="")
     x_m: Mapped[Decimal] = mapped_column(Numeric(10, 3))
     y_m: Mapped[Decimal] = mapped_column(Numeric(10, 3))
+    geom: Mapped[str | None] = mapped_column(LocalGeometry("POINT"))
+    yaw_rad: Mapped[float] = mapped_column(Float, default=0, server_default="0")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
 
 
@@ -243,6 +250,17 @@ class WarehouseMapEdge(Base, TimestampMixin):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
     notes: Mapped[str] = mapped_column(Text, default="")
 
+    geom: Mapped[str | None] = mapped_column(LocalGeometry("LINESTRING"))
+    width_m: Mapped[float | None] = mapped_column(Float)
+    speed_limit_mps: Mapped[float | None] = mapped_column(Float)
+    risk_level: Mapped[float] = mapped_column(Float, default=0, server_default="0")
+    allowed_robot_classes: Mapped[list[str]] = mapped_column(
+        SPATIAL_JSON, default=list, server_default="[]"
+    )
+    semantic_rules: Mapped[dict[str, Any]] = mapped_column(
+        SPATIAL_JSON, default=dict, server_default="{}"
+    )
+
 
 class LocationMapBinding(Base, TimestampMixin):
     __tablename__ = "location_map_bindings"
@@ -265,6 +283,8 @@ class LocationMapBinding(Base, TimestampMixin):
     rotation_deg: Mapped[Decimal] = mapped_column(Numeric(7, 2), default=Decimal("0"))
     facing: Mapped[str] = mapped_column(String(16), default="aisle")
     local_geometry_kind: Mapped[str] = mapped_column(String(32), default="organizer")
+    footprint: Mapped[str | None] = mapped_column(LocalGeometry("POLYGON"))
+    dock_yaw_rad: Mapped[float | None] = mapped_column(Float)
 
 
 class Project(Base, TimestampMixin):

@@ -8,7 +8,7 @@ from app.agent.service import WarehouseAgentService
 from app.core.config import Settings
 from app.core.database import Base, SessionLocal
 from app.models import Material, Product, ProductBomItem, ProductRevision, Role, User
-from app.portfolio_demo import PortfolioDemoV2Seeder, PortfolioProductSeeder
+from app.sample_data import SampleDataV2Seeder, SampleProductSeeder
 from app.seed.defaults import seed_defaults
 from app.services.product_bom_preview import ProductBomPreviewService
 
@@ -277,8 +277,8 @@ def test_product_bom_preview_query_reuses_research_context_and_stays_read_only(t
         )
         db.add(user)
         db.commit()
-        PortfolioDemoV2Seeder(db, user, Settings(portfolio_demo_seed_enabled=True)).seed()
-        PortfolioProductSeeder(db, user, Settings(portfolio_product_seed_enabled=True)).seed()
+        SampleDataV2Seeder(db, user, Settings(sample_data_seed_enabled=True)).seed()
+        SampleProductSeeder(db, user, Settings(sample_product_seed_enabled=True)).seed()
         assert db.scalar(select(Product).where(Product.code == "PROD-ATLAS-AMR")) is not None
         before = db.scalar(select(func.count()).select_from(ProductBomItem))
         service = WarehouseAgentService(

@@ -9,7 +9,7 @@ from app.agent.task_contract import classify_task_contract
 from app.core.config import Settings
 from app.core.database import Base
 from app.models import Material, Role, User
-from app.portfolio_demo import PortfolioCableSeeder, PortfolioDemoV2Seeder
+from app.sample_data import SampleCableSeeder, SampleDataV2Seeder
 from app.schemas.agent import CableSearchArgs
 from app.seed.defaults import seed_defaults
 from app.services.cable_intelligence import CableSearchService
@@ -27,15 +27,15 @@ def _seed(db: Session) -> None:
     )
     db.add(operator)
     db.commit()
-    PortfolioDemoV2Seeder(
+    SampleDataV2Seeder(
         db,
         operator,
-        Settings(portfolio_demo_seed_enabled=True),
+        Settings(sample_data_seed_enabled=True),
     ).seed()
-    PortfolioCableSeeder(
+    SampleCableSeeder(
         db,
         operator,
-        Settings(portfolio_cable_seed_enabled=True),
+        Settings(sample_cable_seed_enabled=True),
     ).seed()
 
 
@@ -178,7 +178,7 @@ def test_exact_cable_identifier_routes_to_rich_cable_result(tmp_path):
         assert result["items"][0]["available_quantity"]
         assert result["items"][0]["locations"]
 
-    contract = classify_task_contract("帮我找 PORTFOLIO-CBL-PF-00042")
+    contract = classify_task_contract("帮我找 SAMPLE-CBL-PF-00042")
     assert contract.entity_kind == "cable"
     assert contract.requested_facts == {"cable_search"}
 

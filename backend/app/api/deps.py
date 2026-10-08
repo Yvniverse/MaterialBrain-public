@@ -16,13 +16,13 @@ DB = Annotated[Session, Depends(get_db)]
 def get_current_user(
     request: Request,
     db: DB,
-    pengka_session: Annotated[str | None, Cookie()] = None,
+    materialbrain_session: Annotated[str | None, Cookie()] = None,
     x_csrf_token: Annotated[str | None, Header()] = None,
 ) -> User:
-    if not pengka_session:
+    if not materialbrain_session:
         raise HTTPException(401, "请先登录")
     session = db.scalar(
-        select(UserSession).where(UserSession.token_hash == hash_token(pengka_session))
+        select(UserSession).where(UserSession.token_hash == hash_token(materialbrain_session))
     )
     if not session or session.expires_at.replace(tzinfo=UTC) <= datetime.now(UTC):
         raise HTTPException(401, "会话已过期")

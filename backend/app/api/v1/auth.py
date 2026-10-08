@@ -76,7 +76,7 @@ def login(payload: LoginRequest, request: Request, response: Response, db: DB):
     )
     db.commit()
     response.set_cookie(
-        "pengka_session",
+        "materialbrain_session",
         token,
         httponly=True,
         secure=settings.cookie_secure,
@@ -85,7 +85,7 @@ def login(payload: LoginRequest, request: Request, response: Response, db: DB):
         path="/",
     )
     response.set_cookie(
-        "pengka_csrf",
+        "materialbrain_csrf",
         csrf_token,
         httponly=False,
         secure=settings.cookie_secure,
@@ -100,8 +100,8 @@ def login(payload: LoginRequest, request: Request, response: Response, db: DB):
 def logout(response: Response, db: DB, user: CurrentUser):
     db.execute(delete(UserSession).where(UserSession.user_id == user.id))
     db.commit()
-    response.delete_cookie("pengka_session", path="/")
-    response.delete_cookie("pengka_csrf", path="/")
+    response.delete_cookie("materialbrain_session", path="/")
+    response.delete_cookie("materialbrain_csrf", path="/")
     return {"message": "已安全退出"}
 
 

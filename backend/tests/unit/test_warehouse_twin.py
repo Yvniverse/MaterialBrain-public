@@ -24,7 +24,7 @@ from app.services.warehouse_maps import WarehouseMapService
 from app.services.warehouse_routing import load_warehouse_map
 from app.services.warehouse_twin import warehouse_twin_focus, warehouse_twin_snapshot
 
-FIXTURE = Path(__file__).resolve().parents[2] / "portfolio_demo_data/v2/warehouse_map_v3.json"
+FIXTURE = Path(__file__).resolve().parents[2] / "sample_data/v2/warehouse_map_v3.json"
 
 
 class WarehouseTwinTests(unittest.TestCase):

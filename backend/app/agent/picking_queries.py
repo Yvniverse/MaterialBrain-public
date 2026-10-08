@@ -126,7 +126,10 @@ def answer_picking_query(db, user, snapshot, message, request_id):
             AgentConversationContext.context_version == snapshot.context_version,
         )
         .values(
-            pending_disambiguation=pending,
+            pending_disambiguation={**pending, **(
+                {"spatial_task": snapshot.pending_disambiguation["spatial_task"]}
+                if snapshot.pending_disambiguation.get("spatial_task") else {}
+            )},
             context_version=snapshot.context_version + 1,
             last_intent=intent,
         )

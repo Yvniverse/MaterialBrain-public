@@ -8,6 +8,7 @@ from fastapi.encoders import jsonable_encoder
 from langgraph.graph import END, START, StateGraph
 from sqlalchemy import select
 
+from app.agent.navigation_contract import navigation_plan_arguments
 from app.agent.output_boundary import PublicAnswerBoundary
 from app.agent.prompts import WAREHOUSE_AGENT_SYSTEM_PROMPT
 from app.agent.response_composer import GroundedResponseComposer
@@ -111,7 +112,7 @@ class WarehouseAgentGraph:
         contract = self._contract(state)
         if contract.entity_kind == "global":
             return "contract"
-        if contract.entity_kind in {"component", "cable", "power"}:
+        if contract.entity_kind in {"component", "cable", "power", "navigation"}:
             return "contract"
         if contract.entity_kind == "product":
             return "contract"
@@ -602,6 +603,10 @@ class WarehouseAgentGraph:
 
     def _allowed_schema_names(self, state: WarehouseAgentState) -> set[str]:
         contract = self._contract(state)
+        navigation_tools = {"get_navigation_lab", "plan_navigation_lab"}
+        if contract.entity_kind == "navigation":
+            return navigation_tools.intersection(self.registry.names)
+        navigation_tools |= {"get_spatial_map", "query_spatial_context", "plan_spatial_mission"}
         entities = state["entities"]
         multi_material_context = len(
             (entities.get("material_candidates") or {}).get("items") or []
@@ -643,12 +648,12 @@ class WarehouseAgentGraph:
         if contract.entity_kind == "component":
             if "search_components_by_requirement" in self.registry.names:
                 return {"search_components_by_requirement"}
-            return self.registry.names
+            return self.registry.names - navigation_tools
         if contract.entity_kind == "power":
             return {"plan_power_design"}.intersection(self.registry.names)
         if contract.entity_kind == "cable":
             return {"search_cables", "get_cable_detail"}.intersection(self.registry.names)
-        return self.registry.names
+        return self.registry.names - navigation_tools
 
     def _tool_choice(self, schemas: list[dict]) -> str:
         if not self.force_fact_tool_calls or len(schemas) != 1:
@@ -815,7 +820,24 @@ class WarehouseAgentGraph:
             if self._deadline_reached():
                 deadline_exceeded = True
                 break
-            execution = self.registry.execute(self.tool_context, tool_call)
+            name = (tool_call.get("function") or {}).get("name")
+            if (
+                (name in {"get_navigation_lab", "plan_navigation_lab"}
+                 and self._contract(state).entity_kind != "navigation")
+                or name in {"get_spatial_map", "query_spatial_context", "plan_spatial_mission"}
+            ):
+                execution = self.registry._error(
+                    self.tool_context,
+                    str(tool_call.get("id") or "scope-denied"),
+                    name,
+                    "TOOL_SCOPE_MISMATCH",
+                    "当前任务未选择机器人实验仓，不能使用实验导航工具。",
+                    time.perf_counter(),
+                    authorization="denied",
+                    registered=self.registry.registered(name),
+                )
+            else:
+                execution = self.registry.execute(self.tool_context, tool_call)
             messages.append(execution.tool_message())
             self._collect_execution(execution, events, entities, actions, proposal_ids)
         return {
@@ -831,6 +853,8 @@ class WarehouseAgentGraph:
 
     def _execute_contract(self, state: WarehouseAgentState) -> dict:
         contract = self._contract(state)
+        if contract.entity_kind == "navigation":
+            return self._execute_navigation_contract(state, contract)
         events = list(state["tool_events"])
         entities = dict(state["entities"])
         actions = list(state["ui_actions"])
@@ -1421,6 +1445,60 @@ class WarehouseAgentGraph:
             "pending_tool_calls": [],
         }
 
+    def _execute_navigation_contract(
+        self, state: WarehouseAgentState, contract: TaskContract
+    ) -> dict:
+        events, entities = list(state["tool_events"]), dict(state["entities"])
+        actions, proposals = list(state["ui_actions"]), list(state["proposal_ids"])
+        context = entities.pop("navigation_context", None)
+
+        def run(name: str, arguments: dict):
+            execution = self.registry.execute(
+                self.tool_context,
+                {
+                    "id": f"server-{name}-{len(events) + 1}",
+                    "type": "function",
+                    "function": {
+                        "name": name,
+                        "arguments": json.dumps(arguments, ensure_ascii=False),
+                    },
+                },
+            )
+            self._collect_execution(execution, events, entities, actions, proposals)
+            return execution.output.get("ok")
+
+        if run("get_navigation_lab", {}):
+            manifest = entities["navigation_lab"]
+            if contract.navigation_operation == "capabilities":
+                entities["navigation_capabilities"] = {
+                    "skills": manifest["robot"]["capabilities"],
+                    "automatic_drawer_open": False,
+                    "physical_execution": False,
+                    "handoff": "human_handoff",
+                }
+            if "navigation_plan" in contract.requested_facts:
+                arguments, clarification = navigation_plan_arguments(
+                    manifest, contract, state["user_message"], context
+                )
+                if clarification:
+                    entities["navigation_plan"] = clarification
+                elif run("plan_navigation_lab", arguments):
+                    if contract.navigation_operation == "replan":
+                        entities["navigation_plan"].update(
+                            {
+                                "resumed": True,
+                                "completed_goal_ids": context["completed_goal_ids"],
+                                "execution_context": context,
+                            }
+                        )
+        return {
+            "tool_events": events,
+            "entities": entities,
+            "ui_actions": actions,
+            "proposal_ids": proposals,
+            "pending_tool_calls": [],
+        }
+
     @staticmethod
     def _collect_execution(execution, events, entities, actions, proposal_ids) -> None:
         events.append(execution.event.model_dump(mode="json"))
@@ -1443,6 +1521,11 @@ class WarehouseAgentGraph:
         if any(event["status"] == "error" for event in state["tool_events"]):
             return True
         contract = self._contract(state)
+        if contract.entity_kind == "navigation":
+            return bool(state["entities"].get("navigation_lab")) and (
+                "navigation_plan" not in contract.requested_facts
+                or bool(state["entities"].get("navigation_plan"))
+            )
         material_candidates = state["entities"].get("material_candidates")
         if (
             material_candidates is not None
@@ -1875,6 +1958,10 @@ class WarehouseAgentGraph:
 
     @staticmethod
     def _intent(tools: set[str]) -> str | None:
+        if "plan_navigation_lab" in tools:
+            return "plan_navigation_lab"
+        if "get_navigation_lab" in tools:
+            return "get_navigation_lab"
         if "plan_power_design" in tools:
             return "plan_power_design"
         if "get_cable_detail" in tools:

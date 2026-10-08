@@ -2,5 +2,7 @@ MaterialBrain
 Copyright 2026 MaterialBrain contributors
 
 This product is licensed under the Apache License, Version 2.0.
+The ROS2 subpackage under robot_bridge/ros2 is licensed under the MIT License;
+see robot_bridge/ros2/LICENSE for its copyright and license notice.
 Third-party dependencies and externally sourced materials retain their original
 licenses, notices, trademarks, and redistribution terms.

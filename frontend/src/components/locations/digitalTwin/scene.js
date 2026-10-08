@@ -345,14 +345,19 @@ export class WarehouseScene {
         const selectedBox=worldBox(selected,.06);
         this.camera.updateMatrixWorld();
         const coverage=projectedBoxCoverage(selectedBox,this.camera);
-        if(coverage.clipped||coverage.area>.72){
+        // A selected object outside the overview is not evidence of excessive zoom.
+        // Retreat only from a focus centered on that object, and never move closer.
+        const focusCentered=selectedBox.clone().expandByScalar(.1).containsPoint(this.controls.target);
+        if(focusCentered&&(coverage.clipped||coverage.area>.72)){
           const direction=this.camera.position.clone().sub(this.controls.target);
           if(direction.lengthSq()<1e-6) direction.set(0,0,1);
-          direction.normalize();
           const safeDistance=minimumOrbitDistance(selectedBox,this.camera,1.28);
-          this.camera.position.copy(this.controls.target).addScaledVector(direction,safeDistance);
-          this.controls.update();
-          this.dirty=true;
+          if(direction.length()<safeDistance){
+            direction.normalize();
+            this.camera.position.copy(this.controls.target).addScaledVector(direction,safeDistance);
+            this.controls.update();
+            this.dirty=true;
+          }
         }
       }
     }

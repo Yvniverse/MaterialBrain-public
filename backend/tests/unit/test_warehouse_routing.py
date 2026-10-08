@@ -12,11 +12,11 @@ from app.services.warehouse_routing import (
 )
 
 ROOT = Path(__file__).resolve().parents[2]
-MAP_PATH = ROOT / "portfolio_demo_data" / "v2" / "warehouse_map_v1.json"
-MATRIX_PATH = ROOT / "portfolio_demo_data" / "v2" / "warehouse_distance_matrix_v1.json"
+MAP_PATH = ROOT / "sample_data" / "v2" / "warehouse_map_v1.json"
+MATRIX_PATH = ROOT / "sample_data" / "v2" / "warehouse_distance_matrix_v1.json"
 
 
-def test_demo_warehouse_map_is_connected_and_binds_all_portfolio_organizers():
+def test_demo_warehouse_map_is_connected_and_binds_all_sample_organizers():
     definition = load_warehouse_map(MAP_PATH)
     expected = {
         "PORT-IC-100",

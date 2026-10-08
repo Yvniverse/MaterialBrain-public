@@ -2,7 +2,7 @@
 """Safely import only a warehouse-map fixture without running the full demo seeder.
 
 Default behavior is read-only dry-run. `--apply --mode draft` creates the map as
-an inactive draft. `--mode demo-active` exists only for portfolio/demo stacks
+an inactive draft. `--mode demo-active` exists only for sample/demo stacks
 and requires an explicit acknowledgement that the geometry is synthetic and not
 measured. Production/real-warehouse activation must still go through the normal
 measured -> verified -> active lifecycle.
@@ -25,7 +25,7 @@ from app.models import Location, WarehouseMap
 from app.services.warehouse_maps import WarehouseMapService, validate_definition
 from app.services.warehouse_routing import load_warehouse_map
 
-DEFAULT_FIXTURE = Path.cwd() / "portfolio_demo_data" / "v2" / "warehouse_map_v1.json"
+DEFAULT_FIXTURE = Path.cwd() / "sample_data" / "v2" / "warehouse_map_v1.json"
 
 
 def current_database_name(db) -> str:

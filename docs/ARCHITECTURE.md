@@ -1,9 +1,48 @@
-# 架构说明
+# System architecture
 
-系统采用同源三层架构。Nginx 是唯一局域网入口：`/` 转发到 Vue 静态站点，`/api/` 转发到 FastAPI。后端使用 SQLAlchemy 会话连接 PostgreSQL，数据库端口只存在于 Docker internal 网络。附件和备份通过宿主机目录持久化。
+MaterialBrain has four cooperating layers: engineering and warehouse records, spatial planning, mission execution, and interactive agent interfaces. FastAPI owns authentication, permission checks, durable state, and domain transactions. Vue displays typed results and observations.
 
-后端分为 `api`（输入与权限）、`schemas`（Pydantic 边界）、`services`（库存/审计规则）、`models`（持久化）、`core`（配置、安全、数据库）与 `seed`。库存数量只有 `InventoryService` 能修改。标准写路径为：认证和权限 → 幂等查询 → `SELECT ... FOR UPDATE` → 业务约束 → 数量变更 → 业务记录 → 库存流水 → 幂等响应 → 提交；任一步失败回滚。
+```mermaid
+flowchart TB
+  Web[Vue and Embodied Twin] --> Proxy[Nginx]
+  Proxy --> API[FastAPI]
+  API --> Agent[Agent contracts and tool registry]
+  Agent --> Domain[Engineering / inventory / picking]
+  Agent --> Spatial[Semantic map and mission planner]
+  Domain --> DB[(PostgreSQL / PostGIS)]
+  Spatial --> DB
+  Spatial --> Task[TaskGraph / mission store]
+  Task --> Robot[ROS2 / Nav2 simulation]
+  Robot --> Task
+  API --> Files[Managed file storage]
+```
 
-关键设计：数据库检查约束保证 `quantity >= 0`、`reserved_quantity >= 0`、`reserved_quantity <= quantity`；物料编辑 DTO 不包含库存字段且拒绝额外字段；流水无更新和删除 API；冲正创建反向流水；会话保存在数据库，适合多后端实例；前端只展示服务端返回的最终库存。
+## Runtime
 
-离线边界：运行镜像首次拉取和依赖安装需要互联网或内部镜像仓库；镜像构建完成后，日常登录、查询、操作、附件与备份均不调用任何外部服务。
+The Compose stack runs Nginx, a Vue bundle, FastAPI, PostGIS, and a backup service. The optional `robotics` profile adds the ROS2 bridge. Compose prefixes networks and volumes with the project name; storage binds resolve against the installation's configured directory. Independent installations use distinct projects, storage roots, ports, and ROS domains.
+
+The backend applies Alembic migrations and seeds permissions at startup. Map registration is explicit unless `SPATIAL_SAMPLE_MAP_ENABLED=true`. The supplied sample map is synthetic and non-active; it does not replace an operational warehouse map or stock record.
+
+## Domain records
+
+Material and engineering services resolve component identifiers, evidence anchors, selection constraints, and BOM readiness. Product BOM preview computes a read-only diff. Inventory, reservation, loan, movement, and picking settlement follow transactional permission and audit paths.
+
+Map-bound locations connect these records to a warehouse graph. Business grounding resolves a demand to known locations and registered destinations before it becomes a robot task. Missing location, stock, or BOM facts produce explicit blockers.
+
+## Spatial planning
+
+PostGIS stores local-metric geometry, semantic zones, docks, and active overlays. A snapshot carries the map revision and graph identity. The planner filters edges using geometry and policy, computes pairwise paths, and uses OR-Tools to order stops with time, capacity, and battery constraints.
+
+The planner returns feasibility, violations, route segments, objective terms, and estimates. A model may select registered high-level goals or explain a result; it does not set an unvalidated coordinate target or redefine map facts.
+
+## Execution
+
+Mission creation persists a reviewed plan and TaskGraph without dispatching movement. Starting a mission checks owner access, revision, transport, and Nav2 readiness. Polling reduces observed events into mission state using stable event IDs and monotonic sequence numbers.
+
+Navigation arrival, scan verification, and human handoff are separate steps. Cancellation and replanning preserve completed work. The supplied bridge controls a simulated differential-drive base and reports its execution boundary in responses.
+
+## Reproducibility
+
+WarehouseBench supplies seeded tasks and independent route verification. Synthetic training export freezes a map and skill contract, separates related groups across splits, and records file hashes. Replay verifies each state transition. Optional SFT consumes that verified dataset and local model weights.
+
+Detailed views and source links are in the [architecture atlas](architecture/README.md). See [Agent architecture](AGENT_ARCHITECTURE.md), [Spatial Agent](SPATIAL_AGENT.md), [Robotics](ROBOTICS.md), and [Database](DATABASE.md) for implementation contracts.

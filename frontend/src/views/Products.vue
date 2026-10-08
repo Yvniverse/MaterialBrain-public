@@ -12,7 +12,7 @@ import type {
   ProductSummary,
 } from '../types'
 import { formatQuantity } from '../utils/format'
-import { sanitizeBusinessCopy } from '../utils/businessCopy'
+import { formatBusinessText } from '../utils/businessCopy'
 import BuildReadinessCard from '../components/agent/BuildReadinessCard.vue'
 import { useAuthStore } from '../stores/auth'
 
@@ -225,10 +225,10 @@ async function load() {
 function presentProduct(product: ProductSummary): ProductSummary {
   return {
     ...product,
-    description: sanitizeBusinessCopy(product.description),
+    description: formatBusinessText(product.description),
     revisions: product.revisions?.map((revision) => ({
       ...revision,
-      notes: sanitizeBusinessCopy(revision.notes),
+      notes: formatBusinessText(revision.notes),
     })),
   }
 }
@@ -319,7 +319,7 @@ onMounted(load)
               />
             </el-select>
           </header>
-          <p v-if="selectedRevision?.notes">{{ sanitizeBusinessCopy(selectedRevision.notes) }}</p>
+          <p v-if="selectedRevision?.notes">{{ formatBusinessText(selectedRevision.notes) }}</p>
         </section>
 
         <section v-if="bom" class="bom-card card">
@@ -373,10 +373,10 @@ onMounted(load)
                               : '待审核'
                       }}
                     </el-tag>
-                    <p>{{ sanitizeBusinessCopy(alternate.engineering_note) || '暂无工程说明' }}</p>
+                    <p>{{ formatBusinessText(alternate.engineering_note) || '暂无工程说明' }}</p>
                     <small
                       >使用条件：{{
-                        sanitizeBusinessCopy(alternate.usage_condition) || '未注明'
+                        formatBusinessText(alternate.usage_condition) || '未注明'
                       }}</small
                     >
                     <small v-if="alternate.unavailable_reasons?.length" class="alternate-warning"

@@ -1,7 +1,7 @@
 """Small deterministic provenance helpers for material fact groups.
 
 Identity/specification, stock, and location are deliberately independent.  A
-portfolio row can carry an official-vendor specification while its quantity
+sample row can carry an official-vendor specification while its quantity
 and bin are still synthetic demonstration data.
 """
 
@@ -42,8 +42,15 @@ def material_provenance(
     """Return independent identity/spec/stock/location provenance axes."""
 
     attributes = _attributes(material)
-    portfolio = attributes.get("portfolio_demo")
-    portfolio = portfolio if isinstance(portfolio, dict) else {}
+    sample = attributes.get("sample_data")
+    sample = sample if isinstance(sample, dict) else {}
+    if not sample and attributes.get("stock_is_synthetic") is True:
+        sample = {
+            "stock_is_synthetic": True,
+            "source_ref": attributes.get("sample_cable_dataset")
+            or attributes.get("sample_dataset")
+            or "sample_data",
+        }
     catalog = attributes.get("catalog_provenance")
     catalog = catalog if isinstance(catalog, dict) else {}
     spec_v2 = attributes.get("spec_provenance_v2")
@@ -64,13 +71,13 @@ def material_provenance(
                 fallback="official_vendor",
             ),
         }
-    elif portfolio.get("stock_is_synthetic") is True:
+    elif sample.get("stock_is_synthetic") is True:
         identity = {
-            "kind": "synthetic_portfolio",
+            "kind": "sample_synthetic",
             "source": _source(
-                portfolio.get("source_ref"),
-                portfolio.get("dataset_version"),
-                fallback="portfolio_demo",
+                sample.get("source_ref"),
+                sample.get("dataset_version"),
+                fallback="sample_data",
             ),
         }
     else:
@@ -96,33 +103,33 @@ def material_provenance(
                 fallback="catalog",
             ),
         }
-    elif portfolio.get("stock_is_synthetic") is True:
+    elif sample.get("stock_is_synthetic") is True:
         spec = {
-            "kind": "synthetic_portfolio",
+            "kind": "sample_synthetic",
             "source": _source(
-                portfolio.get("source_ref"),
-                portfolio.get("dataset_version"),
-                fallback="portfolio_demo",
+                sample.get("source_ref"),
+                sample.get("dataset_version"),
+                fallback="sample_data",
             ),
         }
     else:
         spec = {"kind": "unknown", "source": ""}
 
-    if portfolio.get("stock_is_synthetic") is True:
+    if sample.get("stock_is_synthetic") is True:
         stock = {
-            "kind": "synthetic_portfolio",
+            "kind": "sample_synthetic",
             "source": _source(
-                portfolio.get("source_ref"),
-                portfolio.get("dataset_version"),
-                fallback="portfolio_demo",
+                sample.get("source_ref"),
+                sample.get("dataset_version"),
+                fallback="sample_data",
             ),
         }
         location = {
-            "kind": "synthetic_portfolio",
+            "kind": "sample_synthetic",
             "source": _source(
-                portfolio.get("source_ref"),
-                portfolio.get("dataset_version"),
-                fallback="portfolio_demo",
+                sample.get("source_ref"),
+                sample.get("dataset_version"),
+                fallback="sample_data",
             ),
         }
     else:

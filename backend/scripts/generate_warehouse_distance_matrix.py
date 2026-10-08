@@ -6,8 +6,8 @@ from pathlib import Path
 from app.services.warehouse_routing import distance_matrix, load_warehouse_map
 
 ROOT = Path(__file__).resolve().parents[1]
-MAP_PATH = ROOT / "portfolio_demo_data" / "v2" / "warehouse_map_v1.json"
-OUTPUT_PATH = ROOT / "portfolio_demo_data" / "v2" / "warehouse_distance_matrix_v1.json"
+MAP_PATH = ROOT / "sample_data" / "v2" / "warehouse_map_v1.json"
+OUTPUT_PATH = ROOT / "sample_data" / "v2" / "warehouse_distance_matrix_v1.json"
 
 
 def main() -> None:

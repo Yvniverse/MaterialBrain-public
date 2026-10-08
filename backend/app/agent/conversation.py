@@ -16,6 +16,7 @@ from app.agent.task_contract import (
     classify_task_contract,
     is_engineering_research_request,
     is_product_bom_preview_request,
+    navigation_task_contract,
 )
 from app.core.config import Settings
 from app.core.exceptions import BusinessError
@@ -29,6 +30,7 @@ from app.models import (
 )
 from app.power_design.requirements import extract_power_requirement
 from app.services.cable_intelligence import CableSearchService
+from app.services.embodied_navigation.schemas import NavigationExecutionContext
 
 _SELECTION_WORDS = re.compile(r"(?:就要|我要|选择|选|那个|这个|这一款|这款|项目)", re.I)
 _MATERIAL_TOKEN = re.compile(
@@ -215,7 +217,13 @@ class ConversationContextService:
             execution_options={"synchronize_session": "fetch"},
         )
 
-    def prepare(self, snapshot: ConversationSnapshot, message: str) -> PreparedConversationTurn:
+    def prepare(
+        self,
+        snapshot: ConversationSnapshot,
+        message: str,
+        *,
+        navigation_context: NavigationExecutionContext | None = None,
+    ) -> PreparedConversationTurn:
         material_candidates = self._materials(snapshot.material_candidate_ids)
         project_candidates = self._projects(snapshot.project_candidate_ids)
         product_candidates = self._products(snapshot.product_candidate_ids)
@@ -231,6 +239,27 @@ class ConversationContextService:
                 ),
                 direct_intent="unsupported_write",
             )
+
+        navigation = navigation_task_contract(message, active=(pending_kind == "navigation"))
+        if navigation:
+            return PreparedConversationTurn(
+                snapshot=snapshot,
+                entities={"navigation_context": navigation_context.model_dump(mode="json")}
+                if navigation_context is not None
+                else {},
+                contract=navigation,
+                isolate_previous_context=True,
+            )
+        if pending_kind == "navigation":
+            # A new ordinary business query must not inherit synthetic dock state.
+            snapshot = replace(
+                snapshot,
+                pending_disambiguation={},
+                last_entity_kind="unknown",
+                last_intent="",
+                last_requested_facts=(),
+            )
+            pending_kind = ""
 
         if is_product_bom_preview_request(message):
             return self._prepare_product_bom_preview(snapshot, message)
@@ -1299,6 +1328,19 @@ class ConversationContextService:
                     "power_design_context": context,
                 }
 
+        if prepared.contract.entity_kind == "navigation":
+            navigation = entities.get("navigation_plan") or entities.get("navigation_lab") or {}
+            pending = {
+                "kind": "navigation",
+                "active_intent": "navigation_lab",
+                "world_id": navigation.get("world_id"),
+                "world_revision": navigation.get("world_revision"),
+                "goal_ids": list(
+                    navigation.get("requested_goal_ids") or navigation.get("goal_ids") or []
+                ),
+                "scenario_id": navigation.get("scenario_id", "baseline"),
+            }
+
         if (
             "product_alternates" in prepared.contract.requested_facts
             and selected_product_id is None
@@ -1325,6 +1367,12 @@ class ConversationContextService:
             selected_project_id = None
             selected_bom_version = None
             project_candidate_ids = []
+
+        spatial_task = entities.get("spatial_mission") or snapshot.pending_disambiguation.get(
+            "spatial_task"
+        )
+        if spatial_task:
+            pending = {**pending, "spatial_task": spatial_task}
 
         values = {
             "selected_material_id": selected_material_id,
@@ -1707,6 +1755,8 @@ class ConversationContextService:
             pending = {}
         if pending.get("kind") == "product" and not product_ids:
             pending = {}
+        if (row.pending_disambiguation or {}).get("spatial_task"):
+            pending["spatial_task"] = row.pending_disambiguation["spatial_task"]
         return ConversationSnapshot(
             id=row.id,
             user_id=row.user_id,

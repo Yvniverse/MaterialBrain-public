@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import type { AgentMaterialEntity } from '../../types'
 import { formatQuantity } from '../../utils/format'
-import { sanitizeBusinessCopy } from '../../utils/businessCopy'
+import { formatBusinessText } from '../../utils/businessCopy'
 import { materialPrimaryIdentity, materialSecondaryIdentity } from '../../utils/materialIdentity'
 
 const props = defineProps<{
@@ -34,9 +34,9 @@ const location = computed(
       <el-tag v-if="material.low_stock" type="warning">低库存</el-tag>
     </header>
     <div class="material-meta">
-      <span>{{ sanitizeBusinessCopy(material.manufacturer) || '未标厂家' }}</span>
+      <span>{{ formatBusinessText(material.manufacturer) || '未标厂家' }}</span>
       <span>{{ material.package || '未标封装' }}</span>
-      <span>{{ sanitizeBusinessCopy(material.specification) || '未标规格' }}</span>
+      <span>{{ formatBusinessText(material.specification) || '未标规格' }}</span>
     </div>
     <div v-if="material.available_quantity !== undefined" class="stock-grid">
       <div>

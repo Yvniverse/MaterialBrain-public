@@ -4,10 +4,13 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from app.services.embodied_navigation.schemas import NavigationExecutionContext
+
 
 class AgentQueryRequest(BaseModel):
     message: str = Field(min_length=1, max_length=4000)
     conversation_id: str | None = Field(default=None, max_length=100)
+    navigation_context: NavigationExecutionContext | None = None
     client_operation_id: str | None = Field(
         default=None,
         min_length=8,
@@ -61,6 +64,7 @@ class GroundedFact(BaseModel):
         "cable",
         "power_design",
         "engineering_research",
+        "navigation",
     ]
     source_tool: str
     entity_id: int | None = None

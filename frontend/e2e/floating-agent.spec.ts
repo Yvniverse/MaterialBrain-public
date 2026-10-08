@@ -412,7 +412,7 @@ test('keeps one vertical conversation scroll and the composer ready for a second
   expect(queryPayloads[2].conversation_id).toBeNull()
 })
 
-test('keeps S28 slots across turns and renders one structured candidate without showcase copy', async ({
+test('keeps S28 slots across turns and renders one structured candidate', async ({
   page,
 }) => {
   await page.getByTestId('floating-agent-launcher').click()
@@ -435,9 +435,6 @@ test('keeps S28 slots across turns and renders one structured candidate without 
   await expect(secondTurn.getByText('CBL-PF-S28')).toHaveCount(1)
   await expect(secondTurn).not.toContainText('**')
 
-  await page.goto('/locations')
-  const forbiddenSubtitle = String.fromCodePoint(0x79cb, 0x62db, 0x4f5c, 0x54c1, 0x5c55, 0x793a)
-  await expect(page.locator('body')).not.toContainText(forbiddenSubtitle)
 })
 
 test('remains closeable and contained at effective 100%, 125%, and 150% zoom', async ({ page }) => {

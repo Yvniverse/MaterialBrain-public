@@ -66,6 +66,56 @@ class GroundedResponseComposer:
         sections: list[str] = []
         facts: list[GroundedFact] = []
 
+        navigation = entities.get("navigation_plan")
+        manifest = entities.get("navigation_lab")
+        if navigation:
+            status = navigation.get("status")
+            if status == "READY":
+                stations = " → ".join(navigation.get("goal_ids") or []) or "返回待命点"
+                origin = "当前暂停位姿" if navigation.get("resumed") else "待命点"
+                clearance = display_quantity(round(navigation["min_clearance_m"] * 100, 1))
+                sections.append(
+                    f"机器人实验仓已从{origin}生成路线：{stations}。"
+                    f"全程 {display_quantity(round(navigation['distance_m'], 2))} m，"
+                    f"预计 {display_quantity(round(navigation['eta_s'] / 60, 2))} 分钟，"
+                    f"最小外廓净空 {clearance} cm。"
+                    "停靠后由人工扫码交接，最终返回待命点；这是仿真估计，不改变实际库存。"
+                )
+            else:
+                labels = {
+                    "CLARIFICATION": "需要当前任务状态",
+                    "BLOCKED": "停靠点受阻",
+                    "NEEDS_CHARGE": "先安排充电",
+                    "SPLIT_REQUIRED": "需要分批运输",
+                    "CAPABILITY_MISMATCH": "需要人工或其他设备",
+                }
+                sections.append(
+                    f"机器人实验仓：{labels.get(status, status)}。{navigation.get('reason') or ''}"
+                )
+            for field in ("status", "distance_m", "eta_s", "min_clearance_m", "inventory_written"):
+                if field in navigation:
+                    facts.append(
+                        GroundedFact(
+                            kind="navigation",
+                            source_tool="plan_navigation_lab"
+                            if status != "CLARIFICATION"
+                            else "get_navigation_lab",
+                            field=field,
+                            value=navigation[field],
+                            label="实验仓路线",
+                        )
+                    )
+        elif entities.get("navigation_capabilities"):
+            sections.append(
+                "机器人实验仓配置支持导航、扫码、周转箱运输和人工交接。"
+                "没有机械臂或自动开抽屉能力；抽屉取料由人工完成。当前为仿真，不执行实体机器人或库存扣减。"
+            )
+        elif manifest:
+            sections.append(
+                f"机器人实验仓已注册 {len(manifest['goals'])} 个停靠点，"
+                "可以按停靠点 ID 规划路线；真实库存与库位继续使用原业务查询。"
+            )
+
         inventory = entities.get("inventory")
         if inventory:
             self._inventory(inventory, facts, sections)

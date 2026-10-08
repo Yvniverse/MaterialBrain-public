@@ -1,0 +1,7 @@
+build/
+install/
+log/
+.evidence/
+.runtime/
+__pycache__/
+*.pyc

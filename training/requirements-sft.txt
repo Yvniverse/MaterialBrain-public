@@ -1,0 +1,6 @@
+# Install a CUDA-compatible PyTorch build for your device before training.
+torch>=2.5,<3
+transformers>=5.6,<6
+peft>=0.18,<1
+accelerate>=1.10,<2
+safetensors>=0.6,<1

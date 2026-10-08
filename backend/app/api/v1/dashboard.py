@@ -84,6 +84,12 @@ def summary(db: DB, user: CurrentUser):
         .order_by(StockMovement.created_at.desc())
         .limit(10)
     ).all()
+    material_names = {
+        material.id: material
+        for material in db.scalars(
+            select(Material).where(Material.id.in_({row.material_id for row in recent}))
+        )
+    }
     trend = []
     for days in range(29, -1, -1):
         d = today_date - timedelta(days=days)
@@ -105,6 +111,10 @@ def summary(db: DB, user: CurrentUser):
                 "id": x.id,
                 "movement_no": x.movement_no,
                 "material_id": x.material_id,
+                "material_name": material_names[x.material_id].name
+                if x.material_id in material_names else "",
+                "material_mpn": material_names[x.material_id].mpn
+                if x.material_id in material_names else "",
                 "operation_type": x.operation_type,
                 "quantity_delta": x.quantity_delta,
                 "created_at": x.created_at,

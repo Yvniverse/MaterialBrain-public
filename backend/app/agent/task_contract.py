@@ -18,6 +18,7 @@ EntityKind = Literal[
     "cable",
     "power",
     "engineering_research",
+    "navigation",
     "global",
     "unknown",
 ]
@@ -41,6 +42,8 @@ RequestedFact = Literal[
     "power_design",
     "engineering_research",
     "product_bom_preview",
+    "navigation_lab",
+    "navigation_plan",
 ]
 WriteIntent = Literal[
     "none",
@@ -67,6 +70,39 @@ class TaskContract(BaseModel):
     deterministic_material_resolution: bool = False
     build_quantity: int | None = None
     invalid_build_quantity: bool = False
+    navigation_operation: Literal["plan", "replan", "capabilities", "manifest"] | None = None
+
+
+def navigation_task_contract(message: str, *, active: bool = False) -> TaskContract | None:
+    """Only explicit laboratory navigation uses the synthetic dock registry."""
+    text = message.casefold()
+    capability = "机器人" in text and any(
+        marker in text for marker in ("自动打开", "自动开抽屉", "机械臂", "抓取", "能开抽屉")
+    )
+    if capability:
+        return TaskContract(
+            entity_kind="navigation",
+            requested_facts={"navigation_lab"},
+            navigation_operation="capabilities",
+        )
+    if any(marker in text for marker in ("真实", "真的仓库", "实仓", "拣货", "picktask")):
+        return None
+    lab = any(marker in text for marker in ("实验仓", "机器人实验", "robot lab", "mb-emb-lab-03"))
+    replan = any(marker in text for marker in ("重新规划", "重规划", "replan"))
+    route = any(marker in text for marker in ("路线", "路径", "规划", "导航", "备料"))
+    if route and (lab or (replan and (active or "剩余任务" in text))):
+        return TaskContract(
+            entity_kind="navigation",
+            requested_facts={"navigation_lab", "navigation_plan"},
+            navigation_operation="replan" if replan else "plan",
+        )
+    if lab and any(marker in text for marker in ("停靠", "站点", "场景", "能力", "地图")):
+        return TaskContract(
+            entity_kind="navigation",
+            requested_facts={"navigation_lab"},
+            navigation_operation="manifest",
+        )
+    return None
 
 
 _BUILD_COUNT = re.compile(
@@ -407,6 +443,9 @@ def classify_task_contract(
     folded = message.casefold()
     if _UNSUPPORTED_WRITE.search(message):
         return TaskContract(entity_kind="material", write_intent="unsupported_write")
+    navigation = navigation_task_contract(message)
+    if navigation:
+        return navigation
     if is_product_bom_preview_request(message):
         return TaskContract(
             entity_kind="product",
@@ -581,7 +620,7 @@ def classify_task_contract(
                 "这条线",
                 "第二条线",
                 "cable",
-                "portfolio-cbl-",
+                "sample-cbl-",
                 "cbl-pf-",
                 "storage_location",
                 "订单里买了",

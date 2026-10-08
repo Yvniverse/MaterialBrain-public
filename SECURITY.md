@@ -2,18 +2,16 @@
 
 ## Reporting a vulnerability
 
-Please **do not open a public GitHub issue** for a suspected vulnerability.
+Use the repository's GitHub Security Advisory reporting interface when available. Include the affected version or commit, reproduction steps, expected permissions, impact, and any proposed mitigation. Keep credentials, customer data, and sensitive evidence out of the report.
 
-Preferred reporting path:
+If confidential reporting is unavailable, request a reporting channel through a minimal issue without exploit details or sensitive attachments.
 
-1. Use GitHub's private vulnerability reporting / Security Advisory interface if it is enabled for this repository.
-2. Include affected version/commit, reproduction steps, impact, and any proposed mitigation.
-3. Avoid including real credentials, customer data, or unnecessary sensitive evidence in the report.
+## Security-sensitive components
 
-## Security-sensitive areas
+Authentication, RBAC, inventory transactions, uploads, engineering evidence, agent tools, robot mission controls, and deployment scripts require explicit permission checks and bounded inputs. Model-generated instructions must not bypass these controls.
 
-MaterialBrain includes authentication/RBAC, inventory transactions, file uploads, engineering evidence, agent tool execution, and deployment tooling. Changes to these areas should preserve least privilege, idempotency, auditability, and server-owned business truth.
+Robot simulation endpoints report `hardware_control=false`. Deployments that connect additional transports must define authentication, network access, cancellation, and physical safety requirements before enabling them.
 
-## Supported versions
+## Updates
 
-Until tagged releases are established, security fixes target the latest public default branch. Once release tags exist, this file should be updated with an explicit support table.
+Security fixes target the current default branch and are included in subsequent releases. Deployments should track dependency and container updates, use HTTPS, and retain tested backups. Operational guidance is in [docs/SECURITY.md](docs/SECURITY.md).

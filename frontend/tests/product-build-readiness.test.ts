@@ -100,7 +100,7 @@ describe('Product build readiness presentation', () => {
 
   it('only offers a project reservation plan when a linked project is ready', async () => {
     const result = readiness(true)
-    result.project = { id: 5, code: 'PORTFOLIO-PROJ-RBX1', name: 'Robot X1 项目' }
+    result.project = { id: 5, code: 'SAMPLE-PROJ-RBX1', name: 'Robot X1 项目' }
     const wrapper = await mounted(result)
     const button = wrapper.get('[data-testid="generate-build-plan"]')
     await button.trigger('click')
@@ -123,7 +123,7 @@ describe('Product build readiness presentation', () => {
       project_id: 5,
       product: { id: 8, code: 'PROD-ATLAS-AMR', name: 'Atlas AMR 移动底盘' },
       revision: { id: 12, revision: 'EVT-R2', status: 'released' },
-      project: { id: 5, code: 'PORTFOLIO-PROJ-RBX1', name: 'Robot X1 项目' },
+      project: { id: 5, code: 'SAMPLE-PROJ-RBX1', name: 'Robot X1 项目' },
       build_quantity: 3,
       product_bom_hash: 'a'.repeat(64),
       snapshot_hash: 'b'.repeat(64),

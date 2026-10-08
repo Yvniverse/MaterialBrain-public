@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from app.agent.service import WarehouseAgentService
 from app.core.config import Settings
 from app.models import AgentEpisode, InventoryLot, Location, Material, Role, User
-from app.portfolio_demo import PortfolioDemoV2Seeder
+from app.sample_data import SampleDataV2Seeder
 from app.seed.defaults import seed_defaults
 from app.services.engineering_research import EngineeringResearchService
 
@@ -26,7 +26,7 @@ def _seed(db: Session) -> User:
     )
     db.add(user)
     db.commit()
-    PortfolioDemoV2Seeder(db, user, Settings(portfolio_demo_seed_enabled=True)).seed()
+    SampleDataV2Seeder(db, user, Settings(sample_data_seed_enabled=True)).seed()
     db.refresh(user)
     return user
 
@@ -1138,7 +1138,7 @@ def test_phase321_engineering_research_provider_is_explanation_only_and_telemetr
         assert episode.telemetry[0]["model"] == "controlled-research-model"
 
 
-def test_phase321_provider_inventory_warning_is_suppressed_but_grounded_answer_remains(
+def test_provider_verification_advice_and_grounded_answer_remain_visible(
     tmp_path,
 ):
     engine = create_engine(
@@ -1159,8 +1159,8 @@ def test_phase321_provider_inventory_warning_is_suppressed_but_grounded_answer_r
         assert response.model_call_count == 1
         assert response.telemetry[0].status == "success"
         assert "6.96" in response.answer
-        assert "实物复核" not in response.answer
-        assert "实物复核" not in response.narrative
+        assert "实物复核" in response.answer
+        assert "实物复核" in response.narrative
         assert "model_explanation" not in response.entities["engineering_research"]
 
 

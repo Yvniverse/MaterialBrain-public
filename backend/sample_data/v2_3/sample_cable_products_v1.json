@@ -1,0 +1,140 @@
+{
+  "dataset": "sample_cable_products_v1",
+  "released_revision_clones": [
+    {
+      "product_code": "PROD-ATLAS-AMR",
+      "source_revision": "EVT-R2",
+      "new_revision": "DVT-CABLE-R1",
+      "cables": [
+        [
+          "CBL-PF-00070",
+          2
+        ],
+        [
+          "CBL-PF-00071",
+          2
+        ],
+        [
+          "CBL-PF-00027",
+          1
+        ],
+        [
+          "CBL-PF-00003",
+          1
+        ]
+      ]
+    },
+    {
+      "product_code": "PROD-NOVA-ARM",
+      "source_revision": "DVT-R1",
+      "new_revision": "DVT-CABLE-R1",
+      "cables": [
+        [
+          "CBL-PF-00008",
+          2
+        ],
+        [
+          "CBL-PF-00013",
+          6
+        ],
+        [
+          "CBL-PF-00071",
+          1
+        ]
+      ]
+    },
+    {
+      "product_code": "PROD-SCOUT-TOF",
+      "source_revision": "EVT-R1",
+      "new_revision": "DVT-CABLE-R1",
+      "cables": [
+        [
+          "CBL-PF-00003",
+          1
+        ],
+        [
+          "CBL-PF-00006",
+          1
+        ],
+        [
+          "CBL-PF-00077",
+          2
+        ]
+      ]
+    }
+  ],
+  "new_products": [
+    {
+      "code": "PROD-IO-ADAPTER",
+      "name": "机器人调试与通信适配板",
+      "description": "机器人调试与通信接口板",
+      "revision": "EVT-R1",
+      "bom_source": "sample_product_io_adapter_v1",
+      "additional_bom": [
+        [
+          "CBL-PF-00001",
+          2
+        ]
+      ]
+    },
+    {
+      "code": "PROD-SYNTH-CONTROLLER",
+      "name": "机器人多轴运动控制器",
+      "description": "机器人控制器",
+      "revision": "EVT-R1",
+      "bom": [
+        [
+          "PORT-MCU-G474RET6",
+          1
+        ],
+        [
+          "PORT-CAN-MCP2562FD",
+          2
+        ],
+        [
+          "PORT-IMU-LSM6DSV16X",
+          1
+        ],
+        [
+          "PORT-DCDC-24V5V3A",
+          1
+        ],
+        [
+          "PORT-ENC-AS5047P",
+          4
+        ],
+        [
+          "PORT-C-100N-0603",
+          24
+        ],
+        [
+          "PORT-C-10U-0805",
+          6
+        ],
+        [
+          "PORT-R-10K-0603",
+          12
+        ],
+        [
+          "CBL-PF-00070",
+          2
+        ],
+        [
+          "CBL-PF-00071",
+          2
+        ],
+        [
+          "CBL-PF-00027",
+          1
+        ],
+        [
+          "CBL-PF-00003",
+          1
+        ]
+      ]
+    }
+  ],
+  "quantity_semantics": "ProductBomItem.quantity_per_unit is per one finished product unit. Project BomItem.required_quantity remains total project demand.",
+  "automatic_cable_substitution": false,
+  "provenance": "sample_product_bom_v1"
+}

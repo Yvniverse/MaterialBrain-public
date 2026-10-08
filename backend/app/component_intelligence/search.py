@@ -55,9 +55,9 @@ def _range(value: Any, *, current: bool = False) -> tuple[Decimal, Decimal] | No
 
 def _metadata_confidence(material: Material) -> str:
     attributes = material.attributes or {}
-    portfolio = attributes.get("portfolio_demo") or {}
+    sample = attributes.get("sample_data") or {}
     provenance = attributes.get("catalog_provenance") or {}
-    explicit = portfolio.get("catalog_confidence") or provenance.get("confidence")
+    explicit = sample.get("catalog_confidence") or provenance.get("confidence")
     return str(explicit or "trusted_existing").casefold()
 
 

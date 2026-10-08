@@ -1,8 +1,8 @@
 """Audit or narrowly sync legacy business identity metadata before release capture.
 
 This script intentionally does NOT rewrite MPNs or cable internal identifiers. It only
-repairs exact legacy metadata values that contradict the canonical portfolio data:
-- Demo Robotics -> PENGKA Robotics for canonical internally designed materials.
+repairs exact legacy metadata values that contradict the canonical sample data:
+- Demo Robotics -> MATERIALBRAIN Robotics for canonical internally designed materials.
 - Demo Warehouse -> 仓库运营 for locations carrying the exact legacy manager value.
 
 The location transition is an exact-value migration rather than a broad ``Demo``
@@ -33,7 +33,7 @@ from app.core.database import SessionLocal
 from app.models import Location, Material
 
 CANONICAL_MATERIALS = (
-    Path(__file__).resolve().parents[1] / "portfolio_demo_data/v2/v1_demo_materials.json"
+    Path(__file__).resolve().parents[1] / "sample_data/v2/v1_demo_materials.json"
 )
 ENABLE_ENV = "MATERIALBRAIN_BUSINESS_IDENTITY_SYNC_ENABLED"
 
@@ -56,7 +56,7 @@ def _audit(db) -> dict[str, Any]:
         material.code
         for material in material_rows
         if material.manufacturer == "Demo Robotics"
-        and canonical.get(material.code) == "PENGKA Robotics"
+        and canonical.get(material.code) == "MATERIALBRAIN Robotics"
     ]
     manufacturer_mismatches = [
         {
@@ -75,13 +75,13 @@ def _audit(db) -> dict[str, Any]:
     internal_demo_parts = list(
         db.scalars(
             select(Material).where(
-                Material.manufacturer == "PENGKA Robotics",
+                Material.manufacturer == "MATERIALBRAIN Robotics",
                 Material.mpn.ilike("DEMO-%"),
             )
         ).all()
     )
-    portfolio_cable_fallbacks = list(
-        db.scalars(select(Material).where(Material.mpn.ilike("PORTFOLIO-CBL-%"))).all()
+    sample_cable_fallbacks = list(
+        db.scalars(select(Material).where(Material.mpn.ilike("SAMPLE-CBL-%"))).all()
     )
     return {
         "legacy_demo_manufacturer_count": len(legacy_manufacturers),
@@ -94,10 +94,10 @@ def _audit(db) -> dict[str, Any]:
         "internal_demo_part_number_codes": sorted(
             material.code for material in internal_demo_parts
         ),
-        "portfolio_cable_fallback_mpn_count": len(portfolio_cable_fallbacks),
+        "sample_cable_fallback_mpn_count": len(sample_cable_fallbacks),
         "notes": [
             "DEMO-* part numbers are audited as internal identifiers, not automatically rewritten.",
-            "PORTFOLIO-CBL-* fallback MPNs are audited as internal uniqueness identifiers, "
+            "SAMPLE-CBL-* fallback MPNs are audited as internal uniqueness identifiers, "
             "not automatically rewritten.",
         ],
     }
@@ -112,9 +112,9 @@ def _apply(db) -> dict[str, int]:
             Material.manufacturer == "Demo Robotics",
         )
     ):
-        if canonical.get(material.code) != "PENGKA Robotics":
+        if canonical.get(material.code) != "MATERIALBRAIN Robotics":
             continue
-        material.manufacturer = "PENGKA Robotics"
+        material.manufacturer = "MATERIALBRAIN Robotics"
         manufacturer_changes += 1
 
     manager_changes = 0

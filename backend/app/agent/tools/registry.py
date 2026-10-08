@@ -30,6 +30,8 @@ from app.schemas.agent import (
     SearchProductsArgs,
     SearchProjectsArgs,
 )
+from app.schemas.spatial import MissionRequest as SpatialMissionArgs
+from app.services.embodied_navigation.schemas import PlanRequest as NavigationPlanArgs
 
 from .cables import get_cable_detail, search_cables
 from .common import ToolContext
@@ -38,6 +40,7 @@ from .evidence import compare_component_evidence, search_datasheet_evidence
 from .inventory import get_inventory_availability, get_low_stock_materials
 from .locations import find_material_locations
 from .materials import get_material_detail, search_materials
+from .navigation_lab import NavigationManifestArgs, get_navigation_lab, plan_navigation_lab
 from .picking import (
     PickingReadinessArgs,
     PickTaskArgs,
@@ -57,6 +60,13 @@ from .proposals import (
     propose_inventory_reservation,
 )
 from .relations import get_component_relations, get_product_bom_alternates
+from .spatial import (
+    SpatialMapArgs,
+    SpatialQueryArgs,
+    get_spatial_map,
+    plan_spatial_mission,
+    query_spatial_context,
+)
 
 ToolHandler = Callable[[ToolContext, Any], dict]
 
@@ -153,6 +163,47 @@ def _permission_granted(granted: set[str], required: str) -> bool:
 
 
 TOOLS = (
+    RegisteredTool(
+        "get_spatial_map",
+        "只读：读取版本化空间地图、注册停靠点、区域规则与能力。",
+        SpatialMapArgs,
+        get_spatial_map,
+        "spatial_map",
+        READ_ONLY_CAPABILITY,
+    ),
+    RegisteredTool(
+        "query_spatial_context",
+        "只读：执行地图上的包含、附近、相交与最近停靠点空间查询。",
+        SpatialQueryArgs,
+        query_spatial_context,
+        "spatial_context",
+        READ_ONLY_CAPABILITY,
+    ),
+    RegisteredTool(
+        "plan_spatial_mission",
+        "只读：按图上语义代价规划已注册站点；不启动执行、不写库存。",
+        SpatialMissionArgs,
+        plan_spatial_mission,
+        "spatial_plan",
+        READ_ONLY_CAPABILITY,
+    ),
+    RegisteredTool(
+        "get_navigation_lab",
+        "只读：获取隔离机器人实验仓的停靠点 ID、技能、场景和地图版本。不是实际库存地图。",
+        NavigationManifestArgs,
+        get_navigation_lab,
+        "navigation_lab",
+        READ_ONLY_CAPABILITY,
+    ),
+    RegisteredTool(
+        "plan_navigation_lab",
+        "只读仿真规划：先查询 get_navigation_lab，再用返回的停靠点 ID 规划机器人路线。"
+        "考虑外廓净空、朝向、限速、负载、电量；不执行机器人或库存写入。",
+        NavigationPlanArgs,
+        plan_navigation_lab,
+        "navigation_plan",
+        READ_ONLY_CAPABILITY,
+    ),
     RegisteredTool(
         "get_build_picking_readiness",
         "只读：生产预留和实际库位拣货准备度。",

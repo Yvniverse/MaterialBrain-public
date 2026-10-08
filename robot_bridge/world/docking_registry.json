@@ -1,0 +1,221 @@
+{
+  "world_id": "MB-EMB-LAB-03",
+  "world_revision": "ccabd3f941824d49a9cef27af224117dc6a494f9ea7ca95d1f56a4f2de013a5a",
+  "frame_id": "map",
+  "units": "m",
+  "docks": [
+    {
+      "id": "P-IC",
+      "label": "IC 与通信芯片",
+      "asset_id": "A01",
+      "pose": {
+        "x": 2.75,
+        "y": 3.75,
+        "yaw": 3.141592653589793
+      },
+      "sku": "PCM5102APWR",
+      "slot": "A05",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 0.8,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-SENSOR",
+      "label": "传感器备料",
+      "asset_id": "A02",
+      "pose": {
+        "x": 2.75,
+        "y": 7,
+        "yaw": 3.141592653589793
+      },
+      "sku": "LSM6DSV16XTR",
+      "slot": "B04",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 0.6,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-PWR",
+      "label": "电源与驱动模块",
+      "asset_id": "B01",
+      "pose": {
+        "x": 7.75,
+        "y": 11.75,
+        "yaw": 3.141592653589793
+      },
+      "sku": "PWR-DEMO-24V",
+      "slot": "L03 / 箱 02",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 3.2,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-LAB",
+      "label": "实验设备配套",
+      "asset_id": "B02",
+      "pose": {
+        "x": 8.75,
+        "y": 12.25,
+        "yaw": 0
+      },
+      "sku": "LAB-DEMO-CABLE",
+      "slot": "L02 / 箱 01",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 2.5,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-MODULE",
+      "label": "开发板与模块",
+      "asset_id": "B03",
+      "pose": {
+        "x": 7.75,
+        "y": 6.25,
+        "yaw": 3.141592653589793
+      },
+      "sku": "STM32-DEMO-BOARD",
+      "slot": "L04 / 箱 03",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 1.8,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-PASSIVE",
+      "label": "被动器件集料",
+      "asset_id": "A07",
+      "pose": {
+        "x": 9.75,
+        "y": 15.5,
+        "yaw": 1.5707963267948966
+      },
+      "sku": "RC-DEMO-KIT",
+      "slot": "C08",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 0.9,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-CONN",
+      "label": "连接器补料",
+      "asset_id": "A06",
+      "pose": {
+        "x": 7,
+        "y": 15.5,
+        "yaw": 1.5707963267948966
+      },
+      "sku": "CONN-DEMO-KIT",
+      "slot": "D11",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 0.5,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-CABLE",
+      "label": "线缆与适配器",
+      "asset_id": "B06",
+      "pose": {
+        "x": 16.5,
+        "y": 10.5,
+        "yaw": 3.141592653589793
+      },
+      "sku": "CBL-DEMO-001",
+      "slot": "L02 / 箱 01",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 2.0,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    },
+    {
+      "id": "P-RECEIVE",
+      "label": "接收托盘周转箱",
+      "asset_id": "C01",
+      "pose": {
+        "x": 18,
+        "y": 5.75,
+        "yaw": 0
+      },
+      "sku": "TOTE-DEMO-IN",
+      "slot": "托盘 01",
+      "quantity": 2,
+      "unit": "件",
+      "payload_kg": 4.0,
+      "service_s": 12,
+      "handoff": "human_handoff",
+      "require_capabilities": [
+        "navigate",
+        "carry_tote",
+        "human_handoff",
+        "scan_code"
+      ]
+    }
+  ],
+  "home": {
+    "x": 18,
+    "y": 2.5,
+    "yaw": 1.5707963267948966
+  },
+  "provenance": "synthetic_lab"
+}

@@ -1,0 +1,103 @@
+{
+  "dataset": "sample_evidence_links_v1",
+  "note": "Resolve anchors by document_key/page/structured fact after deterministic ingestion.",
+  "component_relation_links": [
+    {
+      "materials": [
+        "PORT-CAN-TCAN1044",
+        "PORT-CAN-MCP2562FD"
+      ],
+      "relation_type": "similar_to",
+      "links": [
+        {
+          "document_key": "SYN-CAN-A-R1",
+          "page": 2,
+          "role": "supporting",
+          "fact": "supply_voltage"
+        },
+        {
+          "document_key": "SYN-CAN-B-RB",
+          "page": 2,
+          "role": "supporting",
+          "fact": "supply_voltage"
+        },
+        {
+          "document_key": "SYN-CAN-B-RB",
+          "page": 4,
+          "role": "supporting",
+          "fact": "interface:CAN-FD"
+        }
+      ]
+    },
+    {
+      "materials": [
+        "PORT-MCU-F405RGT6",
+        "PORT-MCU-G474RET6"
+      ],
+      "relation_type": "similar_to",
+      "links": [
+        {
+          "document_key": "SYN-MCU-F405-R1",
+          "page": 1,
+          "role": "supporting",
+          "fact": "component_class:MCU"
+        },
+        {
+          "document_key": "SYN-MCU-G474-R1",
+          "page": 1,
+          "role": "supporting",
+          "fact": "component_class:MCU"
+        }
+      ]
+    },
+    {
+      "materials": [
+        "C91199",
+        "PORT-TOF-VL53L1CX"
+      ],
+      "relation_type": "similar_to",
+      "links": [
+        {
+          "document_key": "SYN-TOF-C91199-R1",
+          "page": 1,
+          "role": "supporting",
+          "fact": "component_class:ToF"
+        },
+        {
+          "document_key": "SYN-TOF-VL53L1-R1",
+          "page": 1,
+          "role": "supporting",
+          "fact": "component_class:ToF"
+        }
+      ]
+    }
+  ],
+  "product_bom_alternate_links": [
+    {
+      "product_code": "PROD-ATLAS-AMR",
+      "revision": "EVT-R2",
+      "primary_material_code": "PORT-CAN-MCP2562FD",
+      "alternate_material_code": "PORT-CAN-TCAN1044",
+      "links": [
+        {
+          "document_key": "SYN-CAN-A-R1",
+          "page": 3,
+          "role": "supporting",
+          "fact": "pinout"
+        },
+        {
+          "document_key": "SYN-CAN-B-RB",
+          "page": 3,
+          "role": "supporting",
+          "fact": "pinout"
+        },
+        {
+          "document_key": "SYN-ATLAS-CAN-NOTE-R1",
+          "page": 2,
+          "role": "supporting",
+          "fact": "product_usage_condition"
+        }
+      ]
+    }
+  ]
+}

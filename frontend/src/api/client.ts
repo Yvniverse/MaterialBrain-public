@@ -26,7 +26,7 @@ function randomUuid(): string {
 
 export const api = axios.create({ baseURL: '/api/v1', withCredentials: true, timeout: 15000 })
 api.interceptors.request.use((config) => {
-  const csrf = cookie('pengka_csrf')
+  const csrf = cookie('materialbrain_csrf')
   if (csrf) config.headers['X-CSRF-Token'] = csrf
   config.headers['X-Request-ID'] = randomUuid()
   return config

@@ -140,7 +140,7 @@ function selectStorageBox(box: OrganizerLocation) {
         <div class="rack-cross-brace brace-b" aria-hidden="true"></div>
 
         <div class="rack-nameplate">
-          <span>PENGKA <i>STORAGE</i></span>
+          <span>MATERIALBRAIN <i>STORAGE</i></span>
           <b>{{ rack?.code || 'SHELF-RACK-01' }}</b>
           <small>MAX · 6 LEVELS</small>
         </div>

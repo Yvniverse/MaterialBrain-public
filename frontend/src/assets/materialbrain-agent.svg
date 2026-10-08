@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="MaterialBrain assistant">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f1f8fb"/>
+      <stop offset="1" stop-color="#c7dfe9"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="64" cy="113" rx="35" ry="7" fill="#2d5269" opacity=".12"/>
+  <path d="M64 19V9" stroke="#467e96" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="64" cy="8" r="5" fill="#71b5a6"/>
+  <rect x="27" y="22" width="74" height="59" rx="22" fill="url(#body)" stroke="#467e96" stroke-width="4"/>
+  <rect x="36" y="35" width="56" height="29" rx="12" fill="#365f73"/>
+  <circle cx="49" cy="49" r="5" fill="#b8ebe0"/>
+  <circle cx="79" cy="49" r="5" fill="#b8ebe0"/>
+  <path d="M56 71h16" stroke="#467e96" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 45h-6v17h6m84-17h6v17h-6" fill="none" stroke="#467e96" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="36" y="84" width="56" height="24" rx="10" fill="url(#body)" stroke="#467e96" stroke-width="4"/>
+  <path d="M49 93h30m-24 8h18" stroke="#71b5a6" stroke-width="4" stroke-linecap="round"/>
+  <path d="M37 88l-9 12m63-12 9 12" stroke="#467e96" stroke-width="7" stroke-linecap="round"/>
+</svg>

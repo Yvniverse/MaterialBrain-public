@@ -21,6 +21,7 @@ from app.llm.factory import create_llm_provider
 from app.llm.model_pool import AIModelPoolExhausted, QwenModelPoolProvider
 from app.models import User
 from app.schemas.agent import AgentQueryResponse
+from app.services.embodied_navigation.schemas import NavigationExecutionContext
 from app.services.engineering_research import EngineeringResearchService
 from app.services.product_bom_preview import ProductBomPreviewService
 
@@ -128,6 +129,7 @@ class WarehouseAgentService:
         *,
         conversation_id: str | None = None,
         client_operation_id: str | None = None,
+        navigation_context: NavigationExecutionContext | None = None,
     ) -> AgentQueryResponse:
         started = time.perf_counter()
         operation_id = client_operation_id or uuid.uuid4().hex
@@ -163,11 +165,38 @@ class WarehouseAgentService:
                 telemetry=[],
             )
             return response
-        prepared = conversations.prepare(snapshot, message)
+        from app.agent.spatial_agent import should_handle_instruction
+
+        spatial_task = (snapshot.pending_disambiguation or {}).get("spatial_task")
+        if should_handle_instruction(message, spatial_task):
+            from app.agent.spatial_integration import SpatialAgentIntegration
+
+            integration = SpatialAgentIntegration(self.db, self.user, config=self.config)
+            spatial_response = integration.query(
+                message, conversation=snapshot, operation_id=operation_id,
+                request_id=self.request_id,
+            )
+            if spatial_response is not None:
+                self._record_episode(
+                    started=started, operation_id=operation_id, conversation_id=snapshot.id,
+                    execution_mode="deterministic", status="success",
+                    task_contract={"entity_kind": "navigation", "route": "spatial_task_graph"},
+                    steps=[], grounded_facts=[],
+                    final_result=self._response_summary(spatial_response),
+                    hard_failures=[], telemetry=[],
+                )
+                return spatial_response
+        prepared = (
+            conversations.prepare(snapshot, message, navigation_context=navigation_context)
+            if navigation_context is not None
+            else conversations.prepare(snapshot, message)
+        )
         from app.agent.picking_queries import answer_picking_query
 
-        picking_response = answer_picking_query(
-            self.db, self.user, snapshot, message, self.request_id
+        picking_response = (
+            answer_picking_query(self.db, self.user, snapshot, message, self.request_id)
+            if prepared.contract.entity_kind != "navigation"
+            else None
         )
         if picking_response is not None:
             self._record_episode(

@@ -995,7 +995,7 @@ def test_low_stock_list_means_strictly_below_configured_safety_stock(admin):
             code="LOW-STRICT-BELOW",
             name="below",
             mpn="DEMO-LOW-STRICT-BELOW",
-            manufacturer="PENGKA Robotics",
+            manufacturer="MATERIALBRAIN Robotics",
             quantity=Decimal("4"),
             reserved_quantity=Decimal("0"),
             safety_stock=Decimal("5"),
@@ -1026,7 +1026,7 @@ def test_low_stock_list_means_strictly_below_configured_safety_stock(admin):
         assert "LOW-STRICT-EQUAL" not in codes
         assert "LOW-STRICT-ZERO" not in codes
         below_item = next(item for item in result["items"] if item["code"] == "LOW-STRICT-BELOW")
-        assert below_item["manufacturer"] == "PENGKA Robotics"
+        assert below_item["manufacturer"] == "MATERIALBRAIN Robotics"
         assert result["threshold_semantics"] == (
             "available_quantity < safety_stock; safety_stock > 0"
         )

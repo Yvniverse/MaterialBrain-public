@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import SpatialMissionCard from '../../spatial/SpatialMissionCard.vue'
+import NavigationPlanCard from '../../embodied/components/NavigationPlanCard.vue'
 import type { AgentQueryResponse } from '../../types'
 import type { AgentMaterialEntity } from '../../types'
 import { formatQuantity } from '../../utils/format'
-import { sanitizeBusinessCopy } from '../../utils/businessCopy'
+import { formatBusinessText } from '../../utils/businessCopy'
 import { renderSafeMarkdown } from '../../utils/safeMarkdown'
 import { materialPrimaryIdentity, materialSecondaryIdentity } from '../../utils/materialIdentity'
 import BuildReadinessCard from './BuildReadinessCard.vue'
@@ -108,6 +110,8 @@ const showNarrativeAnswer = computed(() => {
     return true
   }
   return !(
+    entities.spatial_mission ||
+    entities.navigation_plan ||
     entities.low_stock ||
     entities.component_search ||
     entities.power_design ||
@@ -219,6 +223,8 @@ function alternateStatusLabel(status: string) {
 
 <template>
   <section class="agent-result-card" data-testid="agent-result">
+    <SpatialMissionCard v-if="result.entities.spatial_mission" :mission="result.entities.spatial_mission" />
+    <NavigationPlanCard v-if="result.entities.navigation_plan" :plan="result.entities.navigation_plan" />
     <header><h2>查询结果</h2></header>
     <div v-if="showNarrativeAnswer" class="answer" v-html="narrativeAnswerHtml"></div>
 
@@ -538,7 +544,7 @@ function alternateStatusLabel(status: string) {
         >
           {{ relationStatusLabel(relation.status) }} · {{ relationLabels[relation.relation_type] }}
         </el-tag>
-        <p>{{ sanitizeBusinessCopy(relation.evidence_summary || relation.confidence_note) }}</p>
+        <p>{{ formatBusinessText(relation.evidence_summary || relation.confidence_note) }}</p>
         <p v-if="relation.unavailable_reasons?.length" class="scope-note">
           当前不可用：{{ relation.unavailable_reasons.join('；') }}
         </p>
@@ -575,7 +581,7 @@ function alternateStatusLabel(status: string) {
         >
           {{ alternateStatusLabel(alternate.status) }}
         </el-tag>
-        <p>{{ sanitizeBusinessCopy(alternate.engineering_note || alternate.usage_condition) }}</p>
+        <p>{{ formatBusinessText(alternate.engineering_note || alternate.usage_condition) }}</p>
         <p v-if="alternate.unavailable_reasons?.length" class="scope-note">
           当前不可用：{{ alternate.unavailable_reasons.join('；') }}
         </p>

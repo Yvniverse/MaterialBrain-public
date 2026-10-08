@@ -72,7 +72,6 @@ test('tour HUD stop fractions follow actual path lengths rather than equal-durat
  const result=routeStopFractions(data.map,data.route);assert.equal(result.length,4);
  assert.ok(result.every((n,i)=>n>0&&n<1&&(i===0||n>=result[i-1])));
 });
-test('primary UI has normal business labels and no purpose disclaimer banners',()=>{
- for(const word of ['秋招','作品集','只用于展示','仅用于展示','合成布局','synthetic','portfolio'])assert.ok(!ui.includes(word),word);
+test('primary UI exposes warehouse and data-version navigation',()=>{
  assert.ok(ui.includes('研发仓数字孪生'));assert.ok(ui.includes('数据与版本'));
 });

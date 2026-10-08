@@ -1,0 +1,2925 @@
+[
+  {
+    "lcsc_code": "C91199",
+    "model": "VL53L0CXV0DH/1",
+    "package_hint": "SMD-12P,4.4x2.4mm",
+    "inferred_category": "sensor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "ToF distance sensor",
+      "interfaces": [
+        "I2C"
+      ],
+      "function": "distance ranging"
+    },
+    "tags": [
+      "sensor"
+    ],
+    "demo_quantity": 6,
+    "demo_safety_stock": 8,
+    "demo_target_stock": 20,
+    "location_group": "SENSOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-SENSOR-56-A01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-SENSOR-56-A01",
+        "quantity": 5
+      }
+    ],
+    "location_demo_mode": "partial",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2909344",
+    "model": "FRC0402F2001TS",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 700,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-A01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-A01",
+        "quantity": 700
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C19666",
+    "model": "CL10A475KO8NNNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 500,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-B01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-B01",
+        "quantity": 500
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C190095",
+    "model": "RT0402BRD0710KL",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 1000,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-C01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-C01",
+        "quantity": 1000
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2971916",
+    "model": "LTR-F216A",
+    "package_hint": "DFN-6(2x2)",
+    "inferred_category": "sensor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "sensor"
+    },
+    "tags": [
+      "sensor"
+    ],
+    "demo_quantity": 10,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "SENSOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-SENSOR-56-A02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-SENSOR-56-A02",
+        "quantity": 10
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C114765",
+    "model": "RC0402FR-0722RL",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 800,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-D01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-D01",
+        "quantity": 800
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C140870",
+    "model": "AC0805FR-071KL",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 500,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-E01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-E01",
+        "quantity": 500
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C456012",
+    "model": "TYPE-C 6P",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 40,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-A01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-A01",
+        "quantity": 40
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C411563",
+    "model": "KH-IPEX-K501-29",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 12,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A01",
+        "quantity": 12
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C106232",
+    "model": "RC0402FR-07100RL",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 900,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-A02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-A02",
+        "quantity": 900
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C130723",
+    "model": "NCD0402G1",
+    "package_hint": null,
+    "inferred_category": "unclassified",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "unclassified"
+    },
+    "tags": [
+      "module",
+      "unclassified"
+    ],
+    "demo_quantity": 14,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-A01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A01",
+        "quantity": 14
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2757850",
+    "model": "AHT20",
+    "package_hint": null,
+    "inferred_category": "sensor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "temperature/humidity sensor",
+      "interfaces": [
+        "I2C"
+      ],
+      "measurements": [
+        "temperature",
+        "humidity"
+      ]
+    },
+    "tags": [
+      "sensor"
+    ],
+    "demo_quantity": 12,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 24,
+    "location_group": "SENSOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-SENSOR-56-A03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-SENSOR-56-A03",
+        "quantity": 12
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C1525",
+    "model": "CL05B104KO5NNNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 800,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-B02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-B02",
+        "quantity": 800
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C19702",
+    "model": "CL10A106KP8NNNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 900,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-C02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-C02",
+        "quantity": 899
+      }
+    ],
+    "location_demo_mode": "partial",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C44181460",
+    "model": "ICU-10201-00",
+    "package_hint": null,
+    "inferred_category": "sensor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "sensor"
+    },
+    "tags": [
+      "sensor"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 16,
+    "location_group": "SENSOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-SENSOR-56-A04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-SENSOR-56-A04",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2877863",
+    "model": "TLV75518PDBVR",
+    "package_hint": "SOT-23-5",
+    "inferred_category": "power_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "LDO",
+      "output_voltage": "1.8V",
+      "output_current": "500mA",
+      "input_voltage_max": "5.5V"
+    },
+    "tags": [
+      "ic",
+      "power_ic"
+    ],
+    "demo_quantity": 23,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-A01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-A01",
+        "quantity": 23
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C140868",
+    "model": "AC0805FR-0710KL",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 900,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-D02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-D02",
+        "quantity": 900
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C225519",
+    "model": "A2541WV-2x4P",
+    "package_hint": null,
+    "inferred_category": "unclassified",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "unclassified"
+    },
+    "tags": [
+      "module",
+      "unclassified"
+    ],
+    "demo_quantity": 16,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-A02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A02",
+        "quantity": 10
+      },
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A03",
+        "quantity": 6
+      }
+    ],
+    "location_demo_mode": "multi_location",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C5448891",
+    "model": "TCC0805X5R106K250FT",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 600,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-E02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-E02",
+        "quantity": 600
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C431633",
+    "model": "STM32G431RBT6",
+    "package_hint": "LQFP-64(10x10)",
+    "inferred_category": "mcu",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "MCU",
+      "core": "Cortex-M4",
+      "frequency": "170MHz",
+      "flash": "128KB",
+      "interfaces": [
+        "CAN",
+        "SPI",
+        "I2C",
+        "UART"
+      ]
+    },
+    "tags": [
+      "ic",
+      "mcu"
+    ],
+    "demo_quantity": 10,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 24,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-B01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-B01",
+        "quantity": 10
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C135308",
+    "model": "SMNR6045-680MT",
+    "package_hint": "SMD,6x6mm",
+    "inferred_category": "inductor_ferrite",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "inductor_ferrite"
+    },
+    "tags": [
+      "inductor_ferrite",
+      "passive"
+    ],
+    "demo_quantity": 70,
+    "demo_safety_stock": 20,
+    "demo_target_stock": 100,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-A03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-A03",
+        "quantity": 70
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C18723032",
+    "model": "!jWW",
+    "package_hint": null,
+    "inferred_category": "unclassified",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "TFT display",
+      "size": "0.96 inch",
+      "resolution": "80x160"
+    },
+    "tags": [
+      "module",
+      "unclassified"
+    ],
+    "demo_quantity": 4,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 12,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-A04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A04",
+        "quantity": 4
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2875838",
+    "model": "NS4150C",
+    "package_hint": "SOP-8",
+    "inferred_category": "audio_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "audio amplifier",
+      "output_power": "3W"
+    },
+    "tags": [
+      "audio_ic",
+      "ic"
+    ],
+    "demo_quantity": 6,
+    "demo_safety_stock": 3,
+    "demo_target_stock": 12,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-C01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-C01",
+        "quantity": 6
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C107671",
+    "model": "PCM5102APWR",
+    "package_hint": "TSSOP-20",
+    "inferred_category": "audio_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "audio DAC",
+      "interfaces": [
+        "I2S"
+      ],
+      "sample_rate_max": "384kHz"
+    },
+    "tags": [
+      "audio_ic",
+      "ic"
+    ],
+    "demo_quantity": 6,
+    "demo_safety_stock": 3,
+    "demo_target_stock": 12,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-D01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-D01",
+        "quantity": 6
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2859976",
+    "model": "TPS7A7001DDA",
+    "package_hint": null,
+    "inferred_category": "power_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "power_ic"
+    },
+    "tags": [
+      "ic",
+      "power_ic"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-E01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-E01",
+        "quantity": 20
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C852624",
+    "model": "RT0402BRD071KL",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 500,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-B03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-B03",
+        "quantity": 500
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C50396993",
+    "model": "CL0402JN470RP",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 400,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-C03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-C03",
+        "quantity": 399
+      }
+    ],
+    "location_demo_mode": "partial",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C50396961",
+    "model": "CL0402FN22RP",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 400,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-D03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-D03",
+        "quantity": 400
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2909347",
+    "model": "FRC0402F3002TS",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 1000,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-E03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-E03",
+        "quantity": 1000
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C29402",
+    "model": "0402WGF3012TCE",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 500,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-A04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-A04",
+        "quantity": 500
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C25758",
+    "model": "0402WGF1693TCE",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 700,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-B04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-B04",
+        "quantity": 700
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C96997",
+    "model": "UPZ1608E221-2R2TF",
+    "package_hint": null,
+    "inferred_category": "inductor_ferrite",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "inductor_ferrite"
+    },
+    "tags": [
+      "inductor_ferrite",
+      "passive"
+    ],
+    "demo_quantity": 60,
+    "demo_safety_stock": 20,
+    "demo_target_stock": 100,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-C04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-C04",
+        "quantity": 60
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C225104",
+    "model": "A1251WV-S-2P",
+    "package_hint": "SMD,P=1.25mm",
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 60,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-B01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-B01",
+        "quantity": 60
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C42385482",
+    "model": "B25410120-6PB0513-H25A60",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 40,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-C01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-C01",
+        "quantity": 40
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C42385478",
+    "model": "B25410120-2PB0513-H25A60",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 50,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-D01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-D01",
+        "quantity": 32
+      },
+      {
+        "location_code": "PORT-LCSC-CONN-100-E01",
+        "quantity": 18
+      }
+    ],
+    "location_demo_mode": "multi_location",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C152025",
+    "model": "*bbk",
+    "package_hint": "BDFN2C051RF2",
+    "inferred_category": "unclassified",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "unclassified"
+    },
+    "tags": [
+      "module",
+      "unclassified"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-A05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A05",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C23630",
+    "model": "CL10A225KO8NNNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 900,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-D04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-D04",
+        "quantity": 900
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C14442",
+    "model": "CL05B102KB5NNNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 500,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-E04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-E04",
+        "quantity": 500
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C84703",
+    "model": "CL05B222KB5NNNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 1000,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-A05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-A05",
+        "quantity": 1000
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C107369",
+    "model": "CL05A225KP5NSNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 400,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-B05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-B05",
+        "quantity": 399
+      }
+    ],
+    "location_demo_mode": "partial",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C344022",
+    "model": "GRM188R61E106KA73D",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 900,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-C05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-C05",
+        "quantity": 900
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C307415",
+    "model": "CL05A106MP8NUB8",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 1000,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-D05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-D05",
+        "quantity": 1000
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C307331",
+    "model": "CL05B104KB54PNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 600,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-E05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-E05",
+        "quantity": 600
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C15401",
+    "model": "0603WAJ0103T5E",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 1000,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-A06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-A06",
+        "quantity": 1000
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C57316",
+    "model": "BC807-40,215",
+    "package_hint": null,
+    "inferred_category": "transistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "PNP BJT",
+      "vceo": "45V",
+      "collector_current": "500mA"
+    },
+    "tags": [
+      "ic",
+      "transistor"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-A02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-A02",
+        "quantity": 20
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7394032",
+    "model": "SN74LVC1G126DCKR(UMW)",
+    "package_hint": null,
+    "inferred_category": "logic_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "logic_ic"
+    },
+    "tags": [
+      "ic",
+      "logic_ic"
+    ],
+    "demo_quantity": 14,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-B02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-B02",
+        "quantity": 14
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C32713270",
+    "model": "HX PZ2.54-1x4P ZZ",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-A02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-A02",
+        "quantity": 20
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C5137636",
+    "model": "FCC0603B104K500CT",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 700,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-B06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-B06",
+        "quantity": 700
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7527500",
+    "model": "TLV76133DCYR",
+    "package_hint": "SOT-223",
+    "inferred_category": "power_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "power_ic"
+    },
+    "tags": [
+      "ic",
+      "power_ic"
+    ],
+    "demo_quantity": 14,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-C02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-C02",
+        "quantity": 14
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C23654",
+    "model": "SN74LVC1G125DBVR",
+    "package_hint": null,
+    "inferred_category": "logic_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "logic_ic"
+    },
+    "tags": [
+      "ic",
+      "logic_ic"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-D02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-D02",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C30926",
+    "model": "0603B104K500NT",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 900,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-C06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-C06",
+        "quantity": 900
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C5359600",
+    "model": "WAFER-PH2.0-3PZZ",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-B02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-B02",
+        "quantity": 13
+      },
+      {
+        "location_code": "PORT-LCSC-CONN-100-C02",
+        "quantity": 7
+      }
+    ],
+    "location_demo_mode": "multi_location",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7430452",
+    "model": "ZX-SH1.0-3PLT",
+    "package_hint": "SMD,P=1mm",
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 40,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-D02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-D02",
+        "quantity": 39
+      }
+    ],
+    "location_demo_mode": "partial",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C8387",
+    "model": "^HYKQ",
+    "package_hint": null,
+    "inferred_category": "unclassified",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "unclassified"
+    },
+    "tags": [
+      "module",
+      "unclassified"
+    ],
+    "demo_quantity": 12,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-A06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A06",
+        "quantity": 12
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C140224",
+    "model": "RC-02000JT",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 700,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-D06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-D06",
+        "quantity": 700
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2906860",
+    "model": "FRC0402F1000TS",
+    "package_hint": null,
+    "inferred_category": "resistor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "resistor"
+    },
+    "tags": [
+      "passive",
+      "resistor"
+    ],
+    "demo_quantity": 700,
+    "demo_safety_stock": 150,
+    "demo_target_stock": 1000,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-E06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-E06",
+        "quantity": 700
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C27636198",
+    "model": "MSM261DDB020",
+    "package_hint": "LGA-5(2.7x3.5)",
+    "inferred_category": "sensor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "MEMS microphone",
+      "supply_voltage": "1.8V"
+    },
+    "tags": [
+      "sensor"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "SENSOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-SENSOR-56-A05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-SENSOR-56-A05",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2845345",
+    "model": "HC-0.8-4PWT",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-E02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-E02",
+        "quantity": 20
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7541859",
+    "model": "KH-081-TX60-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 14,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A02",
+        "quantity": 14
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7541874",
+    "model": "KHA(RG1.13)-TX80B-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 14,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A03",
+        "quantity": 14
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7541876",
+    "model": "KHA(RG1.13)-TX100B-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A04",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7541877",
+    "model": "KHA(RG1.13)-TX120B-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 10,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A05",
+        "quantity": 10
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7430445",
+    "model": "ZX-SH1.0-3PWT",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-A03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-A03",
+        "quantity": 20
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C225111",
+    "model": "A1251WR-S-2P",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 30,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-B03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-B03",
+        "quantity": 30
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C225114",
+    "model": "A1251WR-S-5P",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 60,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-C03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-C03",
+        "quantity": 60
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7541895",
+    "model": "KHA(RG1.37)-TX250B-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 6,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A06",
+        "quantity": 5
+      }
+    ],
+    "location_demo_mode": "partial",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7541883",
+    "model": "KHA(RG1.13)-TX300B-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 12,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A07",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A07",
+        "quantity": 12
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C454129",
+    "model": "KHA(RG1.13)-TX150-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 14,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-A08",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-A08",
+        "quantity": 14
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7541881",
+    "model": "KHA(RG1.13)-TX200B-IPEX",
+    "package_hint": null,
+    "inferred_category": "cable_rf",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "cable_rf"
+    },
+    "tags": [
+      "cable",
+      "cable_rf"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-B01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-B01",
+        "quantity": 5
+      },
+      {
+        "location_code": "PORT-LCSC-CABLE-56-B02",
+        "quantity": 3
+      }
+    ],
+    "location_demo_mode": "multi_location",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C272976",
+    "model": "A1254WR-S-4P",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 30,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-D03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-D03",
+        "quantity": 30
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2845354",
+    "model": "HC-0.8-4PLT",
+    "package_hint": "SMD,P=0.8mm",
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 60,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-E03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-E03",
+        "quantity": 60
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2845346",
+    "model": "HC-0.8-5PWT",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 30,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-A04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-A04",
+        "quantity": 30
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C225107",
+    "model": "A1251WV-S-5P",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 40,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-B04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-B04",
+        "quantity": 40
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C29936",
+    "model": "CL10B105KA8NNNC",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 300,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-A07",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-A07",
+        "quantity": 300
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C99228",
+    "model": "0603B225K250NT",
+    "package_hint": null,
+    "inferred_category": "capacitor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "capacitor"
+    },
+    "tags": [
+      "capacitor",
+      "passive"
+    ],
+    "demo_quantity": 700,
+    "demo_safety_stock": 120,
+    "demo_target_stock": 900,
+    "location_group": "PASSIVE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-PASSIVE-100-B07",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-PASSIVE-100-B07",
+        "quantity": 700
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C22399881",
+    "model": "BZT52B5V6",
+    "package_hint": null,
+    "inferred_category": "protection",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "Zener diode",
+      "zener_voltage": "5.6V"
+    },
+    "tags": [
+      "ic",
+      "protection"
+    ],
+    "demo_quantity": 23,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-E02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-E02",
+        "quantity": 23
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2905353",
+    "model": "XC32M4-8.000-F18LJDT",
+    "package_hint": "SMD3225-4P",
+    "inferred_category": "crystal",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "crystal",
+      "frequency": "8MHz",
+      "package": "3225"
+    },
+    "tags": [
+      "crystal",
+      "ic"
+    ],
+    "demo_quantity": 23,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-A03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-A03",
+        "quantity": 23
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C3038638",
+    "model": "DL383028",
+    "package_hint": null,
+    "inferred_category": "misc_hardware",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "misc_hardware"
+    },
+    "tags": [
+      "misc_hardware",
+      "module"
+    ],
+    "demo_quantity": 14,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-A07",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A07",
+        "quantity": 14
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2939755",
+    "model": "010-JP",
+    "package_hint": null,
+    "inferred_category": "lab_tool",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "lab_tool"
+    },
+    "tags": [
+      "lab",
+      "lab_tool"
+    ],
+    "demo_quantity": 2,
+    "demo_safety_stock": 1,
+    "demo_target_stock": 3,
+    "location_group": "LAB",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-LAB-6-L01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-LAB-6-L01",
+        "quantity": 2
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C39522265",
+    "model": "vAm5uAm",
+    "package_hint": null,
+    "inferred_category": "unclassified",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "unclassified"
+    },
+    "tags": [
+      "module",
+      "unclassified"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-A08",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-A08",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C5248004",
+    "model": "JS05A-12P-030-3-4",
+    "package_hint": "P=0.5mm",
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 60,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-C04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-C04",
+        "quantity": 60
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C3170111",
+    "model": "TF31-12S-0.5SH(800)",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 30,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-D04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-D04",
+        "quantity": 30
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C5248019",
+    "model": "AFC11-S22ICA-00",
+    "package_hint": "SMD,P=0.5mm",
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 60,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-E04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-E04",
+        "quantity": 60
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C5248643",
+    "model": "BSS138K-7",
+    "package_hint": null,
+    "inferred_category": "mosfet",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "N-MOSFET",
+      "vds": "50V",
+      "id": "200mA"
+    },
+    "tags": [
+      "mosfet",
+      "power"
+    ],
+    "demo_quantity": 11,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "POWER",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-A01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-A01",
+        "quantity": 11
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C2765186",
+    "model": "TYPE-C 16PIN 2MD(073)",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 8,
+    "demo_target_stock": 40,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-A05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-A05",
+        "quantity": 20
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C84681",
+    "model": "CH340C",
+    "package_hint": "SOP-16",
+    "inferred_category": "interface_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "USB-UART bridge",
+      "interfaces": [
+        "USB",
+        "UART"
+      ]
+    },
+    "tags": [
+      "ic",
+      "interface_ic"
+    ],
+    "demo_quantity": 12,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 24,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-B03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-B03",
+        "quantity": 7
+      },
+      {
+        "location_code": "PORT-LCSC-IC-100-C03",
+        "quantity": 5
+      }
+    ],
+    "location_demo_mode": "multi_location",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C221664",
+    "model": "JS202011JAQN",
+    "package_hint": null,
+    "inferred_category": "misc_hardware",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "misc_hardware"
+    },
+    "tags": [
+      "misc_hardware",
+      "module"
+    ],
+    "demo_quantity": 16,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-B01",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-B01",
+        "quantity": 16
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C5444544",
+    "model": "XL2EL89COI-111YLC-25M",
+    "package_hint": null,
+    "inferred_category": "crystal",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "crystal"
+    },
+    "tags": [
+      "crystal",
+      "ic"
+    ],
+    "demo_quantity": 20,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-D03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-D03",
+        "quantity": 20
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C49002615",
+    "model": "YR-GJBXGTJ-BB-20A",
+    "package_hint": null,
+    "inferred_category": "misc_hardware",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "misc_hardware"
+    },
+    "tags": [
+      "misc_hardware",
+      "module"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-B02",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-B02",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C385814",
+    "model": "S108510003",
+    "package_hint": null,
+    "inferred_category": "misc_hardware",
+    "category_confidence": "low",
+    "attributes": {
+      "component_type": "misc_hardware"
+    },
+    "tags": [
+      "misc_hardware",
+      "module"
+    ],
+    "demo_quantity": 16,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "MODULE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-MODULE-56-B03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-MODULE-56-B03",
+        "quantity": 16
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7394021",
+    "model": "SN74LVC1G17DBVR(UMW)",
+    "package_hint": null,
+    "inferred_category": "logic_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "logic_ic"
+    },
+    "tags": [
+      "ic",
+      "logic_ic"
+    ],
+    "demo_quantity": 17,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-E03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-E03",
+        "quantity": 17
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C7835",
+    "model": "SN74LVC1G14DBVR",
+    "package_hint": null,
+    "inferred_category": "logic_ic",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "logic_ic"
+    },
+    "tags": [
+      "ic",
+      "logic_ic"
+    ],
+    "demo_quantity": 11,
+    "demo_safety_stock": 5,
+    "demo_target_stock": 30,
+    "location_group": "IC",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-IC-100-A04",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-IC-100-A04",
+        "quantity": 10
+      }
+    ],
+    "location_demo_mode": "partial",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C531031",
+    "model": "DF40C-100DP-0.4V(51)",
+    "package_hint": "SMD,P=0.4mm",
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 30,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-B05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-B05",
+        "quantity": 30
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C424647",
+    "model": "DF40C-60DP-0.4V(51)",
+    "package_hint": null,
+    "inferred_category": "connector",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "connector"
+    },
+    "tags": [
+      "connector"
+    ],
+    "demo_quantity": 40,
+    "demo_safety_stock": 10,
+    "demo_target_stock": 60,
+    "location_group": "CONNECTOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CONN-100-C05",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CONN-100-C05",
+        "quantity": 40
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C25396518",
+    "model": "ICU-10201",
+    "package_hint": "LGA-14(3.5x3.5)",
+    "inferred_category": "sensor",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "sensor"
+    },
+    "tags": [
+      "sensor"
+    ],
+    "demo_quantity": 8,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 16,
+    "location_group": "SENSOR",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-SENSOR-56-A06",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-SENSOR-56-A06",
+        "quantity": 8
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  },
+  {
+    "lcsc_code": "C22467602",
+    "model": "AIWF018",
+    "package_hint": null,
+    "inferred_category": "antenna",
+    "category_confidence": "high",
+    "attributes": {
+      "component_type": "RF antenna",
+      "bands": [
+        "2.4GHz",
+        "5GHz/5.8GHz"
+      ],
+      "protocol_hints": [
+        "WiFi",
+        "ZigBee"
+      ]
+    },
+    "tags": [
+      "antenna",
+      "cable"
+    ],
+    "demo_quantity": 10,
+    "demo_safety_stock": 4,
+    "demo_target_stock": 20,
+    "location_group": "CABLE",
+    "source": "sample_component_catalog_v1",
+    "import_note": "LCSC catalog identity; quantities and locations are synthetic sample data.",
+    "primary_location_code": "PORT-LCSC-CABLE-56-B03",
+    "lots": [
+      {
+        "location_code": "PORT-LCSC-CABLE-56-B03",
+        "quantity": 10
+      }
+    ],
+    "location_demo_mode": "complete",
+    "stock_is_synthetic": true,
+    "location_is_synthetic": true
+  }
+]

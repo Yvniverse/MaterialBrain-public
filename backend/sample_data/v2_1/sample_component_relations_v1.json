@@ -1,0 +1,108 @@
+{
+  "dataset": "sample_component_relations_v1",
+  "disclaimer": "Sanitized engineering-review fixture data. It is not a real-world compatibility certification or datasheet claim.",
+  "component_relations": [
+    {
+      "source_code": "PORT-CAN-TCAN1044",
+      "target_code": "PORT-CAN-MCP2562FD",
+      "relation_type": "similar_to",
+      "status": "validated",
+      "evidence_summary": "工程评审：两者均为 5V CAN 收发器；该关系不证明引脚兼容，也不构成产品替代批准。",
+      "evidence_refs": [
+        {
+          "type": "sample_engineering_note",
+          "reference": "ENG-CAN-001"
+        }
+      ]
+    },
+    {
+      "source_code": "PORT-MCU-F405RGT6",
+      "target_code": "PORT-MCU-G474RET6",
+      "relation_type": "similar_to",
+      "status": "validated",
+      "evidence_summary": "工程评审：两者均属 STM32 Cortex-M4 MCU，外设系列有重叠；不代表可直接替换。",
+      "evidence_refs": [
+        {
+          "type": "sample_engineering_note",
+          "reference": "ENG-MCU-001"
+        }
+      ]
+    },
+    {
+      "source_code": "C91199",
+      "target_code": "PORT-TOF-VL53L1CX",
+      "relation_type": "similar_to",
+      "status": "validated",
+      "evidence_summary": "工程评审：两者均为 ToF 测距传感器候选；不代表板级或软件兼容。",
+      "evidence_refs": [
+        {
+          "type": "sample_engineering_note",
+          "reference": "ENG-TOF-001"
+        }
+      ]
+    },
+    {
+      "source_code": "PORT-DCDC-24V5V3A",
+      "target_code": "PORT-DCDC-48V5V5A",
+      "relation_type": "similar_to",
+      "status": "candidate",
+      "evidence_summary": "Both are 5V-output DC/DC modules but input-voltage requirements differ; candidate similarity only.",
+      "evidence_refs": [
+        {
+          "type": "sample_engineering_note",
+          "reference": "ENG-PWR-001"
+        }
+      ]
+    }
+  ],
+  "product_bom_alternates": [
+    {
+      "product_code": "PROD-ATLAS-AMR",
+      "revision": "EVT-R2",
+      "primary_material_code": "PORT-CAN-MCP2562FD",
+      "alternate_material_code": "PORT-CAN-TCAN1044",
+      "status": "approved",
+      "priority": 1,
+      "usage_condition": "仅适用于有记录的 Variant-B/转接配置；不构成引脚兼容声明。",
+      "engineering_note": "该人工工程批准仅适用于指定产品版本和 BOM 位。",
+      "evidence_refs": [
+        {
+          "type": "sample_engineering_note",
+          "reference": "ALT-ATLAS-CAN-001"
+        }
+      ]
+    },
+    {
+      "product_code": "PROD-DEXGRIP",
+      "revision": "EVT-R1",
+      "primary_material_code": "PORT-CAN-TCAN1044",
+      "alternate_material_code": "PORT-CAN-MCP2562FD",
+      "status": "candidate",
+      "priority": 1,
+      "usage_condition": "Requires engineering review before use in this revision.",
+      "engineering_note": "Candidate only; intentionally not approved.",
+      "evidence_refs": [
+        {
+          "type": "sample_engineering_note",
+          "reference": "ALT-DEX-CAN-001"
+        }
+      ]
+    },
+    {
+      "product_code": "PROD-SCOUT-TOF",
+      "revision": "EVT-R1",
+      "primary_material_code": "C91199",
+      "alternate_material_code": "PORT-TOF-VL53L1CX",
+      "status": "candidate",
+      "priority": 1,
+      "usage_condition": "Mechanical/FOV/driver impact must be reviewed.",
+      "engineering_note": "Candidate only; ToF family similarity is insufficient for automatic replacement.",
+      "evidence_refs": [
+        {
+          "type": "sample_engineering_note",
+          "reference": "ALT-SCOUT-TOF-001"
+        }
+      ]
+    }
+  ]
+}

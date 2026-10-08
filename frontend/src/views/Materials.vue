@@ -6,7 +6,7 @@ import { api } from '../api/client'
 import { useAuthStore } from '../stores/auth'
 import type { Material, Page } from '../types'
 import { formatQuantity } from '../utils/format'
-import { sanitizeBusinessCopy } from '../utils/businessCopy'
+import { formatBusinessText } from '../utils/businessCopy'
 import { materialPrimaryIdentity, materialSecondaryIdentity } from '../utils/materialIdentity'
 
 interface Category {
@@ -228,7 +228,7 @@ async function load() {
       ...response,
       items: response.items.map((item) => ({
         ...item,
-        manufacturer: sanitizeBusinessCopy(item.manufacturer),
+        manufacturer: formatBusinessText(item.manufacturer),
       })),
     }
   } finally {
@@ -406,7 +406,7 @@ onMounted(() => Promise.all([load(), loadCategories()]))
         <el-table-column prop="package" label="封装" width="110" />
         <el-table-column label="厂家" width="150">
           <template #default="{ row }">{{
-            sanitizeBusinessCopy(row.manufacturer) || '—'
+            formatBusinessText(row.manufacturer) || '—'
           }}</template>
         </el-table-column>
         <el-table-column label="当前库存" width="110" align="right">

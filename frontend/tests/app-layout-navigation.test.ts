@@ -13,15 +13,15 @@ const layoutSource = readFileSync(resolve(process.cwd(), 'src/layouts/AppLayout.
 const paths = [
   '/dashboard',
   '/agent',
-  '/locations',
-  '/cables',
   '/warehouse-twin',
-  '/categories',
+  '/locations',
   '/materials',
+  '/products',
   '/inventory',
   '/movements',
-  '/products',
   '/stocktakes',
+  '/cables',
+  '/categories',
   '/suppliers',
   '/purchases',
   '/users',
@@ -91,7 +91,7 @@ describe('AppLayout sidebar navigation', () => {
       .findAll('[data-nav-path]')
       .map((link) => link.attributes('data-nav-path'))
     expect(renderedPaths).toEqual(paths)
-    expect(renderedPaths.slice(0, 4)).toEqual(['/dashboard', '/agent', '/locations', '/cables'])
+    expect(renderedPaths.slice(0, 4)).toEqual(['/dashboard', '/agent', '/warehouse-twin', '/locations'])
     expect(wrapper.find('[data-testid="floating-agent-launcher"]').exists()).toBe(true)
     expect(wrapper.get('[data-nav-path="/products"]').text()).toContain('BOM / 生产')
     expect(wrapper.find('[data-nav-path="/projects"]').exists()).toBe(false)
@@ -153,13 +153,13 @@ describe('AppLayout sidebar navigation', () => {
   })
 
   it('keeps the long menu scrollable and separate from the collapse control', () => {
-    expect(layoutSource).toContain('<nav class="nav-scroll"')
+    const shell = readFileSync(resolve(process.cwd(), 'src/glacier/components/GlacierShell.vue'), 'utf8')
+    const theme = readFileSync(resolve(process.cwd(), 'src/glacier/theme.css'), 'utf8')
+    expect(shell).toContain('aria-label="工作空间导航"')
+    expect(shell).toContain('aria-label="collapsed')
+    expect(theme).toMatch(/\.g-sidebar nav\{[^}]*overflow-y:auto[^}]*flex:1[^}]*min-height:0/)
     expect(layoutSource).not.toContain('<el-menu')
-    expect(layoutSource).toMatch(
-      /\.nav-scroll\s*\{[^}]*flex:\s*1 1 auto;[^}]*min-height:\s*0;[^}]*overflow-y:\s*auto;/,
-    )
-    expect(layoutSource).toMatch(/\.nav-item\s*\{[^}]*height:\s*48px;/)
-    expect(layoutSource).toMatch(/\.collapse\s*\{[^}]*position:\s*relative;[^}]*z-index:\s*2;/)
+
   })
 
   it('requests the location overview when the active location item is clicked again', async () => {

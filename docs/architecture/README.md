@@ -1,28 +1,14 @@
-# MaterialBrain Architecture Atlas
+# Architecture atlas
 
-This directory contains a six-diagram architecture atlas generated from the MaterialBrain source tree with Archify.
+MaterialBrain separates domain facts, spatial planning, robot execution, and model training. Each view below focuses on one boundary and links to the corresponding implementation.
 
-The diagrams are intentionally split by concern instead of forcing every subsystem into one unreadable graph.
+| View | What it explains |
+| --- | --- |
+| [01 — Runtime](01-runtime.md) | Browser, API, PostGIS, managed storage, and optional robot service. |
+| [02 — Agent and tools](02-agent-tools.md) | Typed contracts, entity resolution, permissions, and structured results. |
+| [03 — Engineering materials](03-engineering-materials.md) | Evidence, constraints, draft selections, and BOM preview. |
+| [04 — Spatial planning](04-spatial-planning.md) | Semantic map queries and constrained multi-stop planning. |
+| [05 — TaskGraph and robotics](05-taskgraph-robotics.md) | Mission events, ROS2/Nav2, arrival, handoff, and recovery. |
+| [06 — Model training and evaluation](06-model-training.md) | Synthetic tasks, observed episodes, verification, replay, and SFT. |
 
-| # | Diagram | Purpose | Interactive HTML |
-| --- | --- | --- | --- |
-| 01 | Runtime Overview | Browser → Nginx → Vue/FastAPI → Agent/Services → durable state and Qwen boundary | [`01-runtime-overview.html`](html/01-runtime-overview.html) |
-| 02 | Backend Subsystems | Agent orchestration, engineering intelligence, warehouse execution and transaction truth | [`02-backend-subsystems.html`](html/02-backend-subsystems.html) |
-| 03 | Agent Request Workflow | Auth, TaskContract, routing, allowlisted tools, model boundary and trace state | [`03-agent-runtime.html`](html/03-agent-runtime.html) |
-| 04 | Engineering Intelligence | Requirement → evidence/material grounding → selection/completeness → BOM preview/dry-run | [`04-engineering-intelligence.html`](html/04-engineering-intelligence.html) |
-| 05 | Warehouse + Picking | Warehouse twin, routing, readiness, pick planning and transactional inventory | [`05-warehouse-picking.html`](html/05-warehouse-picking.html) |
-| 06 | Release Lifecycle | Local verify → candidate → exact-SHA runtime → CI/evidence → release-ready qualification | [`06-release-lifecycle.html`](html/06-release-lifecycle.html) |
-
-## README preview
-
-![MaterialBrain Runtime Overview](previews/01-runtime-overview.svg)
-
-## Editable sources
-
-Archify source specifications live under [`specs/`](specs/). They are the editable architecture source of truth for these visuals.
-
-The editable specs are validated before the public tag. Final release preparation also performs a visual inspection of every SVG/HTML output. When local `file://` navigation is restricted, the HTML atlas can be served over localhost for visual checking.
-
-## Traceability
-
-[`SOURCE_MAP.md`](SOURCE_MAP.md) maps each diagram area back to the relevant MaterialBrain source paths. The diagrams are explanatory architecture documentation, not a substitute for the code or schemas.
+[SOURCE_MAP.md](SOURCE_MAP.md) maps these views to source directories. The diagrams are editable Mermaid embedded in Markdown.
