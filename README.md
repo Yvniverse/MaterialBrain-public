@@ -1,42 +1,87 @@
+<div align="center">
+
+<img src="frontend/src/embodied/assets/materialbrain-bot-v3.png" width="105" alt="MaterialBrain robot assistant" />
+
 # MaterialBrain
 
-**Spatial agents, engineering materials, and robotic warehouse workflows.**
+**Spatially grounded agents for engineering materials and embodied warehouse workflows.**
 
-MaterialBrain connects evidence-backed material decisions, inventory locations, a PostGIS semantic map, constrained mission planning, and ROS2/Nav2 simulation in a self-hosted application. The server computes spatial and business facts; the Agent turns requests into structured plans that people can inspect and execute.
+Connect engineering requests, datasheet evidence, BOMs, inventory locations, semantic maps and robot missions through typed tools and inspectable task state.
 
-[![Public CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg?branch=codex%2Fpublic-v0.2-spatial-agent)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
+[![License](https://img.shields.io/badge/License-Apache--2.0-497f99)](LICENSE)
+[![ROS 2](https://img.shields.io/badge/ROS_2-Jazzy-658ba1)](docs/ROBOTICS.md)
 
-[中文](README.zh-CN.md) · [Architecture](docs/architecture/README.md) · [Spatial Agent](docs/SPATIAL_AGENT.md) · [Robotics](docs/ROBOTICS.md) · [WarehouseBench](docs/WAREHOUSEBENCH.md)
+[**中文文档**](README.zh-CN.md) · [Architecture](docs/architecture/README.md) · [Spatial Agent](docs/SPATIAL_AGENT.md) · [Robotics](docs/ROBOTICS.md) · [WarehouseBench](docs/WAREHOUSEBENCH.md)
 
-## v0.2 features
+</div>
 
-| Component | What it provides |
-| --- | --- |
-| Semantic spatial map | Versioned local-metric geometry, zones, affordances, route edges, registered docks, and expiring overlays in PostGIS. |
-| Mission planner | OR-Tools multi-stop ordering with graph restrictions, service times, payload capacity, time windows, battery reserve, and optional return home. |
-| Spatial Agent | Typed navigation context, registered goal resolution, permission-filtered tools, and inspectable mission cards. |
-| TaskGraph | Explicit navigation, arrival, scan, handoff, cancellation, and replanning state with recorded observations. |
-| ROS2/Nav2 | An optional Jazzy simulation bridge with a lattice planner, MPPI controller, readiness checks, and observed navigation feedback. |
-| Embodied Twin | Interactive map, robot pose, obstacles, routes, and remaining mission work at `/warehouse-lab`. |
-| Engineering workflows | Datasheet evidence, material selection, Engineering BOM readiness, read-only Product BOM preview, inventory, and guided picking. |
-| WarehouseBench and SFT | Seeded tasks, independent verification, replay, group-separated datasets, and an optional local-model LoRA training entrypoint. |
+![MaterialBrain digital twin warehouse with registered storage equipment](docs/screenshots/01-warehouse-twin.png)
+
+<div align="center"><sub>Digital Twin Warehouse · registered equipment, storage positions and spatial context</sub></div>
+
+<table><tr>
+<td width="50%"><img src="docs/screenshots/02-embodied-lab.png" width="100%" alt="Embodied Robotics Lab with a multi-stop route and robot" /><br/><sub>Embodied Robotics Lab</sub></td>
+<td width="50%"><img src="docs/screenshots/03-material-brain.png" width="100%" alt="Engineering Material Agent with grounded candidates, inventory and storage positions" /><br/><sub>Engineering Material Agent</sub></td>
+</tr></table>
+
+## What is MaterialBrain?
+
+MaterialBrain combines **engineering material intelligence** and **spatial robot task execution** in a self-hosted application. The Agent turns requests into typed tasks; server-side services own material facts, inventory transactions, geometric constraints and execution states. The workbench and floating assistant share conversation state across the workspace.
 
 ```mermaid
 flowchart LR
-  Browser[Vue / Embodied Twin] --> API[FastAPI / Spatial Agent]
-  API --> Map[PostGIS semantic map]
-  API --> Planner[OR-Tools planner]
-  Planner --> Graph[TaskGraph]
-  Graph --> Bridge[ROS2 bridge]
-  Bridge --> Nav2[Nav2 simulation]
-  Nav2 --> API
-  API --> Business[Materials / BOM / inventory]
+  Need[Engineering request] --> Agent[Agent / TaskGraph]
+  Agent --> BOM[Evidence / BOM / Stock]
+  BOM --> Geo[PostGIS semantic map]
+  Geo --> Plan[OR-Tools mission planning]
+  Plan --> Nav[ROS2 / Nav2 simulation]
+  Nav --> Replay[Observations / Trace / Replay]
+  Replay --> Agent
 ```
 
-## Quickstart
+## What you can do
 
-Use Docker Engine with Compose v2. Source development uses Python 3.12, Node.js 22, and pnpm 11.
+| Capability | In the application |
+| --- | --- |
+| **Engineering Material Agent** | Compare candidates using datasheet evidence, component attributes, electrical constraints, stock positions and BOM requirements. |
+| **Inventory & Storage** | Manage materials, reservations and authorized stock transactions; inspect the 100-drawer cabinet, 56-bin organizer and six-level shelf. |
+| **Semantic Digital Twin** | Explore the warehouse with Three.js, select equipment, locate storage slots and preview routes. |
+| **Spatial Mission Planning** | Query a versioned PostGIS map and plan multi-stop tasks with payload, time-window, battery and semantic-route constraints. |
+| **TaskGraph & Recovery** | Inspect typed skill results, navigation, scan/handoff, completed stops, cancellation and replanning state. |
+| **Robotics Execution** | Run ROS2 Jazzy / Nav2 simulation with Smac State Lattice, MPPI and Behavior Tree recovery. |
+| **WarehouseBench** | Generate seeded synthetic tasks, verify routes, export traces and use portable local-model SFT interfaces. |
+
+## Product gallery
+
+<table><tr>
+<td width="50%"><img src="docs/screenshots/04-dashboard.png" width="100%" alt="Glacier dashboard with seeded inventory and workspace summary" /><br/><sub>Connected workspace and inventory overview</sub></td>
+<td width="50%"><img src="docs/screenshots/05-storage-equipment.png" width="100%" alt="Storage equipment with a selected compartment" /><br/><sub>Drawers, component bins, shelves and location selection</sub></td>
+</tr></table>
+
+### Spatial warehouse and embodied navigation
+
+Digital Twin Warehouse brings two modes into one workspace: registered storage equipment and the Embodied Robotics Lab. The laboratory uses a **versioned 24 × 18 m synthetic warehouse** with heterogeneous equipment and registered docking goals. The scene shows the robot, route and task state; mission planning and observed Nav2 execution remain separate.
+
+![MaterialBrain mission execution and recovery in the embodied laboratory](docs/screenshots/06-task-recovery.png)
+
+Open **Digital Twin Warehouse**, switch to **Embodied Robotics Lab**, select destinations and review the route before explicitly starting a simulation mission. Arrival, scan/handoff, obstacle updates, replanning and return home are recorded in the task timeline. The compatible deep link `/warehouse-lab` redirects to the same laboratory; the unified route is `/warehouse-twin?workspace=robot-lab`.
+
+## Technology and execution boundaries
+
+| Layer | Core technologies |
+| --- | --- |
+| Frontend | Vue 3, TypeScript, Element Plus, Three.js, ECharts |
+| API & services | FastAPI, SQLAlchemy, PostgreSQL 17, PostGIS |
+| Agent & planning | LangGraph, optional Qwen integration, typed tools, OR-Tools |
+| Robotics | ROS 2 Jazzy, Nav2 State Lattice, MPPI, Behavior Tree |
+| Training & evaluation | WarehouseBench, deterministic verification, replay, PyTorch / PEFT SFT interfaces |
+
+Stock changes use authorized inventory transactions. The public robot service runs in **simulation mode**, reporting `hardware_control=false` and `inventory_written=false`. Planning estimates and observed robot measurements have separate fields.
+
+## Quick start
+
+Requires Docker Engine and Compose v2. Source development uses Python 3.12, Node.js 22 and pnpm 11.
 
 ```bash
 git clone --branch codex/public-v0.2-spatial-agent https://github.com/Yvniverse/MaterialBrain-public.git
@@ -44,7 +89,7 @@ cd MaterialBrain-public
 cp .env.example .env
 ```
 
-Set a PostgreSQL password in `.env` and update the matching `DATABASE_URL`. The default Compose project is `materialbrain_public_v02`, the browser port is `18080`, and file storage is local to this checkout at `./storage`.
+Set `POSTGRES_PASSWORD` and update the matching password in `DATABASE_URL` in `.env`; URL-encode characters with special meaning in a URL. The default project is `materialbrain_public_v02`, the browser port is `18080`, and local file storage is `./storage`.
 
 ```bash
 docker compose -p materialbrain_public_v02 up -d --build
@@ -52,42 +97,51 @@ docker compose -p materialbrain_public_v02 exec backend python scripts/create_ad
 docker compose -p materialbrain_public_v02 exec backend python scripts/register_spatial_map.py --expected-database-name materialbrain_public
 ```
 
-The backend applies database migrations at startup. Open [http://localhost:18080](http://localhost:18080), log in, change the initial password, and open `/warehouse-lab`. The registration command adds the synthetic `MB-EMB-LAB-03` map without activating it as an operational warehouse or changing inventory.
+The backend applies migrations at startup. Open [http://localhost:18080](http://localhost:18080), sign in and change the initial password. Sample-map registration adds `MB-EMB-LAB-03` without activating it as an operational warehouse or changing inventory. If you change `POSTGRES_DB`, use the same name in `--expected-database-name`.
 
-Map queries and mission planning work without a model key. To use the natural-language Agent entrypoint, set `AGENT_ENABLED=true` in the backend environment. Spatial requests use deterministic planning; optional model credentials enable model-assisted business requests.
+For the optional ROS2/Nav2 simulator:
 
 ```bash
 docker compose -p materialbrain_public_v02 --profile robotics up -d --build robotics
-curl http://localhost:18080/api/v1/health
 ```
 
-The optional robot service uses ROS domain `147` and internal port `8766`. Review its readiness before starting a mission. [Robotics](docs/ROBOTICS.md) covers startup, observation, recovery, and acceptance scenarios.
+The simulator uses ROS domain `147` and internal bridge port `8766`. Check its readiness before starting a mission. Deterministic spatial queries and planning work without model credentials. To use the natural-language Agent entrypoint, set `AGENT_ENABLED=true` in `.env` and recreate the backend:
 
-## Try a mission
+```bash
+docker compose -p materialbrain_public_v02 up -d backend
+```
 
-1. Read the registered map and its revision. Select destinations such as `P-IC`, `P-SENSOR`, and `P-PWR`.
-2. Request a multi-stop plan and inspect its ordered goals, constraints, and feasibility status.
-3. Create the mission, review it in the Twin, and explicitly start execution.
-4. Observe arrival, then confirm the required scan and handoff at each stop.
-5. Add a simulation obstacle or cancel and replan from the observed pose. Completed handoffs remain recorded.
+Spatial requests use deterministic services; optional server-side model credentials enable model-assisted business requests. See [Deployment](docs/DEPLOYMENT.md) and [Robotics](docs/ROBOTICS.md) for configuration and simulation operation.
 
-The provided execution service is a simulation: it reports `hardware_control=false` and `inventory_written=false`. Stock settlement uses separate authorized inventory and picking transactions. Planning estimates and observed navigation measurements have distinct fields.
+### Try the sample warehouse
 
-## Develop and reproduce
+The gallery uses synthetic inventory and equipment. For a fresh development installation, set `ENVIRONMENT=development` in `.env` and recreate the backend. Review the seed plan, then apply it to the explicitly named database:
 
-[Contributing](CONTRIBUTING.md) explains isolated PostGIS tests, backend checks, and frontend checks. [WarehouseBench](docs/WAREHOUSEBENCH.md) documents planner comparisons, verified task generation, replay, episode export, and optional SFT. Keep generated datasets, model weights, checkpoints, and run traces outside committed source.
+```bash
+docker compose -p materialbrain_public_v02 up -d backend
+docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true backend python scripts/seed_sample_warehouse.py --expected-database-name materialbrain_public
+docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true backend python scripts/seed_sample_warehouse.py --expected-database-name materialbrain_public --apply
+```
 
-| Guide | Contents |
-| --- | --- |
-| [Architecture atlas](docs/architecture/README.md) | Six editable Mermaid views and source map. |
-| [API](docs/API.md) | Authentication, CSRF, endpoints, and error contracts. |
-| [Spatial Agent](docs/SPATIAL_AGENT.md) | Map registration, spatial queries, planning, and mission lifecycle. |
-| [Robotics](docs/ROBOTICS.md) | ROS2/Nav2 simulation and execution observations. |
-| [WarehouseBench](docs/WAREHOUSEBENCH.md) | Benchmark and training interfaces. |
-| [Database](docs/DATABASE.md) | Schema, spatial frame, and migrations. |
-| [Deployment](docs/DEPLOYMENT.md) | Configuration and runtime operation. |
-| [Backup and restore](docs/BACKUP_RESTORE.md) | Database and file recovery. |
+The additive seed creates sample materials, storage locations, BOMs and synthetic stock. It is available in `development` and `test` environments. See [Deployment](docs/DEPLOYMENT.md) for sample-data setup.
+
+## Reproduce and extend
+
+- **Architecture:** [System components](docs/architecture/README.md) and [typed Agent orchestration](docs/AGENT_ARCHITECTURE.md).
+- **Spatial tasks:** [PostGIS maps, route constraints and mission lifecycle](docs/SPATIAL_AGENT.md).
+- **Robot simulation:** [Nav2 setup and acceptance scenarios](docs/ROBOTICS.md).
+- **Training & evaluation:** [WarehouseBench generation, replay and SFT](docs/WAREHOUSEBENCH.md).
+- **API:** [Authentication and endpoints](docs/API.md).
+- **Contributing:** [Contributor workflow](CONTRIBUTING.md).
+
+Install the backend requirements, then run the deterministic planning benchmark from `backend/`:
+
+```bash
+python -m warehouse_bench --seed 17 --repetitions 3 --output ../storage/benchmarks/planners
+```
+
+Model weights and generated datasets are kept outside committed source. The optional training entrypoint uses an existing local compatible model directory.
 
 ## License
 
-The application and documentation use [Apache License 2.0](LICENSE). The ROS2 subpackage preserves its [MIT license](robot_bridge/ros2/LICENSE). Third-party dependencies and externally sourced material retain their own terms; see [NOTICE](NOTICE) and [Assets](docs/ASSETS.md).
+The application and documentation use [Apache License 2.0](LICENSE). The ROS2 subpackage retains its [MIT license](robot_bridge/ros2/LICENSE); additional notices are in [NOTICE](NOTICE) and [Assets](docs/ASSETS.md).

@@ -41,7 +41,7 @@ docker compose -p materialbrain_public_v02 exec backend python scripts/register_
 
 The backend applies Alembic migrations and initializes permissions at startup. Administrator creation prompts for credentials. Map registration checks the database name and adds the synthetic `MB-EMB-LAB-03` map without activating it as an operational warehouse or changing inventory. Adjust the expected database name when `POSTGRES_DB` differs.
 
-Open [http://localhost:18080](http://localhost:18080), log in, and open `/warehouse-lab`. A basic application health check is:
+Open [http://localhost:18080](http://localhost:18080), log in, and change the initial password. Digital Twin Warehouse provides registered storage equipment and the Embodied Robotics Lab at `/warehouse-twin?workspace=robot-lab`; `/warehouse-lab` redirects to that laboratory. A basic application health check is:
 
 ```bash
 curl http://localhost:18080/api/v1/health
@@ -51,6 +51,25 @@ docker compose -p materialbrain_public_v02 ps
 Spatial queries and planning work without a model key. To enable the Agent, set `AGENT_ENABLED=true` in `.env` and recreate the backend with `docker compose -p materialbrain_public_v02 up -d backend`. Optional model providers use server-side credentials and settings.
 
 For an HTTPS deployment, terminate TLS at the site's proxy, set `COOKIE_SECURE=true`, and retain the API origin and CSRF handling described in [Security](SECURITY.md).
+
+## Optional sample warehouse
+
+The README gallery uses synthetic inventory, storage equipment and a simulated robot. To populate a fresh development installation, set `ENVIRONMENT=development` in `.env`, then recreate the backend. Use the same explicit project and database name as the installation:
+
+```bash
+docker compose -p materialbrain_public_v02 up -d backend
+docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true backend python scripts/seed_sample_warehouse.py --expected-database-name materialbrain_public
+```
+
+The first seed command is a dry-run. Inspect the proposed material identities and database counts before applying:
+
+```bash
+docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true backend python scripts/seed_sample_warehouse.py --expected-database-name materialbrain_public --apply
+```
+
+The command checks the database identity, requires the explicit seed flag for writes, and accepts only `development` or `test` environments. It adds sample materials, locations, BOMs, reservations and synthetic stock through the application services. Repeated runs reuse the same sample identities. Administrator credentials are initialized separately with `create_admin.py`.
+
+Use a distinct project, database, storage root, web port and ROS domain for a separate sample installation. The operational inventory and the synthetic laboratory map use different registration paths; `register_spatial_map.py` registers the laboratory without modifying stock.
 
 ## Optional robotics
 

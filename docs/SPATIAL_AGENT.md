@@ -68,7 +68,7 @@ Planning estimates describe the filtered graph and configured battery/service mo
 
 `POST /api/v1/spatial/missions` accepts `{request: MissionRequest, client_operation_id: "stable-operation-id"}` and stores the plan with a TaskGraph. Creation does not move the robot. Start through `POST /api/v1/spatial/missions/{id}/start` after reviewing the plan and [robot readiness](ROBOTICS.md).
 
-The `/warehouse-lab` UI provides the Embodied Twin. Agent mission cards also link to `/warehouse-twin?workspace=robot-lab`. Enable `AGENT_ENABLED=true` to use the natural-language Agent entrypoint; deterministic spatial requests do not require model credentials. Inspect the current plan, robot state, and remaining goals there.
+Digital Twin Warehouse provides registered storage and the Embodied Robotics Lab in one workspace. Agent mission cards link to `/warehouse-twin?workspace=robot-lab`; `/warehouse-lab` remains a compatible redirect. Enable `AGENT_ENABLED=true` to use the natural-language Agent entrypoint; deterministic spatial requests do not require model credentials. Inspect the current plan, robot state, and remaining goals in the laboratory.
 
 Poll `GET /api/v1/spatial/missions/{id}` for progress. At a task dock, arrival precedes scan/handoff verification. Submit `{goal_id, scan_code}` to the handoff endpoint; an incorrect scan does not complete the stop. Completed handoffs remain recorded through cancellation or replanning.
 

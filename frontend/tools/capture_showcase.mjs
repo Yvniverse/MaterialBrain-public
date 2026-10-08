@@ -145,6 +145,7 @@ async function executeSteps(page, shot, steps = []) {
         let lastStatus = ''
         let complete = false
         let replanned = false
+        const submittedHandoffs = new Set()
         while (Date.now() < deadline) {
           const execution = (await sceneDiagnostics(page, shot.kind))?.spatial_execution
           if (!original || execution?.mission_id !== original) throw new Error('Cleanup mission identity changed')
@@ -153,9 +154,15 @@ async function executeSteps(page, shot, steps = []) {
           if (execution.status === 'COMPLETED') { complete = true; break }
           if (['FAILED', 'CANCELLED'].includes(execution.status)) throw new Error('The recovery mission did not complete')
           if (execution.status === 'AWAITING_HANDOFF') {
-            await page.locator('.spatial-handoff input').fill(execution.current_goal_id)
-            await page.getByRole('button', { name: '扫码并确认交接', exact: true }).click()
-            await page.waitForTimeout(400)
+            const goal = execution.current_goal_id
+            const input = page.locator('.spatial-handoff input')
+            if (goal && !execution.completed_goal_ids?.includes(goal) && !submittedHandoffs.has(goal)
+              && await input.isVisible() && await input.isEnabled()) {
+              await input.fill(goal)
+              await page.getByRole('button', { name: '扫码并确认交接', exact: true }).click()
+              submittedHandoffs.add(goal)
+              await page.waitForTimeout(400)
+            }
           } else if (!replanned && ['REPLANNING', 'PAUSED', 'RECOVERING'].includes(execution.status)) {
             const replan = page.getByRole('button', { name: '重规划剩余任务', exact: true })
             if (await replan.isEnabled()) { await replan.click(); replanned = true }
@@ -277,7 +284,7 @@ async function capture(shot, viewport, formal) {
       const observedText = async selector => selector ? page.locator(selector).allTextContents() : []
       evidence.selected_equipment = (await observedText(probes.equipment_selector || '.g-location-rail h2')).join(' ')
       evidence.result_selector = probes.result_selector && await page.locator(probes.result_selector).isVisible() ? probes.result_selector : null
-      evidence.summary_values = await observedText(probes.summary_selector || '.g-kpi strong')
+      evidence.summary_values = await observedText(probes.summary_selector || '.g-metric-number')
       evidence.equipment_selector = probes.equipment_selector && await page.locator(probes.equipment_selector).isVisible() ? probes.equipment_selector : null
       evidence.compartment_selector = probes.compartment_selector && await page.locator(probes.compartment_selector).isVisible() ? probes.compartment_selector : null
       if (shot.kind === 'recovery') {

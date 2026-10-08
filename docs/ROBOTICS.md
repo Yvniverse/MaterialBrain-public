@@ -1,4 +1,4 @@
-# Robotics and Embodied Twin
+# Robotics and Embodied Robotics Lab
 
 The robotics profile runs ROS2 Jazzy and Nav2 against a synthetic warehouse. A differential-drive simulation consumes velocity commands and publishes odometry, transforms, laser scans, and navigation feedback. The backend owns mission plans and user access; the bridge owns Nav2 actions.
 
@@ -39,7 +39,7 @@ flowchart LR
   Home --> Complete[Completed]
 ```
 
-Open `/warehouse-lab` to view the Embodied Twin. The existing warehouse twin also supports `/warehouse-twin?workspace=robot-lab`. Mission cards retain the plan, map revision, robot pose, completed stops, current skill, and remaining work.
+Open Digital Twin Warehouse and switch to Embodied Robotics Lab at `/warehouse-twin?workspace=robot-lab`. The compatible `/warehouse-lab` deep link redirects to this mode. Mission cards retain the plan, map revision, robot pose, completed stops, current skill, and remaining work.
 
 Arrival and material handling are separate. Handoff requires the registered arrived goal and a matching scan value. TaskGraph applies events using stable IDs and monotonic sequences, so repeated polling does not repeat a handoff.
 
