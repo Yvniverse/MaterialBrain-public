@@ -1,0 +1,17 @@
+{
+  "kind": "MATERIALBRAIN_ORIGINAL_RESULT_FIGURES",
+  "matplotlib_version": "3.11.2",
+  "numpy_version": "2.5.4",
+  "outputs_sha256": {
+    "formal16_train_diagnostics.png": "205ce281aa099e2294b8c1ac2e6d25863c4db4aa0f891f28f39b1329142be85e",
+    "formal16_train_diagnostics.svg": "4607dbf6759f41803ad02e9911d9121769b1a98d7a66c41cd574382d5243ffc9",
+    "frozen_three_arm.png": "2efd57815d3c485b6fd8fbe27ef3e61d819d6ea9ece14d5ed36a35cf8d93735d",
+    "frozen_three_arm.svg": "d12a3a1ae889aa8828c81494094579e9c94a27326ac23f7e31bce7f599cfbf24"
+  },
+  "public_training_curve_inputs_sha256": "c1f7fe4905c91fc2d028e7fae9e5533cb3a41fd9bf53a47977b64d4e7a0d8d98",
+  "reproduction_script_sha256": "bcb0d42020d8a34b346957e915e46ba882839e995eeb11df39ec2d54046e21cf",
+  "scope": "Original frozen TEST and original formal16 TRAIN only; no added seeds or Nav2 comparison.",
+  "source_formal16_summary_sha256": "6581acdb94052a24b2c4a1bb95f00704e730048887eef6ae03702bde66a11d2e",
+  "source_frozen_table_sha256": "a898a703a6b30f9f9c6acf6453afc78dbc5e3da0e4f2897f2aa225397e8f8660",
+  "source_paired_comparison_sha256": "ce7451d01574b796a084ee57b81c37771a343d96306f7c52cfde075b1750fa16"
+}

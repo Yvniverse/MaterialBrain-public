@@ -8,7 +8,7 @@
 
 Connect engineering requests, datasheet evidence, BOMs, inventory locations, semantic maps and robot missions through typed tools and inspectable task state.
 
-[![CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg?branch=codex%2Fpublic-v0.2-spatial-agent)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
+[![CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg?branch=main)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
 [![License](https://img.shields.io/badge/License-Apache--2.0-497f99)](LICENSE)
 [![ROS 2](https://img.shields.io/badge/ROS_2-Jazzy-658ba1)](docs/ROBOTICS.md)
 
@@ -24,7 +24,22 @@ Connect engineering requests, datasheet evidence, BOMs, inventory locations, sem
 <td width="50%"><img src="docs/screenshots/03-lab-topdown.png" width="100%" alt="Top-down semantic mission route" /><br/><sub>Top-down perspective · registered route topology</sub></td>
 </tr></table>
 
-### Robot mission, replanning and handoff
+## Measured results
+
+[**Results and reproducible evidence →**](RESULTS.md)
+
+With the same **2,304 supervised completion tokens and 16 optimizer steps**, Qwen3.5-4B **Anchor+GRPO** improves over Anchor-only on a frozen 120-task critical-state benchmark:
+
+| Metric | Anchor-only | Anchor+GRPO | Paired gain |
+| --- | ---: | ---: | ---: |
+| Task success | 78/120 (65%) | **120/120 (100%)** | **+35pp; 42 wins, 0 losses** |
+| Feasible capacity recovery | 33/75 (44%) | **75/75 (100%)** | **+56pp; 42 wins, 0 losses** |
+
+Task outcomes include successful execution, correct refusal and clarification. The comparison uses no inference Shield. [CSV, paired statistics,method and training curves](docs/results/README.md) explain the matched-supervision attribution and evaluation scope. Independent training-seed replication and a new three-arm Nav2 transfer are in progress.
+
+![Frozen three-arm results](docs/results/figures/frozen_three_arm.png)
+
+## Robot mission, replanning and handoff
 <table><tr>
 <td width="33%"><img src="docs/screenshots/04-lab-follow.png" width="100%" alt="Robot moving in the research logistics lab" /><br/><sub>Robot-follow view</sub></td>
 <td width="33%"><img src="docs/screenshots/05-lab-replan.png" width="100%" alt="Dynamic obstacle and route replanning" /><br/><sub>Dynamic route recovery</sub></td>
@@ -83,7 +98,7 @@ Stock changes use authorized inventory transactions. The public robot service ru
 Requires Docker Engine and Compose v2. Source development uses Python 3.12, Node.js 22 and pnpm 11.
 
 ```bash
-git clone --branch codex/public-v0.2-spatial-agent https://github.com/Yvniverse/MaterialBrain-public.git
+git clone --branch main https://github.com/Yvniverse/MaterialBrain-public.git
 cd MaterialBrain-public
 cp .env.example .env
 ```

@@ -1,0 +1,407 @@
+{
+  "arms": {
+    "S": {
+      "actions": [
+        {
+          "args": {
+            "stops": [
+              "S02"
+            ]
+          },
+          "name": "load",
+          "remaining_ticks_before": 35,
+          "step": 1,
+          "tick_before": 1,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 33,
+          "step": 2,
+          "tick_before": 3,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "S02",
+            "route": "fastest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 32,
+          "step": 3,
+          "tick_before": 4,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "inspect_dock",
+          "remaining_ticks_before": 29,
+          "step": 4,
+          "tick_before": 7,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "code": "BIN-806362"
+          },
+          "name": "scan",
+          "remaining_ticks_before": 28,
+          "step": 5,
+          "tick_before": 8,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "key": "[redacted mission-scoped id]"
+          },
+          "name": "handoff",
+          "remaining_ticks_before": 27,
+          "step": 6,
+          "tick_before": 9,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 24,
+          "step": 7,
+          "tick_before": 12,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "HOME",
+            "route": "fastest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 23,
+          "step": 8,
+          "tick_before": 13,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "stops": [
+              "S01"
+            ]
+          },
+          "name": "load",
+          "remaining_ticks_before": 20,
+          "step": 9,
+          "tick_before": 16,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 18,
+          "step": 10,
+          "tick_before": 18,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "S01",
+            "route": "fastest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 17,
+          "step": 11,
+          "tick_before": 19,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "inspect_dock",
+          "remaining_ticks_before": 12,
+          "step": 12,
+          "tick_before": 24,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "code": "REV2-672857"
+          },
+          "name": "scan",
+          "remaining_ticks_before": 11,
+          "step": 13,
+          "tick_before": 25,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "key": "[redacted mission-scoped id]"
+          },
+          "name": "handoff",
+          "remaining_ticks_before": 10,
+          "step": 14,
+          "tick_before": 26,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 7,
+          "step": 15,
+          "tick_before": 29,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "HOME",
+            "route": "safest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 6,
+          "step": 16,
+          "tick_before": 30,
+          "verifier_reason_if_terminal": "DEADLINE_EXHAUSTED"
+        }
+      ],
+      "arm": "S",
+      "mission_scoped_handoff_keys_redacted": 2,
+      "original_episode_hashes": {
+        "diagnostic_trace_sha256": "296dc5014e79e007f35872b2f6940b89b8fc09df61d54214bc934e57c98d4f0c",
+        "harness_trace_sha256": "1c790412b2e1ab7bc0068d609f1bcbcf05c6460b97ed2c0697b4faafe9c4994d",
+        "semantic_trajectory_sha256": "b88e95741ef59a96277fb93778eabc3cd5abebdf7c1aba08138883e953db9520"
+      },
+      "source_episode_jsonl_line_sha256": "5e181fef3bf7b873a57bdd41b8be1b690a4395c4aa343cf2947f10d766ccf2a1",
+      "source_trace_row_one_based": 1,
+      "terminal": {
+        "energy": 14,
+        "reason": "DEADLINE_EXHAUSTED",
+        "recovery_success": false,
+        "route_cost": 16,
+        "safety_violations": 0,
+        "task_success": false,
+        "time_tick": 39,
+        "unauthorized_actions": 0
+      }
+    },
+    "S+Anchor+GRPO-ck16": {
+      "actions": [
+        {
+          "args": {
+            "stops": [
+              "S02"
+            ]
+          },
+          "name": "load",
+          "remaining_ticks_before": 35,
+          "step": 1,
+          "tick_before": 1,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 33,
+          "step": 2,
+          "tick_before": 3,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "S02",
+            "route": "fastest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 32,
+          "step": 3,
+          "tick_before": 4,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "inspect_dock",
+          "remaining_ticks_before": 29,
+          "step": 4,
+          "tick_before": 7,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "code": "BIN-806362"
+          },
+          "name": "scan",
+          "remaining_ticks_before": 28,
+          "step": 5,
+          "tick_before": 8,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "key": "[redacted mission-scoped id]"
+          },
+          "name": "handoff",
+          "remaining_ticks_before": 27,
+          "step": 6,
+          "tick_before": 9,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 24,
+          "step": 7,
+          "tick_before": 12,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "HOME",
+            "route": "fastest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 23,
+          "step": 8,
+          "tick_before": 13,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "stops": [
+              "S01"
+            ]
+          },
+          "name": "load",
+          "remaining_ticks_before": 20,
+          "step": 9,
+          "tick_before": 16,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 18,
+          "step": 10,
+          "tick_before": 18,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "S01",
+            "route": "fastest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 17,
+          "step": 11,
+          "tick_before": 19,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "inspect_dock",
+          "remaining_ticks_before": 12,
+          "step": 12,
+          "tick_before": 24,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "code": "REV2-672857"
+          },
+          "name": "scan",
+          "remaining_ticks_before": 11,
+          "step": 13,
+          "tick_before": 25,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "key": "[redacted mission-scoped id]"
+          },
+          "name": "handoff",
+          "remaining_ticks_before": 10,
+          "step": 14,
+          "tick_before": 26,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "query_routes",
+          "remaining_ticks_before": 7,
+          "step": 15,
+          "tick_before": 29,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {
+            "destination": "HOME",
+            "route": "fastest"
+          },
+          "name": "travel",
+          "remaining_ticks_before": 6,
+          "step": 16,
+          "tick_before": 30,
+          "verifier_reason_if_terminal": null
+        },
+        {
+          "args": {},
+          "name": "finish",
+          "remaining_ticks_before": 1,
+          "step": 17,
+          "tick_before": 35,
+          "verifier_reason_if_terminal": "SUCCESS"
+        }
+      ],
+      "arm": "S+Anchor+GRPO-ck16",
+      "mission_scoped_handoff_keys_redacted": 2,
+      "original_episode_hashes": {
+        "diagnostic_trace_sha256": "4fb0c9a90b6d75fd1714061daa4c5956acf4e80384c44f4971127cd9a3911394",
+        "harness_trace_sha256": "0fdf76b6605f46e62a6ee93754c017c51b2ead1541462d38b138d98d0077fe1a",
+        "semantic_trajectory_sha256": "0fe8ab378ee2463183f517055343f81b7149501762d907a39ce398a6d34e6a19"
+      },
+      "source_episode_jsonl_line_sha256": "91ddc4e2613a694498b744aafad6b32bd4e0e72d397b86995a6431de617b28a4",
+      "source_trace_row_one_based": 1,
+      "terminal": {
+        "energy": 12,
+        "reason": "SUCCESS",
+        "recovery_success": true,
+        "route_cost": 12,
+        "safety_violations": 0,
+        "task_success": true,
+        "time_tick": 36,
+        "unauthorized_actions": 0
+      }
+    }
+  },
+  "comparison": {
+    "GRPO_route": "fastest",
+    "S_route": "safest",
+    "candidate_extra_action": "finish",
+    "common_action_prefix_length": 15,
+    "decisive_destination": "HOME",
+    "decisive_step": 16,
+    "observation_only_not_counterfactual": true,
+    "saved_audit_classification": "home_route_argument_only"
+  },
+  "kind": "SAVED_FROZEN_TEST_PAIRED_CAPACITY_EXAMPLE",
+  "redaction": "Only mission-scoped handoff keys are replaced; action order, all other displayed args, ticks, metrics, and saved SHA references are retained.",
+  "scenario": {
+    "base_scenario_sha256": "349f8de8b8435be921756055aaba5e570a023077210b413383ea22e46902fb5a",
+    "completion_budget_steps": 32,
+    "cut_state_sha256": "558c2c3da5e8a4aa955be777a7a220efd2405680fef5bccd7e66194545d949fa",
+    "deadline_tick": 36,
+    "family": "capacity_conflict",
+    "group_id": "b5e11810f0df144e719a78cbdf8c6bbf1c89cef6394c8df37264dd620ebee896",
+    "prefix_sha256": "d1aef3a414068c3d9f0192b99953b3d5fdfd78f8213e970f0d111057b453c61b",
+    "prefix_time_tick": 1,
+    "scenario_sha256": "029f1f4bfc70f7439f15248a35fa95d40ff890f9af683caf34ce1cae37d061ca",
+    "slack_ticks": 0,
+    "template_id": "batch_reload"
+  },
+  "selection": {
+    "input_row_one_based": 1,
+    "rule": "First original input-order capacity_conflict with eligible S deadline failure and paired GRPO success; read-only illustration",
+    "scenario_jsonl_line_sha256": "983a78c33fbf9110dc4592c7e51ab274aa1d6378978a3b1bf73ee8dca7d83f38",
+    "training_or_selection_use": false
+  },
+  "source_file_sha256": {
+    "READ_ONLY_RESULT_AUDIT.json": "e5afdaff10bad59abe3d2411686343df3304cc1c190bd3208ea5bc8ec96739f4",
+    "S+Anchor+GRPO-ck16-traces.jsonl": "50bca196a3ec9f955719319d9e0ad02258f7829d3eed75085562504a6dd699f8",
+    "S-traces.jsonl": "65031245fffd722dfd76a82ce47a6e282e68eeb9270fb7bcc7af5c5d69fff9dd",
+    "scenarios-test.jsonl": "050300aa2a170fc0f0a093b8c8f5608e4ded9e87e789f98d463e251bcf171176"
+  }
+}

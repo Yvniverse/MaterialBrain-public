@@ -10,3 +10,9 @@
 *.xls binary
 *.gz binary
 *.dump binary
+
+# Evidence hashes bind original file bytes, including their line endings.
+docs/results/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Generated SVG evidence is archived byte-for-byte like the PNG export.
+docs/results/figures/*.svg binary

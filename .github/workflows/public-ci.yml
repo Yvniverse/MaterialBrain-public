@@ -19,6 +19,7 @@ jobs:
           cache: pip
           cache-dependency-path: tools/requirements-visual.txt
       - run: pip install -r tools/requirements-visual.txt
+      - run: python docs/results/verify_tables.py
       - run: python tools/check_glacier_ui.py
       - run: python -m unittest discover -s tools -p test_screenshot_validation.py
       - run: python tools/validate_screenshots.py

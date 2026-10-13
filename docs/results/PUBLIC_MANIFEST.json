@@ -1,0 +1,107 @@
+{
+  "delivery_source_sha": "485dc2e86c9b98653b0289a22ae44d299f873b32",
+  "kind": "MATERIALBRAIN_PUBLIC_RESULTS_MANIFEST",
+  "members": [
+    {
+      "path": "docs/results/example/extract_trace.py",
+      "bytes": 14146,
+      "sha256": "25759f874bbd2117d8171946e0e2e9879e657db750d192aad81ece8d029ccbf4"
+    },
+    {
+      "path": "docs/results/example/PAIRED_TRACE.json",
+      "bytes": 12387,
+      "sha256": "0722b2ef4f7a353d55f25021f531de3dfa1efc7f992a170aaf028822185bc2bd"
+    },
+    {
+      "path": "docs/results/example/PAIRED_TRACE.md",
+      "bytes": 4392,
+      "sha256": "06e265e7da46df8cf25982418d29faccae62a3e69a402d9dccb79a668d97f0d6"
+    },
+    {
+      "path": "docs/results/figures/FIGURE_MANIFEST.json",
+      "bytes": 1185,
+      "sha256": "744705055efb7e5dcf0dada80a3bca0aacc83f31d1e58763b40abb4741fdf1c4"
+    },
+    {
+      "path": "docs/results/figures/formal16_train_diagnostics.png",
+      "bytes": 309931,
+      "sha256": "205ce281aa099e2294b8c1ac2e6d25863c4db4aa0f891f28f39b1329142be85e"
+    },
+    {
+      "path": "docs/results/figures/formal16_train_diagnostics.svg",
+      "bytes": 72547,
+      "sha256": "4607dbf6759f41803ad02e9911d9121769b1a98d7a66c41cd574382d5243ffc9"
+    },
+    {
+      "path": "docs/results/figures/frozen_three_arm.png",
+      "bytes": 162786,
+      "sha256": "2efd57815d3c485b6fd8fbe27ef3e61d819d6ea9ece14d5ed36a35cf8d93735d"
+    },
+    {
+      "path": "docs/results/figures/frozen_three_arm.svg",
+      "bytes": 18680,
+      "sha256": "d12a3a1ae889aa8828c81494094579e9c94a27326ac23f7e31bce7f599cfbf24"
+    },
+    {
+      "path": "docs/results/figures/make_figures.py",
+      "bytes": 13039,
+      "sha256": "bcb0d42020d8a34b346957e915e46ba882839e995eeb11df39ec2d54046e21cf"
+    },
+    {
+      "path": "docs/results/figures/training_curve_inputs.json",
+      "bytes": 6643,
+      "sha256": "c1f7fe4905c91fc2d028e7fae9e5533cb3a41fd9bf53a47977b64d4e7a0d8d98"
+    },
+    {
+      "path": "docs/results/FROZEN_COMPARISON_B.json",
+      "bytes": 15059,
+      "sha256": "ce7451d01574b796a084ee57b81c37771a343d96306f7c52cfde075b1750fa16"
+    },
+    {
+      "path": "docs/results/MECHANISM_SUMMARY.json",
+      "bytes": 1205,
+      "sha256": "688bce620f82089ac3bed25f8cb47505b027fe861fff4f26ed3b4eae5b13c975"
+    },
+    {
+      "path": "docs/results/METHODS.md",
+      "bytes": 7687,
+      "sha256": "9e10ee1f1d168754aaa8201cbad58b60460d5d3207771c99d3ee073263d1b8b7"
+    },
+    {
+      "path": "docs/results/README.md",
+      "bytes": 2923,
+      "sha256": "470ed7e98b75390b663948684305269580136f665bc6859dfd149e4163388a11"
+    },
+    {
+      "path": "docs/results/SPATIAL_CPU.md",
+      "bytes": 1763,
+      "sha256": "e138674a273b73c3bb46e0df87d8d958214a6eb5e4260bd72e78fd34b664e0fd"
+    },
+    {
+      "path": "docs/results/THREE_ARM_FROZEN_TABLE_B.csv",
+      "bytes": 530,
+      "sha256": "a898a703a6b30f9f9c6acf6453afc78dbc5e3da0e4f2897f2aa225397e8f8660"
+    },
+    {
+      "path": "docs/results/THREE_ARM_FROZEN_TABLE_B.json",
+      "bytes": 8367,
+      "sha256": "ac63f178b11b05a9d1e228e730f9f6a6ee4624ed445bdce237deaccda5b328d1"
+    },
+    {
+      "path": "docs/results/verify_tables.py",
+      "bytes": 2898,
+      "sha256": "60a572b59c1c10ad4da2a5c4b254787a9a9dd23d17ba3d8ba1ce92ea9b91da52"
+    },
+    {
+      "path": "RESULTS.md",
+      "bytes": 4659,
+      "sha256": "e3aea778335500eed945c6129cdbaf08574bdcd3c05f01491564b457895e60f6"
+    },
+    {
+      "path": "resume.md",
+      "bytes": 1197,
+      "sha256": "43326b9b941f41639f0a120ba15e123a98d63ec86212a6f582b49741cce5c8e8"
+    }
+  ],
+  "status": "Reviewed public evidence; historical measurements preserved"
+}

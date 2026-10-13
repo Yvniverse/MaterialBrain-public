@@ -8,7 +8,7 @@
 
 通过类型化工具与可检查的任务状态，连接工程需求、数据手册证据、BOM、库存库位、语义地图和机器人任务。
 
-[![CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg?branch=codex%2Fpublic-v0.2-spatial-agent)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
+[![CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg?branch=main)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
 [![License](https://img.shields.io/badge/License-Apache--2.0-497f99)](LICENSE)
 [![ROS 2](https://img.shields.io/badge/ROS_2-Jazzy-658ba1)](docs/ROBOTICS.md)
 
@@ -24,7 +24,22 @@
 <td width="50%"><img src="docs/screenshots/03-lab-topdown.png" width="100%" alt="俯视语义路线和多站规划" /><br/><sub>俯视视角 · 路径拓扑与停靠点</sub></td>
 </tr></table>
 
-### 机器人移动、动态重规划与交接
+## 已完成的量化结果
+
+[**Results：结果、方法与可核查证据 →**](RESULTS.md)
+
+基于 Qwen3.5-4B，在相同 **2,304 个监督 completion tokens、16 个优化步骤**下，Anchor+GRPO 在冻结120项关键状态任务上，相比 Anchor-only：
+
+| 指标 | Anchor-only | Anchor+GRPO | 同任务配对提升 |
+| --- | ---: | ---: | ---: |
+| 任务成功 | 78/120（65%） | **120/120（100%）** | **+35个百分点，42胜0负** |
+| 可行容量恢复 | 33/75（44%） | **75/75（100%）** | **+56个百分点，42胜0负** |
+
+任务判定包含完成执行、正确拒绝与正确澄清；推理阶段不使用 Shield。[CSV、配对统计、训练曲线与方法](docs/results/README.md)可离线核对。追加训练种子复现及新三臂 Nav2 迁移正在独立执行。
+
+![冻结三臂结果](docs/results/figures/frozen_three_arm.png)
+
+## 机器人移动、动态重规划与交接
 <table><tr>
 <td width="33%"><img src="docs/screenshots/04-lab-follow.png" width="100%" alt="机器人沿路线运动的跟随视角" /><br/><sub>机器人运动与跟随相机</sub></td>
 <td width="33%"><img src="docs/screenshots/05-lab-replan.png" width="100%" alt="动态障碍出现后的路径重规划" /><br/><sub>动态障碍与任务恢复</sub></td>
@@ -83,7 +98,7 @@ flowchart LR
 需要 Docker Engine 和 Compose v2。源码开发使用 Python 3.12、Node.js 22 与 pnpm 11。
 
 ```bash
-git clone --branch codex/public-v0.2-spatial-agent https://github.com/Yvniverse/MaterialBrain-public.git
+git clone --branch main https://github.com/Yvniverse/MaterialBrain-public.git
 cd MaterialBrain-public
 cp .env.example .env
 ```

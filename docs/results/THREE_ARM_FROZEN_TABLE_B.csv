@@ -1,0 +1,16 @@
+metric,S,S+Anchor-only-ck16,S+Anchor+GRPO-ck16
+task_success,72/120,78/120,120/120
+recovery_success,36/75,33/75,75/75
+CAP_correct_refusal,15/15,15/15,15/15
+DEAD_correct_refusal,6/15,15/15,15/15
+safety_episode,0/120,0/120,0/120
+unauthorized_episode,0/120,3/120,0/120
+invalid_actions,0,3,0
+tools,1933,1906,1945
+suffix_tools,1559,1532,1571
+steps,1559,1532,1571
+unnecessary_tools,0,0,0
+blocked_travel,0,0,0
+no_progress_actions,0,0,0
+mission_cost,16.962,16.746000000000002,15.104
+suffix_mission_cost,15.048,14.832,13.19

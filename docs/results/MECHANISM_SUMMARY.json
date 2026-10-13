@@ -1,0 +1,29 @@
+{
+  "kind": "PUBLIC_READ_ONLY_MECHANISM_SUMMARY",
+  "source_audit_sha256": "e5afdaff10bad59abe3d2411686343df3304cc1c190bd3208ea5bc8ec96739f4",
+  "scope": "observational comparison of saved original three-arm action sequences; zero model calls, zero TEST reruns, zero training-sample generation",
+  "capacity_tasks": 75,
+  "S_vs_RL": {
+    "final_HOME_route_argument_only": 75,
+    "baseline_route": "safest",
+    "candidate_route": "fastest",
+    "zero_slack_deadline_failures_flipped_to_success": 39,
+    "slack_four_already_successful_for_S": 36
+  },
+  "Anchor_only_vs_RL": {
+    "paired_wins": 42,
+    "paired_losses": 0,
+    "S_failure_flips_among_wins": 39,
+    "Anchor_only_regressions_restored": 3
+  },
+  "RL_success_composition": {
+    "SUCCESS": 87,
+    "CORRECT_REFUSAL": 30,
+    "CLARIFICATION": 3,
+    "total": 120
+  },
+  "raw_all_feasible_false_refusal_flags_per_arm": 3,
+  "verified_correct_ambiguous_reference_clarifications_per_arm": 3,
+  "capacity_false_refusal_per_arm": 0,
+  "interpretation": "Evidence supports improved final HOME route-argument selection under a tight deadline; it does not demonstrate a newly learned complete split-load skill or a causal parameter intervention."
+}
