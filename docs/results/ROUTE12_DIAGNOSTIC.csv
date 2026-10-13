@@ -1,0 +1,4 @@
+arm,episodes,task_success,first_route_exact,first_route_legal_available,fastest_exact,fastest_n,safest_exact,safest_n,esd_safe_exact,esd_safe_n,blocked_travel,tools,logical_mission_cost,safety_violations,unauthorized_actions
+S,12,12,10,10,2,4,4,4,4,4,2,218,2.152,0,0
+Anchor16,12,12,10,10,2,4,4,4,4,4,2,218,2.172,0,0
+GRPO16,12,12,10,10,2,4,4,4,4,4,28,244,1.984,0,0

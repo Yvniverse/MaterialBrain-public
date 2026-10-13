@@ -1,9 +1,9 @@
-# MaterialBrain｜仓储工程 Agent 与 Agentic RL（2026.06—至今）
+# Material Brain：空间智能驱动的工程物料与具身仓储 Agent｜Agent 开发（2026.06—至今）
 
-**技术栈：** Python、FastAPI、PostgreSQL/PostGIS、LangGraph、Qwen3.5-4B、PyTorch/LoRA、OR-Tools、ROS2/Nav2、Vue/Three.js
+面向研发仓的工程选型、库存执行与机器人拣货场景，构建从可信物料决策到空间任务执行的可审计 Agent 系统。
 
-- 设计并实现 **29 个类型化 Agent 工具**与持久任务图，贯通工程 BOM、批次库存、仓库地图、拣货规划及 ROS2/Nav2 仿真；以服务端任务契约、权限和审批流程约束模型动作。
-- 建立 **219 节点、1,122 条有向边**的 PostGIS 仓库语义图，结合 OR-Tools 处理时窗、载重、电池及充电约束；**1,000 项 CPU 规划**得到 **791 个独立审计可行解、0 个约束违规**，p50/p95 **406/622 ms**。早期 SFT 版本另在独立 Nav2 仿真评测中完成 **12/12**。
-- 构建 Qwen3.5-4B 的 SFT、原生 GRPO 与 completion-only Anchor 训练链路：早期基准由 **14/120→120/120**；后续**无 Shield 冻结关键状态任务**中，相比同为 **2,304 监督 completion tokens、16 优化步骤**的 Anchor-only 对照，Task Success **78/120→120/120（+35pp）**，可行容量恢复 **33/75→75/75（+56pp）**。
+- **工程物料智能：** 基于 Python、FastAPI 与 LangGraph 构建 **29 个类型化工具**及持久任务图，贯通版本化工程 BOM、数据手册证据支持的器件替代、线缆匹配、电源拓扑与损耗计算、批次库存；由服务端任务契约与权限校验约束模型动作。
+- **空间规划与仿真：** 建立 **219 节点、1,122 条有向边、8 个语义区、11 个停靠点**的版本化 PostGIS 路网，结合 OR-Tools 处理时窗、载重与电池约束，接入 ROS2/Nav2 和 Three.js 数字孪生；固定种子 **1,000 任务基准中的 234 组双方可行配对任务**上，V3 相对输入顺序将综合目标降低 **26.39%**、路径距离降低 **32.21%**。
+- **模型后训练：** 以 Qwen3.5-4B LoRA SFT 为起点，实现原生 GRPO 与 completion-only Anchor，并设置匹配监督预算的 Anchor-only 对照。经独立审计，两个训练随机种子在同一新冻结关键状态恢复基准上，Task Success 均从共享 Anchor 的 **77/120 提升至 120/120（+35.83 个百分点）**，可行容量恢复均从 **32/75 提升至 75/75（+57.33 个百分点）**；各自安全／越权事件均为 **0/120**。
 
-[结果与方法](RESULTS.md) · [可核对的数据表](docs/results/README.md)
+[结果、方法与证据](RESULTS.md) · [此前简历快照](resume-frozen120-snapshot.md)

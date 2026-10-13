@@ -1,0 +1,390 @@
+{
+  "schema": "materialbrain-public-career-supplement-v1",
+  "stage": "FRESH_TEST_TWO_SEEDS_CPU_AND_INDEPENDENT_AUDIT_PASS",
+  "frozen120_headline": "Existing Frozen120 +35pp task and +56pp capacity results remain unchanged; those are critical-state suffix episodes.",
+  "fresh_test": {
+    "status": "TWO_SEEDS_CPU_AND_INDEPENDENT_AUDIT_PASS",
+    "aggregate_arm_rows_included": 4,
+    "raw_episode_rows_included": 0,
+    "arm_csv": "FRESH_TEST120_ARMS.csv",
+    "aggregate_json": "FRESH_TEST120_AGGREGATE.json",
+    "same_fixed_test_tasks_not_240_independent": true,
+    "seed20261014_cpu_score_receipt_sha256": "608b0a75dba068dde24130f1f4154fef9e078cdf5aa33dc747349e9ada291876",
+    "independent_audit_sha256": "1905e52e2a7be44eaa7c44965b472f0fb1f90c1c4aa6ab0f0aef6a1143b8cec3",
+    "seed20261014_archive_sha256": "345d3cdc066b8178f72d9fa12d9ad089b42f3c2224384fb16ba40bbf810c6bb4"
+  },
+  "fresh_val64": {
+    "scope": "fresh validation, critical-state suffix; checkpoint selection only; not held-out TEST",
+    "arm_csv": "FRESH_VAL64_ARMS.csv",
+    "selected_pair_csv": "FRESH_VAL64_SELECTED_PAIRS.csv",
+    "declared_training_seeds": [
+      20261008,
+      20261013,
+      20261014
+    ],
+    "declared_seed_denominator": 3,
+    "completed_training_seeds": [
+      20261008,
+      20261014
+    ],
+    "observed_admitted_of_declared": {
+      "numerator": 2,
+      "denominator": 3
+    },
+    "new_independent_completed_seeds": 1,
+    "shared_S_and_Anchor_controls": true,
+    "incomplete_seed": {
+      "seed": 20261013,
+      "reason": "INCOMPLETE_INFRA",
+      "optimizer_steps": 1,
+      "requested_updates": 16,
+      "eligible_checkpoints": 0,
+      "test_outcome_included": false
+    },
+    "selected_checkpoint": {
+      "20261008": 16,
+      "20261014": 16
+    },
+    "selected_ck16_anchor_completion_tokens": 2304,
+    "selected_ck16_broad_refusal_semantics": {
+      "broad_feasible_refusal_actions_each": 2,
+      "legal_ambiguity_clarifications_each": 2,
+      "capacity_false_refusal_actions_each": 0
+    }
+  },
+  "nav2_fresh12": {
+    "scope": "12 fresh within-family full-initial scenarios x 3 frozen arms; ROS2/Nav2 simulation; not physical cargo or cut-state suffix",
+    "arm_csv": "NAV2_FRESH12_ARMS.csv",
+    "episodes_per_arm": 12,
+    "all36_attempts_retained": true,
+    "paired_task": {
+      "matchedAnchor16_vs_AnchorGRPO16": {
+        "baseline": "matchedAnchor16",
+        "candidate": "AnchorGRPO16",
+        "denominator": 12,
+        "candidate_wins": 1,
+        "candidate_losses": 4,
+        "ties": 7,
+        "gain_pp": -25.0,
+        "paired_bootstrap_95_ci_pp": [
+          -58.333333333333336,
+          8.333333333333332
+        ],
+        "mcnemar_exact_two_sided_p": 0.375
+      },
+      "originalS_vs_AnchorGRPO16": {
+        "baseline": "originalS",
+        "candidate": "AnchorGRPO16",
+        "denominator": 12,
+        "candidate_wins": 0,
+        "candidate_losses": 3,
+        "ties": 9,
+        "gain_pp": -25.0,
+        "paired_bootstrap_95_ci_pp": [
+          -50.0,
+          0.0
+        ],
+        "mcnemar_exact_two_sided_p": 0.25
+      },
+      "originalS_vs_matchedAnchor16": {
+        "baseline": "originalS",
+        "candidate": "matchedAnchor16",
+        "denominator": 12,
+        "candidate_wins": 1,
+        "candidate_losses": 1,
+        "ties": 10,
+        "gain_pp": 0.0,
+        "paired_bootstrap_95_ci_pp": [
+          -25.0,
+          25.0
+        ],
+        "mcnemar_exact_two_sided_p": 1.0
+      }
+    },
+    "families": {
+      "originalS": {
+        "battery_recovery": {
+          "denominator": 2,
+          "task_success": 0,
+          "recovery_eligible": 2,
+          "recovery_success": 0,
+          "actual_navigation": 0,
+          "physical_home": 2
+        },
+        "capacity_conflict": {
+          "denominator": 6,
+          "task_success": 2,
+          "recovery_eligible": 6,
+          "recovery_success": 2,
+          "actual_navigation": 2,
+          "physical_home": 6
+        },
+        "nominal_control": {
+          "denominator": 2,
+          "task_success": 2,
+          "recovery_eligible": 0,
+          "recovery_success": 0,
+          "actual_navigation": 2,
+          "physical_home": 2
+        },
+        "spatial_freshness": {
+          "denominator": 2,
+          "task_success": 2,
+          "recovery_eligible": 2,
+          "recovery_success": 2,
+          "actual_navigation": 2,
+          "physical_home": 2
+        }
+      },
+      "matchedAnchor16": {
+        "battery_recovery": {
+          "denominator": 2,
+          "task_success": 0,
+          "recovery_eligible": 2,
+          "recovery_success": 0,
+          "actual_navigation": 0,
+          "physical_home": 2
+        },
+        "capacity_conflict": {
+          "denominator": 6,
+          "task_success": 3,
+          "recovery_eligible": 6,
+          "recovery_success": 3,
+          "actual_navigation": 3,
+          "physical_home": 6
+        },
+        "nominal_control": {
+          "denominator": 2,
+          "task_success": 2,
+          "recovery_eligible": 0,
+          "recovery_success": 0,
+          "actual_navigation": 2,
+          "physical_home": 2
+        },
+        "spatial_freshness": {
+          "denominator": 2,
+          "task_success": 1,
+          "recovery_eligible": 2,
+          "recovery_success": 1,
+          "actual_navigation": 1,
+          "physical_home": 2
+        }
+      },
+      "AnchorGRPO16": {
+        "battery_recovery": {
+          "denominator": 2,
+          "task_success": 0,
+          "recovery_eligible": 2,
+          "recovery_success": 0,
+          "actual_navigation": 0,
+          "physical_home": 2
+        },
+        "capacity_conflict": {
+          "denominator": 6,
+          "task_success": 0,
+          "recovery_eligible": 6,
+          "recovery_success": 0,
+          "actual_navigation": 3,
+          "physical_home": 3
+        },
+        "nominal_control": {
+          "denominator": 2,
+          "task_success": 1,
+          "recovery_eligible": 0,
+          "recovery_success": 0,
+          "actual_navigation": 2,
+          "physical_home": 1
+        },
+        "spatial_freshness": {
+          "denominator": 2,
+          "task_success": 2,
+          "recovery_eligible": 2,
+          "recovery_success": 2,
+          "actual_navigation": 2,
+          "physical_home": 2
+        }
+      }
+    },
+    "failure_taxonomy_counts": {
+      "success": 15,
+      "unlocalized_permission_error": 8,
+      "response_timeout": 3,
+      "policy_action_or_guard": 10
+    },
+    "failure_field_per_arm": {
+      "originalS": {
+        "None": 6,
+        "POLICY_RESPONSE_TIMEOUT": 1,
+        "PAYLOAD_CAPACITY_EXCEEDED": 3,
+        "STEP_LIMIT": 2
+      },
+      "matchedAnchor16": {
+        "None": 6,
+        "PermissionError": 2,
+        "POLICY_RESPONSE_TIMEOUT": 1,
+        "STEP_LIMIT": 3
+      },
+      "AnchorGRPO16": {
+        "PermissionError": 6,
+        "POLICY_RESPONSE_TIMEOUT": 1,
+        "STEP_LIMIT": 2,
+        "None": 3
+      }
+    },
+    "failure_interpretation": "10 complete policy/guard failures (7 STEP_LIMIT, 3 PAYLOAD_CAPACITY_EXCEEDED); 3 inbox response timeouts; 8 PermissionError with no localized cause in sealed receipts. Separately evidenced relay crashes cannot be assigned to every PermissionError. No failed mission was retried or excluded.",
+    "metrics_missing_imputed_zero": false,
+    "physical_home_caveat": "At-HOME true can include episodes that never departed; task success also requires actual navigation.",
+    "cost_caveat": "Logical mission cost and actual Nav2 distance/time/energy are separate domains; lower totals from less completed work do not establish efficiency."
+  },
+  "route12_diagnostic": {
+    "scope": "fixed validation-only mechanism probe; no training or checkpoint selection; not Nav2",
+    "arm_csv": "ROUTE12_DIAGNOSTIC.csv",
+    "paired": {
+      "GRPO16_vs_S": {
+        "first_route_exact": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "first_route_legal_available": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "task_success": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "mission_cost_lower_is_better_descriptive": {
+          "wins": 9,
+          "losses": 1,
+          "ties": 2
+        },
+        "tools_lower_is_better_descriptive": {
+          "wins": 0,
+          "losses": 2,
+          "ties": 10
+        },
+        "blocked_travel_lower_is_better_descriptive": {
+          "wins": 0,
+          "losses": 2,
+          "ties": 10
+        }
+      },
+      "GRPO16_vs_Anchor16": {
+        "first_route_exact": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "first_route_legal_available": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "task_success": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "mission_cost_lower_is_better_descriptive": {
+          "wins": 10,
+          "losses": 0,
+          "ties": 2
+        },
+        "tools_lower_is_better_descriptive": {
+          "wins": 0,
+          "losses": 2,
+          "ties": 10
+        },
+        "blocked_travel_lower_is_better_descriptive": {
+          "wins": 0,
+          "losses": 2,
+          "ties": 10
+        }
+      },
+      "Anchor16_vs_S": {
+        "first_route_exact": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "first_route_legal_available": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "task_success": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "mission_cost_lower_is_better_descriptive": {
+          "wins": 0,
+          "losses": 1,
+          "ties": 11
+        },
+        "tools_lower_is_better_descriptive": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        },
+        "blocked_travel_lower_is_better_descriptive": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 12
+        }
+      }
+    },
+    "closed_fastest": {
+      "cases": 2,
+      "initial_choice": "closed fastest in every arm",
+      "S_blocked_travel": 2,
+      "Anchor16_blocked_travel": 2,
+      "GRPO16_blocked_travel": 28
+    },
+    "interpretation": "All arms 12/12 task and 10/12 exact first route. GRPO's lower logical cost coexists with 244 vs 218 tools and 28 vs 2 blocked travel; no measured improvement in first-route choice or overall efficiency."
+  },
+  "training_seed20261014_figure": {
+    "scope": "TRAIN sampled updates only; not a held-out learning curve",
+    "updates": 16,
+    "episodes_per_update": 8,
+    "png": "figures/seed20261014_train_updates.png",
+    "svg": "figures/seed20261014_train_updates.svg",
+    "png_sha256": "ab95b256889edea963af05f329ca1c3270a846dd24557dea9b93d853bd31d82d",
+    "svg_sha256": "4b1a9fce82f66b6bbfc184286bbdea229ab0ebd286d29f3be2b456cd1dd09d8b"
+  },
+  "source_identity": {
+    "replication_and_route_sha": "7783b638062fbb0a1f1e2f93868e9485ac8e5abb",
+    "nav2_runtime_source_sha": "485dc2e86c9b98653b0289a22ae44d299f873b32",
+    "nav2_frozen_runner_sha256": "73d404c4b742430ed38a06eb6414a19d5c8180f0e6717823c8df0e16b826b397",
+    "nav2_frozen_manifest_sha256": "1d92ff8eb73a2a40cbb845cce42accf21db5fc735b3f9403378781ad343a8064"
+  },
+  "source_artifact_sha256": {
+    "fresh_val_audit": "81c01ca43ba8eeae67c1f9bac4513e05546fd42ae79e50a04b4e1506699c165b",
+    "fresh_val_arm_summary": "8f8b6b7b9f421e45d292156a0c28d6fa4b19118f5a3345eb4992d3d42e388e1c",
+    "fresh_val_paired_metrics": "93f01db700159cfa00dc0de5e385aa091564abf3ad26597ed4b5b5aa092d6333",
+    "fresh_val_refusal_semantics": "26fd5718d0c10433172c77bbdd6043904c9f1af8a8346a7c4eaf0531553259c5",
+    "nav2_independent_audit": "be7a0b75483b0ef65e86baf3fc32220f3489bd0b29d9b63b78dd6787672ac397",
+    "nav2_runner_summary": "efa579d9979985555355b20c96c681c19f6071a311bd78ce4f72f52dd7c731a9",
+    "route_diagnostic_audit": "93a08547c98fab9be661816f94d7070383d4f6c410fc991dc5baf19dec053d5e",
+    "route_diagnostic_summary": "5c6172f2fc2f05e4d37d2eba197c4475abac6d42784b92cd1259dd3a30b7ee11",
+    "seed20261014_training_audit": "8cbc0f2b367d05710d1a0dae304cce38eca70d3b03f4d5332c3161eccd8ee661",
+    "seed20261014_figure_receipt": "edbca6258d4c7e1f27cdbb19addfd8b865d22bbfb35c260dbcf6288e098e4f14"
+  },
+  "copied_asset_sha256": {
+    "FRESH_VAL64_ARMS.csv": "8f8b6b7b9f421e45d292156a0c28d6fa4b19118f5a3345eb4992d3d42e388e1c",
+    "FRESH_VAL64_SELECTED_PAIRS.csv": "b6d2eff89d667dab73e5ee84973dbec8fe27ef7a5310b8009a2943f21fa8e201",
+    "NAV2_FRESH12_ARMS.csv": "b52c47a77f9359be6ff0cd31dce7346cb4fccac1cff832e9f7bb9d5091a151c0",
+    "ROUTE12_DIAGNOSTIC.csv": "5d2eb79d2137226df433e0911d3fccbbebb60614c1588e646041d76b89ef77cd",
+    "figures/seed20261014_train_updates.png": "ab95b256889edea963af05f329ca1c3270a846dd24557dea9b93d853bd31d82d",
+    "figures/seed20261014_train_updates.svg": "4b1a9fce82f66b6bbfc184286bbdea229ab0ebd286d29f3be2b456cd1dd09d8b",
+    "CAREER_20261013_SUPPLEMENT.md": "51654d2080794e9bebedc590627d2300939808c3b27a76b7ac24563b2680b8e2",
+    "FRESH_TEST120_ARMS.csv": "e9eacf3c3ef77c5ed8db5611a5446711d016c5e50a906d3c27bb0467fc90031f",
+    "FRESH_TEST120_AGGREGATE.json": "96c2824d4f07537195a98865723dd0df19543c065a9dc83be83e31d356eab531",
+    "figures/fresh_test120_four_arm.png": "04f52f87007bd5b895f0fa1f5cf2c019ab63e8b9cd02d63d08cd2bd034aa993b",
+    "figures/fresh_test120_four_arm.svg": "ebeb50169fa0a22ce62d3b40a4ade151a3098a27ceabed97df64df789213bdd3",
+    "figures/make_fresh_test_figure.py": "321c94bc66ee9a7db6acd3ef7f0be76d1ba61e0ea833006acbed9463e12dfaa7"
+  }
+}

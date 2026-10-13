@@ -1,0 +1,5 @@
+arm,label,Task,Task_denominator,Capacity,Capacity_denominator,CAP,CAP_denominator,DEAD,DEAD_denominator,Safety,Unauthorized,evidence_status
+S,Original S,71,120,35,75,15,15,6,15,0,0,BOTH_CPU_AND_INDEPENDENT_AUDIT_PASS
+Anchor-ck16,Anchor-only16,77,120,32,75,15,15,15,15,0,2,BOTH_CPU_AND_INDEPENDENT_AUDIT_PASS
+RL-seed20261008-ck16,GRPO seed 08,120,120,75,75,15,15,15,15,0,0,CPU_AND_INDEPENDENT_AUDIT_PASS
+RL-seed20261014-ck16,GRPO seed 14,120,120,75,75,15,15,15,15,0,0,CPU_AND_INDEPENDENT_AUDIT_PASS

@@ -1,0 +1,143 @@
+{
+  "kind": "MATERIALBRAIN_FRESH_TEST120_PUBLIC_AGGREGATE_V1",
+  "status": "TWO_SEEDS_CPU_AND_INDEPENDENT_AUDIT_PASS",
+  "evaluation_scope": "Same 120 frozen within-family critical-state recovery tasks; no inference Shield; four displayed conditions, with S and Anchor as shared controls. The two GRPO seed outcomes are not pooled into 240 independent tasks.",
+  "fresh_test_arm_csv": "FRESH_TEST120_ARMS.csv",
+  "declared_training_seed_denominator": 3,
+  "completed_training_seeds": [
+    20261008,
+    20261014
+  ],
+  "incomplete_training_seed": {
+    "seed": 20261013,
+    "reason": "INCOMPLETE_INFRA",
+    "completed_optimizer_updates": 1,
+    "planned_optimizer_updates": 16,
+    "eligible_ck8_or_ck16": false,
+    "test_outcome": "NONE"
+  },
+  "seed20261008": {
+    "status": "OFFICIAL_CPU_REPLAY_PASS",
+    "archive_sha256": "330f97c9e9e387aec0b502bfd3e0c7ee1519ba86538673ff74c5d0b2b212bee0",
+    "archive_members": 23,
+    "cpu_output_audit_sha256": "376c6a52a2f0c57bfd973835a87a617d5b2af5e79ee38f7f6def1fd6de86b6c2",
+    "anchor_vs_grpo_paired_report_sha256": "e1b5fd1520f12e84f2da151d9ed3f588f1aba06547501c0f24dc5bc545577fe8",
+    "test_scenarios_sha256": "5cc215bef2858622c57aca16bf366034d99333242f7e890d41f189143135c8d5",
+    "test_split_freeze_sha256": "e4119c41155a5f72aada3e2ca0bfcfc3a2b062b7712cc30cd65b4561cea0c15f",
+    "anchor_to_grpo": {
+      "Task": {
+        "anchor": 77,
+        "grpo": 120,
+        "denominator": 120,
+        "delta_pp": 35.833333333333336,
+        "wins": 43,
+        "losses": 0,
+        "ties": 77,
+        "paired_bootstrap_95_ci_pp": [
+          27.5,
+          45.0
+        ],
+        "mcnemar_exact_two_sided_p": 2.2737367544323206e-13
+      },
+      "Capacity": {
+        "anchor": 32,
+        "grpo": 75,
+        "denominator": 75,
+        "delta_pp": 57.333333333333336,
+        "wins": 43,
+        "losses": 0,
+        "ties": 32,
+        "paired_bootstrap_95_ci_pp": [
+          46.666666666666664,
+          68.0
+        ],
+        "mcnemar_exact_two_sided_p": 2.2737367544323206e-13
+      }
+    },
+    "cpu_replay_status": "PASS",
+    "independent_audit_status": "PASS"
+  },
+  "seed20261014": {
+    "status": "OFFICIAL_CPU_AND_INDEPENDENT_AUDIT_PASS",
+    "raw_headline_sha256": "e267af870658ed862d58f91f42647108fe228ae874d01ce86015228701ba5531",
+    "complete_sha256": "b518225cb1d5cd3b9d5346cdbb4904a20594b72c8a1d4e97f6272666c461c828",
+    "cpu_replay_status": "PASS",
+    "cpu_score_exit_code": 0,
+    "cpu_score_receipt_sha256": "608b0a75dba068dde24130f1f4154fef9e078cdf5aa33dc747349e9ada291876",
+    "cpu_score_receipt_status": "CPU_TEST_REPORT_PASS",
+    "cpu_replay_groups_per_arm": 120,
+    "cpu_replay_model_calls": 0,
+    "independent_audit_status": "PASS",
+    "archive_sha256": "345d3cdc066b8178f72d9fa12d9ad089b42f3c2224384fb16ba40bbf810c6bb4",
+    "archive_members": 23,
+    "anchor_to_grpo": {
+      "Task": {
+        "anchor": 77,
+        "grpo": 120,
+        "denominator": 120,
+        "delta_pp": 35.833333333333336,
+        "wins": 43,
+        "losses": 0,
+        "ties": 77,
+        "paired_bootstrap_95_ci_pp": [
+          27.5,
+          45.0
+        ],
+        "mcnemar_exact_two_sided_p": 2.2737367544323206e-13
+      },
+      "Capacity": {
+        "anchor": 32,
+        "grpo": 75,
+        "denominator": 75,
+        "delta_pp": 57.333333333333336,
+        "wins": 43,
+        "losses": 0,
+        "ties": 32,
+        "paired_bootstrap_95_ci_pp": [
+          46.666666666666664,
+          68.0
+        ],
+        "mcnemar_exact_two_sided_p": 2.2737367544323206e-13
+      }
+    },
+    "audited_secondary_metrics": {
+      "tools": 1945,
+      "steps": 1571,
+      "logical_mission_cost": 15.104,
+      "capacity_conflict_task": [
+        75,
+        75
+      ],
+      "battery_recovery_task": [
+        8,
+        8
+      ],
+      "correct_refusal_task": [
+        30,
+        30
+      ],
+      "spatial_freshness_task": [
+        7,
+        7
+      ]
+    }
+  },
+  "source_sha256": "7783b638062fbb0a1f1e2f93868e9485ac8e5abb",
+  "nav2_transfer_is_separate": true,
+  "original_frozen120_is_separate": true,
+  "independent_audit": {
+    "status": "PASS_BOUNDED_COMPLETED_TEST_RECORD_AND_STATISTICS_AUDIT",
+    "audit_sha256": "1905e52e2a7be44eaa7c44965b472f0fb1f90c1c4aa6ab0f0aef6a1143b8cec3",
+    "paired_metrics_sha256": "f10a047013a5ce393712bbc45820c13738322dc8b1651b42315b42dce0f0557d",
+    "arm_family_table_sha256": "d811a0f82a1054a0620ac39fd8d97cb873486156632c7751c9b91c3938f5399e",
+    "shared_control_group_comparison_sha256": "7ac44635ce982526537a48186811c951c38f44cebebe3910bb2bf64b0c197c5e",
+    "terminal_records": 720,
+    "archive_files": 46,
+    "saved_paired_reports_all_fields_match": true,
+    "shared_control_group_records_differing": 0,
+    "independent_training_control_replicates": 1,
+    "pooled_independent_group_count": 120,
+    "training_seed_variance_estimated": false,
+    "environment_replay_performed_by_independent_audit": false
+  }
+}

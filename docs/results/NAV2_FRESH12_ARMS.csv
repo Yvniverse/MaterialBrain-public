@@ -1,0 +1,4 @@
+arm,episodes,task_success,actual_navigation,physical_home,recovery_success,recovery_eligible,capacity_task,capacity_n,battery_task,battery_n,freshness_task,freshness_n,control_task,control_n,safety_violations,unauthorized_actions,collision_delta,invalid_actions,zero_completed_stops,zero_nav2_actions,tools,logical_mission_cost,actual_nav2_distance_m,actual_nav2_elapsed_s,actual_nav2_energy_wh,numeric_measured_denominator
+originalS,12,6,6,12,4,10,2,6,0,2,2,2,2,2,3,0,0,222,6,6,333,1.258,352.85309118340336,1646.200000035933,17.837191524872228,12
+matchedAnchor16,12,6,6,12,4,10,3,6,0,2,1,2,2,2,0,0,0,303,6,6,428,1.586,390.624542896246,1573.2000000343396,18.915859001483078,12
+AnchorGRPO16,12,3,7,8,2,10,0,6,0,2,2,2,1,2,0,0,0,232,7,5,338,1.244,322.4475851935502,1183.7000000258377,15.23133214852705,12

@@ -28,14 +28,29 @@ Connect engineering requests, datasheet evidence, BOMs, inventory locations, sem
 
 [**Results and reproducible evidence →**](RESULTS.md)
 
-With the same **2,304 supervised completion tokens and 16 optimizer steps**, Qwen3.5-4B **Anchor+GRPO** improves over Anchor-only on a frozen 120-task critical-state benchmark:
+### Fresh frozen TEST120
+
+On a new set of **120 frozen critical-state recovery tasks**, both completed GRPO training seeds passed official CPU replay with **120/120 Task Success** and **75/75 feasible capacity recovery**. An independent audit verified both saved runs and their paired statistics. Each GRPO arm used the matched **2,304 supervised completion tokens and 16 optimizer steps**.
+
+| Metric | Original S | Anchor-only16 | GRPO seed 08 | GRPO seed 14* |
+| --- | ---: | ---: | ---: | ---: |
+| Task success | 71/120 | 77/120 | **120/120** | **120/120** |
+| Feasible capacity recovery | 35/75 | 32/75 | **75/75** | **75/75** |
+
+Versus Anchor, each GRPO arm has **+35.83pp Task** and **+57.33pp capacity** in the saved counts. *Both CPU replays and the independent aggregate audit passed; the two runs use the same 120 fixed tasks.* [Four-arm figure and aggregate evidence](docs/results/CAREER_20261013_SUPPLEMENT.md)
+
+![Fresh four-arm TEST120](docs/results/figures/fresh_test120_four_arm.png)
+
+### Earlier Frozen120
+
+In the earlier frozen 120-task critical-state benchmark, Qwen3.5-4B **Anchor+GRPO** improved over Anchor-only with the same **2,304 supervised completion tokens and 16 optimizer steps**:
 
 | Metric | Anchor-only | Anchor+GRPO | Paired gain |
 | --- | ---: | ---: | ---: |
 | Task success | 78/120 (65%) | **120/120 (100%)** | **+35pp; 42 wins, 0 losses** |
 | Feasible capacity recovery | 33/75 (44%) | **75/75 (100%)** | **+56pp; 42 wins, 0 losses** |
 
-Task outcomes include successful execution, correct refusal and clarification. The comparison uses no inference Shield. [CSV, paired statistics,method and training curves](docs/results/README.md) explain the matched-supervision attribution and evaluation scope. Independent training-seed replication and a new three-arm Nav2 transfer are in progress.
+Task outcomes include execution, correct refusal and clarification. The study used native GRPO with no inference Shield. [CSV, paired statistics, methods and training curves](docs/results/README.md) document this earlier matched-supervision result. The [new Results supplement](docs/results/CAREER_20261013_SUPPLEMENT.md) also reports the declared three-seed denominator, full-initial-state Nav2 transfer and route diagnostic.
 
 ![Frozen three-arm results](docs/results/figures/frozen_three_arm.png)
 
@@ -89,7 +104,7 @@ The physical stockroom twin preserves the registered equipment and storage locat
 | API & services | FastAPI, SQLAlchemy, PostgreSQL 17, PostGIS |
 | Agent & planning | LangGraph, optional Qwen integration, typed tools, OR-Tools |
 | Robotics | ROS 2 Jazzy, Nav2 State Lattice, MPPI, Behavior Tree |
-| Training & evaluation | WarehouseBench, deterministic verification, replay, PyTorch / PEFT SFT interfaces |
+| Training & evaluation | WarehouseBench, deterministic verification and replay, portable PyTorch / PEFT SFT; [measured Qwen3.5-4B GRPO + Anchor study](RESULTS.md) |
 
 Stock changes use authorized inventory transactions. The public robot service runs in **simulation mode**, reporting `hardware_control=false` and `inventory_written=false`. Planning estimates and observed robot measurements have separate fields.
 
@@ -144,7 +159,7 @@ The additive seed creates sample materials, storage locations, BOMs and syntheti
 - **Architecture:** [System components](docs/architecture/README.md) and [typed Agent orchestration](docs/AGENT_ARCHITECTURE.md).
 - **Spatial tasks:** [PostGIS maps, route constraints and mission lifecycle](docs/SPATIAL_AGENT.md).
 - **Robot simulation:** [Nav2 setup and acceptance scenarios](docs/ROBOTICS.md).
-- **Training & evaluation:** [WarehouseBench generation, replay and SFT](docs/WAREHOUSEBENCH.md).
+- **Training & evaluation:** [WarehouseBench generation, replay and portable SFT](docs/WAREHOUSEBENCH.md), [model training design](docs/architecture/06-model-training.md), and [measured post-training results](RESULTS.md).
 - **API:** [Authentication and endpoints](docs/API.md).
 - **Contributing:** [Contributor workflow](CONTRIBUTING.md).
 

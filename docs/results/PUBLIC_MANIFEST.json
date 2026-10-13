@@ -1,5 +1,5 @@
 {
-  "delivery_source_sha": "485dc2e86c9b98653b0289a22ae44d299f873b32",
+  "delivery_source_sha": "bea44732a0734be0b4e1c2547ee97aa3b780fe2e",
   "kind": "MATERIALBRAIN_PUBLIC_RESULTS_MANIFEST",
   "members": [
     {
@@ -64,13 +64,13 @@
     },
     {
       "path": "docs/results/METHODS.md",
-      "bytes": 7687,
-      "sha256": "9e10ee1f1d168754aaa8201cbad58b60460d5d3207771c99d3ee073263d1b8b7"
+      "bytes": 8040,
+      "sha256": "91db69c513ff4f0e4688075c454adf1ed351bfca07b7fda53e5a9b8e200bd233"
     },
     {
       "path": "docs/results/README.md",
-      "bytes": 2923,
-      "sha256": "470ed7e98b75390b663948684305269580136f665bc6859dfd149e4163388a11"
+      "bytes": 4231,
+      "sha256": "a1bafd34e0d5bc17c50a485ea56d2a9e52c8e7b8e05e990f2248edadca98030a"
     },
     {
       "path": "docs/results/SPATIAL_CPU.md",
@@ -94,14 +94,106 @@
     },
     {
       "path": "RESULTS.md",
-      "bytes": 4659,
-      "sha256": "e3aea778335500eed945c6129cdbaf08574bdcd3c05f01491564b457895e60f6"
+      "bytes": 8033,
+      "sha256": "f67ed2e456d2010cb5f2a7ea1c1332aec150f068d86fb7c65caca9fb458ac427"
     },
     {
       "path": "resume.md",
+      "bytes": 1540,
+      "sha256": "cd2dda898b69cde7c3574f50923b5868ac2bd4bec09f497000355d557755731e"
+    },
+    {
+      "path": "docs/results/CAREER_20261013_SUPPLEMENT.md",
+      "bytes": 8458,
+      "sha256": "51654d2080794e9bebedc590627d2300939808c3b27a76b7ac24563b2680b8e2"
+    },
+    {
+      "path": "docs/results/CAREER_SUPPLEMENT_DATA.json",
+      "bytes": 14046,
+      "sha256": "b43365f838e8da5813da3d2d086ccc0feae000984de0a905d61dee63fe58ae74"
+    },
+    {
+      "path": "docs/results/FRESH_VAL64_ARMS.csv",
+      "bytes": 837,
+      "sha256": "8f8b6b7b9f421e45d292156a0c28d6fa4b19118f5a3345eb4992d3d42e388e1c"
+    },
+    {
+      "path": "docs/results/FRESH_VAL64_SELECTED_PAIRS.csv",
+      "bytes": 554,
+      "sha256": "b6d2eff89d667dab73e5ee84973dbec8fe27ef7a5310b8009a2943f21fa8e201"
+    },
+    {
+      "path": "docs/results/NAV2_FRESH12_ARMS.csv",
+      "bytes": 802,
+      "sha256": "b52c47a77f9359be6ff0cd31dce7346cb4fccac1cff832e9f7bb9d5091a151c0"
+    },
+    {
+      "path": "docs/results/ROUTE12_DIAGNOSTIC.csv",
+      "bytes": 364,
+      "sha256": "5d2eb79d2137226df433e0911d3fccbbebb60614c1588e646041d76b89ef77cd"
+    },
+    {
+      "path": "docs/results/figures/seed20261014_train_updates.png",
+      "bytes": 296606,
+      "sha256": "ab95b256889edea963af05f329ca1c3270a846dd24557dea9b93d853bd31d82d"
+    },
+    {
+      "path": "docs/results/figures/seed20261014_train_updates.svg",
+      "bytes": 53493,
+      "sha256": "4b1a9fce82f66b6bbfc184286bbdea229ab0ebd286d29f3be2b456cd1dd09d8b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 11654,
+      "sha256": "491aeb648e4a00344fb754a1d3d372f588b33f009d064ae01405c04fcd3d7d57"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "bytes": 10876,
+      "sha256": "9ae0cf178fb6a5158934a344288b6e0314b1860c2e8d7ba64eaf704454fc8f98"
+    },
+    {
+      "path": "docs/WAREHOUSEBENCH.md",
+      "bytes": 6493,
+      "sha256": "2593650db8cba340cf45fb29efa176cc195df067bd9381940fa5527af939af87"
+    },
+    {
+      "path": "docs/architecture/06-model-training.md",
+      "bytes": 2764,
+      "sha256": "4542ab3135d8b29f4b3cfe0f361c415c415d532ef47976c9e90800830e68bfd9"
+    },
+    {
+      "path": "docs/results/FRESH_TEST120_ARMS.csv",
+      "bytes": 498,
+      "sha256": "e9eacf3c3ef77c5ed8db5611a5446711d016c5e50a906d3c27bb0467fc90031f"
+    },
+    {
+      "path": "docs/results/FRESH_TEST120_AGGREGATE.json",
+      "bytes": 5091,
+      "sha256": "96c2824d4f07537195a98865723dd0df19543c065a9dc83be83e31d356eab531"
+    },
+    {
+      "path": "docs/results/figures/fresh_test120_four_arm.png",
+      "bytes": 205614,
+      "sha256": "04f52f87007bd5b895f0fa1f5cf2c019ab63e8b9cd02d63d08cd2bd034aa993b"
+    },
+    {
+      "path": "docs/results/figures/fresh_test120_four_arm.svg",
+      "bytes": 20788,
+      "sha256": "ebeb50169fa0a22ce62d3b40a4ade151a3098a27ceabed97df64df789213bdd3"
+    },
+    {
+      "path": "docs/results/figures/make_fresh_test_figure.py",
+      "bytes": 4900,
+      "sha256": "321c94bc66ee9a7db6acd3ef7f0be76d1ba61e0ea833006acbed9463e12dfaa7"
+    },
+    {
+      "path": "resume-frozen120-snapshot.md",
       "bytes": 1197,
       "sha256": "43326b9b941f41639f0a120ba15e123a98d63ec86212a6f582b49741cce5c8e8"
     }
   ],
-  "status": "Reviewed public evidence; historical measurements preserved"
+  "status": "Audited two-seed fresh TEST120 aggregates; original Frozen120 and measured Nav2 transfer retained",
+  "supplement_stage": "TWO_SEEDS_CPU_AND_INDEPENDENT_AUDIT_PASS",
+  "fresh_test_independent_audit_sha256": "1905e52e2a7be44eaa7c44965b472f0fb1f90c1c4aa6ab0f0aef6a1143b8cec3"
 }

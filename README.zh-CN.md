@@ -28,14 +28,29 @@
 
 [**Results：结果、方法与可核查证据 →**](RESULTS.md)
 
-基于 Qwen3.5-4B，在相同 **2,304 个监督 completion tokens、16 个优化步骤**下，Anchor+GRPO 在冻结120项关键状态任务上，相比 Anchor-only：
+### 新一轮冻结 TEST120
+
+在新一组 **120 项冻结关键状态恢复任务**上，两组完成训练的 GRPO 种子均通过正式 CPU 重放，取得 **Task 120/120**、**可行容量恢复 75/75**。独立审计已核对两组保存的结果及配对统计。两条 GRPO 训练臂均匹配 **2,304 个监督 completion tokens 和 16 个优化步骤**。
+
+| 指标 | 原始 S | Anchor-only16 | GRPO 种子 08 | GRPO 种子 14* |
+| --- | ---: | ---: | ---: | ---: |
+| Task Success | 71/120 | 77/120 | **120/120** | **120/120** |
+| 可行容量恢复 | 35/75 | 32/75 | **75/75** | **75/75** |
+
+相对 Anchor，两组已保存计数均为 **Task +35.83 个百分点**、**容量 +57.33 个百分点**。*两组 CPU 重放与独立聚合审计均通过；两次评测使用同一组固定任务。*[四臂图与聚合证据](docs/results/CAREER_20261013_SUPPLEMENT.md)
+
+![新 TEST120 四臂结果](docs/results/figures/fresh_test120_four_arm.png)
+
+### 较早的 Frozen120
+
+较早的 Frozen120 使用 Qwen3.5-4B；在相同 **2,304 个监督 completion tokens、16 个优化步骤**下，Anchor+GRPO 相比 Anchor-only：
 
 | 指标 | Anchor-only | Anchor+GRPO | 同任务配对提升 |
 | --- | ---: | ---: | ---: |
 | 任务成功 | 78/120（65%） | **120/120（100%）** | **+35个百分点，42胜0负** |
 | 可行容量恢复 | 33/75（44%） | **75/75（100%）** | **+56个百分点，42胜0负** |
 
-任务判定包含完成执行、正确拒绝与正确澄清；推理阶段不使用 Shield。[CSV、配对统计、训练曲线与方法](docs/results/README.md)可离线核对。追加训练种子复现及新三臂 Nav2 迁移正在独立执行。
+任务判定包含执行、正确拒绝与正确澄清；研究使用真实 native GRPO，推理阶段不使用 Shield。[CSV、配对统计、训练曲线与方法](docs/results/README.md)可离线核对这组较早的匹配监督结果。[新增结果增补](docs/results/CAREER_20261013_SUPPLEMENT.md)另报预先声明的训练种子分母、完整初始状态 Nav2 转移与路线诊断。
 
 ![冻结三臂结果](docs/results/figures/frozen_three_arm.png)
 
@@ -89,7 +104,7 @@ flowchart LR
 | 后端与服务 | FastAPI、SQLAlchemy、PostgreSQL 17、PostGIS |
 | Agent 与规划 | LangGraph、可选 Qwen 集成、类型化工具、OR-Tools |
 | 机器人 | ROS 2 Jazzy、Nav2 State Lattice、MPPI、Behavior Tree |
-| 训练与评测 | WarehouseBench、确定性验证、重放、PyTorch / PEFT SFT 接口 |
+| 训练与评测 | WarehouseBench、确定性验证与重放、可移植 PyTorch / PEFT SFT；[已测量的 Qwen3.5-4B GRPO + Anchor 实验](RESULTS.md) |
 
 库存变化通过授权库存事务完成。公开机器人服务运行在**仿真模式**，报告 `hardware_control=false` 和 `inventory_written=false`。规划估计与机器人执行测量使用独立字段。
 
@@ -144,7 +159,7 @@ docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true
 - **架构：** [系统组件](docs/architecture/README.md) 与 [类型化 Agent 编排](docs/AGENT_ARCHITECTURE.md)。
 - **空间任务：** [PostGIS 地图、路线约束与任务生命周期](docs/SPATIAL_AGENT.md)。
 - **机器人仿真：** [Nav2 配置与验收场景](docs/ROBOTICS.md)。
-- **训练与评测：** [WarehouseBench 生成、重放与 SFT](docs/WAREHOUSEBENCH.md)。
+- **训练与评测：** [WarehouseBench 生成、重放与可移植 SFT](docs/WAREHOUSEBENCH.md)、[模型训练设计](docs/architecture/06-model-training.md)与[已测量的后训练结果](RESULTS.md)。
 - **API：** [认证与接口](docs/API.md)。
 - **参与开发：** [贡献流程](CONTRIBUTING.md)。
 

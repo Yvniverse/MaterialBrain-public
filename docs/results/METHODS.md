@@ -52,4 +52,4 @@ Route A 使用相同 PUBLIC-only Shield，S81/120→Gate-RL8 111/120、容量36/
 
 [三臂对照图](figures/frozen_three_arm.png)从上述 CSV 和配对 JSON 直接绘制，柱轴从零开始、标出实际分子／分母，区间只用于匹配监督量的 Anchor-only→GRPO 对照。[正式 16 步 TRAIN 诊断图](figures/formal16_train_diagnostics.png)来自原始训练摘要的选列公开副本；[图像与输入 SHA256 清单](figures/FIGURE_MANIFEST.json)记录摘要哈希 `6581acdb94052a24b2c4a1bb95f00704e730048887eef6ae03702bde66a11d2e`、精简输入、脚本及 PNG／SVG。训练图的每一步是**不同的预先固定 G8 TRAIN 组**，不是同一验证集上的连续测量；第 12、14、15、16 步奖励梯度为零，Anchor 和 KL 梯度仍有测量值。图像是已存原始结果的可复制作图，不包含新增 seed 或 Nav2 三臂结论。
 
-本次 TEST 是注册模板家族内新场景种子的**关键状态后缀恢复**。训练 seed 只有原始一组；新增两组训练 seed 和新三臂 Nav2 对比在本版本均为 **PENDING**。新数据必须按完整固定分母报告，不能从旧已暴露 TEST 个例构造训练样本。[CPU 空间规划](SPATIAL_CPU.md)另有独立结果。
+本次 TEST 是注册模板家族内新场景种子的**关键状态后缀恢复**。[新增结果增补](CAREER_20261013_SUPPLEMENT.md)另报预先声明三个训练种子中的两组完成、一组基础设施中断，以及新三臂 Nav2 的完整初始任务转移负结果；这些不能与本页 Frozen120 合并。新一轮固定 TEST120 的两组完成训练种子均通过正式 CPU 重放与独立统计审计；四臂聚合见[增补](CAREER_20261013_SUPPLEMENT.md)。两次推理使用同一组 120 个输入，不能合并成 240 个独立样本。新数据按完整固定分母报告，不从旧已暴露 TEST 个例构造训练样本。[CPU 空间规划](SPATIAL_CPU.md)另有独立结果。

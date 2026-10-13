@@ -54,6 +54,12 @@ The source revision is recorded with the run. Optional `--receipt` checks a froz
 
 Outputs include the LoRA adapter, checkpoints, configuration, and input metadata. Evaluate the adapter on a held-out task partition and retain the measured outputs.
 
+## Completed Route B post-training study
+
+The SFT command above is the portable local-model entrypoint. A separate completed Qwen3.5-4B study compared native GRPO plus completion-only Anchor supervision against an Anchor-only control; `training/train_sft.py` does not run that GRPO pipeline. Both formal arms used **2,304 supervised completion tokens and 16 optimizer steps**. On a **no-Shield frozen 120-task critical-state test**, Task Success was **78/120 → 120/120 (+35pp)** and feasible capacity recovery was **33/75 → 75/75 (+56pp)**. The benchmark counts verifier outcomes on task suffixes, separately from Nav2 missions.
+
+[Results](../RESULTS.md) · [Methods](results/METHODS.md) · [Three-arm CSV](results/THREE_ARM_FROZEN_TABLE_B.csv) · [16-step TRAIN diagnostics](results/figures/formal16_train_diagnostics.png) · [Training architecture](architecture/06-model-training.md)
+
 ## Observed mission episodes
 
 Export an episode from `GET /api/v1/spatial/missions/{id}/episode`. Save a collection as JSON or JSONL, then run from `backend/`:
