@@ -5,6 +5,7 @@
 | [Spatial Agent](SPATIAL_AGENT.md) | Semantic map, constrained plans, and mission lifecycle. |
 | [Robotics](ROBOTICS.md) | ROS2/Nav2 simulation, TaskGraph, and Embodied Twin. |
 | [WarehouseBench](WAREHOUSEBENCH.md) | Task generation, verification, replay, and SFT interfaces. |
+| [Results](../RESULTS.md) | Measured post-training, planner, and ROS2/Nav2 simulation outcomes. |
 | [API](API.md) | Authentication, endpoint groups, and errors. |
 | [Architecture atlas](architecture/README.md) | Six focused views of the system. |
 | [Agent development](AGENT_DEVELOPMENT.md) | Tool registration, contracts, and tests. |

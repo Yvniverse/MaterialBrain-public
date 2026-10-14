@@ -9,6 +9,6 @@ MaterialBrain separates domain facts, spatial planning, robot execution, and mod
 | [03 — Engineering materials](03-engineering-materials.md) | Evidence, constraints, draft selections, and BOM preview. |
 | [04 — Spatial planning](04-spatial-planning.md) | Semantic map queries and constrained multi-stop planning. |
 | [05 — TaskGraph and robotics](05-taskgraph-robotics.md) | Mission events, ROS2/Nav2, arrival, handoff, and recovery. |
-| [06 — Model training and evaluation](06-model-training.md) | Synthetic tasks, observed episodes, verification, replay, and SFT. |
+| [06 — Model training and evaluation](06-model-training.md) | Synthetic tasks, observed episodes, portable SFT, and published post-training evaluation. |
 
 [SOURCE_MAP.md](SOURCE_MAP.md) maps these views to source directories. The diagrams are editable Mermaid embedded in Markdown.

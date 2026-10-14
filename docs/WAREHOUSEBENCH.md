@@ -54,11 +54,13 @@ The source revision is recorded with the run. Optional `--receipt` checks a froz
 
 Outputs include the LoRA adapter, checkpoints, configuration, and input metadata. Evaluate the adapter on a held-out task partition and retain the measured outputs.
 
-## Completed Route B post-training study
+## Route B post-training study and results
 
-The SFT command above is the portable local-model entrypoint. A separate completed Qwen3.5-4B study compared native GRPO plus completion-only Anchor supervision against an Anchor-only control; `training/train_sft.py` does not run that GRPO pipeline. Both formal arms used **2,304 supervised completion tokens and 16 optimizer steps**. On a **no-Shield frozen 120-task critical-state test**, Task Success was **78/120 → 120/120 (+35pp)** and feasible capacity recovery was **33/75 → 75/75 (+56pp)**. The benchmark counts verifier outcomes on task suffixes, separately from Nav2 missions.
+The portable command above trains local-model SFT adapters. The completed Qwen3.5-4B Route B study used a separate native GRPO workflow with completion-only Anchor supervision and an Anchor-only control. In the original frozen comparison, both formal arms used **2,304 supervised completion tokens and 16 optimizer steps**. On a **no-Shield frozen 120-task critical-state test**, Task Success was **78/120 → 120/120 (+35pp)** and feasible capacity recovery was **33/75 → 75/75 (+56pp)**. The benchmark counts verifier outcomes on task suffixes, separately from Nav2 missions.
 
-[Results](../RESULTS.md) · [Methods](results/METHODS.md) · [Three-arm CSV](results/THREE_ARM_FROZEN_TABLE_B.csv) · [16-step TRAIN diagnostics](results/figures/formal16_train_diagnostics.png) · [Training architecture](architecture/06-model-training.md)
+The current [Results](../RESULTS.md) also reports fresh TEST evaluations, VAL checkpoint selection, and full-task Nav2 transfer measurements. The [supplement](results/CAREER_20261013_SUPPLEMENT.md) retains their separate evaluation scopes and observed outcomes.
+
+[Original frozen methods](results/METHODS.md) · [Three-arm CSV](results/THREE_ARM_FROZEN_TABLE_B.csv) · [16-step TRAIN diagnostics](results/figures/formal16_train_diagnostics.png) · [Training architecture](architecture/06-model-training.md)
 
 ## Observed mission episodes
 
@@ -70,7 +72,7 @@ python -m app.agent.spatial_agent.dataset --input ../storage/episodes/episodes.j
 
 The exporter validates and deduplicates episodes, groups splits by map/scenario/seed, and writes `episodes.jsonl`, `sft-train.jsonl`, `sft-validation.jsonl`, `sft-test.jsonl`, `grpo-ready.jsonl`, and a hash manifest. SFT records contain the instruction, state, available/chosen/expert skills, observed outcome, and verifier fields; the GRPO-ready projection retains observed trajectories and reward metadata.
 
-Exporting an episode dataset does not run training. Observed records and the synthetic trainer's decision contracts use different inputs; adapt and validate schemas explicitly before combining them.
+Validate and adapt the observed-record schema before combining it with synthetic trainer inputs.
 
 ## Reporting results
 

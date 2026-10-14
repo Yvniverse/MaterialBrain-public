@@ -4,15 +4,15 @@
 
 # MaterialBrain
 
-**Spatially grounded agents for engineering materials and embodied warehouse workflows.**
+**Engineering materials intelligence, spatial planning and robot simulation in one Agent workspace.**
 
-Connect engineering requests, datasheet evidence, BOMs, inventory locations, semantic maps and robot missions through typed tools and inspectable task state.
+Connect engineering requests to datasheet-backed component choices, BOMs, stock locations and multi-stop robot missions.
 
 [![CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg?branch=main)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
 [![License](https://img.shields.io/badge/License-Apache--2.0-497f99)](LICENSE)
 [![ROS 2](https://img.shields.io/badge/ROS_2-Jazzy-658ba1)](docs/ROBOTICS.md)
 
-[**中文文档**](README.zh-CN.md) · [Architecture](docs/architecture/README.md) · [Spatial Agent](docs/SPATIAL_AGENT.md) · [Robotics](docs/ROBOTICS.md) · [WarehouseBench](docs/WAREHOUSEBENCH.md)
+[**中文文档**](README.zh-CN.md) · [Results](RESULTS.md) · [Architecture](docs/architecture/README.md) · [Planning](docs/SPATIAL_AGENT.md) · [Robotics](docs/ROBOTICS.md) · [Training](docs/architecture/06-model-training.md)
 
 </div>
 
@@ -21,49 +21,39 @@ Connect engineering requests, datasheet evidence, BOMs, inventory locations, sem
 
 <table><tr>
 <td width="50%"><img src="docs/screenshots/02-lab-aisle.png" width="100%" alt="Research logistics lab aisle and storage equipment" /><br/><sub>Aisle perspective · working areas and navigable corridors</sub></td>
-<td width="50%"><img src="docs/screenshots/03-lab-topdown.png" width="100%" alt="Top-down semantic mission route" /><br/><sub>Top-down perspective · registered route topology</sub></td>
+<td width="50%"><img src="docs/screenshots/03-lab-topdown.png" width="100%" alt="Top-down semantic mission route" /><br/><sub>Top-down perspective · route topology and stops</sub></td>
 </tr></table>
 
 ## Measured results
 
-[**Results and reproducible evidence →**](RESULTS.md)
+**Qwen3.5-4B · 120 frozen critical-state recovery tasks**
 
-### Fresh frozen TEST120
+Native GRPO + Anchor CE reached **120/120 task success** and **75/75 feasible capacity recovery** in both completed training seeds. Anchor-only and GRPO each used **2,304 supervised completion tokens and 16 optimizer steps**. The two GRPO seeds use the same 120 tasks and shared S/Anchor baselines.
 
-On a new set of **120 frozen critical-state recovery tasks**, both completed GRPO training seeds passed official CPU replay with **120/120 Task Success** and **75/75 feasible capacity recovery**. An independent audit verified both saved runs and their paired statistics. Each GRPO arm used the matched **2,304 supervised completion tokens and 16 optimizer steps**.
-
-| Metric | Original S | Anchor-only16 | GRPO seed 08 | GRPO seed 14* |
+| Metric | Recovery-SFT (S) | Anchor-only (A) | GRPO seed 08 | GRPO seed 14 |
 | --- | ---: | ---: | ---: | ---: |
 | Task success | 71/120 | 77/120 | **120/120** | **120/120** |
 | Feasible capacity recovery | 35/75 | 32/75 | **75/75** | **75/75** |
 
-Versus Anchor, each GRPO arm has **+35.83pp Task** and **+57.33pp capacity** in the saved counts. *Both CPU replays and the independent aggregate audit passed; the two runs use the same 120 fixed tasks.* [Four-arm figure and aggregate evidence](docs/results/CAREER_20261013_SUPPLEMENT.md)
+Each GRPO seed improves on Anchor-only by **35.83 percentage points in task success** and **57.33 points in capacity recovery**, with **30/30 correct refusals** and **0/120 safety or authorization violations**. Tasks start at capacity-conflict, refusal and related decision states; task success includes successful execution, correct refusal and clarification.
 
-![Fresh four-arm TEST120](docs/results/figures/fresh_test120_four_arm.png)
+**Spatial planning:** across **234 paired tasks feasible for both planners** in the fixed-seed benchmark, multi-stop planning reduced total route distance by **32.21%** relative to visiting stops in input order. [Spatial planning results](docs/results/SPATIAL_CPU.md)
 
-### Earlier Frozen120
+**Full-mission Nav2 transfer:** S **6/12**, Anchor-only **6/12**, GRPO **3/12**. The critical-state gain did not transfer to this evaluation. [Scenarios and failure analysis](docs/results/CAREER_20261013_SUPPLEMENT.md)
 
-In the earlier frozen 120-task critical-state benchmark, Qwen3.5-4B **Anchor+GRPO** improved over Anchor-only with the same **2,304 supervised completion tokens and 16 optimizer steps**:
+[**Results and methods →**](RESULTS.md) · [Four-arm chart and data](docs/results/CAREER_20261013_SUPPLEMENT.md) · [Earlier Frozen120 study](docs/results/README.md)
 
-| Metric | Anchor-only | Anchor+GRPO | Paired gain |
-| --- | ---: | ---: | ---: |
-| Task success | 78/120 (65%) | **120/120 (100%)** | **+35pp; 42 wins, 0 losses** |
-| Feasible capacity recovery | 33/75 (44%) | **75/75 (100%)** | **+56pp; 42 wins, 0 losses** |
+## Robot missions, replanning and handoff
 
-Task outcomes include execution, correct refusal and clarification. The study used native GRPO with no inference Shield. [CSV, paired statistics, methods and training curves](docs/results/README.md) document this earlier matched-supervision result. The [new Results supplement](docs/results/CAREER_20261013_SUPPLEMENT.md) also reports the declared three-seed denominator, full-initial-state Nav2 transfer and route diagnostic.
-
-![Frozen three-arm results](docs/results/figures/frozen_three_arm.png)
-
-## Robot mission, replanning and handoff
 <table><tr>
 <td width="33%"><img src="docs/screenshots/04-lab-follow.png" width="100%" alt="Robot moving in the research logistics lab" /><br/><sub>Robot-follow view</sub></td>
 <td width="33%"><img src="docs/screenshots/05-lab-replan.png" width="100%" alt="Dynamic obstacle and route replanning" /><br/><sub>Dynamic route recovery</sub></td>
-<td width="33%"><img src="docs/screenshots/06-lab-handoff.png" width="100%" alt="Robot arrival and scan handoff" /><br/><sub>Registered station handoff</sub></td>
+<td width="33%"><img src="docs/screenshots/06-lab-handoff.png" width="100%" alt="Robot arrival and scan handoff" /><br/><sub>Station arrival and scan handoff</sub></td>
 </tr></table>
 
-## What is MaterialBrain?
+## From engineering request to warehouse execution
 
-MaterialBrain combines **engineering material intelligence** and **spatial robot task execution** in a self-hosted application. The Agent turns requests into typed tasks; server-side services own material facts, inventory transactions, geometric constraints and execution states. The workbench and floating assistant share conversation state across the workspace.
+MaterialBrain is a self-hosted application for engineering materials and spatial tasks. **LangGraph + Qwen connect 29 typed tools** for component selection, BOM analysis, inventory lookup and mission planning. Server-side services validate material facts, permissions, inventory transactions and task state. The workbench and floating assistant share conversation state across the workspace.
 
 ```mermaid
 flowchart LR
@@ -76,37 +66,35 @@ flowchart LR
   Replay --> Agent
 ```
 
-## What you can do
-
 | Capability | In the application |
 | --- | --- |
-| **Engineering Material Agent** | Compare candidates using datasheet evidence, component attributes, electrical constraints, stock positions and BOM requirements. |
-| **Inventory & Storage** | Manage materials, reservations and authorized stock transactions; inspect the 100-drawer cabinet, 56-bin organizer and six-level shelf. |
-| **Semantic Digital Twin** | Explore the warehouse with Three.js, select equipment, locate storage slots and preview routes. |
-| **Spatial Mission Planning** | Query a versioned PostGIS map and plan multi-stop tasks with payload, time-window, battery and semantic-route constraints. |
-| **TaskGraph & Recovery** | Inspect typed skill results, navigation, scan/handoff, completed stops, cancellation and replanning state. |
-| **Robotics Execution** | Run ROS2 Jazzy / Nav2 simulation with Smac State Lattice, MPPI and Behavior Tree recovery. |
-| **WarehouseBench** | Generate seeded synthetic tasks, verify routes, export traces and use portable local-model SFT interfaces. |
+| **Engineering Material Agent** | Compare components using datasheet evidence, electrical constraints, stock positions and BOM requirements; develop power and cable solutions. |
+| **Inventory & Storage** | Manage materials, reservations and authorized stock transactions; inspect exact slots in the 100-drawer cabinet, 56-bin organizer and six-level shelf. |
+| **Semantic Digital Twin** | Explore the Three.js warehouse, select equipment, locate storage slots and preview routes. |
+| **Spatial Mission Planning** | Plan multi-stop tasks on a versioned PostGIS map with **219 nodes and 1,122 directed edges**, subject to payload, time-window, battery and route constraints. |
+| **TaskGraph & Robotics** | Follow typed skills through navigation, scan/handoff, cancellation and replanning; execute ROS2 Jazzy / Nav2 simulation with State Lattice, MPPI and Behavior Tree recovery. |
+| **WarehouseBench & Post-training** | Generate verified expert decisions, train LoRA SFT adapters, and explore the measured GRPO + Anchor study. |
 
 ## Engineering and inventory workspace
+
 <table><tr>
 <td width="50%"><img src="docs/screenshots/07-material-brain.png" width="100%" alt="Grounded MaterialBrain engineering Agent" /><br/><sub>Engineering material intelligence</sub></td>
 <td width="50%"><img src="docs/screenshots/08-real-stockroom.png" width="100%" alt="Registered stockroom with device and storage location" /><br/><sub>Digital twin of registered storage locations</sub></td>
 </tr></table>
 
-The physical stockroom twin preserves the registered equipment and storage locations, including drawers, bins and shelves. The Research Logistics Lab is a versioned synthetic environment for multi-stop mission planning and ROS2/Nav2 execution. Planned routes and observed robot events are represented separately.
+The stockroom twin reflects registered drawers, bins, shelves and storage locations. The Research Logistics Lab is a versioned synthetic environment for multi-stop planning and ROS2/Nav2 execution. The application records planned routes and observed robot events separately.
 
-## Technology and execution boundaries
+## Technology
 
 | Layer | Core technologies |
 | --- | --- |
 | Frontend | Vue 3, TypeScript, Element Plus, Three.js, ECharts |
 | API & services | FastAPI, SQLAlchemy, PostgreSQL 17, PostGIS |
-| Agent & planning | LangGraph, optional Qwen integration, typed tools, OR-Tools |
+| Agent & planning | LangGraph, Qwen, typed tools, OR-Tools |
 | Robotics | ROS 2 Jazzy, Nav2 State Lattice, MPPI, Behavior Tree |
-| Training & evaluation | WarehouseBench, deterministic verification and replay, portable PyTorch / PEFT SFT; [measured Qwen3.5-4B GRPO + Anchor study](RESULTS.md) |
+| Training & evaluation | WarehouseBench, PyTorch / PEFT LoRA SFT, Agent Lightning SDK, native GRPO, Anchor CE, deterministic verification and replay |
 
-Stock changes use authorized inventory transactions. The public robot service runs in **simulation mode**, reporting `hardware_control=false` and `inventory_written=false`. Planning estimates and observed robot measurements have separate fields.
+Stock changes use authorized inventory transactions. Robot missions run in **ROS2/Nav2 simulation**, with `hardware_control=false` and `inventory_written=false`.
 
 ## Quick start
 
@@ -126,7 +114,7 @@ docker compose -p materialbrain_public_v02 exec backend python scripts/create_ad
 docker compose -p materialbrain_public_v02 exec backend python scripts/register_spatial_map.py --expected-database-name materialbrain_public
 ```
 
-The backend applies migrations at startup. Open [http://localhost:18080](http://localhost:18080), sign in and change the initial password. Sample-map registration adds `MB-EMB-LAB-03` without activating it as an operational warehouse or changing inventory. If you change `POSTGRES_DB`, use the same name in `--expected-database-name`.
+The backend applies migrations at startup. Open [http://localhost:18080](http://localhost:18080), sign in and change the initial password. Sample-map registration adds `MB-EMB-LAB-03` as an inactive map and preserves inventory. If you change `POSTGRES_DB`, use the same name in `--expected-database-name`.
 
 For the optional ROS2/Nav2 simulator:
 
@@ -152,16 +140,16 @@ docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true
 docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true backend python scripts/seed_sample_warehouse.py --expected-database-name materialbrain_public --apply
 ```
 
-The additive seed creates sample materials, storage locations, BOMs and synthetic stock. It is available in `development` and `test` environments. See [Deployment](docs/DEPLOYMENT.md) for sample-data setup.
+The additive seed creates sample materials, storage locations, BOMs and synthetic stock in `development` and `test` environments. See [Deployment](docs/DEPLOYMENT.md) for sample-data setup.
 
 ## Reproduce and extend
 
+- **Results:** [Measured results and methods](RESULTS.md), including critical-state recovery, full-mission transfer and earlier experiments.
 - **Architecture:** [System components](docs/architecture/README.md) and [typed Agent orchestration](docs/AGENT_ARCHITECTURE.md).
-- **Spatial tasks:** [PostGIS maps, route constraints and mission lifecycle](docs/SPATIAL_AGENT.md).
-- **Robot simulation:** [Nav2 setup and acceptance scenarios](docs/ROBOTICS.md).
-- **Training & evaluation:** [WarehouseBench generation, replay and portable SFT](docs/WAREHOUSEBENCH.md), [model training design](docs/architecture/06-model-training.md), and [measured post-training results](RESULTS.md).
-- **API:** [Authentication and endpoints](docs/API.md).
-- **Contributing:** [Contributor workflow](CONTRIBUTING.md).
+- **Planning:** [PostGIS maps, route constraints and mission lifecycle](docs/SPATIAL_AGENT.md).
+- **Robotics:** [Nav2 setup and scenarios](docs/ROBOTICS.md).
+- **Training:** [WarehouseBench generation, replay and portable SFT](docs/WAREHOUSEBENCH.md) and [model training design](docs/architecture/06-model-training.md).
+- **API & development:** [Authentication and endpoints](docs/API.md) and [contributor workflow](CONTRIBUTING.md).
 
 Install the backend requirements, then run the deterministic planning benchmark from `backend/`:
 
@@ -169,7 +157,7 @@ Install the backend requirements, then run the deterministic planning benchmark 
 python -m warehouse_bench --seed 17 --repetitions 3 --output ../storage/benchmarks/planners
 ```
 
-Model weights and generated datasets are kept outside committed source. The optional training entrypoint uses an existing local compatible model directory.
+Model weights and generated datasets are stored outside committed source. The optional training entrypoint uses an existing local compatible model directory.
 
 ## License
 

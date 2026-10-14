@@ -14,8 +14,8 @@
     },
     {
       "path": "docs/results/example/PAIRED_TRACE.md",
-      "bytes": 4392,
-      "sha256": "06e265e7da46df8cf25982418d29faccae62a3e69a402d9dccb79a668d97f0d6"
+      "bytes": 4427,
+      "sha256": "d7dffbf2791de78884fe84be6ad27f951407ddd74d9c99ffa1a89518fc0f27c2"
     },
     {
       "path": "docs/results/figures/FIGURE_MANIFEST.json",
@@ -64,18 +64,18 @@
     },
     {
       "path": "docs/results/METHODS.md",
-      "bytes": 8040,
-      "sha256": "91db69c513ff4f0e4688075c454adf1ed351bfca07b7fda53e5a9b8e200bd233"
+      "bytes": 9397,
+      "sha256": "2799b98deff527d0c950b8af8b41936f560b441037f198546700dc43123b4d94"
     },
     {
       "path": "docs/results/README.md",
-      "bytes": 4231,
-      "sha256": "a1bafd34e0d5bc17c50a485ea56d2a9e52c8e7b8e05e990f2248edadca98030a"
+      "bytes": 3538,
+      "sha256": "5424dfdbdd665c043835dae0d9a915723add1206304d43a568169673f525aa65"
     },
     {
       "path": "docs/results/SPATIAL_CPU.md",
-      "bytes": 1763,
-      "sha256": "e138674a273b73c3bb46e0df87d8d958214a6eb5e4260bd72e78fd34b664e0fd"
+      "bytes": 3098,
+      "sha256": "512b0e2fd07cc33a55430852a1d81174379849df64f6407abf02ba7fc2e9a6a4"
     },
     {
       "path": "docs/results/THREE_ARM_FROZEN_TABLE_B.csv",
@@ -94,18 +94,18 @@
     },
     {
       "path": "RESULTS.md",
-      "bytes": 8033,
-      "sha256": "f67ed2e456d2010cb5f2a7ea1c1332aec150f068d86fb7c65caca9fb458ac427"
+      "bytes": 7668,
+      "sha256": "5ed788a896eebe137648186a83a531095220005e046042f4daf31d831b6c4318"
     },
     {
       "path": "resume.md",
-      "bytes": 1540,
-      "sha256": "cd2dda898b69cde7c3574f50923b5868ac2bd4bec09f497000355d557755731e"
+      "bytes": 2516,
+      "sha256": "0f82688f21e6fe58414097f01bd25025fb31687e50c94edc5c7a6a86d403e655"
     },
     {
       "path": "docs/results/CAREER_20261013_SUPPLEMENT.md",
-      "bytes": 8458,
-      "sha256": "51654d2080794e9bebedc590627d2300939808c3b27a76b7ac24563b2680b8e2"
+      "bytes": 8918,
+      "sha256": "6f35ce92b39b9ae25a503f176ae939c228a24bfaaad81584e92e98fe74570439"
     },
     {
       "path": "docs/results/CAREER_SUPPLEMENT_DATA.json",
@@ -144,23 +144,23 @@
     },
     {
       "path": "README.md",
-      "bytes": 11654,
-      "sha256": "491aeb648e4a00344fb754a1d3d372f588b33f009d064ae01405c04fcd3d7d57"
+      "bytes": 11147,
+      "sha256": "8017bbacfa387d353ba758664eb84a3e3b8b2fad85f2daae63e7a5055aad634a"
     },
     {
       "path": "README.zh-CN.md",
-      "bytes": 10876,
-      "sha256": "9ae0cf178fb6a5158934a344288b6e0314b1860c2e8d7ba64eaf704454fc8f98"
+      "bytes": 10475,
+      "sha256": "6012c80e0ff357f9ba69705ff3ddc86f7d277403a30d0a17c2d13d0722ecc597"
     },
     {
       "path": "docs/WAREHOUSEBENCH.md",
-      "bytes": 6493,
-      "sha256": "2593650db8cba340cf45fb29efa176cc195df067bd9381940fa5527af939af87"
+      "bytes": 6633,
+      "sha256": "b302858d7b774b4e211ab3293f11c55a2e39492ffba31f66ca72f66676caf364"
     },
     {
       "path": "docs/architecture/06-model-training.md",
-      "bytes": 2764,
-      "sha256": "4542ab3135d8b29f4b3cfe0f361c415c415d532ef47976c9e90800830e68bfd9"
+      "bytes": 2985,
+      "sha256": "c92ee03f565dc267ccf3897ea1e7430b7dd2ca05fa51660cfbe332d27f134e22"
     },
     {
       "path": "docs/results/FRESH_TEST120_ARMS.csv",

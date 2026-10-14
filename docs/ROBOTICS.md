@@ -45,9 +45,9 @@ Arrival and material handling are separate. Handoff requires the registered arri
 
 Cancellation holds the simulated base and requests Nav2 cancellation. Transport interruption pauses progress. Replanning waits for the previous action to terminate, uses current observed state, and preserves completed work. An explicit replan may resume an eligible paused mission without recreating completed handoffs.
 
-## Simulation limits
+## Simulation environment
 
-The service reports `execution_boundary=ros2_nav2_simulation` and `hardware_control=false`. Its base, localization, laser, battery consumption, and charging are simulated. It contains no physical motor driver. A simulation result describes this environment and cannot establish physical handling or site calibration.
+The service reports `execution_boundary=ros2_nav2_simulation` and `hardware_control=false`. Its base, localization, laser, battery consumption, and charging are simulated. This profile exercises mission planning and Nav2 execution in the synthetic lab. Physical robot control and site calibration require separate hardware integration and validation.
 
 `inventory_written=false` remains part of the mission contract. Use authorized inventory/picking workflows for stock settlement.
 

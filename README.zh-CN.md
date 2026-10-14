@@ -4,19 +4,19 @@
 
 # MaterialBrain
 
-**面向工程物料与具身仓储任务的空间智能 Agent。**
+**连接工程物料决策、空间规划与机器人仿真的仓储 Agent。**
 
-通过类型化工具与可检查的任务状态，连接工程需求、数据手册证据、BOM、库存库位、语义地图和机器人任务。
+从工程需求出发，结合数据手册证据完成器件选型与 BOM 设计，联查库存库位，再规划多站机器人任务。
 
 [![CI](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml/badge.svg?branch=main)](https://github.com/Yvniverse/MaterialBrain-public/actions/workflows/public-ci.yml)
 [![License](https://img.shields.io/badge/License-Apache--2.0-497f99)](LICENSE)
 [![ROS 2](https://img.shields.io/badge/ROS_2-Jazzy-658ba1)](docs/ROBOTICS.md)
 
-[**English**](README.md) · [架构](docs/architecture/README.md) · [空间 Agent](docs/SPATIAL_AGENT.md) · [机器人执行](docs/ROBOTICS.md) · [WarehouseBench](docs/WAREHOUSEBENCH.md)
+[**English**](README.md) · [Results](RESULTS.md) · [架构](docs/architecture/README.md) · [空间规划](docs/SPATIAL_AGENT.md) · [机器人](docs/ROBOTICS.md) · [训练](docs/architecture/06-model-training.md)
 
 </div>
 
-![MaterialBrain 研发物流实验仓 · 真实三维场景与机器人多站任务](docs/screenshots/01-lab-overview.png)
+![MaterialBrain 研发物流实验仓 · 三维场景与机器人多站任务](docs/screenshots/01-lab-overview.png)
 <div align="center"><sub>研发物流实验仓 · 多类型仓储设备、空间路线与移动机器人任务状态</sub></div>
 
 <table><tr>
@@ -24,46 +24,36 @@
 <td width="50%"><img src="docs/screenshots/03-lab-topdown.png" width="100%" alt="俯视语义路线和多站规划" /><br/><sub>俯视视角 · 路径拓扑与停靠点</sub></td>
 </tr></table>
 
-## 已完成的量化结果
+## 量化结果
 
-[**Results：结果、方法与可核查证据 →**](RESULTS.md)
+**Qwen3.5-4B · 120 项冻结关键状态恢复任务**
 
-### 新一轮冻结 TEST120
+Native GRPO + Anchor CE 在两个完成训练的随机种子上，均取得 **120/120 任务成功**和 **75/75 可行容量恢复**。Anchor-only 与 GRPO 各使用 **2,304 个监督 completion tokens、16 个优化步骤**。两组 GRPO 在同一批 120 项任务上评测，共享 S／Anchor 对照。
 
-在新一组 **120 项冻结关键状态恢复任务**上，两组完成训练的 GRPO 种子均通过正式 CPU 重放，取得 **Task 120/120**、**可行容量恢复 75/75**。独立审计已核对两组保存的结果及配对统计。两条 GRPO 训练臂均匹配 **2,304 个监督 completion tokens 和 16 个优化步骤**。
-
-| 指标 | 原始 S | Anchor-only16 | GRPO 种子 08 | GRPO 种子 14* |
+| 指标 | Recovery-SFT（S） | Anchor-only（A） | GRPO 种子 08 | GRPO 种子 14 |
 | --- | ---: | ---: | ---: | ---: |
-| Task Success | 71/120 | 77/120 | **120/120** | **120/120** |
+| 任务成功 | 71/120 | 77/120 | **120/120** | **120/120** |
 | 可行容量恢复 | 35/75 | 32/75 | **75/75** | **75/75** |
 
-相对 Anchor，两组已保存计数均为 **Task +35.83 个百分点**、**容量 +57.33 个百分点**。*两组 CPU 重放与独立聚合审计均通过；两次评测使用同一组固定任务。*[四臂图与聚合证据](docs/results/CAREER_20261013_SUPPLEMENT.md)
+两组 GRPO 相对 Anchor-only 均提升 **35.83 个百分点的任务成功率**、**57.33 个百分点的容量恢复率**，保持 **30/30 正确拒绝**，安全／越权事件各为 **0/120**。任务从容量冲突、拒绝等决策状态开始，成功判定包含执行成功、正确拒绝与正确澄清。
 
-![新 TEST120 四臂结果](docs/results/figures/fresh_test120_four_arm.png)
+**空间规划：** 在固定种子基准的 **234 组双方可行配对任务**上，多站路径规划相对按输入顺序执行，将总路径距离降低 **32.21%**。[空间规划评测结果](docs/results/SPATIAL_CPU.md)
 
-### 较早的 Frozen120
+**完整任务 Nav2 转移：** S **6/12**、Anchor-only **6/12**、GRPO **3/12**；该轮完整任务评测未复现关键状态恢复的增益。[场景与失败分析](docs/results/CAREER_20261013_SUPPLEMENT.md)
 
-较早的 Frozen120 使用 Qwen3.5-4B；在相同 **2,304 个监督 completion tokens、16 个优化步骤**下，Anchor+GRPO 相比 Anchor-only：
-
-| 指标 | Anchor-only | Anchor+GRPO | 同任务配对提升 |
-| --- | ---: | ---: | ---: |
-| 任务成功 | 78/120（65%） | **120/120（100%）** | **+35个百分点，42胜0负** |
-| 可行容量恢复 | 33/75（44%） | **75/75（100%）** | **+56个百分点，42胜0负** |
-
-任务判定包含执行、正确拒绝与正确澄清；研究使用真实 native GRPO，推理阶段不使用 Shield。[CSV、配对统计、训练曲线与方法](docs/results/README.md)可离线核对这组较早的匹配监督结果。[新增结果增补](docs/results/CAREER_20261013_SUPPLEMENT.md)另报预先声明的训练种子分母、完整初始状态 Nav2 转移与路线诊断。
-
-![冻结三臂结果](docs/results/figures/frozen_three_arm.png)
+[**Results：量化结果与方法 →**](RESULTS.md) · [四臂图表与数据](docs/results/CAREER_20261013_SUPPLEMENT.md) · [较早的 Frozen120 实验](docs/results/README.md)
 
 ## 机器人移动、动态重规划与交接
+
 <table><tr>
 <td width="33%"><img src="docs/screenshots/04-lab-follow.png" width="100%" alt="机器人沿路线运动的跟随视角" /><br/><sub>机器人运动与跟随相机</sub></td>
 <td width="33%"><img src="docs/screenshots/05-lab-replan.png" width="100%" alt="动态障碍出现后的路径重规划" /><br/><sub>动态障碍与任务恢复</sub></td>
 <td width="33%"><img src="docs/screenshots/06-lab-handoff.png" width="100%" alt="机器人到站扫码交接" /><br/><sub>到站与扫码交接</sub></td>
 </tr></table>
 
-## 项目介绍
+## 从工程需求到仓储执行
 
-MaterialBrain 将**工程物料智能**和**机器人空间任务执行**整合到同一套可自托管应用中。Agent 将需求转成类型化任务；服务端负责物料事实、库存事务、几何约束和执行状态。工作台与悬浮助手在工作空间中共享对话状态。
+MaterialBrain 将工程物料智能与空间任务整合到一套可自托管应用中。**LangGraph + Qwen 编排 29 项类型化工具**，贯通器件选型、BOM 分析、库存查询和任务规划；服务端校验物料事实、权限、库存事务与任务状态。工作台和悬浮助手在工作空间中共享对话状态。
 
 ```mermaid
 flowchart LR
@@ -76,37 +66,35 @@ flowchart LR
   Replay --> Agent
 ```
 
-## 核心能力
-
 | 模块 | 产品能力 |
 | --- | --- |
-| **工程物料大脑** | 依据数据手册证据、器件属性、电气约束、库存库位与 BOM 要求比较候选器件。 |
-| **库存与可视化库位** | 管理物料、预留和授权库存事务；查看 100 抽柜、56 格元件盒及六层货架。 |
+| **工程物料大脑** | 依据数据手册证据、电气约束、库存库位与 BOM 要求比较器件，生成电源与线缆方案。 |
+| **库存与可视化库位** | 管理物料、预留和授权库存事务，定位 100 抽柜、56 格元件盒及六层货架中的精确库位。 |
 | **三维数字孪生仓库** | 使用 Three.js 浏览仓库，选中设备、定位库位并预览路线。 |
-| **约束空间规划** | 查询版本化 PostGIS 地图，规划受载荷、时间窗、电量和语义通行约束的多站任务。 |
-| **任务图与恢复** | 查看类型化技能结果、导航、扫码交接、已完成站点、取消和重规划状态。 |
-| **机器人导航执行** | 使用 ROS2 Jazzy / Nav2，通过 Smac State Lattice、MPPI 和 Behavior Tree 运行仿真导航与恢复。 |
-| **WarehouseBench** | 生成带种子的合成任务、验证路线、导出轨迹，并使用可移植的本地模型 SFT 接口。 |
+| **约束空间规划** | 在 **219 节点、1,122 条有向边**的版本化 PostGIS 地图上，规划受载荷、时间窗、电量和通行约束的多站任务。 |
+| **任务图与机器人执行** | 通过类型化技能连接导航、扫码交接、取消和重规划，以 State Lattice、MPPI 与 Behavior Tree 运行 ROS2 Jazzy / Nav2 仿真。 |
+| **WarehouseBench 与后训练** | 生成可验证专家决策，训练本地模型 LoRA SFT 适配器，查看已完成的 GRPO + Anchor 实验结果。 |
 
 ## 工程物料与库位工作空间
+
 <table><tr>
 <td width="50%"><img src="docs/screenshots/07-material-brain.png" width="100%" alt="工程物料大脑候选和库存查询" /><br/><sub>工程物料智能与证据化选型</sub></td>
 <td width="50%"><img src="docs/screenshots/08-real-stockroom.png" width="100%" alt="真实注册设备与库位的数字孪生" /><br/><sub>注册仓储设备与精确库位</sub></td>
 </tr></table>
 
-真实库位数字孪生保留既有抽屉柜、元件盒和货架。研发物流实验仓使用版本化的合成场景进行多站规划和 ROS2/Nav2 仿真执行，规划路线与机器人实际观测分开记录。
+库位数字孪生呈现已注册的抽屉柜、元件盒、货架与库位。研发物流实验仓使用版本化合成场景进行多站规划和 ROS2/Nav2 执行，应用分别记录规划路线与机器人事件观测。
 
-## 技术架构与执行边界
+## 技术栈
 
 | 层级 | 主要技术 |
 | --- | --- |
 | 前端 | Vue 3、TypeScript、Element Plus、Three.js、ECharts |
 | 后端与服务 | FastAPI、SQLAlchemy、PostgreSQL 17、PostGIS |
-| Agent 与规划 | LangGraph、可选 Qwen 集成、类型化工具、OR-Tools |
+| Agent 与规划 | LangGraph、Qwen、类型化工具、OR-Tools |
 | 机器人 | ROS 2 Jazzy、Nav2 State Lattice、MPPI、Behavior Tree |
-| 训练与评测 | WarehouseBench、确定性验证与重放、可移植 PyTorch / PEFT SFT；[已测量的 Qwen3.5-4B GRPO + Anchor 实验](RESULTS.md) |
+| 训练与评测 | WarehouseBench、PyTorch / PEFT LoRA SFT、Agent Lightning SDK、Native GRPO、Anchor CE、确定性验证与轨迹重放 |
 
-库存变化通过授权库存事务完成。公开机器人服务运行在**仿真模式**，报告 `hardware_control=false` 和 `inventory_written=false`。规划估计与机器人执行测量使用独立字段。
+库存变化通过授权库存事务完成。机器人任务运行在 **ROS2/Nav2 仿真**中，`hardware_control=false`、`inventory_written=false`。
 
 ## 快速开始
 
@@ -126,7 +114,7 @@ docker compose -p materialbrain_public_v02 exec backend python scripts/create_ad
 docker compose -p materialbrain_public_v02 exec backend python scripts/register_spatial_map.py --expected-database-name materialbrain_public
 ```
 
-后端会在启动时应用数据库迁移。打开 [http://localhost:18080](http://localhost:18080)，登录并修改初始密码。示例地图注册命令加入 `MB-EMB-LAB-03`，不会将它启用为业务仓库地图或修改库存。如果修改了 `POSTGRES_DB`，请在 `--expected-database-name` 中使用同一名称。
+后端会在启动时应用数据库迁移。打开 [http://localhost:18080](http://localhost:18080)，登录并修改初始密码。示例地图注册命令加入未激活的 `MB-EMB-LAB-03` 地图，保留现有库存。如果修改了 `POSTGRES_DB`，请在 `--expected-database-name` 中使用同一名称。
 
 需要可选 ROS2/Nav2 仿真时：
 
@@ -152,16 +140,16 @@ docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true
 docker compose -p materialbrain_public_v02 exec -e SAMPLE_DATA_SEED_ENABLED=true backend python scripts/seed_sample_warehouse.py --expected-database-name materialbrain_public --apply
 ```
 
-加性初始化会创建示例物料、库位、BOM 和合成库存，仅支持 `development` 与 `test` 环境。样例数据配置见 [部署](docs/DEPLOYMENT.md)。
+加性初始化会在 `development` 与 `test` 环境创建示例物料、库位、BOM 和合成库存。样例数据配置见 [部署](docs/DEPLOYMENT.md)。
 
 ## 运行与扩展
 
+- **结果：** [量化结果与实验方法](RESULTS.md)，含关键状态恢复、完整任务转移与历史实验。
 - **架构：** [系统组件](docs/architecture/README.md) 与 [类型化 Agent 编排](docs/AGENT_ARCHITECTURE.md)。
-- **空间任务：** [PostGIS 地图、路线约束与任务生命周期](docs/SPATIAL_AGENT.md)。
-- **机器人仿真：** [Nav2 配置与验收场景](docs/ROBOTICS.md)。
-- **训练与评测：** [WarehouseBench 生成、重放与可移植 SFT](docs/WAREHOUSEBENCH.md)、[模型训练设计](docs/architecture/06-model-training.md)与[已测量的后训练结果](RESULTS.md)。
-- **API：** [认证与接口](docs/API.md)。
-- **参与开发：** [贡献流程](CONTRIBUTING.md)。
+- **规划：** [PostGIS 地图、路线约束与任务生命周期](docs/SPATIAL_AGENT.md)。
+- **机器人：** [Nav2 配置与运行场景](docs/ROBOTICS.md)。
+- **训练：** [WarehouseBench 生成、重放与可移植 SFT](docs/WAREHOUSEBENCH.md) 与 [模型训练设计](docs/architecture/06-model-training.md)。
+- **API 与开发：** [认证与接口](docs/API.md) 和 [贡献流程](CONTRIBUTING.md)。
 
 安装后端依赖后，从 `backend/` 运行确定性规划基准：
 
